@@ -6,7 +6,7 @@ _Note: In this entire document, "d" stands for dataframe._
 ## Function 1: cleanBlanck(d)
 **Task:** Cleans blank spaces from a dataframe.
 >**Example:**
-```d = cleanBlanck(d)```
+>```d = cleanBlanck(d)```
 
 ## Function 2: remEmpty(d)
 **Task:** Removes empty columns from a dataframe.
