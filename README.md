@@ -1,7 +1,6 @@
 # Wrangling-Functions-in-R
-Contains small functions in R, that we use to wrangle our datasets.
+Contains small functions in R, that we use to wrangle our datasets. This is a collection of functions which work for any general case of dataframes (numerical, categorical, mixed). Functional arguments need to be assigned based on specific data structures. Each of these functions have been developed and tested in a standalone R X64 environment. Using these functions does not require the support of any other R package. In this entire document, "d" stands to indicate any dataframe in general.
 
-_Note: In this entire document, "d" stands for dataframe._
 
 ## Function 1: cleanBlanck(d)
 **Task:** Cleans blank spaces from a dataframe.
