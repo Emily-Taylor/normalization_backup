@@ -21,6 +21,15 @@ convertNumExt = function(d, header, ext) {
       
       d[ , header] = as.numeric(paste(d[ , header]))
       
+      
+      
+      ext_modified = gsub(" ", "", ext)
+      new_name = paste(header, ext_modified, sep = "_")
+      
+      colnames(d)[which(colnames(d) == header)] = new_name
+      
+      
+      
     } else {
       
       # EXCEPTION HANDLING:
