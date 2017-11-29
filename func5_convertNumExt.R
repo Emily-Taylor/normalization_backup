@@ -17,7 +17,9 @@ convertNumExt = function(d, header, ext) {
     
     if (as.character(is.numeric(d[ , header])) == "FALSE") {
       
-      d[ , header] = gsub(ext, "\\1", d[ , header])
+      ext_extended = paste(" ", ext, sep = "|")
+      
+      d[ , header] = gsub(ext_extended, "\\1", d[ , header])
       
       d[ , header] = as.numeric(paste(d[ , header]))
       
