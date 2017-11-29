@@ -9,7 +9,7 @@
 ##### Issue 9: Separate a header into 2 different headers #####
 # .............................................................
 
-sepHeader = function(d, header, name1, name2, separator) {
+sepHeader = function(d, header, separator) {
   
   # This function separates one hedaer into 2 different headers
   # Useful to segregate "range" headers
@@ -23,6 +23,9 @@ sepHeader = function(d, header, name1, name2, separator) {
       
       sep_removeAfter = paste0(separator, ".*")
       sep_removeBefore = paste0(".*", separator)
+      
+      name1 = paste(header, "min", sep = "_")
+      name2 = paste(header, "max", sep = "_")
       
       d[ , name1] = gsub(sep_removeAfter, "", d[ , header])
       d[ , name2] = gsub(sep_removeBefore, "", d[ , header])
@@ -50,3 +53,4 @@ sepHeader = function(d, header, name1, name2, separator) {
   return(d)
 
 }
+
