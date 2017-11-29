@@ -42,10 +42,10 @@ Contains small functions in R, that we use to wrangle our datasets. This is a co
 >**Example:**
 ```d = removeBefore(d, header = "frequencyrange", separator = " ~ ")```
 
-#### Function 9: sepHeader(d, header, name1, name2, separator)
+#### Function 9: sepHeader(d, header, separator)
 **Task:** Separates any particular header into two distinct headers. Useful to separate "range" headers.
 >**Example:**
-```d = sepHeader(d, header = "temperature", name1 = "temp_min", name2 = "temp_max", separator = " ~ ")```
+```d = sepHeader(d, header = "temperature", separator = " ~ ")```
 
 #### Function 10: converMixedExt(d, header, ext, scaling_factor)
 **Task:** Normalizes mixed unit headers into single unit.
