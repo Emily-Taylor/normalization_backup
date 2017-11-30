@@ -17,6 +17,8 @@ cleanBlanck = function(d) {
     
     d[,i][which(d[,i] == '')] = NA
     d[,i][which(d[,i] == ' ')] = NA
+    d[,i][which(d[,i] == '-')] = NA
+    d[,i][which(d[,i] == '*')] = NA
     
   }
   
