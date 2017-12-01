@@ -1,4 +1,3 @@
-
 cleanBlanck = function(d) {
   
  
