@@ -1,4 +1,4 @@
-### Broad scale wrangling functions
+# Broad scale wrangling functions
 # Targeted at solving multiple (similar) problems at the same time
 # Operated on datsets in the form of static .csv files
 
