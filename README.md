@@ -51,3 +51,18 @@ Contains small functions in R, that we use to wrangle our datasets. This is a co
 **Task:** Normalizes mixed unit headers into single unit.
 >**Example:**
 ```d = converMixedExt(d, header = "height", ext = c("m", "mm", "cm", "nm"), scaling_factor = c(1000000000, 1000000, 10000000, 1))```
+
+
+## Instructions to install the "dfwrangle" library
+
+1. Instructions on downloading and installing the package.
+2. Download the “dfwrangle.rar".
+3. Unzip and store it in your desired location.
+4. Open R, set working directory, where the “dfwrangle” folder is residing. E.g., if the folder is stored in C:/data, then issue the command: setwd(“C:/data”).
+5. Install and load the “devtools” library in R.
+6. Install the “dfwrangle” package: install(“dfwrangle”)
+
+Next time when you need to use this package, use the command: library(dfwrangle). If you need to update this package:
+
+7. Remove the existing package first: remove.packages(dfwrangle).
+8. Download and install it from scratch.
