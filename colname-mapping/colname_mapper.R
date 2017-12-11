@@ -1,5 +1,5 @@
 # Test colname mapping
-# Use one file at a time from mouser and digikey
+# Use multiple files at a time from mouser and digikey
 # Use string matching (Levenstein similarity)
 
 
@@ -198,12 +198,15 @@ setwd(paste(master_wd, "output", sep = "/"))
 
 write.csv(melted_sim_mat, "output_list.csv", fileEncoding = "UTF-8", row.names = FALSE)
 
+# create function to save plots
+
 savePlot <- function(myPlot) {
   pdf("output_matrix.pdf")
   print(myPlot)
   dev.off()
 }
 
+# save heatmap
 savePlot(my_plot)
 
 
