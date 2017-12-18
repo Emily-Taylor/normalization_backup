@@ -1,11 +1,12 @@
 # Instructions (Windows)
 
-- Add R to path variable.
+## Standard code for further use: `colname_mapper_shingled.R`
+
+- Add R to PATH variable.
 - Install libraries: `reshape2`, `RecordLinkage`, `plyr`, `ggplot2`, `tokenizers`
-- Download `colname_mapper_levenshtein.R` and `colname_mapper_shingled.R`. Save it in a location, say, "C:\Pin2Pin\NewResearchStuff\colname_mapping".
-- In the same location, create 2 folders: "\digikey" and "\mouser."
-- Put desired digikey and mouser raw .csv files in respective locations.
-- Open cmd. Change directory to the location of the code.
+- Clone `Wrangling-Functions-in-R` in your computer. (to be replaced by automated testing in circle-ci).
+- Open command prompt. Change directory to `..\Wrangling-Functions-in-R\colname-mapping`.
+- If you want to use your own data to test, put mouser files in `..\standard`, and digikey files (for now) in `..\remote`.
 - Run the following command:
-`Rscript colname_mapper_shingled.R "C:\Pin2Pin\NewResearchStuff\colname_mapping"`
-- This will create a new folder called "levenshtein_output" or "tokenized_output", which will contain results of the operation.
+`Rscript colname_mapper_shingled.R "..\Wrangling-Functions-in-R\colname-mapping\test files"`.
+- This will create a new folder called "tokenized_output", which will contain results of the operation.
