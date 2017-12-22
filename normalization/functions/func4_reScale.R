@@ -8,7 +8,7 @@
 # ...................................
 ##### Issue 4: Rescale a header #####
 # ...................................
-
+#' @export
 reScale = function(d, header, scaling_factor) {
   
   # This function rescales any numerical header using appropriate scaling factor

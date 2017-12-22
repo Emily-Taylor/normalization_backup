@@ -8,7 +8,7 @@
 # .............................................................
 ##### Issue 9: Separate a header into 2 different headers #####
 # .............................................................
-
+#' @export
 sepHeader = function(d, header, separator) {
   
   # This function separates one hedaer into 2 different headers

@@ -8,7 +8,7 @@
 # .................................................................
 ##### Issue 10: Remove multiple symbols (units) and normalize #####
 # .................................................................
-
+#' @export
 convertMixedExt = function(d, header, ext, scaling_factor) {
   
   # This function normalized mixed unit headers into a single unit

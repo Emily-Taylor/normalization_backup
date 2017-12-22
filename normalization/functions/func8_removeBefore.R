@@ -8,7 +8,7 @@
 # ...................................................
 ##### Issue 8: Remove everything before a symbol #####
 # ...................................................
-
+#' @export
 removeBefore = function(d, header, separator) {
   
   # This function removes everything before a designated symbol
