@@ -9,7 +9,7 @@
 ##### Issue 2: Remove empty columns #####
 # .......................................
 
-
+#' @export
 remEmpty = function(d) {
   
   # This function removes entirely empty columns from our dataframes

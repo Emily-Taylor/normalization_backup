@@ -8,7 +8,7 @@
 ##### Issue 1: Clean blanck spaces #####
 # ......................................
 
-
+#' @export
 cleanBlanck = function(d) {
   
   # This function replaces blanck spaces (missing data) in our dataframes with NA

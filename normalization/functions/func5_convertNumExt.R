@@ -8,7 +8,7 @@
 # ...........................................................................
 ##### Issue 5: Remove single character extension and convert to numeric #####
 # ...........................................................................
-
+#' @export
 convertNumExt = function(d, header, ext) {
   
   # This function removes character extensions and converts header to numeric

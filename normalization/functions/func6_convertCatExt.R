@@ -8,7 +8,7 @@
 # .................................................................................
 ##### Issue 6: Remove single character extension but DON'T convert to numeric #####
 # .................................................................................
-
+#' @export
 convertCatExt = function(d, header, ext) {
   
   # This function remove single character extensions, but keeps the original factor format
