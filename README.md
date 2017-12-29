@@ -1,6 +1,6 @@
 ### Installation Instructions
 ```
-git clone https://github.com/sourcingbot/Wrangling-Functions-in-R/
+git clone https://github.com/sourcingbot/normalization-service/
 python3 -m venv env/
 source env/bin/activate
 pip install -r requirements.txt
