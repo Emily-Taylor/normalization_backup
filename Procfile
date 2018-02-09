@@ -1,2 +1,2 @@
-worker:  /app/run.sh
+worker:   sh -c 'cd / && exec python -m app'
 
