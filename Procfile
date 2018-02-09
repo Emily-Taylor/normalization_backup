@@ -1,2 +1,2 @@
-worker:  python -m normalization-service 
+worker:  run.sh
 
