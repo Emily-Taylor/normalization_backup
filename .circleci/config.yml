@@ -45,8 +45,3 @@ jobs:
           command: |
             . venv/bin/activate
             python __init__.py test
-
-      - store_artifacts:
-          path: test-reports
-          destination: test-reports
-          
