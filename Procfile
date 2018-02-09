@@ -1,2 +1,2 @@
-worker:  ./run.sh
+worker:  /app/run.sh
 
