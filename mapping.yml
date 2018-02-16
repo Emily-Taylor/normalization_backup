@@ -1,0 +1,79 @@
+digikey:
+  accessory_type:
+    output_key: accessory_type
+  for_use_withrelated_products:
+    output_key: for_use_withrelated_products
+  specifications:
+    output_key: specifications   
+  device_size:
+    output_key: device_size
+  availability:
+    output_key: availability
+  case:
+    output_key: case
+  categories:
+    output_key: categories
+  current_rating_parallel:
+    output_key: current_rating_parallel
+  current_rating_series:
+    output_key: current_rating_series
+  current_saturation_parallel:
+    output_key: current_saturation_parallel
+  current_saturation_series:
+    output_key: current_saturation_series
+  dc_resistance_(dcr)_parallel:
+    output_key: maximumdcresistance_mohm
+  description:
+    output_key: description
+    actions:
+      - reverse
+  height:
+    output_key: dimensions.height
+  inductance_connected_in_parallel:
+    output_key: inductanceparallel_ph
+  inductance_connected_in_series:
+    output_key: inductanceseries_ph
+  inductance:
+    output_key: inductance_ph
+    actions:
+      - inductance
+  q_@_freq:
+    output_key: 
+      - qminimum
+      - testfrequency_max_hz
+    actions:
+      - split_q
+  lifecycle:
+    output_key: lifecycle
+  links:
+    output_key: links
+  mfr:
+    output_key: mfr
+  minimum_quantity:
+    output_key: minimum_quantity
+  mounting_type:
+    output_key: mounting_type
+  mpn:
+    output_key: mpn
+  number_of_coils:
+    output_key: number_of_coils
+  operating_temperature:
+    output_key: operating_temperature
+  packaging:
+    output_key: packaging
+  pricing:
+    output_key: pricing
+  series:
+    output_key: series
+  shielding:
+    output_key: shielding
+  size_dimension:
+    output_key: 
+        - dimensions.length_mm
+        - dimensions.width_mm
+    actions:
+      - split_l_w 
+  sku:
+    output_key: sku
+  tolerance:
+    output_key: tolerance

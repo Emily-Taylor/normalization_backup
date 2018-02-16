@@ -12,6 +12,7 @@ import unittest
 import pandas as pd
 import numpy as np
 import normalization
+import numbers
 # import preprocess
 
 
@@ -95,7 +96,7 @@ class TestNorm(unittest.TestCase):
 
     def test_convertmixedext(self):
         
-        result = normalization.convertmixedext(
+        result = normalization.convertMixedExt(
         d, header='col6', ext=[" Hz", " kHz", " MHz"], scaling_factor=[1, 1000, 1000000])
     
         self.assertTrue(isinstance(result, pd.DataFrame))
@@ -103,7 +104,30 @@ class TestNorm(unittest.TestCase):
         self.assertTrue('col6_normalized' in result.columns)
         self.assertTrue(np.issubdtype(result['col6_normalized'].dtype, np.number))
         self.assertTrue(result.col6_normalized.isnull().sum() <= len(result))
+    
+    def test_split_Q(self):
+        output = (72.0,100000000.0)
+        d = "72 @ 100MHz"
+        result = normalization.split_q(d)
+        self.assertTrue(isinstance(result[0], numbers.Real))
+        self.assertTrue(isinstance(result[1], numbers.Real))
+        self.assertEqual(result, output)
         
+    def test_split_l_w(self):
+        output = (7.00,5.50)
+        d = '0.276" L x 0.217" W (7.00mm x 5.50mm)'
+        result = normalization.split_l_w(d)
+        self.assertTrue(isinstance(result[0], numbers.Real))
+        self.assertTrue(isinstance(result[1], numbers.Real))
+        self.assertEqual(result, output)
+        
+        
+    def test_inductance(self):
+        output = (5.3e-07)
+        d = '530nH'
+        result = normalization.inductance(d)
+        self.assertTrue(isinstance(result, numbers.Real))
+        self.assertEqual(result, output)
 
 if __name__ == '__main__':
     unittest.main()

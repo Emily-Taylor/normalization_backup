@@ -7,21 +7,70 @@ Created on Fri Dec 22 14:08:54 2017
 Collection of normalization functions
 
 """
-
+import logging
 import numpy as np
 import pandas as pd
+from quantiphy import Quantity
+import re
 
+def reverse(d):
+    d = d[::-1] 
+    return d
+
+def lower(d):
+    if isinstance(d,str):
+        d = d.lower()
+        return d
+    else:
+        return d
+
+def inductance(d):
+    """ turns inducance string to numeric"""
+    if isinstance(d, str):
+        d = d.replace('µ','u')
+        d = float(Quantity(d,'H'))
+        return d
+    else:
+        logging.warning("during inductance type conversion got a non-string")
+        return d
+
+
+
+def split_l_w(d):
+    """splits Lenght and Width from strings
+    example: '0.276" L x 0.217" W (7.00mm x 5.50mm)'
+    ignoring inches, focusing on millimeters
+    """
+    regexp =re.compile('\((.*) x (.*)\)')
+    res = regexp.findall(d)[0]
+    if len(res) == 2:
+        l,w = res[0],res[1] 
+        l = float(Quantity(l,scale='mm'))
+        w = float(Quantity(w,scale='mm'))
+        return l,w
+
+def parse_height
+def split_q(d):
+    """split a Q string with @ into two values
+    input looks like  "q_@_freq": "72 @ 100MHz"
+    output should look like
+    q = 72
+    freq_hz = 100000000
+    """
+    q,freq = d.split('@')
+    q = q.strip(" ")
+    q = float(q)
+    freq = freq.strip(" ")
+    freq  = float(Quantity(freq))
+    return(q,freq) 
 
 def cleanblank(d):
     """Cleans blank spaces and special characters"""
-
     d = d.replace('', np.nan)
     d = d.replace(u'  ', np.nan)
     d = d.replace('-', np.nan)
     d = d.replace('*', np.nan)
-
     return d
-
 
 def remempty(d):
     """Removes entirely empty headers"""
@@ -48,14 +97,14 @@ def changename(d, header, new_name):
 
 def to_int(d):
     """turns a string into integer"""
-    if  isinstance(d, (string))
+    if  isinstance(d, (string)):
         return int(d)  
     else:
         raise TypeError('cannot cast {0} into float as it\'s not a string'.format(d))
 
 def to_float(d):
     """turns a string into decimal"""
-    if  isinstance(d, (string))
+    if  isinstance(d, (string)):
         return float(d)
     else:
         raise TypeError('cannot cast {0} into float as it\'s not a string'.format(d))
