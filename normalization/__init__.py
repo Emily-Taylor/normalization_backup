@@ -12,6 +12,14 @@ import numpy as np
 import pandas as pd
 from quantiphy import Quantity
 import re
+import yaml
+import os
+
+__location__ = os.path.realpath(
+    os.path.join(os.getcwd(), os.path.dirname(__file__)))
+
+with open(os.path.join(__location__, 'categories.yml'), 'r') as f:
+    categories = yaml.load(f)
 
 def reverse(d):
     d = d[::-1] 
@@ -76,6 +84,17 @@ def split_q(d):
     freq = freq.strip(" ")
     freq  = float(Quantity(freq))
     return(q,freq) 
+
+def category_normalize_digikey(d):
+    """
+    For categories, instead of changing the name
+    """
+    for n, i in enumerate(d):
+        if i in categories['digikey']:
+            d[n] = categories['digikey'][i]
+        else:
+            logging.warning("missing mapping for {0}".format(i))
+    return d
 
 def cleanblank(d):
     """Cleans blank spaces and special characters"""

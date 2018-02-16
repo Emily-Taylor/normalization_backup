@@ -13,6 +13,8 @@ digikey:
     output_key: case
   categories:
     output_key: categories
+    actions:
+      - category_normalize_digikey
   current_rating_parallel:
     output_key: current_rating_parallel
   current_rating_series:
@@ -26,9 +28,11 @@ digikey:
   description:
     output_key: description
     actions:
-      - reverse
+      - lower
   height:
-    output_key: dimensions.height
+    output_key: dimensions.height_mm
+    actions:
+      - parse_height
   inductance_connected_in_parallel:
     output_key: inductanceparallel_ph
   inductance_connected_in_series:
