@@ -49,7 +49,20 @@ def split_l_w(d):
         w = float(Quantity(w,scale='mm'))
         return l,w
 
-def parse_height
+def parse_height(d):
+    """
+    parse out the height in mm from string
+    '0.512" (13.00mm)'
+    """
+    regexp =re.compile('\((.*)mm\)')
+    res = regexp.findall(d)
+    if len(res) >0:
+        if res[0] is not None:
+            d = float(Quantity(res[0], "mm"))
+    else:
+        return d
+    return d
+
 def split_q(d):
     """split a Q string with @ into two values
     input looks like  "q_@_freq": "72 @ 100MHz"

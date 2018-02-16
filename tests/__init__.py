@@ -129,5 +129,12 @@ class TestNorm(unittest.TestCase):
         self.assertTrue(isinstance(result, numbers.Real))
         self.assertEqual(result, output)
 
+    def test_height(self):
+        d = '0.512" (13.00mm)'
+        output = 13.0
+        result = normalization.parse_height(d)
+        self.assertTrue(isinstance(result, numbers.Real))
+        self.assertEqual(result, output)
+
 if __name__ == '__main__':
     unittest.main()
