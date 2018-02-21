@@ -18,3 +18,4 @@ s3transfer==0.1.12
 six==1.11.0
 wrapt==1.10.11
 yarl==1.1.0
+quantiphy==2.2.0
