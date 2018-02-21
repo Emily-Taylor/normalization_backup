@@ -1,4 +1,6 @@
 digikey:
+  mounting_type:
+    output_key: mounting_type
   accessory_type:
     output_key: accessory_type
   for_use_withrelated_products:
@@ -58,7 +60,7 @@ digikey:
   mounting_type:
     output_key: mounting_type
   mpn:
-    output_key: mpn
+    output_key: id
   number_of_coils:
     output_key: number_of_coils
   operating_temperature:
@@ -76,7 +78,7 @@ digikey:
         - dimensions.length_mm
         - dimensions.width_mm
     actions:
-      - split_l_w 
+      - size 
   sku:
     output_key: sku
   tolerance:

@@ -44,18 +44,21 @@ def inductance(d):
 
 
 
-def split_l_w(d):
+def size(d):
     """splits Lenght and Width from strings
     example: '0.276" L x 0.217" W (7.00mm x 5.50mm)'
     ignoring inches, focusing on millimeters
     """
-    regexp =re.compile('\((.*) x (.*)\)')
-    res = regexp.findall(d)[0]
+    regexp =re.compile('([\d\.]+mm)')
+    res = regexp.findall(d)
     if len(res) == 2:
         l,w = res[0],res[1] 
         l = float(Quantity(l,scale='mm'))
         w = float(Quantity(w,scale='mm'))
         return l,w
+    if len(res) == 1:
+        dim = float(Quantity(res[0],scale='mm'))
+        return (dim,)
 
 def parse_height(d):
     """
@@ -111,7 +114,6 @@ def remempty(d):
 
     return d
 
-
 def changename(d, header, new_name):
     """Changes name of a header"""
 
@@ -129,14 +131,14 @@ def changename(d, header, new_name):
 
 def to_int(d):
     """turns a string into integer"""
-    if  isinstance(d, (string)):
+    if  isinstance(d, (str)):
         return int(d)  
     else:
         raise TypeError('cannot cast {0} into float as it\'s not a string'.format(d))
 
 def to_float(d):
     """turns a string into decimal"""
-    if  isinstance(d, (string)):
+    if  isinstance(d, (str)):
         return float(d)
     else:
         raise TypeError('cannot cast {0} into float as it\'s not a string'.format(d))
