@@ -8,9 +8,99 @@ digikey:
   Capacitors: Capacitors
   Ceramic Capacitors: Ceramic Capacitors
   Chassis Mount Resistors: Chassis Mount Resistors
-  Chip Resistor - Surface Mount: Chip Resistor - Surface Mount
+  Chip Resistor - Surface Mount: SMD Resistors / Chip Resistors
   Delay Lines: Delay Lines
   Fixed Inductors: Fixed Inductors
-  Inductors, Coils, Chokes: Inductors, Coils, Chokes
+  Inductors, Coils, Chokes: Inductors, Chokes & Coils
   Resistors: Resistors
   Wireless Charging Coils: Wireless Charging Coils
+  Electric Double Layer Capacitors (EDLC), Supercapacitors: Supercapacitors / Ultracapacitors
+  Film Capacitors: Film Capacitors
+  Mica and PTFE Capacitors: Mica Capacitors
+  Niobium Oxide Capacitors: Niobium Oxide Capacitors
+  Silicon Capacitors: Silicon Capacitors
+  Tantalum - Polymer Capacitors: Tantalum Capacitors
+  Tantalum Capacitors: Tantalum Capacitors
+  Thin Film Capacitors: Thin Film Capacitors
+  Trimmers, Variable Capacitors: Trimmer/Variable Capacitors
+  Resistor Networks, Arrays: Resistor Networks & Arrays
+  Specialized Resistors: Specialized Resistors
+  Through Hole Resistors: Through Hole Resistors
+  Crystals, Oscillators, Resonators: Crystals, Oscillators, Resonators
+  Crystals: Crystals
+  Oscillators: Oscillators
+  Pin Configurable/Selectable Oscillators: Pin Configurable/Selectable Oscillators
+  Programmable Oscillators: Programmable Oscillators
+  Resonators: Resonators
+  Sockets and Insulators: Sockets and Insulators
+  Stand Alone Programmers: Stand Alone Programmers
+  VCOs (Voltage Controlled Oscillators): VCOs (Voltage Controlled Oscillators)
+  RF/IF and RFID: RF/IF and RFID
+  RF Diplexers: RF Diplexers
+  Potentiometers, Variable Resistors: Potentiometers, Trimmers & Rheostats
+  Adjustable Power Resistor: Adjustable Power Resistor
+  Joystick Potentiometers: Joystick Potentiometers
+  Rotary Potentiometers, Rheostats: Rotary Potentiometers, Rheostats
+  Scale Dials: Scale Dials
+  Slide Potentiometers: Slide Potentiometers
+  Thumbwheel Potentiometers: Thumbwheel Potentiometers
+  Trimmer Potentiometers: Trimmer Potentiometers
+  Value Display Potentiometers: Value Display Potentiometers
+  Optoelectronics: Optoelectronics
+  LED Thermal Products: LED Thermal Products
+  Magnetics - Transformer, Inductor Components: Magnetics - Transformer, Inductor Components
+  Bobbins (Coil Formers), Mounts, Hardware: Bobbins (Coil Formers), Mounts, Hardware
+  Ferrite Cores: Ferrite Cores
+  Magnetic Wire: Magnetic Wire
+  Kits: Kits
+  Capacitor Kits: Capacitor Kits
+  Crystal Kits: Crystal Kits
+  EMI, Filter Kits: EMI, Filter Kits
+  Inductor Kits: Inductor Kits
+  Potentiometer Kits: Potentiometer Kits
+  Resistor Kits: Resistor Kits
+  Integrated Circuits (ICs): Integrated Circuits - ICs
+  Audio Special Purpose: Audio ICs
+  Clock/Timing - Application Specific: Clock & Timer ICs
+  Clock/Timing - Clock Buffers, Drivers: Clock & Timer ICs
+  Clock/Timing - Clock Generators, PLLs, Frequency Synthesizers: Clock & Timer ICs
+  Clock/Timing - Delay Lines: Clock & Timer ICs
+  Clock/Timing - IC Batteries: Clock & Timer ICs
+  Clock/Timing - Programmable Timers and Oscillators: Clock & Timer ICs
+  Clock/Timing - Real Time Clocks: Clock & Timer ICs
+  Data Acquisition - ADCs/DACs - Special Purpose: Data Converter ICs
+  Data Acquisition - Analog Front End (AFE): Data Converter ICs
+  Data Acquisition - Analog to Digital Converters (ADC): Data Converter ICs
+  Data Acquisition - Digital Potentiometers: Data Converter ICs
+  Data Acquisition - Digital to Analog Converters (DAC): Data Converter ICs
+  Data Acquisition - Touch Screen Controllers: Data Converter ICs
+  Embedded - CPLDs (Complex Programmable Logic Devices): Embedded Processors & Controllers
+  Embedded - DSP (Digital Signal Processors): Embedded Processors & Controllers
+  Embedded - FPGAs (Field Programmable Gate Array): Embedded Processors & Controllers
+  Embedded - FPGAs (Field Programmable Gate Array) with Microcontrollers: Embedded Processors & Controllers
+  Embedded - Microcontroller, Microprocessor, FPGA Modules: Embedded Processors & Controllers
+  Embedded - Microcontrollers: Embedded Processors & Controllers
+  Embedded - Microcontrollers - Application Specific: Embedded Processors & Controllers
+  Embedded - Microprocessors: Embedded Processors & Controllers
+  Embedded - PLDs (Programmable Logic Device): Embedded Processors & Controllers
+  Embedded - System On Chip (SoC): Embedded Processors & Controllers
+  Interface - Analog Switches - Special Purpose: Switch ICs
+  Interface - Analog Switches, Multiplexers, Demultiplexers: Switch ICs
+  Interface - CODECs: Switch ICs
+  Interface - Controllers: Switch ICs
+  Interface - Direct Digital Synthesis (DDS): Switch ICs
+  Interface - Drivers, Receivers, Transceivers: Switch ICs
+  Interface - Encoders, Decoders, Converters: Switch ICs
+  Interface - Filters - Active: Switch ICs
+  Interface - I/O Expanders: Switch ICs
+  Interface - Modems - ICs and Modules: Switch ICs
+  Interface - Modules: Switch ICs
+  Interface - Sensor and Detector Interfaces: Switch ICs
+  Interface - Sensor, Capacitive Touch: Switch ICs
+  Interface - Serializers, Deserializers: Switch ICs
+  Interface - Signal Buffers, Repeaters, Splitters: Switch ICs
+  Interface - Signal Terminators: Switch ICs
+  Interface - Specialized: Switch ICs
+  Interface - Telecom: Switch ICs
+  Interface - UARTs (Universal Asynchronous Receiver Transmitter): Switch ICs
+  Interface - Voice Record and Playback: Switch ICs
