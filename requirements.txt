@@ -19,3 +19,5 @@ six==1.11.0
 wrapt==1.10.11
 yarl==1.1.0
 quantiphy==2.2.0
+PyYAML==3.12
+
