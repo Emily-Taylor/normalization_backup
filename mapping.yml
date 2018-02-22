@@ -32,7 +32,7 @@ digikey:
   height:
     output_key: dimensions.height_mm
     actions:
-      - parse_height
+      - parse_dimension
   inductance_connected_in_parallel:
     output_key: inductanceparallel_ph
   inductance_connected_in_series:
