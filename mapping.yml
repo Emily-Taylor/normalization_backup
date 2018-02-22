@@ -5,6 +5,8 @@ digikey:
     output_key: type
   material_core:
     output_key: material_core
+  ratings:
+    output_key: ratings
   for_use_withrelated_products:
     output_key: for_use_withrelated_products
   specifications:
