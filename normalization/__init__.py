@@ -97,14 +97,6 @@ def category_normalize_digikey(d):
     return d
 
 
-def remempty(d):
-    """Removes entirely empty headers"""
-
-    d = d.dropna(axis=1, how='all')
-
-    return d
-
-
 def to_int(d):
     """turns a string into integer"""
     if  isinstance(d, (string)):
