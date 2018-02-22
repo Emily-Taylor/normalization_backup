@@ -110,13 +110,3 @@ def to_float(d):
         return float(d)
     else:
         raise TypeError('cannot cast {0} into float as it\'s not a string'.format(d))
-
-def rescale(d, scaling_factor):
-    """Rescales numerical fields"""
-
-    if isinstance(d, (int, float)) and isinstance(scaling_factor, (int, float)):
-            d = d * scaling_factor
-            return d
-    else:
-        # ERROR HANDLING
-        raise TypeError('Non-numerical headers or factors cannot be processed. if {0} and {1} look like a numbers, you may want to cast them first'.format(d,scaling_factor))
