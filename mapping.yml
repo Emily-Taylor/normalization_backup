@@ -3,6 +3,8 @@ digikey:
     output_key: accessory_type
   type:
     output_key: type
+  material_core:
+    output_key: material_core
   for_use_withrelated_products:
     output_key: for_use_withrelated_products
   specifications:
