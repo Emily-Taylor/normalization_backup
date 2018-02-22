@@ -99,14 +99,14 @@ def category_normalize_digikey(d):
 
 def to_int(d):
     """turns a string into integer"""
-    if  isinstance(d, (string)):
+    if  isinstance(d, str):
         return int(d)  
     else:
         raise TypeError('cannot cast {0} into float as it\'s not a string'.format(d))
 
 def to_float(d):
     """turns a string into decimal"""
-    if  isinstance(d, (string)):
+    if  isinstance(d, str):
         return float(d)
     else:
         raise TypeError('cannot cast {0} into float as it\'s not a string'.format(d))
