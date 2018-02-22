@@ -57,9 +57,9 @@ def split_l_w(d):
         w = float(Quantity(w,scale='mm'))
         return l,w
 
-def parse_height(d):
+def parse_dimension(d):
     """
-    parse out the height in mm from string
+    parse out any dimension in mm from string
     '0.512" (13.00mm)'
     """
     regexp =re.compile('\((.*)mm\)')
