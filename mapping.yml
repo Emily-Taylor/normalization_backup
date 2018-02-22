@@ -1,6 +1,8 @@
 digikey:
   accessory_type:
     output_key: accessory_type
+  type:
+    output_key: type
   for_use_withrelated_products:
     output_key: for_use_withrelated_products
   specifications:
