@@ -11,6 +11,8 @@ digikey:
     output_key: maximum_dc_current
     actions:
       - current
+  mounting_type:
+    output_key: mounting_type
   accessory_type:
     output_key: accessory_type
   type:
@@ -85,8 +87,6 @@ digikey:
     output_key: mfr
   minimum_quantity:
     output_key: minimum_quantity
-  mounting_type:
-    output_key: mounting_type
   mpn:
     output_key: mpn
   number_of_coils:
@@ -110,7 +110,7 @@ digikey:
         - dimensions.length_mm
         - dimensions.width_mm
     actions:
-      - split_l_w 
+      - size 
   sku:
     output_key: sku
   tolerance:

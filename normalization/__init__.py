@@ -87,18 +87,22 @@ def frequency(d):
         logging.warning("during frequency type conversion got a non-string")
         return d
     
-def split_l_w(d):
+
+def parse_dimensions(d):
     """splits Lenght and Width from strings
     example: '0.276" L x 0.217" W (7.00mm x 5.50mm)'
     ignoring inches, focusing on millimeters
     """
-    regexp =re.compile('\((.*) x (.*)\)')
-    res = regexp.findall(d)[0]
+    regexp =re.compile('([\d\.]+mm)')
+    res = regexp.findall(d)
     if len(res) == 2:
         l,w = res[0],res[1] 
         l = float(Quantity(l,scale='mm'))
         w = float(Quantity(w,scale='mm'))
         return l,w
+    if len(res) == 1:
+        dim = float(Quantity(res[0],scale='mm'))
+        return (dim,)
 
  def split_temp(d):
     
@@ -150,10 +154,9 @@ def category_normalize_digikey(d):
             logging.warning("missing mapping for {0}".format(i))
     return d
 
-
 def to_int(d):
     """turns a string into integer"""
-    if  isinstance(d, str):
+    if  isinstance(d, (str)):
         return int(d)  
     else:
         raise TypeError('cannot cast {0} into float as it\'s not a string'.format(d))
