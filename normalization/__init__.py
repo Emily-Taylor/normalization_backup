@@ -42,6 +42,20 @@ def inductance(d):
         logging.warning("during inductance type conversion got a non-string")
         return d
 
+ 
+def current(d):
+    
+    """ turns current based strings into numeric"""
+    
+    if isinstance(d, str):
+        
+        ## unit to consider: A
+        d = d.replace('µ','u')
+        d = float(Quantity(d,'A'))
+        return d
+    else:
+        logging.warning("during current type conversion got a non-string")
+        return d
 
 
 def split_l_w(d):
