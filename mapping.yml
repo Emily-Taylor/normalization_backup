@@ -37,8 +37,14 @@ digikey:
     output_key: current_saturation_parallel
   current_saturation_series:
     output_key: current_saturation_series
+  dc_resistance_(dcr):
+    output_key: maximum_dc_resistance
+    actions:
+      - resistance
   dc_resistance_(dcr)_parallel:
-    output_key: maximumdcresistance_mohm
+    output_key: maximum_dc_resistance
+    actions:
+      - resistance
   description:
     output_key: description
     actions:
