@@ -100,6 +100,17 @@ def split_l_w(d):
         w = float(Quantity(w,scale='mm'))
         return l,w
 
+ def split_temp(d):
+    
+    """ splits temperature columns into min and max"""
+    
+    t_min, t_max = d.split(' ~ ')
+    
+    temp_min = float(Quantity(t_min))
+    temp_max = float(Quantity(t_max))
+    
+    return (temp_min, temp_max)
+
 def parse_dimension(d):
     """
     parse out any dimension in mm from string
