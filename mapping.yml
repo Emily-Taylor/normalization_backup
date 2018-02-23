@@ -92,7 +92,11 @@ digikey:
   number_of_coils:
     output_key: number_of_coils
   operating_temperature:
-    output_key: operating_temperature
+    output_key:
+      - minimum_operating_temperature
+      - maximum_operating_temperature
+    actions:
+      - split_temp
   packaging:
     output_key: packaging
   pricing:
