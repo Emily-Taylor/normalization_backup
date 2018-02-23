@@ -34,7 +34,9 @@ digikey:
     actions:
       - category_normalize_digikey
   current_rating_parallel:
-    output_key: current_rating_parallel
+    output_key: maximum_dc_current
+    actions:
+      - current
   current_rating_series:
     output_key: current_rating_series
   current_saturation_parallel:
