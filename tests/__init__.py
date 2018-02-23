@@ -41,6 +41,13 @@ class TestNorm(unittest.TestCase):
         result = normalization.inductance(d)
         self.assertTrue(isinstance(result, numbers.Real))
         self.assertEqual(result, output)
+              
+    def test_current(self):
+        output = (5.3e-07)
+        d = '530nA'
+        result = normalization.current(d)
+        self.assertTrue(isinstance(result, numbers.Real))
+        self.assertEqual(result, output)
 
     def test_height(self):
         d = '0.512" (13.00mm)'
