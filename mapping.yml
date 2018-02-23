@@ -68,7 +68,7 @@ digikey:
   inductance_connected_in_series:
     output_key: inductanceseries_ph
   inductance:
-    output_key: inductance_ph
+    output_key: inductance
     actions:
       - inductance
   q_@_freq:
