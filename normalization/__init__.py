@@ -57,7 +57,21 @@ def current(d):
         logging.warning("during current type conversion got a non-string")
         return d
 
-
+def resistance(d):
+    
+    """ turns resistance based strings into numeric"""
+    
+    if isinstance(d, str):
+        
+        ## unit to consider: Ohm
+        d = d.replace(' Max','')
+        d = float(Quantity(d,'Ohm'))
+        return d
+    else:
+        logging.warning("during resistance type conversion got a non-string")
+        return d
+    
+    
 def split_l_w(d):
     """splits Lenght and Width from strings
     example: '0.276" L x 0.217" W (7.00mm x 5.50mm)'
