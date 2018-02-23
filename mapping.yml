@@ -1,4 +1,8 @@
 digikey:
+  current_saturation:
+    output_key: current_saturation
+    actions:
+      - current
   current_rating:
     output_key: maximum_dc_current
     actions:
