@@ -64,6 +64,7 @@ def resistance(d):
     if isinstance(d, str):
         
         ## unit to consider: Ohm
+        d = d.replace('µ','u')
         d = d.replace(' Max','')
         d = float(Quantity(d,'Ohm'))
         return d
