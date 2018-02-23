@@ -71,7 +71,21 @@ def resistance(d):
     else:
         logging.warning("during resistance type conversion got a non-string")
         return d
+
+def frequency(d):
     
+    """ turns frequency based strings into numeric"""
+    
+    if isinstance(d, str):
+        
+        ## unit to consider: Hz
+        d = d.replace('µ','u')
+        d = d.replace(' Max','')
+        d = float(Quantity(d,'Hz'))
+        return d
+    else:
+        logging.warning("during frequency type conversion got a non-string")
+        return d
     
 def split_l_w(d):
     """splits Lenght and Width from strings
