@@ -7,6 +7,7 @@ import os
 import normalization_service.normalization as n
 import logging 
 from collections import defaultdict
+from hashlib import sha1
 
 
 here = os.path.dirname(os.path.realpath(__file__))
@@ -104,7 +105,25 @@ async def norm_handler(message, *args):
 				new_availability = part.pop('availability')
 				#part['availability'] = {}
 				part['availability'][source] = new_availability
-
+			#generate IDs
+			if 'mpn' in part and 'mfr' in part:
+				
+				
+				id = (part['mpn']+part['mfr']).lower().replace(" ","")
+				hash_object = sha1(id.encode('utf-8'))
+				hex_dig = hash_object.hexdigest()
+				part['id'] = hex_dig
+				print(part['id'])
+			elif 'mpn' in part:
+				id = part['mpn'].lower().replace(" ","")
+				hash_object = sha1(id.encode('utf-8'))
+				hex_dig = hash_object.hexdigest()
+				part['id'] = hex_dig
+				print(part['id'])
+			else:
+				logging.error("can't find MPN on part!")
+				return False 
+			
 			# post data after normalization
 			result = await post_data(part)
 			print(result)				

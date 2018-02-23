@@ -60,7 +60,7 @@ digikey:
   mounting_type:
     output_key: mounting_type
   mpn:
-    output_key: id
+    output_key: mpn
   number_of_coils:
     output_key: number_of_coils
   operating_temperature:
