@@ -48,6 +48,13 @@ class TestNorm(unittest.TestCase):
         result = normalization.current(d)
         self.assertTrue(isinstance(result, numbers.Real))
         self.assertEqual(result, output)
+              
+    def test_resistance(self):
+        output = (5.3e-07)
+        d = '530nOhm'
+        result = normalization.resistance(d)
+        self.assertTrue(isinstance(result, numbers.Real))
+        self.assertEqual(result, output)
 
     def test_height(self):
         d = '0.512" (13.00mm)'
