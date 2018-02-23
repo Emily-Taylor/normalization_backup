@@ -73,7 +73,7 @@ digikey:
       - inductance
   q_@_freq:
     output_key: 
-      - qminimum
+      - q_minimum
       - testfrequency_max_hz
     actions:
       - split_q
