@@ -55,8 +55,15 @@ class TestNorm(unittest.TestCase):
         result = normalization.resistance(d)
         self.assertTrue(isinstance(result, numbers.Real))
         self.assertEqual(result, output)
+     
+     def test_frequency(self):
+        output = (5.3e-07)
+        d = '530nHz'
+        result = normalization.frequency(d)
+        self.assertTrue(isinstance(result, numbers.Real))
+        self.assertEqual(result, output)
 
-    def test_height(self):
+     def test_height(self):
         d = '0.512" (13.00mm)'
         output = 13.0
         result = normalization.parse_dimension(d)
