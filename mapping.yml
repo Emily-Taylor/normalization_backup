@@ -1,4 +1,8 @@
 digikey:
+  frequency_test:
+    output_key: test_frequency
+    actions:
+      - actions: frequency
   current_saturation:
     output_key: current_saturation
     actions:
