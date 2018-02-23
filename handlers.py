@@ -6,6 +6,8 @@ import yaml
 import os
 import normalization_service.normalization as n
 import logging 
+from collections import defaultdict
+
 
 here = os.path.dirname(os.path.realpath(__file__))
 
@@ -19,14 +21,23 @@ async def post_data(data):
 			return resp
 
 
+def deep_set(part,value,keys):
+    d = part
+    for key in keys[:-1]:
+        d = d[key]
+    d[keys[-1]] = value
+
+
 async def norm_handler(message, *args):
 	if 'parts' in message:
+
 		if 'source' in message:
 			source = message['source']
 		else:
 			logging.warning("could not find source (distributor) in message")
 			return False
 		for part in message['parts']:
+			part = defaultdict(dict,part)
 			for key in list(part): 
 				# apply norm
 					if key in mapping[source]:
@@ -35,20 +46,42 @@ async def norm_handler(message, *args):
 							if 'actions' in mapping[source][key]:
 								functions = mapping[source][key]['actions']
 								for f in functions:
-									part[key] = eval("n."+f+"({})".format("part['"+key+"']"))
+									new_val = eval("n."+f+"({})".format("part['"+key+"']"))
+									part[key] = new_val
 						except:
 							raise ValueError("something wrong with functions") 
 
 						#check for new keys name
 						if isinstance(mapping[source][key]['output_key'],list):
 							t_res =  dict(zip(mapping[source][key]['output_key'], part[key]))
+							#print(t_res.keys()	)
 							for k in t_res.keys():
-								part[k] = t_res[k]
+								if '.' not in k:
+									#print("handling double key, no nesting")
+									part[k] = t_res[k]
+								else:
+									#print("handling double key, with nesting")
+									keys = k.split('.')
+									#print(k,keys,part[key])
+									deep_set(part,t_res[k],keys)
+									if key in part:
+										part.pop(key)
+									else:
+										print('{0} already removed'.format(key))
 							if part[key] != mapping[source][key]['output_key']:
 								part.pop(key)
 						else:
-							new_key = mapping[source][key]['output_key']
-							part[new_key] =part.pop(key)
+							if '.' not in mapping[source][key]['output_key']:
+								#print("handling single key, no nesting")
+								new_key = mapping[source][key]['output_key']
+								part[new_key] =part.pop(key)
+							else:
+								#print("handling single key, with nesting")
+								keys = mapping[source][key]['output_key'].split('.')
+								deep_set(part,part[key],keys) 
+								#finish the job
+								part.pop(key)
+
 					else:
 						print("{0} not in mapping".format(key))
 			#fix pricing
@@ -66,6 +99,11 @@ async def norm_handler(message, *args):
 				new_links = part.pop('links')
 				part['links'] = {}
 				part['links'][source] = new_links
+			#fix availablity
+			if 'availability' in part:
+				new_availability = part.pop('availability')
+				#part['availability'] = {}
+				part['availability'][source] = new_availability
 
 			# post data after normalization
 			result = await post_data(part)
