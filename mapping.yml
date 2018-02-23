@@ -1,4 +1,8 @@
 digikey:
+  current_rating:
+    output_key: maximum_dc_current
+    actions:
+      - current
   accessory_type:
     output_key: accessory_type
   type:
