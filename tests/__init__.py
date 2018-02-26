@@ -29,7 +29,7 @@ class TestNorm(unittest.TestCase):
     def test_split_l_w(self):
         output = (7.00,5.50)
         d = '0.276" L x 0.217" W (7.00mm x 5.50mm)'
-        result = normalization.size(d)
+        result = normalization.parse_dimensions(d)
         self.assertTrue(isinstance(result[0], numbers.Real))
         self.assertTrue(isinstance(result[1], numbers.Real))
         self.assertEqual(result, output)
@@ -37,7 +37,7 @@ class TestNorm(unittest.TestCase):
     def test_split_dia(self):
         output = (7.62,)
         d = '0.300" Dia (7.62mm)'
-        result = normalization.size(d)
+        result = normalization.parse_dimensions(d)
         self.assertTrue(isinstance(result[0], numbers.Real))
         self.assertEqual(result, output)
         
@@ -63,14 +63,14 @@ class TestNorm(unittest.TestCase):
         self.assertTrue(isinstance(result, numbers.Real))
         self.assertEqual(result, output)
      
-     def test_frequency(self):
+    def test_frequency(self):
         output = (5.3e-07)
         d = '530nHz'
         result = normalization.frequency(d)
         self.assertTrue(isinstance(result, numbers.Real))
         self.assertEqual(result, output)
 
-     def test_height(self):
+    def test_height(self):
         d = '0.512" (13.00mm)'
         output = 13.0
         result = normalization.parse_dimension(d)
