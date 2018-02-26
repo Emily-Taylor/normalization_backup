@@ -110,7 +110,7 @@ digikey:
         - dimensions.length_mm
         - dimensions.width_mm
     actions:
-      - size 
+      - parse_dimensions 
   sku:
     output_key: sku
   tolerance:

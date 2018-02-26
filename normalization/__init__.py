@@ -104,7 +104,7 @@ def parse_dimensions(d):
         dim = float(Quantity(res[0],scale='mm'))
         return (dim,)
 
- def split_temp(d):
+def split_temp(d):
     
     """ splits temperature columns into min and max"""
     
