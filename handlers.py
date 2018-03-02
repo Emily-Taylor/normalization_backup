@@ -5,6 +5,8 @@ URL  =  'https://6q9kqpdeof.execute-api.eu-central-1.amazonaws.com/production/en
 import yaml
 import os
 import normalization_service.normalization as n
+import normalization_service.common as c
+
 import logging 
 from collections import defaultdict
 from hashlib import sha1
@@ -47,6 +49,7 @@ async def norm_handler(message, *args):
 							if 'actions' in mapping[source][key]:
 								functions = mapping[source][key]['actions']
 								for f in functions:
+									#print(f,key)
 									new_val = eval("n."+f+"({})".format("part['"+key+"']"))
 									part[key] = new_val
 						except:
@@ -67,8 +70,6 @@ async def norm_handler(message, *args):
 									deep_set(part,t_res[k],keys)
 									if key in part:
 										part.pop(key)
-									else:
-										print('{0} already removed'.format(key))
 							if part[key] != mapping[source][key]['output_key']:
 								part.pop(key)
 						else:
@@ -85,6 +86,10 @@ async def norm_handler(message, *args):
 
 					else:
 						print("{0} not in mapping".format(key))
+						#call missing-mapping queue with the source, categories and missing mapping key.
+						c.send_msg(json.dumps({"source":source, "categories":part['categories'],"key":key}))
+						# we are going to continue in order to prevent writing json that's not fully mapped
+						continue
 			#fix pricing
 			if 'pricing' in part:
 				new_pricing = part.pop('pricing')
@@ -113,18 +118,21 @@ async def norm_handler(message, *args):
 				hash_object = sha1(id.encode('utf-8'))
 				hex_dig = hash_object.hexdigest()
 				part['id'] = hex_dig
-				print(part['id'])
+				#print(part['id'])
 			elif 'mpn' in part:
 				id = part['mpn'].lower().replace(" ","")
 				hash_object = sha1(id.encode('utf-8'))
 				hex_dig = hash_object.hexdigest()
 				part['id'] = hex_dig
-				print(part['id'])
+				#print(part['id'])
 			else:
 				logging.error("can't find MPN on part!")
 				return False 
 			
 			# post data after normalization
+			
+			#print("going to post part:\n")
+			#print(part)
 			result = await post_data(part)
 			print(result)				
 	return True
