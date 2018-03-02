@@ -4,8 +4,8 @@ import json
 URL  =  'https://6q9kqpdeof.execute-api.eu-central-1.amazonaws.com/production/entity/parts'
 import yaml
 import os
-import normalization_service.normalization as n
-import normalization_service.common as c
+from . import normalization as n
+from . import common as c
 
 import logging 
 from collections import defaultdict
