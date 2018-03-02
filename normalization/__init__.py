@@ -8,8 +8,6 @@ Collection of normalization functions
 
 """
 import logging
-import numpy as np
-import pandas as pd
 from quantiphy import Quantity
 import re
 import yaml
