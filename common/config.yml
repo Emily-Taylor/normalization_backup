@@ -1,0 +1,8 @@
+region_name:
+  eu-central-1
+missing_queue_url:
+ https://sqs.eu-central-1.amazonaws.com/202439666482/missing-mapping
+missing_queue_name:
+ missing-mapping
+ 
+      

@@ -1,0 +1,129 @@
+mouser:
+  None: None
+digikey:
+  frequency_test:
+    output_key: test_frequency
+    actions:
+      - frequency
+  current_saturation:
+    output_key: current_saturation
+    actions:
+      - current
+  current_rating:
+    output_key: maximum_dc_current
+    actions:
+      - current
+  mounting_type:
+    output_key: mounting_type
+  accessory_type:
+    output_key: accessory_type
+  type:
+    output_key: type
+  material_core:
+    output_key: material_core
+  ratings:
+    output_key: ratings
+  for_use_withrelated_products:
+    output_key: for_use_withrelated_products
+  specifications:
+    output_key: specifications   
+  device_size:
+    output_key: device_size
+  availability:
+    output_key: availability
+  case:
+    output_key: case
+  categories:
+    output_key: categories
+    actions:
+      - category_normalize_digikey
+  current_rating_parallel:
+    output_key: maximum_dc_current
+    actions:
+      - current
+  current_rating_series:
+    output_key: current_rating_series
+  current_saturation_parallel:
+    output_key: current_saturation_parallel
+  current_saturation_series:
+    output_key: current_saturation_series
+  dc_resistance_(dcr):
+    output_key: maximum_dc_resistance
+    actions:
+      - resistance
+  dc_resistance_(dcr)_parallel:
+    output_key: maximum_dc_resistance
+    actions:
+      - resistance
+  dc_resistance_(dcr)_series:
+    output_key: maximum_dc_resistance
+    actions:
+      - resistance
+  description:
+    output_key: description
+    actions:
+      - lower
+  height:
+    output_key: dimensions.height_mm
+    actions:
+      - parse_dimension
+  height_seated_(max):
+    output_key: max_seated_height_mm
+    actions:
+      - parse_dimension
+  inductance_connected_in_parallel:
+    output_key: inductanceparallel_ph
+  inductance_connected_in_series:
+    output_key: inductanceseries_ph
+  inductance:
+    output_key: inductance
+    actions:
+      - inductance
+  q_@_freq:
+    output_key: 
+      - q_minimum
+      - testfrequency_max_hz
+    actions:
+      - split_q
+  lifecycle:
+    output_key: lifecycle
+  links:
+    output_key: links
+  mfr:
+    output_key: mfr
+  minimum_quantity:
+    output_key: minimum_quantity
+  mpn:
+    output_key: mpn
+  number_of_coils:
+    output_key: number_of_coils
+  operating_temperature:
+    output_key:
+      - minimum_operating_temperature
+      - maximum_operating_temperature
+    actions:
+      - split_temp
+  packaging:
+    output_key: packaging
+  pricing:
+    output_key: pricing
+  series:
+    output_key: series
+  shielding:
+    output_key: shielding
+  size_dimension:
+    output_key: 
+        - dimensions.length_mm
+        - dimensions.width_mm
+    actions:
+      - parse_dimensions 
+  sku:
+    output_key: sku
+  tolerance:
+    output_key: tolerance
+  self_resonant_frequency:
+    output_key: frequency_self_resonant  
+  supplier_device_package:
+    output_key: supplier_device_package
+    
+

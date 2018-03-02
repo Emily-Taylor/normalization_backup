@@ -44,4 +44,5 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            python __init__.py test
+             python -m unittest
+
