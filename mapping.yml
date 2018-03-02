@@ -121,8 +121,8 @@ digikey:
     output_key: sku
   tolerance:
     output_key: tolerance
-  self_resonant_frequency:
-    output_key: frequency_self_resonant  
+  frequency_self_resonant:
+    output_key: self_resonant_frequency
   supplier_device_package:
     output_key: supplier_device_package
     
