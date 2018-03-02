@@ -1,8 +1,10 @@
+mouser:
+  None: None
 digikey:
   frequency_test:
     output_key: test_frequency
     actions:
-      - actions: frequency
+      - frequency
   current_saturation:
     output_key: current_saturation
     actions:
@@ -50,6 +52,10 @@ digikey:
     actions:
       - resistance
   dc_resistance_(dcr)_parallel:
+    output_key: maximum_dc_resistance
+    actions:
+      - resistance
+  dc_resistance_(dcr)_series:
     output_key: maximum_dc_resistance
     actions:
       - resistance
@@ -115,3 +121,9 @@ digikey:
     output_key: sku
   tolerance:
     output_key: tolerance
+  self_resonant_frequency:
+    output_key: frequency_self_resonant  
+  supplier_device_package:
+    output_key: supplier_device_package
+    
+
