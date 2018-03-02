@@ -8,7 +8,7 @@ with open(os.path.join(here,'config.yml'), 'r') as f:
     config = yaml.load(f)
 
 # Get the service resource
-sqs = boto3.resource('sqs')
+sqs = boto3.resource('sqs', region_name=config['region_name'])
 
 # Get the queue
 queue = sqs.get_queue_by_name(QueueName=config['missing_queue_name'])
