@@ -125,5 +125,9 @@ digikey:
     output_key: self_resonant_frequency
   supplier_device_package:
     output_key: supplier_device_package
+  delay_time:
+    output_key: propagation_delay_time
+  features:
+    output_key: features
     
 
