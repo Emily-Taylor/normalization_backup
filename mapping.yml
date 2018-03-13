@@ -1,6 +1,8 @@
 mouser:
   None: None
 digikey:
+  dielectric_material:
+    output_key: dielectric
   capacitance:
     output_key: capacitance
     actions:
