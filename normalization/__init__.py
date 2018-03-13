@@ -176,6 +176,20 @@ def split_q(d):
     freq  = float(Quantity(freq))
     return(q,freq) 
 
+def split_rc(d):
+    """split a rc string with @ into two values
+    input looks like  "ripple_current_@_low_frequency": "28mA @ 120Hz"
+    output should look like
+    c = 0,028
+    freq = 120
+    """
+    c,freq = d.split('@')
+    c = c.strip(" ")
+    c = float(Quantity(c))
+    freq = freq.strip(" ")
+    freq  = float(Quantity(freq))
+    return(c,freq) 
+
 def category_normalize_digikey(d):
     """
     For categories, instead of changing the name
