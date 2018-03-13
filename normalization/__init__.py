@@ -50,6 +50,17 @@ def voltage(d):
         logging.warning("during voltage type conversion got a non-string")
         return d
     
+def tolerance(d):
+    """ turns tolerance into number """
+    if isinstance(d, str):
+        d = d.replace('±', '')
+        d = d.replace('%', '')
+        return int(d)
+    else:
+        logging.warning("during tolerance type conversion got a non-string")
+    
+
+    
 def current(d):
     
     """ turns current based strings into numeric"""
