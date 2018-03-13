@@ -29,7 +29,17 @@ def lower(d):
         return d
     else:
         return d
-
+    
+def tempcoeff(d):
+    """turns temp coefficients into number"""
+    if isinstance(d, str):
+        d = d.replace('±', '')
+        d = d.replace('ppm/°C', '')
+        d = float(d)
+        return d
+    else:
+        logging.warning("during coeff type conversion got a non-string")
+        
 def inductance(d):
     """ turns inducance string to numeric"""
     if isinstance(d, str):
