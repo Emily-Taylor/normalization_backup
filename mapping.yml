@@ -1,6 +1,14 @@
 mouser:
   None: None
 digikey:
+  capacitance:
+    output_key: capacitance
+    actions:
+      - capacitance
+  voltage_rated:
+    output_key: voltage_rating
+    actions:
+      - voltage
   frequency_test:
     output_key: test_frequency
     actions:
