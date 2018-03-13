@@ -83,6 +83,7 @@ def resistance(d):
         
         ## unit to consider: Ohm
         d = d.replace('µ','u')
+        d = d.replace('s', '')
         d = d.replace(' Max','')
         d = float(Quantity(d,'Ohm'))
         return d
