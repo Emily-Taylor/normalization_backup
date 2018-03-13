@@ -55,6 +55,13 @@ class TestNorm(unittest.TestCase):
         self.assertTrue(isinstance(result, numbers.Real))
         self.assertEqual(result, output)
               
+    def test_voltage(self):
+        output = (5.3e-07)
+        d = '530nV'
+        result = normalization.voltage(d)
+        self.assertTrue(isinstance(result, numbers.Real))
+        self.assertEqual(result, output)  
+              
     def test_current(self):
         output = (5.3e-07)
         d = '530nA'
