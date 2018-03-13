@@ -41,7 +41,13 @@ class TestNorm(unittest.TestCase):
         self.assertTrue(isinstance(result[0], numbers.Real))
         self.assertEqual(result, output)
         
-       
+    def test_capacitance(self):
+        output = (5.3e-07)
+        d = '530nF'
+        result = normalization.capacitance(d)
+        self.assertTrue(isinstance(result, numbers.Real))
+        self.assertEqual(result, output) 
+              
     def test_inductance(self):
         output = (5.3e-07)
         d = '530nH'
