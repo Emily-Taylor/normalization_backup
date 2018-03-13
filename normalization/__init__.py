@@ -101,7 +101,7 @@ def resistance(d):
         logging.warning("during resistance type conversion got a non-string")
         return d
     
-def resistance2(d):
+def resistance_addunit(d):
     """add Ohm extension whenever it's not there"""
     d = d + 'Ohm'
     return d
