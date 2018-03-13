@@ -40,7 +40,16 @@ def inductance(d):
         logging.warning("during inductance type conversion got a non-string")
         return d
 
- 
+def voltage(d):
+    """ turns voltage string to numeric"""
+    if isinstance(d, str):
+        d = d.replace('µ','u')
+        d = float(Quantity(d,'V'))
+        return d
+    else:
+        logging.warning("during voltage type conversion got a non-string")
+        return d
+    
 def current(d):
     
     """ turns current based strings into numeric"""
