@@ -56,6 +56,13 @@ class TestNorm(unittest.TestCase):
         self.assertTrue(isinstance(result, numbers.Real))
         self.assertEqual(result, output) 
               
+    def test_tempcoeff(self):
+       output = (260)
+       d = '±260ppm/°C'
+       result = normalization.tempcoeff(d)
+       self.assertTrue(isinstance(result, numbers.Real))
+       self.assertEqual(result, output)
+       
     def test_inductance(self):
         output = (5.3e-07)
         d = '530nH'
