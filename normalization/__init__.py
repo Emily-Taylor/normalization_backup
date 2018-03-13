@@ -91,13 +91,29 @@ def resistance(d):
         logging.warning("during resistance type conversion got a non-string")
         return d
     
+def power(d):
+    
+    """ turns power based strings into numeric"""
+    
+    if isinstance(d, str):
+        
+        ## unit to consider: W
+        d = d.replace('µ','u')
+        d = d.replace('s', '')
+        d = d.replace(' Max','')
+        d = float(Quantity(d,'W'))
+        return d
+    else:
+        logging.warning("during power type conversion got a non-string")
+        return d    
+    
 def capacitance(d):
     
     """ turns capacitance based strings into numeric"""
     
     if isinstance(d, str):
         
-        ## unit to consider: Ohm
+        ## unit to consider: F
         d = d.replace('µ','u')
         d = d.replace(' Max','')
         d = float(Quantity(d,'F'))
