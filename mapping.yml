@@ -22,7 +22,7 @@ digikey:
     actions:
       - current
   mounting_type:
-    output_key: mounting_type
+    output_key: mounting_style
   accessory_type:
     output_key: accessory_type
   type:
