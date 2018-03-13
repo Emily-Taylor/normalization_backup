@@ -63,6 +63,13 @@ class TestNorm(unittest.TestCase):
         self.assertTrue(isinstance(result, numbers.Real))
         self.assertEqual(result, output)
               
+    def test_power(self):
+        output = (5.3e-07)
+        d = '530nW'
+        result = normalization.power(d)
+        self.assertTrue(isinstance(result, numbers.Real))
+        self.assertEqual(result, output) 
+              
     def test_tolerance(self):
        output = (20)
        d = '±20%'
