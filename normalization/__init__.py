@@ -54,7 +54,7 @@ def current(d):
     else:
         logging.warning("during current type conversion got a non-string")
         return d
-
+    
 def resistance(d):
     
     """ turns resistance based strings into numeric"""
@@ -68,6 +68,21 @@ def resistance(d):
         return d
     else:
         logging.warning("during resistance type conversion got a non-string")
+        return d
+    
+def capacitance(d):
+    
+    """ turns capacitance based strings into numeric"""
+    
+    if isinstance(d, str):
+        
+        ## unit to consider: Ohm
+        d = d.replace('µ','u')
+        d = d.replace(' Max','')
+        d = float(Quantity(d,'F'))
+        return d
+    else:
+        logging.warning("during capacitance type conversion got a non-string")
         return d
 
 def frequency(d):
