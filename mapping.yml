@@ -1,6 +1,12 @@
 mouser:
   None: None
 digikey:
+  termination:
+    output_key: termination
+  lead_spacing:
+    output_key: lead_spacing
+    actions:
+      - parse_dimension
   dielectric_material:
     output_key: dielectric
   capacitance:
@@ -95,6 +101,12 @@ digikey:
       - testfrequency_max_hz
     actions:
       - split_q
+  ripple_current_@_low_frequency:
+    output_key:
+      - ripple_current_@_low_frequency_current
+      - ripple_current_@_low_frequency_frequency
+    actions:
+      - split_rc
   lifecycle:
     output_key: lifecycle
   links:
