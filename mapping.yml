@@ -1,6 +1,10 @@
 mouser:
   None: None
 digikey:
+  power_(watts):
+    output_key: power_rating
+    actions:
+      - power
   termination:
     output_key: termination
   lead_spacing:
