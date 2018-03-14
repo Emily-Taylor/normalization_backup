@@ -48,7 +48,45 @@ class TestNorm(unittest.TestCase):
         result = normalization.parse_dimensions(d)
         self.assertTrue(isinstance(result[0], numbers.Real))
         self.assertEqual(result, output)
-        
+       
+    def test_extract_num(self):
+       output1 = (5.3e-07)
+       output2 = (20.0)
+       d1 = '530nH'
+       d2 = '530nW'
+       d3 = '530nHz'
+       d4 = '530nA'
+       d5 = '530nW'
+       d6 = '530nF'
+       d7 = '530nOhm'
+       d8 = '±20ppm/°C'
+       
+       result1 = normalization.extract_num(d1)
+       result2 = normalization.extract_num(d2)
+       result3 = normalization.extract_num(d3)
+       result4 = normalization.extract_num(d4)
+       result5 = normalization.extract_num(d5)
+       result6 = normalization.extract_num(d6)
+       result7 = normalization.extract_num(d7)
+       result8 = normalization.extract_num(d8)
+       
+       self.assertTrue(isinstance(result1, numbers.Real))
+       self.assertTrue(isinstance(result2, numbers.Real))
+       self.assertTrue(isinstance(result3, numbers.Real))
+       self.assertTrue(isinstance(result4, numbers.Real))
+       self.assertTrue(isinstance(result5, numbers.Real))
+       self.assertTrue(isinstance(result6, numbers.Real))
+       self.assertTrue(isinstance(result7, numbers.Real))
+       self.assertTrue(isinstance(result8, numbers.Real))
+       self.assertEqual(result1, output1)
+       self.assertEqual(result2, output1)
+       self.assertEqual(result3, output1)
+       self.assertEqual(result4, output1)
+       self.assertEqual(result5, output1)
+       self.assertEqual(result6, output1)
+       self.assertEqual(result7, output1)
+       self.assertEqual(result8, output2)
+       
     def test_capacitance(self):
         output = (5.3e-07)
         d = '530nF'
