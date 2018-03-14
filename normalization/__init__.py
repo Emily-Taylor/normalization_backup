@@ -48,6 +48,8 @@ def extract_num(d):
             
             d = d.replace('µ','u')
             d = d.replace(' Max','')
+            d = d.replace('±', '')
+            d = d.replace('ppm/°C', '')
             d = float(Quantity(d,''))
             return d
         else:
