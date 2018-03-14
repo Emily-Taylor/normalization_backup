@@ -75,6 +75,10 @@ digikey:
     output_key: maximum_dc_resistance
     actions:
       - resistance
+  resistance:
+    output_key: resistance
+    actions:
+      - resistance
   description:
     output_key: description
     actions:
