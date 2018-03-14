@@ -107,6 +107,12 @@ digikey:
       - ripple_current_@_low_frequency_frequency
     actions:
       - split_rc
+  ripple_current_@_high_frequency:
+    output_key:
+      - ripple_current_@_high_frequency_current
+      - ripple_current_@_high_frequency_frequency
+    actions:
+      - split_rc
   lifecycle:
     output_key: lifecycle
   links:
