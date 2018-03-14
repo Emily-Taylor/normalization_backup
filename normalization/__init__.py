@@ -48,7 +48,7 @@ def extract_num(d):
             
             d = d.replace('µ','u')
             d = d.replace(' Max','')
-            d = float(Quantity(d,'Hz'))
+            d = float(Quantity(d,''))
             return d
         else:
             logging.warning("during coversion got an empty string")
