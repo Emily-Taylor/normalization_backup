@@ -39,6 +39,22 @@ def tempcoeff(d):
         return d
     else:
         logging.warning("during coeff type conversion got a non-string")
+
+def extract_num(d):
+    """turns strings with ANY unit into numbers"""
+    if isinstance(s, str):
+        
+        if (len(d) > 0):
+            
+            d = d.replace('µ','u')
+            d = d.replace(' Max','')
+            d = float(Quantity(d,'Hz'))
+            return d
+        else:
+            logging.warning("during coversion got an empty string")
+            return d
+    else:
+        logging.warning("during type conversion got a non-string")     
         
 def inductance(d):
     """ turns inducance string to numeric"""
