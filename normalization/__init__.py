@@ -42,7 +42,7 @@ def tempcoeff(d):
 
 def extract_num(d):
     """turns strings with ANY unit into numbers"""
-    if isinstance(s, str):
+    if isinstance(d, str):
         
         if (len(d) > 0):
             
