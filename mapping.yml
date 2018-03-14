@@ -1,6 +1,24 @@
 mouser:
   None: None
 digikey:
+  rohs:
+    output_key: rohs
+  temperature_coefficient:
+    output_key: temperature_coefficient
+    actions:
+      - tempcoeff
+  composition:
+    output_key: technology
+  number_of_resistors:
+    output_key: number_of_resistors
+  number_of_pins:
+    output_key: number_of_pins
+  lead_style:
+    output_key: termination_style
+  circuit_type:
+    output_key: circuit_type
+  mounting_feature:
+    output_key: mounting_style
   power_(watts):
     output_key: power_rating
     actions:
@@ -103,6 +121,11 @@ digikey:
     output_key: inductance
     actions:
       - inductance
+  resistance_(ohms):
+    output_key: resistance
+    actions:
+      - resistance_addunit
+      - resistance
   q_@_freq:
     output_key: 
       - q_minimum
