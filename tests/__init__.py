@@ -17,7 +17,36 @@ import numbers
 
 
 class TestNorm(unittest.TestCase):
-       
+    
+    def test_split_at(self):
+              
+              d1 = "72 @ 100MHz"
+              d2 = "28mA @ 120Hz"
+              d3 = "520 mOhm @ 100kHz"
+              d4 = "2000 Hrs @ 85°C"
+              output1 = (72.0,100000000.0)
+              output2 = (0.028,120)
+              output3 = (0.52, 100000.0)
+              output4 = (2000.0, 85.0)
+              
+              result1 = normalization.split_at(d1)
+              result2 = normalization.split_at(d2)
+              result3 = normalization.split_at(d3)
+              result4 = normalization.split_at(d4)
+              
+              self.assertTrue(isinstance(result1[0], numbers.Real))
+              self.assertTrue(isinstance(result1[1], numbers.Real))
+              self.assertEqual(result1, output1)
+              self.assertTrue(isinstance(result2[0], numbers.Real))
+              self.assertTrue(isinstance(result2[1], numbers.Real))
+              self.assertEqual(result2, output2)
+              self.assertTrue(isinstance(result3[0], numbers.Real))
+              self.assertTrue(isinstance(result3[1], numbers.Real))
+              self.assertEqual(result3, output3)
+              self.assertTrue(isinstance(result4[0], numbers.Real))
+              self.assertTrue(isinstance(result4[1], numbers.Real))
+              self.assertEqual(result4, output4)
+              
     def test_split_Q(self):
         output = (72.0,100000000.0)
         d = "72 @ 100MHz"
