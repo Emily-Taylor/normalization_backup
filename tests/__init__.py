@@ -54,7 +54,14 @@ class TestNorm(unittest.TestCase):
         self.assertTrue(isinstance(result[0], numbers.Real))
         self.assertTrue(isinstance(result[1], numbers.Real))
         self.assertEqual(result, output)
-       
+        
+    def test_inchtomm(self):
+       output = (25.4)
+       d = 1
+       result = normalization.inchtomm(d)
+       self.assertTrue(isinstance(result, numbers.Real))
+       self.assertEqual(result, output)
+          
     def test_split_rc(self):
        output = (0.028,120)
        d = "28mA @ 120Hz"
