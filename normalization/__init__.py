@@ -12,6 +12,7 @@ from quantiphy import Quantity
 import re
 import yaml
 import os
+import re
 
 __location__ = os.path.realpath(
     os.path.join(os.getcwd(), os.path.dirname(__file__)))
@@ -56,6 +57,7 @@ def extract_num(d):
         if (len(d) > 0):
             
             d = d.replace('µ','u')
+            d = re.sub(r'\(.*\)', '', d)
             d = d.replace(' ', '')
             d = d.replace(' Max','')
             d = d.replace('±', '')
