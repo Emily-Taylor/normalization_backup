@@ -236,7 +236,7 @@ def split_at(d):
         n1 = n1.strip(" ")
         n2 = n2.strip(" ")
         n1  = float(Quantity(n1))
-        n1  = float(Quantity(n1))
+        n2  = float(Quantity(n2))
         return(n1, n2)
     else:
         logging.warning("during type conversion got a non-string")
