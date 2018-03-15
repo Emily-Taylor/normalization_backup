@@ -255,6 +255,20 @@ def split_rc(d):
     freq  = float(Quantity(freq))
     return(c,freq) 
 
+def split_esr(d):
+    """split esr string into r and freq
+    input looks like: '520 mOhm @ 100kHz'
+    output should look like
+    r = 0.52
+    freq = 100000
+    """
+    r, freq = d.split('@')
+    r = r.strip(" ")
+    r = float(Quantity(r))
+    freq = freq.strip(" ")
+    freq  = float(Quantity(freq))
+    return(r,freq)
+    
 def category_normalize_digikey(d):
     """
     For categories, instead of changing the name
