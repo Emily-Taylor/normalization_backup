@@ -41,6 +41,9 @@ async def norm_handler(message, *args):
 			return False
 		for part in message['parts']:
 			part = defaultdict(dict,part)
+			#fix category before normalization
+			if 'categories' in part:
+				part['categories_'+source] = part['categories']
 			for key in list(part): 
 				# apply norm
 					if key in mapping[source]:
@@ -132,7 +135,7 @@ async def norm_handler(message, *args):
 			# post data after normalization
 			
 			#print("going to post part:\n")
-			#print(part)
+			#print(json.dumps(part))	
 			result = await post_data(part)
 			print(result)				
 	return True
