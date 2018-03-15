@@ -35,7 +35,7 @@ class TestNorm(unittest.TestCase):
        self.assertEqual(result, output)
        
     def test_split_esr(self):
-       output = (0.52, 10000)
+       output = (0.52, 10000.0)
        d = "520 mOhm @ 100kHz"
        result = normalization.split_esr(d)
        self.assertTrue(isinstance(result[0], numbers.Real))
