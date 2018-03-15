@@ -12,7 +12,6 @@ from quantiphy import Quantity
 import re
 import yaml
 import os
-import re
 
 __location__ = os.path.realpath(
     os.path.join(os.getcwd(), os.path.dirname(__file__)))
