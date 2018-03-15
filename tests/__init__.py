@@ -45,7 +45,7 @@ class TestNorm(unittest.TestCase):
     def test_split_lifetime(self):
        output = (2000.0, 85.0)
        d = '2000 Hrs @ 85°C'
-       result = normalization.parse_dimensions(d)
+       result = normalization.split_lifetime(d)
        self.assertTrue(isinstance(result[0], numbers.Real))
        self.assertTrue(isinstance(result[1], numbers.Real))
        self.assertEqual(result, output)
