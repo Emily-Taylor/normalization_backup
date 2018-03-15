@@ -32,11 +32,14 @@ def lower(d):
     
 def tempcoeff(d):
     """turns temp coefficients into number"""
-    symbols = ['±','°C','ppm']
+    symbols = ['±','°C','ppm', ' PPM / C']
     if isinstance(d, str):
         if any(x in d for x in symbols):
+            d = d.replace(' PPM / C', '')
             d = d.replace('±', '')
             d = d.replace('ppm/°C', '')
+            d = d.replace(' ', '')
+            
             try:
                 d = float(d)
                 return d
