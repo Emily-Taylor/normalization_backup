@@ -1,4 +1,6 @@
 mouser:
+  categories_mouser: 
+    output_key: categories_mouser
   None: None
 digikey:
   rohs:
@@ -75,6 +77,8 @@ digikey:
     output_key: categories
     actions:
       - category_normalize_digikey
+  categories_digikey:
+    output_key: categories_digikey
   current_rating_parallel:
     output_key: maximum_dc_current
     actions:

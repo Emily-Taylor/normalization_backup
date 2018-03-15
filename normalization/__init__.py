@@ -32,11 +32,20 @@ def lower(d):
     
 def tempcoeff(d):
     """turns temp coefficients into number"""
+    symbols = ['±','°C','ppm']
     if isinstance(d, str):
-        d = d.replace('±', '')
-        d = d.replace('ppm/°C', '')
-        d = float(d)
-        return d
+        if any(x in d for x in symbols):
+            d = d.replace('±', '')
+            d = d.replace('ppm/°C', '')
+            try:
+                d = float(d)
+                return d
+            except ValueError:
+                logging.warning("value: \"{0}\" doesn't cannot be converted to float".format(d))
+                return d
+        else:
+            logging.warning("value: \"{0}\" doesn't match expected pattern".format(d))
+            return d
     else:
         logging.warning("during coeff type conversion got a non-string")
 
