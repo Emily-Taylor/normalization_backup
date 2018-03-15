@@ -40,7 +40,15 @@ class TestNorm(unittest.TestCase):
        result = normalization.split_esr(d)
        self.assertTrue(isinstance(result[0], numbers.Real))
        self.assertTrue(isinstance(result[1], numbers.Real))
-       self.assertEqual(result, output) 
+       self.assertEqual(result, output)
+       
+    def test_split_lifetime(self):
+       output = (2000.0, 85.0)
+       d = '2000 Hrs @ 85°C'
+       result = normalization.parse_dimensions(d)
+       self.assertTrue(isinstance(result[0], numbers.Real))
+       self.assertTrue(isinstance(result[1], numbers.Real))
+       self.assertEqual(result, output)
        
     def test_split_l_w(self):
         output = (7.00,5.50)
