@@ -315,7 +315,14 @@ def to_int(d):
         return int(d)  
     else:
         raise TypeError('cannot cast {0} into float as it\'s not a string'.format(d))
-
+def inchtomm(d):
+    """turns inch into mm"""
+    if isinstance(d, int):
+        d = d * 25.4
+        return d
+    else:
+        logging.warning('during type conversion met a string.')
+        
 def to_float(d):
     """turns a string into decimal"""
     if  isinstance(d, str):
