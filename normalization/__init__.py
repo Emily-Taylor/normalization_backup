@@ -13,6 +13,12 @@ import re
 import yaml
 import os
 
+def multiple_replace(text, adict):
+    rx = re.compile('|'.join(map(re.escape, adict)))
+    def one_xlat(match):
+        return adict[match.group(0)]
+    return rx.sub(one_xlat, text)
+
 __location__ = os.path.realpath(
     os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
@@ -54,17 +60,13 @@ def tempcoeff(d):
 
 def extract_num(d):
     """turns strings with ANY unit into numbers"""
+    adict = {'µ':'u',' %':'',' ':'','Max':'','±':'','ppm/°C':''}
+
     if isinstance(d, str):
         
         if (len(d) > 0):
-            
-            d = d.replace('µ','u')
-            d = d.replace(' %', '')
             d = re.sub(r'\(.*\)', '', d)
-            d = d.replace(' ', '')
-            d = d.replace(' Max','')
-            d = d.replace('±', '')
-            d = d.replace('ppm/°C', '')
+            d = multiple_replace(d,adict)
             d = float(Quantity(d,''))
             return d
         else:
