@@ -227,6 +227,21 @@ def parse_dimension(d):
         return d
     return d
 
+def split_at(d):
+    """split strings which are presented
+    in the format: ... @ ...
+    """
+    if isinstance(d, str):
+        n1, n2 = d.split('@')
+        n1 = n1.strip(" ")
+        n2 = n2.strip(" ")
+        n1  = float(Quantity(n1))
+        n1  = float(Quantity(n1))
+        return(n1, n2)
+    else:
+        logging.warning("during type conversion got a non-string")
+        return d
+    
 def split_q(d):
     """split a Q string with @ into two values
     input looks like  "q_@_freq": "72 @ 100MHz"
