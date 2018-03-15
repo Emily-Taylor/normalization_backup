@@ -1,6 +1,44 @@
 mouser:
   None: None
 digikey:
+  rohs:
+    output_key: rohs
+  temperature_coefficient:
+    output_key: temperature_coefficient
+    actions:
+      - tempcoeff
+  composition:
+    output_key: technology
+  number_of_resistors:
+    output_key: number_of_resistors
+  number_of_pins:
+    output_key: number_of_pins
+  lead_style:
+    output_key: termination_style
+  circuit_type:
+    output_key: circuit_type
+  mounting_feature:
+    output_key: mounting_style
+  power_(watts):
+    output_key: power_rating
+    actions:
+      - power
+  termination:
+    output_key: termination
+  lead_spacing:
+    output_key: lead_spacing
+    actions:
+      - parse_dimension
+  dielectric_material:
+    output_key: dielectric
+  capacitance:
+    output_key: capacitance
+    actions:
+      - capacitance
+  voltage_rated:
+    output_key: voltage_rating
+    actions:
+      - voltage
   frequency_test:
     output_key: test_frequency
     actions:
@@ -59,6 +97,10 @@ digikey:
     output_key: maximum_dc_resistance
     actions:
       - resistance
+  resistance:
+    output_key: resistance
+    actions:
+      - resistance
   description:
     output_key: description
     actions:
@@ -79,12 +121,29 @@ digikey:
     output_key: inductance
     actions:
       - inductance
+  resistance_(ohms):
+    output_key: resistance
+    actions:
+      - resistance_addunit
+      - resistance
   q_@_freq:
     output_key: 
       - q_minimum
       - testfrequency_max_hz
     actions:
       - split_q
+  ripple_current_@_low_frequency:
+    output_key:
+      - ripple_current_@_low_frequency_current
+      - ripple_current_@_low_frequency_frequency
+    actions:
+      - split_rc
+  ripple_current_@_high_frequency:
+    output_key:
+      - ripple_current_@_high_frequency_current
+      - ripple_current_@_high_frequency_frequency
+    actions:
+      - split_rc
   lifecycle:
     output_key: lifecycle
   links:

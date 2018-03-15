@@ -29,7 +29,35 @@ def lower(d):
         return d
     else:
         return d
+    
+def tempcoeff(d):
+    """turns temp coefficients into number"""
+    if isinstance(d, str):
+        d = d.replace('±', '')
+        d = d.replace('ppm/°C', '')
+        d = float(d)
+        return d
+    else:
+        logging.warning("during coeff type conversion got a non-string")
 
+def extract_num(d):
+    """turns strings with ANY unit into numbers"""
+    if isinstance(d, str):
+        
+        if (len(d) > 0):
+            
+            d = d.replace('µ','u')
+            d = d.replace(' Max','')
+            d = d.replace('±', '')
+            d = d.replace('ppm/°C', '')
+            d = float(Quantity(d,''))
+            return d
+        else:
+            logging.warning("during coversion got an empty string")
+            return d
+    else:
+        logging.warning("during type conversion got a non-string")     
+        
 def inductance(d):
     """ turns inducance string to numeric"""
     if isinstance(d, str):
@@ -40,7 +68,27 @@ def inductance(d):
         logging.warning("during inductance type conversion got a non-string")
         return d
 
- 
+def voltage(d):
+    """ turns voltage string to numeric"""
+    if isinstance(d, str):
+        d = d.replace('µ','u')
+        d = float(Quantity(d,'V'))
+        return d
+    else:
+        logging.warning("during voltage type conversion got a non-string")
+        return d
+    
+def tolerance(d):
+    """ turns tolerance into number """
+    if isinstance(d, str):
+        d = d.replace('±', '')
+        d = d.replace('%', '')
+        return int(d)
+    else:
+        logging.warning("during tolerance type conversion got a non-string")
+    
+
+    
 def current(d):
     
     """ turns current based strings into numeric"""
@@ -54,7 +102,7 @@ def current(d):
     else:
         logging.warning("during current type conversion got a non-string")
         return d
-
+    
 def resistance(d):
     
     """ turns resistance based strings into numeric"""
@@ -63,11 +111,48 @@ def resistance(d):
         
         ## unit to consider: Ohm
         d = d.replace('µ','u')
+        d = d.replace('s', '')
         d = d.replace(' Max','')
         d = float(Quantity(d,'Ohm'))
         return d
     else:
         logging.warning("during resistance type conversion got a non-string")
+        return d
+    
+def resistance_addunit(d):
+    """add Ohm extension whenever it's not there"""
+    d = d + 'Ohm'
+    return d
+
+def power(d):
+    
+    """ turns power based strings into numeric"""
+    
+    if isinstance(d, str):
+        
+        ## unit to consider: W
+        d = d.replace('µ','u')
+        d = d.replace('s', '')
+        d = d.replace(' Max','')
+        d = float(Quantity(d,'W'))
+        return d
+    else:
+        logging.warning("during power type conversion got a non-string")
+        return d    
+    
+def capacitance(d):
+    
+    """ turns capacitance based strings into numeric"""
+    
+    if isinstance(d, str):
+        
+        ## unit to consider: F
+        d = d.replace('µ','u')
+        d = d.replace(' Max','')
+        d = float(Quantity(d,'F'))
+        return d
+    else:
+        logging.warning("during capacitance type conversion got a non-string")
         return d
 
 def frequency(d):
@@ -140,6 +225,20 @@ def split_q(d):
     freq = freq.strip(" ")
     freq  = float(Quantity(freq))
     return(q,freq) 
+
+def split_rc(d):
+    """split a rc string with @ into two values
+    input looks like  "ripple_current_@_low_frequency": "28mA @ 120Hz"
+    output should look like
+    c = 0,028
+    freq = 120
+    """
+    c,freq = d.split('@')
+    c = c.strip(" ")
+    c = float(Quantity(c))
+    freq = freq.strip(" ")
+    freq  = float(Quantity(freq))
+    return(c,freq) 
 
 def category_normalize_digikey(d):
     """
