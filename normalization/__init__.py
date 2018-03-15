@@ -315,6 +315,7 @@ def to_int(d):
         return int(d)  
     else:
         raise TypeError('cannot cast {0} into float as it\'s not a string'.format(d))
+        
 def inchtomm(d):
     """turns inch into mm"""
     if isinstance(d, int):
