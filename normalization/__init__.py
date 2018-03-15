@@ -56,6 +56,7 @@ def extract_num(d):
         if (len(d) > 0):
             
             d = d.replace('µ','u')
+            d = d.replace(' ', '')
             d = d.replace(' Max','')
             d = d.replace('±', '')
             d = d.replace('ppm/°C', '')
