@@ -266,9 +266,23 @@ def split_esr(d):
     r = r.strip(" ")
     r = float(Quantity(r))
     freq = freq.strip(" ")
-    freq  = float(Quantity(freq))
+    freq = float(Quantity(freq))
     return(r,freq)
-    
+
+def split_lifetime(d):
+    """split esr string into r and freq
+    input looks like: '2000 Hrs @ 85°C'
+    output should look like
+    t = 2000
+    c = 85
+    """
+    t, c = d.split('@')
+    t = t.strip(" ")
+    t = float(Quantity(t))
+    c = c.strip(" ")
+    c = float(Quantity(c))
+    return(t,c)
+
 def category_normalize_digikey(d):
     """
     For categories, instead of changing the name
