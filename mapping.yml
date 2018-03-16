@@ -1,18 +1,200 @@
 mouser:
   categories_mouser: 
     output_key: categories_mouser
+  capacitance:
+    output_key: capacitance
+    actions:
+      - extract_num
+  minimum_operating_temperature:
+    output_key: minimum_operating_temperature
+    actions:
+      - extract_num
+  maximum_operating_temperature:
+    output_key: maximum_operating_temperature
+    actions:
+      - extract_num
+  operating_temperature_range:
+    output_key:
+      - minimum_operating_temperature
+      - maximum_operating_temperature
+    actions:
+      - split_temp
+  product:
+    output_key: product
+  qualification:
+    output_key: qualification
+  for_use_with:
+    output_key: for_use_with
+  element_type:
+    output_key: element_type
+  case:
+    output_key: case
+  termination:
+    output_key: termination_style
+  lead_style:
+    output_key: termination_style
+  lifecycle:
+    output_key: life
+  open_frameenclosed:
+    output_key: open_frameenclosed
+  number_of_detents:
+    output_key: number_of_detents
+  ip_rating:
+    output_key: ip_rating
+  number_of_gangs:
+    output_key: number_of_gangs
+    actions:
+      - extract_num
+  switch_type:
+    output_key: switch_type
+  shaft_type:
+    output_key: shaft_type
+  taper:
+    output_key: taper
+  number_of_pins:
+    output_key: number_of_pins
+    actions:
+      - extract_num
+  number_of_resistors:
+    output_key: number_of_resistors
+  number_of_turns:
+    output_key: number_of_turns
+    actions:
+      - extract_num
+  resistance:
+    output_key: resistance
+    actions:
+      - extract_num
+  resistor_values:
+    output_key: resistance
+    actions:
+      - extract_num
+  ripple_current:
+    output_key: ripple_current
+    actions:
+      - extract_num
+  shaft_diameter:
+    output_key: shaft_length
+    actions:
+      - extract_num
+  shaft_length:
+    output_key: shaft_length
+    actions:
+      - extract_num
+  diameter:
+    output_key: diameter
+    actions:
+      - extract_num
+  length:
+    output_key: length
+    actions:
+      - extract_num
+  life:
+    output_key: life
+    actions:
+      - extract_num
+  height:
+    output_key: height
+    actions:
+      - extract_num
+  width:
+    output_key: width
+    actions:
+      - extract_num
+  power_rating:
+    output_key: power_rating
+    actions:
+      - extract_num
+  esr:
+    output_key: esr
+    actions:
+      - extract_num
+  case_code_mm:
+    output_key: case_code_mm
+  case_code_in:
+    output_key: case_code_mm
+    actions:
+      - inchtomm
+  temperature_coefficient:
+    output_key: temperature_coefficient
+    actions:
+      - tempcoeff
+  availability:
+    output_key: availability
+  travel:
+    output_key: travel
+    actions:
+      - extract_num
+  voltage_rating:
+    output_key: voltage_rating
+    actions:
+      - extract_num
+  voltage_rating_dc:
+    output_key: voltage_rating
+    actions:
+        - extract_num
+  tolerance:
+    output_key: tolerance
+    actions:
+      - extract_num
   None: None
 digikey:
+  diameter:
+    output_key: diameter
+    actions:
+      - extract_num
+  thickness:
+    output_key: thickness
+    actions:
+      - extract_num
+  resistance_wiper_(ohms)_(typ):
+    output_key: resistance_wiper_(ohms)_(typ)
+  thickness_(max):
+    output_key: thickness_(max)
+    actions:
+      - parse_dimension
+  travel_range:
+    output_key: travel_range
+    actions:
+      - extract_num
+  lifetime_@_temp.:
+    output_key:
+      - lifetime_@_temp_lifetime
+      - lifetime_@_temp_temp
+    actions:
+      - split_at    
+    esr_(equivalent_series_resistance):
+    output_key:
+      - esr_resistance
+      - esr_frequency
+    actions:
+      - split_at
+  esl_(equivalent_series_inductance):
+    output_key: esl_(equivalent_series_inductance)
+    actions:
+      - extract_num
+  fader_type:
+    output_key: fader_type
+  dissipation_factor:
+    output_key: dissipation_factor
+    actions:
+      - extract_num
   rohs:
     output_key: rohs
   temperature_coefficient:
     output_key: temperature_coefficient
     actions:
       - tempcoeff
+  temperature_coefficient_(typ):
+    output_key: temperature_coefficient
+    actions:
+      - tempcoeff
   composition:
-    output_key: technology
+    output_key: composition
   number_of_resistors:
     output_key: number_of_resistors
+  number_of_terminations:
+    output_key: number_of_terminations
   number_of_pins:
     output_key: number_of_pins
   lead_style:
@@ -24,9 +206,13 @@ digikey:
   power_(watts):
     output_key: power_rating
     actions:
-      - power
+      - extract_num
+  adjustment_type:
+    output_key: adjustment_type
   termination:
-    output_key: termination
+    output_key: termination_style
+  termination_style:
+    output_key: termination_style
   lead_spacing:
     output_key: lead_spacing
     actions:
@@ -36,11 +222,21 @@ digikey:
   capacitance:
     output_key: capacitance
     actions:
-      - capacitance
+      - extract_num
+  capacitance_range:
+    output_key:
+      - capacitance_range_min
+      - capacitance_range_max
+    actions:
+      - split_temp
   voltage_rated:
     output_key: voltage_rating
     actions:
-      - voltage
+      - extract_num
+  voltage_rating_ac:
+    output_key: voltage_rating_ac
+    actions:
+      - extract_num
   frequency_test:
     output_key: test_frequency
     actions:
@@ -49,6 +245,10 @@ digikey:
     output_key: current_saturation
     actions:
       - current
+  current_leakage:
+    output_key: current_leakage
+    actions:
+      - extract_num
   current_rating:
     output_key: maximum_dc_current
     actions:
@@ -64,13 +264,15 @@ digikey:
   ratings:
     output_key: ratings
   for_use_withrelated_products:
-    output_key: for_use_withrelated_products
+    output_key: for_use_with
   specifications:
     output_key: specifications   
   device_size:
     output_key: device_size
   availability:
     output_key: availability
+  axis:
+    output_key: axis
   case:
     output_key: case
   categories:
@@ -104,17 +306,17 @@ digikey:
   resistance:
     output_key: resistance
     actions:
-      - resistance
+      - extract_num
   description:
     output_key: description
     actions:
       - lower
   height:
-    output_key: dimensions.height_mm
+    output_key: height
     actions:
       - parse_dimension
   height_seated_(max):
-    output_key: max_seated_height_mm
+    output_key: height_seated_(max)
     actions:
       - parse_dimension
   inductance_connected_in_parallel:
@@ -128,69 +330,172 @@ digikey:
   resistance_(ohms):
     output_key: resistance
     actions:
-      - resistance_addunit
-      - resistance
+      - extract_num
   q_@_freq:
     output_key: 
       - q_minimum
       - testfrequency_max_hz
     actions:
-      - split_q
+      - split_at
   ripple_current_@_low_frequency:
     output_key:
       - ripple_current_@_low_frequency_current
       - ripple_current_@_low_frequency_frequency
     actions:
-      - split_rc
+      - split_at
   ripple_current_@_high_frequency:
     output_key:
       - ripple_current_@_high_frequency_current
       - ripple_current_@_high_frequency_frequency
     actions:
-      - split_rc
+      - split_at
+  ripple_current:
+    output_key: ripple_current
+    actions:
+      - extract_num
+  bushing_thread:
+    output_key: bushing_thread
+  configuration:
+    output_key: configuration
   lifecycle:
-    output_key: lifecycle
+    output_key: life
   links:
     output_key: links
   mfr:
     output_key: mfr
   minimum_quantity:
     output_key: minimum_quantity
+  manufacturer_size_code:
+    output_key: manufacturer_size_code
   mpn:
     output_key: mpn
   number_of_coils:
     output_key: number_of_coils
+  minimum_operating_temperature:
+    output_key: minimum_operating_temperature
+    actions:
+      - extract_num
+  maximum_operating_temperature:
+    output_key: maximum_operating_temperature
+    actions:
+      - extract_num
   operating_temperature:
     output_key:
       - minimum_operating_temperature
       - maximum_operating_temperature
     actions:
       - split_temp
+  voltage_supply:
+    output_key:
+      - minimum_voltage_supply
+      - maximum_voltage_supply
+    actions:
+      - split_temp
+  number_of_capacitors:
+    output_key: number_of_capacitors
   packaging:
-    output_key: packaging
+    output_key: packagecase
   pricing:
     output_key: pricing
   series:
     output_key: series
   shielding:
     output_key: shielding
+  surface_mount_land_size:
+    output_key:
+      - surface_mount_land_size_length
+      - surface_mount_land_size_width
+    actions:
+      - parse_dimensions
   size_dimension:
     output_key: 
-        - dimensions.length_mm
-        - dimensions.width_mm
+      - length
+      - width
     actions:
       - parse_dimensions 
+  power_per_element:
+    output_key: power_per_element
+    actions:
+      - extract_num  
+  coating,_housing_type:
+    output_key: coating,_housing_type
+    actions:
+      - lower
+  failure_rate:
+    output_key: failure_rate
+  applications:
+    output_key: applications
+  resistor_matching_ratio:
+    output_key: resistor_matching_ratio
+    actions:
+      - extract_num
+  resistor_ratio_drift:
+    output_key: resistor_ratio_drift
+    actions:
+      - tempcoeff
+  number_of_circuits:
+    output_key: number_of_circuits
   sku:
     output_key: sku
   tolerance:
     output_key: tolerance
+    actions:
+      - extract_num
   frequency_self_resonant:
     output_key: self_resonant_frequency
   supplier_device_package:
     output_key: supplier_device_package
   delay_time:
     output_key: propagation_delay_time
+  rotation:
+    output_key: rotation_angle
+    actions:
+      - extract_num
+  rotation_angle:
+    output_key: rotation_angle
+    actions:
+      - extract_num
+  number_of_characters:
+    output_key: number_of_characters
+  number_of_turns:
+    output_key: number_of_turns
+    actions:
+      - extract_num
+  actuator_type:
+    output_key: actuator_type
+  resistive_material:
+    output_key: resistive_material
+  built_in_switch:
+    output_key: built_in_switch
+  taper:
+    output_key: taper
+  interface:
+    output_key: interface
+  number_of_taps:
+    output_key: number_of_taps
+  memory_type:
+    output_key: memory_type
+  actuator_length:
+    output_key: actuator_length
+    actions:
+      - parse_dimension
+  actuator_diameter:
+    output_key: actuator_diameter
+    actions:
+      - parse_dimension
+  number_of_gangs:
+    output_key: number_of_gangs
+    actions:
+      - extract_num
+  voltage_breakdown:
+    output_key: voltage_breakdown
+    actions:
+      - extract_num
+  impedance:
+    output_key: impedance
+    actions:
+      - extract_num
+  polarization:
+    output_key: polarization
   features:
     output_key: features
-    
-

@@ -13,6 +13,12 @@ import re
 import yaml
 import os
 
+def multiple_replace(text, adict):
+    rx = re.compile('|'.join(map(re.escape, adict)))
+    def one_xlat(match):
+        return adict[match.group(0)]
+    return rx.sub(one_xlat, text)
+
 __location__ = os.path.realpath(
     os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
@@ -32,11 +38,14 @@ def lower(d):
     
 def tempcoeff(d):
     """turns temp coefficients into number"""
-    symbols = ['±','°C','ppm']
+    symbols = ['±','°C','ppm', ' PPM / C']
     if isinstance(d, str):
         if any(x in d for x in symbols):
+            d = d.replace(' PPM / C', '')
             d = d.replace('±', '')
             d = d.replace('ppm/°C', '')
+            d = d.replace(' ', '')
+            
             try:
                 d = float(d)
                 return d
@@ -51,14 +60,13 @@ def tempcoeff(d):
 
 def extract_num(d):
     """turns strings with ANY unit into numbers"""
+    adict = {'µ':'u',' %':'',' ':'','Max':'','±':'','ppm/°C':''}
+
     if isinstance(d, str):
         
         if (len(d) > 0):
-            
-            d = d.replace('µ','u')
-            d = d.replace(' Max','')
-            d = d.replace('±', '')
-            d = d.replace('ppm/°C', '')
+            d = re.sub(r'\(.*\)', '', d)
+            d = multiple_replace(d,adict)
             d = float(Quantity(d,''))
             return d
         else:
@@ -221,6 +229,21 @@ def parse_dimension(d):
         return d
     return d
 
+def split_at(d):
+    """split strings which are presented
+    in the format: ... @ ...
+    """
+    if isinstance(d, str):
+        n1, n2 = d.split('@')
+        n1 = n1.strip(" ")
+        n2 = n2.strip(" ")
+        n1  = float(Quantity(n1))
+        n2  = float(Quantity(n2))
+        return(n1, n2)
+    else:
+        logging.warning("during type conversion got a non-string")
+        return d
+    
 def split_q(d):
     """split a Q string with @ into two values
     input looks like  "q_@_freq": "72 @ 100MHz"
@@ -249,6 +272,34 @@ def split_rc(d):
     freq  = float(Quantity(freq))
     return(c,freq) 
 
+def split_esr(d):
+    """split esr string into r and freq
+    input looks like: '520 mOhm @ 100kHz'
+    output should look like
+    r = 0.52
+    freq = 100000
+    """
+    r, freq = d.split('@')
+    r = r.strip(" ")
+    r = float(Quantity(r))
+    freq = freq.strip(" ")
+    freq = float(Quantity(freq))
+    return(r,freq)
+
+def split_lifetime(d):
+    """split esr string into r and freq
+    input looks like: '2000 Hrs @ 85°C'
+    output should look like
+    t = 2000
+    c = 85
+    """
+    t, c = d.split('@')
+    t = t.strip(" ")
+    t = float(Quantity(t))
+    c = c.strip(" ")
+    c = float(Quantity(c))
+    return(t,c)
+
 def category_normalize_digikey(d):
     """
     For categories, instead of changing the name
@@ -266,7 +317,15 @@ def to_int(d):
         return int(d)  
     else:
         raise TypeError('cannot cast {0} into float as it\'s not a string'.format(d))
-
+        
+def inchtomm(d):
+    """turns inch into mm"""
+    if isinstance(d, int):
+        d = d * 25.4
+        return d
+    else:
+        logging.warning('during type conversion met a string.')
+        
 def to_float(d):
     """turns a string into decimal"""
     if  isinstance(d, str):
