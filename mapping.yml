@@ -147,6 +147,8 @@ digikey:
     output_key: thickness
     actions:
       - extract_num
+  resistance_wiper_(ohms)_(typ):
+    output_key: resistance_wiper_(ohms)_(typ)
   thickness_(max):
     output_key: thickness_(max)
     actions:
@@ -167,6 +169,10 @@ digikey:
       - esr_frequency
     actions:
       - split_at
+  esl_(equivalent_series_inductance):
+    output_key: esl_(equivalent_series_inductance)
+    actions:
+      - extract_num
   fader_type:
     output_key: fader_type
   dissipation_factor:
@@ -176,6 +182,10 @@ digikey:
   rohs:
     output_key: rohs
   temperature_coefficient:
+    output_key: temperature_coefficient
+    actions:
+      - tempcoeff
+  temperature_coefficient_(typ):
     output_key: temperature_coefficient
     actions:
       - tempcoeff
@@ -197,7 +207,11 @@ digikey:
     output_key: power_rating
     actions:
       - extract_num
+  adjustment_type:
+    output_key: adjustment_type
   termination:
+    output_key: termination_style
+  termination_style:
     output_key: termination_style
   lead_spacing:
     output_key: lead_spacing
@@ -209,6 +223,12 @@ digikey:
     output_key: capacitance
     actions:
       - extract_num
+  capacitance_range:
+    output_key:
+      - capacitance_range_min
+      - capacitance_range_max
+    actions:
+      - split_temp
   voltage_rated:
     output_key: voltage_rating
     actions:
@@ -345,6 +365,8 @@ digikey:
     output_key: mfr
   minimum_quantity:
     output_key: minimum_quantity
+  manufacturer_size_code:
+    output_key: manufacturer_size_code
   mpn:
     output_key: mpn
   number_of_coils:
@@ -361,6 +383,12 @@ digikey:
     output_key:
       - minimum_operating_temperature
       - maximum_operating_temperature
+    actions:
+      - split_temp
+  voltage_supply:
+    output_key:
+      - minimum_voltage_supply
+      - maximum_voltage_supply
     actions:
       - split_temp
   number_of_capacitors:
@@ -420,8 +448,54 @@ digikey:
   delay_time:
     output_key: propagation_delay_time
   rotation:
-    output_key: rotation
+    output_key: rotation_angle
     actions:
       - extract_num
+  rotation_angle:
+    output_key: rotation_angle
+    actions:
+      - extract_num
+  number_of_characters:
+    output_key: number_of_characters
+  number_of_turns:
+    output_key: number_of_turns
+    actions:
+      - extract_num
+  actuator_type:
+    output_key: actuator_type
+  resistive_material:
+    output_key: resistive_material
+  built_in_switch:
+    output_key: built_in_switch
+  taper:
+    output_key: taper
+  interface:
+    output_key: interface
+  number_of_taps:
+    output_key: number_of_taps
+  memory_type:
+    output_key: memory_type
+  actuator_length:
+    output_key: actuator_length
+    actions:
+      - parse_dimension
+  actuator_diameter:
+    output_key: actuator_diameter
+    actions:
+      - parse_dimension
+  number_of_gangs:
+    output_key: number_of_gangs
+    actions:
+      - extract_num
+  voltage_breakdown:
+    output_key: voltage_breakdown
+    actions:
+      - extract_num
+  impedance:
+    output_key: impedance
+    actions:
+      - extract_num
+  polarization:
+    output_key: polarization
   features:
     output_key: features
