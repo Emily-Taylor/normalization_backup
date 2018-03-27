@@ -1,10 +1,154 @@
 mouser:
   categories_mouser: 
     output_key: categories_mouser
+  categories: 
+    output_key: categories
+  description:
+    output_key: description
+    actions:
+      - lower
+  core_size:
+    output_key:
+      - core_size_width
+      - core_size_height
+      - core_size_length
+    actions:
+      - parse_any_number
+  series:
+    output_key: series
+  mfr:
+    output_key: mfr
+  pricing:
+    output_key: pricing
+  clamping_voltage:
+    output_key: clamping_voltage
+    actions:
+      - extract_num
   capacitance:
     output_key: capacitance
     actions:
       - extract_num
+  voltage_rating_ac:
+    output_key: voltage_rating_ac
+    actions:
+      - extract_num
+  inductance:
+    output_key: inductance
+    actions:
+      - extract_num
+  gain:
+    output_key: gain
+    actions:
+      - extract_num
+  bandwidth:
+    output_key: bandwidth
+    actions:
+      - extract_num
+  vswr:
+    output_key: vswr
+  accessory_type:
+    output_key: accessory_type
+  maximum_dc_current:
+    output_key: maximum_dc_current
+    actions:
+      - extract_num
+  mpn:
+    output_key: mpn
+  impedance:
+    output_key: impedance
+    actions:
+      - extract_num
+  cutoff_frequency:
+    output_key: cutoff_frequency
+    actions:
+      - extract_num
+  mounting_style:
+    output_key: mounting_style
+  circuit_type:
+    output_key: circuit_type
+  packagecase:
+    output_key: packagecase
+  links:
+    output_key: links
+  sku:
+    output_key: sku
+  leakage_current:
+    output_key: leakage_current
+    actions:
+      - extract_num
+  output_format:
+    output_key: output_format
+  operating_supply_voltage:
+    output_key: operating_supply_voltage
+    actions:
+    actions:
+      - extract_num
+  ripple_current:
+    output_key: ripple_current
+    actions:
+      - extract_num
+  type:
+    output_key: type
+  dielectric:
+    output_key: dielectric
+  lead_spacing:
+    output_key: lead_spacing
+    actions:
+      - parse_dimension
+  packaging:
+    output_key: packaging
+  maximum_dc_resistance:
+    output_key: maximum_dc_resistance
+    actions:
+      - extract_num
+  mfr_case_code:
+    output_key: mfr_case_code
+  capacitance_range:
+    output_key:
+      - capacitance_range_min
+      - capacitance_range_max
+    actions:
+      - split_to
+  control_voltage_range:
+    output_key:
+      - control_voltage_range_min
+      - control_voltage_range_max
+    actions:
+      - split_to
+  termination_style:
+    output_key: termination_style
+  voltage_range:
+    output_key:
+      - voltage_range_min
+      - voltage_range_max
+    actions:
+      - split_to
+  case_style:
+    output_key: case_style
+  secondary_impedance:
+    output_key: secondary_impedance
+    actions:
+      - extract_num
+  test_frequency:
+    output_key: test_frequency
+    actions:
+      - extract_num
+  tolerance_range:
+    output_key:
+      - tolerance_range_min
+      - tolerance_range_max
+    actions:
+      - split_to
+  capacity:
+    output_key: capacity
+    actions:
+      - extract_num
+  inductance_range:
+    output_key:
+      - inductance_range_min
+      - inductance_range_max
+    actions:
+      - split_to
   minimum_operating_temperature:
     output_key: minimum_operating_temperature
     actions:
@@ -19,6 +163,12 @@ mouser:
       - maximum_operating_temperature
     actions:
       - split_temp
+  operating_temperature_junction:
+    output_key:
+      - minimum_operating_temperature_junction
+      - maximum_operating_temperature_junction
+    actions:
+      - split_temp
   product:
     output_key: product
   qualification:
@@ -27,10 +177,30 @@ mouser:
     output_key: for_use_with
   element_type:
     output_key: element_type
+  core:
+    output_key: core
+  drive_level:
+    output_key: drive_level
+    actions:
+      - extract_num
+  core_material:
+    output_key: core_material
   case:
     output_key: case
   termination:
     output_key: termination_style
+  ground_terminal:
+    output_key: ground_terminal
+    actions:
+        - extract_num
+  load_capacitance:
+    output_key: load_capacitance
+    actions:
+      - extract_num
+  frequency_stability:
+    output_key: frequency_stability
+    actions:
+      - parse_any_number
   lead_style:
     output_key: termination_style
   lifecycle:
@@ -39,6 +209,44 @@ mouser:
     output_key: open_frameenclosed
   number_of_detents:
     output_key: number_of_detents
+  number_of_digits:
+    output_key: number_of_digits
+  number_of_drivers:
+    output_key: number_of_drivers
+  number_of_electrodes:
+    output_key: number_of_electrodes
+  number_of_elements:
+    output_key: number_of_elements
+  number_of_gates:
+    output_key: number_of_gates
+  number_of_inputs_monitored:
+    output_key: number_of_inputs_monitored
+  number_of_internal_timers:
+    output_key: number_of_internal_timers
+  number_of_io:
+    output_key: number_of_io
+  number_of_ios:
+    output_key: number_of_ios
+  number_of_keys:
+    output_key: number_of_keys
+  number_of_lanes:
+    output_key: number_of_lanes
+  number_of_leds:
+    output_key: number_of_leds
+  number_of_levels:
+    output_key: number_of_levels
+  number_of_lines:
+    output_key: number_of_lines
+  number_of_logic_array_blocks_labs:
+    output_key: number_of_logic_array_blocks_labs
+  number_of_logic_elements:
+    output_key: number_of_logic_elements
+  number_of_logic_elements_blocks:
+    output_key: number_of_logic_elements_blocks
+  number_of_logic_elements_cells:
+    output_key: number_of_logic_elements_cells
+  number_of_macro_cells:
+    output_key: number_of_macro_cells
   ip_rating:
     output_key: ip_rating
   number_of_gangs:
@@ -76,19 +284,57 @@ mouser:
   shaft_diameter:
     output_key: shaft_length
     actions:
-      - extract_num
+      - parse_dimension
   shaft_length:
     output_key: shaft_length
     actions:
+      - parse_dimension
+  inside_diameter:
+    output_key: inside_diameter
+    actions:
+      - parse_dimension
+  outside_diameter:
+    output_key: outside_diameter
+    actions:
+      - parse_dimension
+  inside_height:
+    output_key: inside_height
+    actions:
+      - parse_dimension
+  outside_height:
+    output_key: outside_height
+    actions:
+      - parse_dimension
+  varistor_voltage:
+    output_key: varistor_voltage
+    actions:
       - extract_num
+  inside_length:
+    output_key: inside_length
+    actions:
+      - parse_dimension
+  outside_length:
+    output_key: outside_length
+    actions:
+      - parse_dimension
+  inside_width:
+    output_key: inside_width
+    actions:
+      - parse_dimension
+  product_type:
+    output_key: product_type
+  outside_width:
+    output_key: outside_width
+    actions:
+      - parse_dimension
   diameter:
     output_key: diameter
     actions:
-      - extract_num
+      - parse_dimension
   length:
     output_key: length
     actions:
-      - extract_num
+      - parse_dimension
   life:
     output_key: life
     actions:
@@ -96,9 +342,25 @@ mouser:
   height:
     output_key: height
     actions:
-      - extract_num
+      - parse_dimension
+  component_type:
+    output_key: component_type
+  temperature_coefficient_code:
+    output_key: temperature_coefficient_code
   width:
     output_key: width
+    actions:
+      - parse_dimension
+  power_rated:
+    output_key: power_rating
+    actions:
+      - extract_num
+  programming_voltage:
+    output_key: programming_voltage
+    actions:
+      - extract_num
+  program_memory_size:
+    output_key: program_memory_size
     actions:
       - extract_num
   power_rating:
@@ -115,6 +377,14 @@ mouser:
     output_key: case_code_mm
     actions:
       - inchtomm
+  peak_surge_current:
+    output_key: peak_surge_current
+    actions:
+      - extract_num
+  surge_energy_rating:
+    output_key: surge_energy_rating
+    actions:
+      - extract_num
   temperature_coefficient:
     output_key: temperature_coefficient
     actions:
@@ -137,22 +407,226 @@ mouser:
     output_key: tolerance
     actions:
       - extract_num
+  shape:
+    output_key: shape
+    actions:
+      - extract_num
+  technology:
+    output_key: technology
+  thickness:
+    output_key: thickness
+    actions:
+      - parse_dimension
+  rohs:
+    output_key: rohs
+  frequency:
+    output_key:
+        - frequency_range_min
+        - frequency_range_max
+    actions:
+      - split_to
+  supply_voltage_max:
+    output_key: supply_voltage_max
+    actions:
+      - extract_num
+  supply_voltage_min:
+    output_key: supply_voltage_min
+    actions:
+      - extract_num
+  current_rating:
+    output_key: current_rating
+    actions:
+      - extract_num
   None: None
 digikey:
   diameter:
     output_key: diameter
     actions:
+      - parse_dimension
+  attachment_method:
+    output_key: attachment_method
+  shape:
+    output_key: shape
+  access_time:
+    output_key: access_time
+    actions:
       - extract_num
+  vswr:
+    output_key: vswr
+  accuracy:
+    output_key: accuracy
+  frequency:
+    output_key: frequency
+    actions:
+      - extract_num
+  capacitance_@_frequency:
+    output_key:
+      - capacitance_@_frequency_capacitance
+      - capacitance_@_frequency_frequency
+    actions:
+      - split_at
+  ingress_protection:
+    output_key: ingress_protection
+  width:
+    output_key: width
+    actions:
+      - parse_dimension
   thickness:
     output_key: thickness
     actions:
+      - parse_dimension
+  antenna_type:
+    output_key: type
+  height_(max):
+    output_key: height_(max)
+    actions:
+      - parse_dimension
+  technology:
+    output_key: circuit_type
+  varistor_voltage_(max):
+    output_key: varistor_voltage_(max)
+    actions:
       - extract_num
+  operating_temperature_junction:
+    output_key:
+      - minimum_operating_temperature_junction
+      - maximum_operating_temperature_junction
+    actions:
+      - split_temp
   resistance_wiper_(ohms)_(typ):
     output_key: resistance_wiper_(ohms)_(typ)
+  number_of_bands:
+    output_key: number_of_bands
+  frequency_group:
+    output_key: frequency_group
   thickness_(max):
     output_key: thickness_(max)
     actions:
       - parse_dimension
+  operational_gauss:
+    output_key: operational_gauss
+    actions:
+      - extract_num
+  return_loss:
+    output_key: return_loss
+    actions:
+      - extract_num
+  outer_dimension:
+    output_key:
+      - outer_dimension_width
+      - outer_dimension_height
+    actions:
+      - parse_dimensions
+  output_power:
+    output_key: output_power
+    actions:
+      - extract_num
+  output_voltage:
+    output_key: output_voltage
+    actions:
+      - extract_num
+  outside_contact_diameter:
+    output_key: outside_contact_diameter
+    actions:
+      - parse_dimension
+  pair_number:
+    output_key: pair_number
+  panel_cutout_dimensions:
+    output_key: panel_cutout_dimensions
+    actions:
+      - extract_num
+  panel_hole_size:
+    output_key: panel_hole_size
+    actions:
+      - extract_num
+  panel_thickness:
+    output_key: panel_thickness
+    actions:
+      - parse_dimension
+  pin_diameter:
+    output_key: pin_diameter
+    actions:
+      - parse_dimension
+  pitch:
+    output_key: pitch
+    actions:
+      - extract_num
+  pitch_cable:
+    output_key: pitch_cable
+    actions:
+      - extract_num
+  pitch_connector:
+    output_key: pitch_connector
+    actions:
+      - extract_num
+  pitch_post:
+    output_key: pitch_post
+    actions:
+      - extract_num
+  pixel_format:
+    output_key: pixel_format
+    actions:
+      - extract_num
+  pitch_mating:
+    output_key: pitch_mating
+    actions:
+      - extract_num
+  panel_units:
+    output_key: panel_units
+    actions:
+      - extract_num
+  positions_poles:
+    output_key: positions_poles
+    actions:
+      - extract_num
+  power_consumption:
+    output_key: power_consumption
+    actions:
+      - extract_num
+  power_cooling:
+    output_key: power_cooling
+    actions:
+      - extract_num
+  power_input:
+    output_key: power_input
+    actions:
+      - extract_num
+  power_output:
+    output_key: power_output
+    actions:
+      - extract_num
+  power_output_continuous:
+    output_key: power_output_continuous
+    actions:
+      - extract_num
+  power_output_surge:
+    output_key: power_output_surge
+    actions:
+      - extract_num
+  power_peak_pulse:
+    output_key: power_peak_pulse
+    actions:
+      - extract_num
+  power_max:
+    output_key: power_max
+    actions:
+      - extract_num
+  output_voltage_range:
+    output_key: output_voltage_range
+    actions:
+      - extract_num
+  outline:
+    outer_dimension: outline
+  output_current:
+    outer_dimension: output_current
+    actions:
+      - extract_num
+  output_phases:
+    output_key: output_phases
+    actions:
+      - extract_num
+  organisation:
+    output_key: organisation
   travel_range:
     output_key: travel_range
     actions:
@@ -219,6 +693,10 @@ digikey:
       - parse_dimension
   dielectric_material:
     output_key: dielectric
+  material:
+    output_key: material
+  packages_included:
+    output_key: packages_included
   capacitance:
     output_key: capacitance
     actions:
@@ -228,7 +706,222 @@ digikey:
       - capacitance_range_min
       - capacitance_range_max
     actions:
-      - split_temp
+      - split_to
+  capacity:
+    output_key: capacity
+    actions:
+      - extract_num
+  channels_per_circuit:
+    output_key: channels_per_circuit
+  clamping_voltage:
+    output_key: clamping_voltage
+    actions:
+      - extract_num
+  closing_temp:
+    output_key: closing_temp
+    actions:
+      - extract_num
+  coil_current:
+    output_key: coil_current
+    actions:
+      - extract_num
+  contact_finish_thickness_mating:
+    output_key: contact_finish_thickness_mating
+    actions:
+      - parse_dimension
+  contact_finish_thickness_post:
+    output_key: contact_finish_thickness_post
+    actions:
+      - parse_dimension
+  contact_size:
+    output_key: contact_size
+    actions:
+      - extract_num
+  conversion_rate:
+    output_key: conversion_rate
+    actions:
+      - extract_num
+  copper_ports:
+    output_key: copper_ports
+    actions:
+      - extract_num
+  connector_spacing:
+    output_key: connector_spacing
+    actions:
+      - extract_num
+  current_carry:
+    output_key: current_carry
+    actions:
+      - extract_num
+  current_output_highlow:
+    output_key: current_output_highlow
+  coverage:
+    output_key: coverage
+    actions:
+      - extract_num
+  clock_rate:
+    output_key: clock_rate
+    actions:
+      - extract_num
+  coil_diameter:
+    output_key: coil_diameter
+    actions:
+      - parse_dimension
+  coil_voltage:
+    output_key: coil_voltage
+    actions:
+      - extract_num
+  conductor_diameter:
+    output_key: conductor_diameter
+    actions:
+      - parse_dimension
+  contact_finish_thickness:
+    output_key: contact_finish_thickness
+    actions:
+      - parse_dimension
+  contact_mating_length:
+    output_key: contact_mating_length
+    actions:
+      - parse_dimension
+  contact_rating_current:
+    output_key: contact_rating_current
+    actions:
+      - extract_num
+  current:
+    output_key: current_rating
+    actions:
+      - extract_num
+  current_cathode:
+    output_key: current_cathode
+    actions:
+      - extract_num
+  current_input:
+    output_key: current_input
+    actions:
+      - extract_num
+  current_input_bias:
+    output_key: current_input_bias
+    actions:
+      - extract_num
+  current_max:
+    output_key: current_max
+    actions:
+      - extract_num
+  current_modulation:
+    output_key: current_modulation
+    actions:
+      - extract_num
+  current_peak:
+    output_key: current_peak
+    actions:
+      - extract_num
+  accuracy_highest_lowest:
+    output_key: accuracy_highest_lowest
+  ac_outlets:
+    output_key: ac_outlets
+  acquisition_time:
+    output_key: acquisition_time
+    actions:
+      - extract_num
+  active_area:
+    output_key: active_area
+  active_mode_current:
+    output_key: active_mode_current
+    actions:
+      - extract_num
+  analog_input_output:
+    output_key: analog_input_output
+  analogue_supply_voltage:
+    output_key: analogue_supply_voltage
+    actions:
+      - extract_num
+  angle_of_throw:
+    output_key: angle_of_throw
+    actions:
+      - extract_num
+  aperture_width:
+    output_key: aperture_width
+    actions:
+      - parse_dimension
+  attenuation_value:
+    output_key:
+      - attenuation
+      - attenuation_range_min
+      - attenuation_range_max
+    actions:
+      - attenuation
+  attenuator_step_size:
+    output_key: attenuator_step_size
+    actions:
+      - extract_num
+  audio_load_impedance:
+    output_key: audio_load_impedance
+    actions:
+      - extract_num
+  current_peak_output:
+    output_key: current_peak_output
+    actions:
+      - extract_num
+  current_output_channel:
+    output_key: current_output_channel
+    actions:
+      - extract_num
+  esd_protection:
+    output_key: esd_protection
+    actions:
+      - lower
+  plating:
+    output_key: plating
+  plating_thickness:
+    output_key: plating_thickness
+    actions:
+      - parse_dimension
+  quantity:
+    output_key: quantity
+  number_of_channels:
+    output_key: number_of_channels
+  resistance_channel_(ohms):
+    output_key: resistance
+  filter_order:
+    output_key: filter_order
+  current_output:
+    output_key: current_output
+    actions:
+      - extract_num
+  thickness_overall:
+    output_key: thickness_overall
+    actions:
+      - parse_dimension
+  current_limit:
+    output_key: current_limit
+    actions:
+      - extract_num
+  current_bias:
+    output_key: current_bias
+    actions:
+      - extract_num
+  current_breakover:
+    output_key: current_breakover
+    actions:
+      - extract_num
+  cord_length:
+    output_key: cord_length
+    actions:
+      - parse_dimension
+  core_diameter:
+    output_key: core_diameter
+    actions:
+      - parse_dimension
+  count:
+    output_key: count
+  count_rate:
+    output_key: count_rate
+    actions:
+      - extract_num
+  coupling_factor:
+    output_key: coupling_factor
+    actions:
+      - extract_num
   voltage_rated:
     output_key: voltage_rating
     actions:
@@ -237,14 +930,132 @@ digikey:
     output_key: voltage_rating_ac
     actions:
       - extract_num
+  frequency_range:
+    output_key:
+      - frequency_range_min
+      - frequency_range_max
+    actions:
+      - split_to
   frequency_test:
     output_key: test_frequency
     actions:
       - frequency
+  available_frequency_range:
+    output_key:
+      - available_frequency_range_min
+      - available_frequency_range_max
+    actions:
+      - split_to
+  barrel_depth:
+    output_key: barrel_depth
+    actions:
+      - extract_num
+  beam_angle:
+    output_key: beam_angle
+    actions:
+      - extract_num
+  between_board_height:
+    output_key: between_board_height
+    actions:
+      - parse_dimension
+  board_size:
+    output_key: board_size
+  break_strength:
+    output_key: break_strength
+  bundle_diameter:
+    output_key: bundle_diameter
+    actions:
+      - parse_dimension
+  cable_diameter:
+    output_key: cable_diameter
+    actions:
+      - parse_dimension
+  cable_exit:
+    output_key: cable_exit
+    actions:
+      - extract_num
+  cable_length_unexposed:
+    output_key: cable_length_unexposed
+    actions:
+      - parse_dimension
+  cable_opening:
+    output_key:
+      - cable_opening_width
+      - cable_opening_height
+    actions:
+      - parse_dimensions
+  capacitance_vrf:
+    output_key: capacitance_vrf
+    actions:
+      - extract_num
+  card_size_range:
+    output_key:
+      - card_size_range_width
+      - card_size_range_height
+    actions:
+      - parse_dimensions
+  card_speed:
+    output_key:
+      - card_speed_min
+      - card_speed_max
+    actions:
+      - split_temp
+  card_thickness:
+    output_key: card_thickness
+    actions:
+      - parse_dimension
+  center_conductor_diameter:
+    output_key: center_conductor_diameter
+    actions:
+      - parse_dimension
+  center_cutoff_frequency:
+    output_key: cutoff_frequency
+    actions:
+      - extract_num
+  character_size:
+    output_key:
+      - character_size_width
+      - character_size_height
+    actions:
+      - parse_dimensions
+  charge_current_max:
+    output_key: charge_current_max
+    actions:
+      - extract_num
+  charge_injection:
+    output_key: charge_injection
+    actions:
+      - extract_num
+  charge_time:
+    output_key:
+      - charge_time_min
+      - charge_time_max
+    actions:
+      - split_temp
+  cladding_diameter:
+    output_key: cladding_diameter
+    actions:
+      - parse_dimension
+  cable_pitch:
+    output_key: cable_pitch
+    actions:
+      - extract_num
+  capacitance_frequency:
+    output_key: capacitance_frequency
+    actions:
+      - extract_num
+  capacitance_ratio:
+    output_key: capacitance_ratio
+    actions:
+      - extract_num
+  cache_memory:
+    output_key: cache_memory
+    actions:
+      - extract_num
   current_saturation:
     output_key: current_saturation
     actions:
-      - current
+      - extract_num
   current_leakage:
     output_key: current_leakage
     actions:
@@ -252,13 +1063,21 @@ digikey:
   current_rating:
     output_key: maximum_dc_current
     actions:
-      - current
+      - extract_num
+  current_rating_max:
+    output_key: current_rating_max
+    actions:
+      - extract_num
   mounting_type:
     output_key: mounting_style
   accessory_type:
     output_key: accessory_type
   type:
     output_key: type
+  voltage_clamping:
+    output_key: clamping_voltage
+    actions:
+      - extract_num
   material_core:
     output_key: material_core
   ratings:
@@ -266,13 +1085,53 @@ digikey:
   for_use_withrelated_products:
     output_key: for_use_with
   specifications:
-    output_key: specifications   
+    output_key: specifications
   device_size:
     output_key: device_size
   availability:
     output_key: availability
   axis:
     output_key: axis
+  available_total_delays:
+    output_key:
+      - available_total_delays_min
+      - available_total_delays_max
+    actions:
+      - split_temp
+  cable_height:
+    output_key: cable_height
+    actions:
+      - parse_dimension
+  cable_length:
+    output_key: cable_length
+    actions:
+      - parse_dimension
+  cable_width:
+    output_key: cable_width
+    actions:
+      - parse_dimension
+  capacitance_input:
+    output_key: capacitance_input
+    actions:
+      - extract_num
+  breakdown_voltage:
+    output_key: breakdown_voltage
+    actions:
+      - extract_num
+  board_thickness:
+    output_key: board_thickness
+    actions:
+      - parse_dimension
+  bidirectional_channels:
+    output_key: bidirectional_channels
+  battery_pack_voltage:
+    output_key: battery_pack_voltage
+    actions:
+      - extract_num
+  bandwidth:
+    output_key: bandwidth
+    actions:
+      - extract_num
   case:
     output_key: case
   categories:
@@ -284,25 +1143,93 @@ digikey:
   current_rating_parallel:
     output_key: maximum_dc_current
     actions:
-      - current
+      - extract_num
   current_rating_series:
     output_key: current_rating_series
+    actions:
+      - extract_num
   current_saturation_parallel:
     output_key: current_saturation_parallel
+      - extract_num
   current_saturation_series:
     output_key: current_saturation_series
+      - extract_num
+  current_receiving:
+    output_key: current_receiving
+    actions:
+      - extract_num
+  current_rating_per_contact:
+    output_key: current_rating_per_contact
+    actions:
+      - extract_num
+  current_startup:
+    output_key: current_startup
+    actions:
+      - extract_num
+  current_sensing:
+    output_key: current_sensing
+    actions:
+      - extract_num
   dc_resistance_(dcr):
     output_key: maximum_dc_resistance
     actions:
-      - resistance
+      - extract_num
   dc_resistance_(dcr)_parallel:
     output_key: maximum_dc_resistance
     actions:
-      - resistance
+      - extract_num
   dc_resistance_(dcr)_series:
     output_key: maximum_dc_resistance
     actions:
-      - resistance
+      - extract_num
+  height_number_of_racks:
+    output_key: height_number_of_racks
+    actions:
+      - parse_dimension
+  height_overall:
+    output_key: height_overall
+    actions:
+      - parse_dimension
+  height_off_base_height_off_in:
+    output_key: height_off_base_height_off_in
+    actions:
+      - inchtomm
+  head_diameter:
+    output_key: head_diameter
+    actions:
+      - parse_dimension
+  height_max:
+    output_key: height_max
+    actions:
+      - parse_dimension
+  head_height:
+    output_key: head_height
+    actions:
+      - extract_num
+  gain:
+    output_key: gain
+    actions:
+      - extract_num
+  current_test:
+    output_key: current_test
+    actions:
+      - extract_num
+  current_surge:
+    output_key: peak_surge_current
+    actions:
+      - extract_num
+  current_supply_max:
+    output_key: current_supply_max
+    actions:
+      - extract_num
+  energy:
+    output_key: surge_energy_rating
+    actions:
+      - extract_num
+  current_supply:
+    output_key: current_supply
+    actions:
+      - extract_num
   resistance:
     output_key: resistance
     actions:
@@ -311,6 +1238,22 @@ digikey:
     output_key: description
     actions:
       - lower
+  maximum_ac_volts:
+    output_key: voltage_rating_ac
+    actions:
+      - extract_num
+  maximum_dc_volts:
+    output_key: voltage_rating_dc
+    actions:
+      - extract_num
+  varistor_voltage_(min):
+    output_key: varistor_voltage
+    actions:
+      - extract_num
+  varistor_voltage_(typ):
+    output_key: varistor_voltage
+    actions:
+      - extract_num
   height:
     output_key: height
     actions:
@@ -326,7 +1269,7 @@ digikey:
   inductance:
     output_key: inductance
     actions:
-      - inductance
+      - extract_num
   resistance_(ohms):
     output_key: resistance
     actions:
@@ -371,6 +1314,24 @@ digikey:
     output_key: mpn
   number_of_coils:
     output_key: number_of_coils
+  number_of_columns:
+    output_key: number_of_columns
+  number_of_conductors:
+    output_key: number_of_conductors
+  number_of_contacts:
+    output_key: number_of_contacts
+  number_of_converters:
+    output_key: number_of_converters
+  number_of_cores:
+    output_key: number_of_cores
+  number_of_cores_per_jack:
+    output_key: number_of_cores_per_jack
+  number_of_da_converters:
+    output_key: number_of_da_converters
+  number_of_da_c_outputs:
+    output_key: number_of_da_c_outputs
+  number_of_decks:
+    output_key: number_of_decks
   minimum_operating_temperature:
     output_key: minimum_operating_temperature
     actions:
@@ -407,12 +1368,18 @@ digikey:
       - surface_mount_land_size_width
     actions:
       - parse_dimensions
+  values:
+    output_key: values
+  kit_type:
+    output_key: kit_type
   size_dimension:
     output_key: 
       - length
       - width
     actions:
       - parse_dimensions 
+  adhesive:
+    output_key: adhesive
   power_per_element:
     output_key: power_per_element
     actions:
@@ -424,7 +1391,7 @@ digikey:
   failure_rate:
     output_key: failure_rate
   applications:
-    output_key: applications
+    output_key: technology
   resistor_matching_ratio:
     output_key: resistor_matching_ratio
     actions:
@@ -437,6 +1404,10 @@ digikey:
     output_key: number_of_circuits
   sku:
     output_key: sku
+  frequency_(centerband):
+    output_key: frequency
+    actions:
+      - extract_num
   tolerance:
     output_key: tolerance
     actions:
@@ -447,6 +1418,24 @@ digikey:
     output_key: supplier_device_package
   delay_time:
     output_key: propagation_delay_time
+    actions:
+      - extract_num
+  r25c:
+    output_key: r25c
+    actions:
+      - extract_num
+  ram_size:
+    output_key: ram_size
+    actions:
+      - extract_num
+  propagation_delay_time:
+    output_key: propagation_delay_time
+    actions:
+      - extract_num
+  propagation_delay:
+    output_key: propagation_delay
+    actions:
+      - extract_num
   rotation:
     output_key: rotation_angle
     actions:
@@ -499,3 +1488,129 @@ digikey:
     output_key: polarization
   features:
     output_key: features
+  number_of_detents:
+    output_key: number_of_detents
+  number_of_digits:
+    output_key: number_of_digits
+  number_of_drivers:
+    output_key: number_of_drivers
+  number_of_electrodes:
+    output_key: number_of_electrodes
+  number_of_elements:
+    output_key: number_of_elements
+  number_of_gates:
+    output_key: number_of_gates
+  number_of_inputs_monitored:
+    output_key: number_of_inputs_monitored
+  number_of_internal_timers:
+    output_key: number_of_internal_timers
+  number_of_io:
+    output_key: number_of_io
+  number_of_ios:
+    output_key: number_of_ios
+  number_of_keys:
+    output_key: number_of_keys
+  number_of_lanes:
+    output_key: number_of_lanes
+  number_of_leds:
+    output_key: number_of_leds
+  number_of_levels:
+    output_key: number_of_levels
+  number_of_lines:
+    output_key: number_of_lines
+  number_of_logic_array_blocks_labs:
+    output_key: number_of_logic_array_blocks_labs
+  number_of_logic_elements:
+    output_key: number_of_logic_elements
+  number_of_logic_elements_blocks:
+    output_key: number_of_logic_elements_blocks
+  number_of_logic_elements_cells:
+    output_key: number_of_logic_elements_cells
+  number_of_modules:
+    output_key: number_of_modules
+  number_of_poles:
+    output_key: number_of_poles
+  number_of_outputs:
+    output_key: number_of_outputs
+  number_of_output_lines:
+    output_key: number_of_output_lines
+  number_of_poles_per_deck:
+    output_key: number_of_poles_per_deck
+  number_of_ports:
+    output_key: number_of_ports
+  number_of_outlets:
+    output_key: number_of_outlets
+  number_of_positions:
+    output_key: number_of_positions
+  number_of_positions_contacts:
+    output_key: number_of_positions_contacts
+  number_of_regulators:
+    output_key: number_of_regulators
+  number_of_rows:
+    output_key: number_of_rows
+  number_of_rows_per_port:
+    output_key: number_of_rows_per_port
+  number_of_receivers:
+    output_key: number_of_receivers
+  number_of_segments:
+    output_key: number_of_segments
+  number_of_switches:
+    output_key: number_of_switches
+  number_of_taps_steps:
+    output_key: number_of_taps_steps
+  number_of_sections:
+    output_key: number_of_sections
+  number_of_transceivers:
+    output_key: number_of_transceivers
+  number_of_mixers:
+    output_key: number_of_mixers
+  length:
+    output_key: length
+    actions:
+      - parse_dimension
+  opening_size:
+    output_key:
+      - opening_size_width
+      - opening_size_height
+    actions:
+      - parse_dimensions
+  opening_temp:
+    output_key: opening_temp
+    actions:
+      - extract_num
+  operate_range:
+    output_key: operate_range
+  operate_time:
+    output_key: operate_time
+    actions:
+      - extract_num
+  operating_angle:
+    output_key: operating_angle
+    actions:
+      - extract_num
+  operating_force:
+    output_key: operating_force
+    actions:
+      - extract_num
+  operating_frequency:
+    output_key: operating_frequency
+    actions:
+      - extract_num
+  operating_point_min_max:
+    output_key: operating_point_min_max
+    actions:
+      - extract_num
+  operating_pressure:
+    output_key: operating_pressure
+    actions:
+      - extract_num
+  operating_supply_current:
+    output_key: operating_supply_current
+    actions:
+      - extract_num
+  operating_supply_voltage:
+    output_key: operating_supply_voltage
+    actions:
+      - extract_num
+  number_of_macro_cells:
+    output_key: number_of_macro_cells

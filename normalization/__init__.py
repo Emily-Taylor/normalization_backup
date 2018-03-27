@@ -24,7 +24,22 @@ __location__ = os.path.realpath(
 
 with open(os.path.join(__location__, 'categories.yml'), 'r') as f:
     categories = yaml.load(f)
-
+    
+def attenuation(d):
+    """splits attenuation header into 3 keys"""
+    if isinstance(d, str):
+        
+        v, r = d.split(' @ ')
+        r1, r2 = r.split(' ~ ')
+        
+        v = float(Quantity(v, ''))
+        r1 = float(Quantity(r1, ''))
+        r2 = float(Quantity(r2, ''))
+        
+        return(v, r1, r2)
+    else:
+        logging.warning('during type conversion got a non-string')
+        
 def reverse(d):
     d = d[::-1] 
     return d
@@ -60,7 +75,7 @@ def tempcoeff(d):
 
 def extract_num(d):
     """turns strings with ANY unit into numbers"""
-    adict = {'µ':'u',' %':'',' ':'','Max':'','±':'','ppm/°C':''}
+    adict = {'µ':'u',' %':'',' ':'','Max':'','±':'','ppm/°C':'', ' (Cutoff)':''}
 
     if isinstance(d, str):
         
@@ -75,6 +90,28 @@ def extract_num(d):
     else:
         logging.warning("during type conversion got a non-string")     
         
+def parse_any_number(d):
+    """
+    parse out any number from string
+    
+    """
+    # this is just floats
+    #regexp =re.compile(r'\d+\.\d+')
+    #this is just integers
+    #regexp =re.compile(r'\d+')
+    # this one only works for positive numbers
+    #regexp =re.compile(r'(\d+(\.\d+)?)')
+    # this one works for negative numbers too.
+    regexp = re.compile(r'([+-]?(\d+)(\.(\d+))?)')
+    res = regexp.findall(d)
+    if len(res) > 0:
+        for k,v in enumerate(res):
+            res[k] = float(v[0])
+        return res
+    else:
+        return d
+    return d
+
 def inductance(d):
     """ turns inducance string to numeric"""
     if isinstance(d, str):
@@ -207,13 +244,19 @@ def parse_dimensions(d):
 def split_temp(d):
     
     """ splits temperature columns into min and max"""
+    if isinstance(d, str):
+        if (' ~ ' in d):
+            t_min, t_max = d.split(' ~ ')
+            temp_min = float(Quantity(t_min))
+            temp_max = float(Quantity(t_max))
+            return (temp_min, temp_max)
+        else:
+            logging.warning("recheck splitting symbol and update function accordingly")
+            return(d)
+    else:
+        logging.warning("during type conversion got a non-string")
+        return(d)
     
-    t_min, t_max = d.split(' ~ ')
-    
-    temp_min = float(Quantity(t_min))
-    temp_max = float(Quantity(t_max))
-    
-    return (temp_min, temp_max)
 
 def parse_dimension(d):
     """
@@ -234,15 +277,43 @@ def split_at(d):
     in the format: ... @ ...
     """
     if isinstance(d, str):
-        n1, n2 = d.split('@')
-        n1 = n1.strip(" ")
-        n2 = n2.strip(" ")
-        n1  = float(Quantity(n1))
-        n2  = float(Quantity(n2))
-        return(n1, n2)
+        
+        if ('@' in d):
+            n1, n2 = d.split('@')
+            n1 = n1.strip(" ")
+            n2 = n2.strip(" ")
+            n1  = float(Quantity(n1))
+            n2  = float(Quantity(n2))
+            return(n1, n2)
+        else:
+            logging.warning("recheck splitting symbol and update function accordingly")
+            return(d)
+        
     else:
         logging.warning("during type conversion got a non-string")
-        return d
+        return(d)
+    
+def split_to(d):
+    """split headers with extension 'to'
+    in the format: 1000 pF to 330000 pF
+    """
+    if isinstance(d, str):
+        
+        if (' to ' in d):
+            n1, n2 = d.split(' to ')
+            n1 = n1.strip(" ")
+            n2 = n2.strip(" ")
+            n1  = float(Quantity(n1))
+            n2  = float(Quantity(n2))
+            return(n1, n2)
+        else:
+            n1 = float(Quantity(d, ''))
+            n2 = float(Quantity(d, ''))
+            return(n1, n2)
+        
+    else:
+        logging.warning("during type conversion got a non-string")
+        return(d)
     
 def split_q(d):
     """split a Q string with @ into two values

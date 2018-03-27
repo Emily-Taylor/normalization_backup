@@ -46,7 +46,15 @@ class TestNorm(unittest.TestCase):
               self.assertTrue(isinstance(result4[0], numbers.Real))
               self.assertTrue(isinstance(result4[1], numbers.Real))
               self.assertEqual(result4, output4)
-              
+            
+    def test_split_to(self):
+        d = '1000 F to 330000 F'
+        output = (1000, 330000)
+        result = normalization.split_to(d)
+        self.assertTrue(isinstance(result[0], numbers.Real))
+        self.assertTrue(isinstance(result[1], numbers.Real))
+        self.assertEqual(result, output)
+        
     def test_split_Q(self):
         output = (72.0,100000000.0)
         d = "72 @ 100MHz"
