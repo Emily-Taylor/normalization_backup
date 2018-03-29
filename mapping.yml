@@ -7,6 +7,10 @@ mouser:
     output_key: description
     actions:
       - lower
+  number_of_channels:
+    output_key: number_of_channels
+    actions:
+      - extract_num
   core_size:
     output_key:
       - core_size_width
@@ -79,10 +83,14 @@ mouser:
   output_format:
     output_key: output_format
   operating_supply_voltage:
-    output_key: operating_supply_voltage
+    output_key:
+      - operating_supply_voltage_min
+      - operating_supply_voltage_max
     actions:
     actions:
-      - extract_num
+      - split_to
+  output_type:
+    output_key: output_type
   ripple_current:
     output_key: ripple_current
     actions:
@@ -109,6 +117,10 @@ mouser:
       - capacitance_range_max
     actions:
       - split_to
+  with_switch:
+    output_key: with_switch
+    actions:
+      - lower
   control_voltage_range:
     output_key:
       - control_voltage_range_min
@@ -175,6 +187,8 @@ mouser:
     output_key: qualification
   for_use_with:
     output_key: for_use_with
+  resolution:
+    output_key: resolution
   element_type:
     output_key: element_type
   core:
@@ -443,6 +457,16 @@ digikey:
     output_key: diameter
     actions:
       - parse_dimension
+  output_type:
+    output_key: output_type
+  frequency_center:
+    output_key:
+      - frequency_range_min
+      - frequency_range_max
+    actions:
+      - split_temp
+    actions:
+      - extract_num
   attachment_method:
     output_key: attachment_method
   shape:
@@ -451,14 +475,40 @@ digikey:
     output_key: access_time
     actions:
       - extract_num
+  insertion_loss:
+    output_key: insertion_loss
+    actions:
+      - extract_num
+  output:
+    output_key: output
+  linearity:
+    output_key: linearity
+    actions:
+      - extract_num
+  maximum_pressure:
+    output_key: maximum_pressure
+    actions:
+      - extract_num
+  for_measuring:
+    output_key: for_measuring
+  input:
+    output_key: input
   vswr:
     output_key: vswr
   accuracy:
     output_key: accuracy
-  frequency:
-    output_key: frequency
+  data_rate_(max):
+    output_key: data_rate_(max)
     actions:
       - extract_num
+  frequency:
+    output_key:
+      - frequency_range_min
+      - frequency_range_max
+    actions:
+      - split_temp
+  pulses_per_revolution:
+    output_key: resolution
   capacitance_@_frequency:
     output_key:
       - capacitance_@_frequency_capacitance
@@ -1348,8 +1398,20 @@ digikey:
       - split_temp
   voltage_supply:
     output_key:
-      - minimum_voltage_supply
-      - maximum_voltage_supply
+      - operating_supply_voltage_min
+      - operating_supply_voltage_max
+    actions:
+      - split_temp
+  voltage_supply,_analog:
+    output_key:
+      - minimum_voltage_supply_analog
+      - maximum_voltage_supply_analog
+    actions:
+      - split_temp     
+  voltage_supply,_digital:
+    output_key:
+      - minimum_voltage_supply_digital
+      - maximum_voltage_supply_digital
     actions:
       - split_temp
   number_of_capacitors:
@@ -1358,8 +1420,18 @@ digikey:
     output_key: packagecase
   pricing:
     output_key: pricing
+  detent:
+    output_key: detent
   series:
     output_key: series
+  orientation:
+    output_key: orientation
+    actions:
+      - lower
+  rotational_life_(cycles_min):
+    output_key: rotational_life_(cycles_min)
+    actions:
+      - extract_num
   shielding:
     output_key: shielding
   surface_mount_land_size:
@@ -1451,15 +1523,17 @@ digikey:
     actions:
       - extract_num
   actuator_type:
-    output_key: actuator_type
+    output_key: shaft_type
   resistive_material:
     output_key: resistive_material
   built_in_switch:
-    output_key: built_in_switch
+    output_key: with_switch
   taper:
     output_key: taper
   interface:
     output_key: interface
+  encoder_type:
+    output_key: technology
   number_of_taps:
     output_key: number_of_taps
   memory_type:

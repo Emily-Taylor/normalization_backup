@@ -60,7 +60,6 @@ def tempcoeff(d):
             d = d.replace('±', '')
             d = d.replace('ppm/°C', '')
             d = d.replace(' ', '')
-            
             try:
                 d = float(d)
                 return d
@@ -69,7 +68,7 @@ def tempcoeff(d):
                 return d
         else:
             logging.warning("value: \"{0}\" doesn't match expected pattern".format(d))
-            return d
+            return ''
     else:
         logging.warning("during coeff type conversion got a non-string")
 
@@ -81,9 +80,15 @@ def extract_num(d):
         
         if (len(d) > 0):
             d = re.sub(r'\(.*\)', '', d)
+            d = d.split(',', 1)[0]
             d = multiple_replace(d,adict)
-            d = float(Quantity(d,''))
-            return d
+            
+            if 'PSI' in d:
+                d = parse_any_number(d)[0]
+                return d
+            else:
+                d = float(Quantity(d,''))
+                return d
         else:
             logging.warning("during coversion got an empty string")
             return d
@@ -243,34 +248,68 @@ def parse_dimensions(d):
 
 def split_temp(d):
     
-    """ splits temperature columns into min and max"""
+    """ splits temperature (or similar) columns into min and max"""
     if isinstance(d, str):
-        if (' ~ ' in d):
-            t_min, t_max = d.split(' ~ ')
-            temp_min = float(Quantity(t_min))
-            temp_max = float(Quantity(t_max))
-            return (temp_min, temp_max)
-        else:
-            logging.warning("recheck splitting symbol and update function accordingly")
-            return(d)
+        
+        if ', ' not in d:
+            
+            if ' ~ ' in d:
+            
+                t_min, t_max = d.split(' ~ ')
+                
+                if t_min == 'DC':
+                    t_min = 0
+                t_min = float(Quantity(t_min))
+                t_max = float(Quantity(t_max))
+                return (t_min, t_max)
+            
+            else:
+                
+                t_min = float(Quantity(d, ''))
+                t_max = t_min
+                return (t_min, t_max)
+        
+        elif ', ' in d:
+            
+            d = d.split(', ')[0]
+            if ' ~ ' in d:
+                
+                t_min, t_max = d.split(' ~ ')
+                if t_min == 'DC':
+                    t_min = 0
+                t_min = float(Quantity(t_min))
+                t_max = float(Quantity(t_max))
+                return (t_min, t_max)
+            
+            else:
+                
+                t_min = float(Quantity(d, ''))
+                t_max = t_min
+                return (t_min, t_max)
+        
     else:
         logging.warning("during type conversion got a non-string")
         return(d)
     
-
 def parse_dimension(d):
-    """
-    parse out any dimension in mm from string
-    '0.512" (13.00mm)'
-    """
-    regexp =re.compile('\((.*)mm\)')
-    res = regexp.findall(d)
-    if len(res) >0:
-        if res[0] is not None:
-            d = float(Quantity(res[0], "mm"))
+
+    if 'mm)' in d:
+        regexp = re.compile('\((.*)mm\)')
+        res = regexp.findall(d)
+
+        if len(res) > 0:
+            if res[0] is not None:
+                d = float(Quantity(res[0], "mm"))
+                return(d)
+            else:
+                logging.warning("no given value to be extracted.")
+                return(d)
+        else:
+            logging.warning("something went wrong.")
+            return(d)
     else:
-        return d
-    return d
+        d = parse_any_number(d)[0]
+        return(d)
 
 def split_at(d):
     """split strings which are presented
@@ -299,6 +338,9 @@ def split_to(d):
     """
     if isinstance(d, str):
         
+        if (', ' in d):
+            d = d.split(',', 1)[0]
+            
         if (' to ' in d):
             n1, n2 = d.split(' to ')
             n1 = n1.strip(" ")

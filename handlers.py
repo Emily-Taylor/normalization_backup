@@ -41,6 +41,10 @@ async def norm_handler(message, *args):
 			return False
 		for part in message['parts']:
 			part = defaultdict(dict,part)
+			#fix mfr before everything
+			if 'mfr' in part:
+				mfr = c.normalize_mfr(part['mfr'])
+				part['mfr'] =mfr['mfr']
 			#fix category before normalization
 			if 'categories' in part:
 				part['categories_'+source] = part['categories']
@@ -115,9 +119,7 @@ async def norm_handler(message, *args):
 				part['availability'][source] = new_availability
 			#generate IDs
 			if 'mpn' in part and 'mfr' in part:
-				
-				
-				id = (part['mpn']+part['mfr']).lower().replace(" ","")
+				id = (part['mpn']+part['mfr']['main']).lower().replace(" ","")
 				hash_object = sha1(id.encode('utf-8'))
 				hex_dig = hash_object.hexdigest()
 				part['id'] = hex_dig
@@ -135,9 +137,9 @@ async def norm_handler(message, *args):
 			# post data after normalization
 			
 			#print("going to post part:\n")
-			#print(json.dumps(part))	
-			result = await post_data(part)
-			print(result)				
+			print(json.dumps(part))	
+			#result = await post_data(part)
+			#print(result)				
 	return True
 
 

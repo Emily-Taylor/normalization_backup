@@ -1,0 +1,814 @@
+3M
+4D Systems
+AAEON UP
+Aavid Thermalloy
+AB Connectors / TT Electronics
+ABLIC
+Abracon
+ACKme Networks / Zentri
+aconno
+Actel
+Active-Semi
+Adafruit
+Adaptive Interconnect Electronics, Inc. (AIE)
+Adesto Technologies
+ADI (Analog Devices Inc.)
+ADI Engineering
+ADLINK Technology
+Advanced Analogic Technologies
+Advanced Linear Devices
+Advanced Semiconductor, Inc.
+Advanced Sensors / Amphenol
+Advanced Thermal Solutions
+Advantech
+Afero
+Agastat / TE Connectivity
+AIM (American Iron and Metal)
+AIM-Cambridge / Cinch Connectivity Solutions
+AirBorn
+Alcoswitch / TE Connectivity
+All Sensors
+Alliance Memory
+Alorium Technology
+Alpha (Taiwan)
+Alpha Wire
+ALPS Electric
+Altech
+Altera / Intel
+Altitude Tech
+American Power Conversion
+American Technical Ceramics (ATC)
+Ametherm
+AMI Semiconductor / ON Semiconductor
+AMP Connectors / TE Connectivity
+Amphenol
+Amphenol ICC
+Amprobe
+ams
+AMSECO / Potter
+Amulet Technologies
+Anachip
+Analog Devices Inc.
+AnalogicTech
+Anaren
+Anderson Power Products
+Angstrohm / Vishay
+Antenna Factor
+Antenova
+Apacer Technology Inc.
+APC by Schneider Electric
+APEM
+Apex Tool Group
+API Delevan
+API Technologies
+APM HEXSEAL
+Applied Motion
+Aptiv
+Arbor Technology
+ARCOL / Ohmite
+Arcotronics / KEMET
+Arduino
+Aries Electronics
+Aromat
+Artesyn Embedded Technologies
+ARTIK / Samsung
+ASI Semiconductor
+Astec Power
+Astrodyne TDI
+ATC (American Technical Ceramics)
+Atmel / Microchip
+Atollic Inc.
+Augat
+Ault / SL Power
+austriamicrosystems
+Auvidea
+Avago Technologies
+Avery Dennison
+AVX
+Axicom / TE Connectivity
+Axiomtek
+Azoteq
+Aztronic / Vishay
+B&K Precision
+B+B SmartWorx
+Basler
+BC Components / Vishay
+BeagleBoard
+BEI Sensors
+Bel
+Bel Fuse
+Bel Group
+Bel Magnetic Solutions
+Bel Power Solutions
+Belden Wire & Cable
+Bellin Dynamic Systems
+Bergquist Company
+Beyschlag / Vishay
+BI Technologies / TT Electronics
+Bias Power
+BIVAR
+Blackhawk
+Bluegiga Technologies
+Bluetechnix
+Bomar Interconnect
+Bosch
+Boundary Devices
+Bourns
+BPS
+Bridgetek
+Broadcom
+Buchanan / TE Connectivity
+Bud Industries
+Bulgin
+Burr-Brown / TI
+BusBoard Prototype Systems
+Bussmann / Eaton
+Byte Craft
+C&D Technologies / Murata
+C&K Switches
+Caddock
+Cadeka Microcircuits
+Cal Test Electronics
+Califia Lighting
+California Eastern Labs
+California Micro Devices / ON Semi
+Cambridge
+Carclo Technical Plastics
+Carling Technologies
+Casco / Amphenol
+Catalyst / ON Semiconductor
+CCS
+CDE
+CEL
+Central / Vishay
+Central Semiconductor
+Cera-Mite / Vishay
+Chemtronics
+CHERRY
+Chicago Miniature
+Chip Quik
+Chipcon
+Ciclon Semiconductor
+CII / TE Connectivity
+Cinch / Bel
+Cincon
+Cirque
+Cirronet / RFM
+Cirrus Logic
+Citec / TE Connectivity
+Citizen
+Clarostat / Honeywell
+CMD / ON Semiconductor
+CMOSIS / ams
+Code Red Technologies
+Coilcraft
+Coiltronics / Eaton
+COMAX Switches
+Comchip Technology
+Concept Technologie / Power Integrations
+Concord Semiconductor
+Condor / SL Power
+CONEC
+congatec
+Connect One
+Connector City
+Connex / Amphenol
+CONXALL
+Cooper Bussmann / Eaton
+Cooper Tools
+Corcom / TE Connectivity
+Cornell Dubilier (CDE)
+Cosel
+Coto Technology
+Cree
+Critical Link
+Crocus Technology
+Crouzet
+Crouzet Solid State Relays / Crydom
+Crowd Supply
+Crydom
+Crystal Semiconductor
+Crystek Corporation
+CSB
+CTS Electronic Components
+CUI Inc
+CW Industries
+Cymbet
+CyOptics
+Cypress Semiconductor
+D3 Semiconductor
+Dale / Vishay
+Dallas Semiconductor
+Data Instruments / Honeywell
+DATEL
+DAVE Embedded Systems
+Davies Molding
+DB Unlimited
+DBM Optix
+Dell EMC OEM Solutions
+Delphi
+Delta Electronics
+Deltron
+DEM Manufacturing
+Desco
+Design Gateway
+DEUTSCH Connectors
+DFRobot
+Dialight
+Dialog Semiconductor
+Dielectric Laboratories / Knowles
+Digi International
+Digilent
+Digital View
+Diode Laser Concepts
+Diodes Incorporated
+DIOO Microcircuits
+Displaytech Ltd.
+DLP Design
+DMC Tools
+Doodle Labs
+Draloric / Vishay
+Eagle-Picher
+EAO
+EasySync
+Eaton
+ebm-papst
+Ecliptek
+ECS
+EDAC
+EE Tools
+EF Johnson
+Elco / AVX
+Electro Corp / Honeywell
+Electro-Films (EFI) / Vishay
+ELECTRONIC ASSEMBLY
+Electroswitch
+Elmwood / Honeywell
+Elna
+Elpac / Inventus Power
+Elprotronic Inc.
+Embedded Artists
+Emerson Connectivity Solutions
+Emerson Network Power
+Energy Micro
+enmo Technologies
+Enpirion / Altera
+Enterpoint
+EPCOS / TDK
+Epson
+Ericsson Power Modules
+ERNI Connectors
+ERP Power
+Esico-Triton
+Espressif Systems
+Esquilo
+ESTA / Vishay
+Esterline
+E-Switch
+E-T-A Circuit Breakers
+ETA-USA
+ETI Systems
+Eupec / Infineon
+Eurotech
+Everlight
+Everspin Technologies
+Evidence
+Evox Rifa / KEMET
+Exar
+Extech
+Fairchild / ON Semiconductor
+Fair-Rite
+Fan-S Division / Qualtek
+Fascomp
+Fastrax
+Fastron
+FCI / Amphenol
+FCI Automotive (Delphi)
+FCT Electronics
+FDI (Future Designs, Inc)
+Fenwal / Honeywell
+FerriShield / LeaderTech
+Filter Concepts / Astrodyne TDI
+Finisar Corporation
+First Sensor
+Flamar
+Flambeau
+FlexiPanel
+FLIR Systems
+Fluke
+Fox
+Freescale / NXP
+FTDI Chip
+Fujitsu
+Future Designs, Inc. (FDI)
+GaN Systems
+GE Critical Power
+GE Energy (Formerly Lineage Power)
+GE Measurement & Control
+General Semiconductor / Vishay
+GeneSiC Semiconductor
+GHI Electronics
+Glenair
+Global Specialties
+Gore
+Gravitech
+Grayhill
+Greenlee
+Greenliant
+GSI Technology
+Guerrilla RF
+Gumstix
+GWconnect
+HALO Electronics
+Hamlin / Littelfuse
+Hammond Manufacturing
+Hantronix
+HARTING
+Harwin
+Heatron
+Helicomm
+Helium
+Heraeus Sensor Technology
+Heyco
+HiRel Systems / Vishay
+Hirose Electric
+HI-TECH Software
+Hittite / Analog Devices
+Hobbs / Honeywell
+Honeywell
+HUBER+SUHNER
+Huntington / Vishay
+Hycal / Honeywell
+IAR Systems
+iBASE Technology
+ICCNexergy
+ICE Components
+IDI / Smiths Interconnect
+IDT (Integrated Device Technology)
+IEI Technology
+IET Labs
+Illinois Capacitor / CDE
+Illumitex
+ilumi
+Imagination Technologies
+Industruino
+Infineon Technologies
+Inolux
+Insight SiP
+Inspired LED
+Integrated Device Technology (IDT)
+Intel
+Intel / Altera
+InterFET
+International Power
+International Rectifier / Infineon
+Intersil / Renesas
+InvenSense / TDK
+Inventus Power
+IPDiA / Murata
+IQD
+IRC / TT Electronics
+Iso-Tip
+ISSI
+ITT Cannon
+ITW Switches
+IXYS
+JAE Electronics
+Jewell Modutec
+JKL Components
+Johanson Dielectrics
+Johanson Technology
+Johnson / Cinch Connectivity Solutions
+Jonard Industries
+JRC / NJR (New Japan Radio)
+JRC / NJR (New Japan Radio)
+JST Automotive Connectors
+JW Miller / Bourns
+Kamaya
+Ka-Ro Electronics
+Kavlico
+Keil Tools
+Keithley
+KEMET Electronics
+Kester
+Keterex
+Keysight Technologies
+Keystone Electronics
+Kilovac / TE Connectivity
+Kingbright
+Kionix / ROHM Semiconductor
+Knowles
+KOA Speer
+KOSTAL
+Kycon
+Kyocera
+Laird
+Lamb Industries
+Lambda Power / TDK
+Lamina
+Lantronix
+Lapis Semiconductor / ROHM Semiconductor
+Lattice Semiconductor
+LCR Electronics / Astrodyne TDI
+LeaderTech
+Lebow / Honeywell
+LeCroy
+LED Engin
+Ledil
+LedLink Optics
+LEMO
+Leopard Imaging
+Lineage Power / GE Critical Power
+Linear Technology / Analog Devices
+LinkSprite
+Linx Technologies
+LiPPERT By ADLINK
+Lite-On
+Littelfuse
+LMB / Heeger
+Lorlin
+Low Power Radio Solutions (LPRS)
+LPRS (Low Power Radio Solutions)
+LS Research / Laird
+LSI Corporation
+LTW / Amphenol
+Lumex
+Lumileds
+Luminary Micro
+Luminus Devices
+MACOM
+Macraigor Systems
+Maestro Wireless Solutions
+Magnecraft
+Mallory
+Mallory Sonalert
+Marquardt Switches Inc
+Matrix Orbital
+Maxim Integrated
+MaxStream
+Maxwell Technologies
+MCB Industrie / Vishay
+MCC (Micro Commercial Components)
+MCS Electronics
+mCube
+MEAN WELL
+Measurement Specialties / TE Connectivity
+MEC Switches
+MEDER electronic (Standex)
+Meggitt Electronic Components
+Melexis
+MEMSIC
+Menda
+Merit Sensor
+Metcal
+Meterman
+MG Chemicals
+Micrel / Microchip
+Micrium
+Micro Commercial Components (MCC)
+Micro Crystal
+MICRO SWITCH / Honeywell
+Microchip Technology
+Micronas / TDK
+Micropelt
+Microsemi
+Microtips Technology
+Midcom / Wurth Electronics
+Mide Technology
+Midwest Microwave / Cinch Connectivity Solutions
+MikroElektronika
+Mill-Max
+Mills / Vishay
+Milwaukee / Vishay
+MinnowBoard
+Mitsubishi Electric
+Molex
+Monolithic Power Systems (MPS)
+Mpression
+MPS - Monolithic Power Systems
+MSI
+Mueller Electric
+Murata
+National Instruments
+National Semiconductor / TI
+NEC Relays
+NEC-TOKIN / KEMET
+NEI / Honeywell
+Nesscap
+NetBurner
+Netduino
+NetPower Technologies
+Neutrik
+New Age Enclosures
+NewAE Technology
+Newhaven Display
+Nexperia
+Nextreme Thermal Solutions
+NI
+Nichicon
+NJR (New Japan Radio)
+NKK Switches
+NMB Technologies
+NorComp
+Nordic Semiconductor
+Noritake
+NOVACAP / Knowles
+NovaSensor / GE M&C
+NovTech
+Nurve Networks
+NXP Semiconductors
+Octavo Systems
+OEG / TE Connectivity
+Ohmite
+OK Industries / Jonard
+Olimex Ltd.
+Olmatic
+Omron
+ON Semiconductor
+Onion
+Oplink
+Optek / TT Electronics
+Optrex / Kyocera
+Opulent Americas
+ORing
+Orion Fans
+OSEPP Electronics
+OSRAM Opto Semiconductors
+OTTO
+Packard Electric / Delphi
+PacTec
+Panasonic
+Panavise
+PandaBoard.org
+Panduit
+Parallax
+Parallax Power
+Particle
+PCD / Amphenol
+Pericom / Diodes Inc.
+Phihong
+Philips Lumileds
+Philips Semiconductors
+Phoenix Contact
+Phycomp / Yageo
+Piher
+Plato
+Plessey Semiconductors
+Pletronics Inc.
+PLX Technology / Broadcom
+Polamco / TE Connectivity
+Polytech / Vishay
+Pomona Electronics
+Potter & Brumfield / TE Connectivity
+Potter / AMSECO
+Power by Linear / Analog Devices
+Power Dynamics
+Power Integrations
+Powercast
+Power-One
+Power-Sonic
+PowerStor / Eaton
+Preci-Dip
+Projects Unlimited
+Protektive Pak
+PUI Audio
+Pulse Electronics
+PulseCore Semiconductor (ON Semiconductor)
+Pycom
+Q-Cee's / TE Connectivity
+Qorvo
+Qspeed Semiconductor
+Qualcomm RF360
+Qualtek Electronics
+Quantum Research Group
+Quatech / B&B Electronics
+Rabbit Semiconductor
+Radiall
+Radiotronix
+Radius Power / Astrodyne TDI
+RAF Electronic Hardware
+RAFI
+Ramtron
+Raspberry Pi
+Raychem / TE Connectivity
+Raychem CP / Littelfuse
+REAN Connectors
+RECOM
+Rectron
+Red Pitaya
+REDEL / LEMO
+Redpine Signals
+ReFLEX CES
+Renata
+Renesas Electronics
+RF Digital
+RF360 / Qualcomm
+RFaxis / Skyworks Solutions Inc.
+RFM
+RFMD
+Ricoh Electronic Devices Company
+Rigado
+RIoTboard
+ROBOTIS
+Roederstein / Vishay
+ROHM Semiconductor
+Rosenberger
+Roving Networks / Microchip
+Rowley Associates
+RushUp
+Sagrad Inc.
+Samsung ARTIK
+SanDisk
+Sanyo Denki
+Sanyo Semiconductor / ON Semiconductor
+Sargent Tools
+Schaffner
+SchmartBoard
+Schneider Electric
+Schurter
+SCS
+Seeed Studio
+SEGGER Microcontroller
+Seiko Instruments
+Seiko Instruments Micro Energy
+Seiko Printers
+Seiko Semiconductors
+Semelab / TT Electronics
+Semflex / Cinch Connectivity Solutions
+Semitec USA
+Semtech
+Sensata
+Sensata Technologies
+SensiEDGE
+Sensirion
+Sensotec / Honeywell
+Sensym / Honeywell
+Seoul Semiconductor
+Serpac
+Sfera Labs
+Sfernice / Vishay
+Sharks Cove
+Sharp Microelectronics
+Shindengen
+Sierra Monitor
+Signal Transformer / Bel
+Signum Systems
+Silego Technology
+Silex Technology
+Silicon Labs
+Silicon Microstructures, Inc. (SMI)
+Siliconix / Vishay
+Silvertronic
+Simpson Electric Company
+SINE Systems / Amphenol
+SiTime
+SkyeTek
+Skyworks Solutions Inc.
+SL Power
+Smartworx
+SMI (Silicon Microstructures Inc.)
+Smiths Interconnect
+SMSC
+Sola / Hevi-Duty
+SolderCore
+Song Chuan
+Souriau
+Spansion / Cypress Semiconductor
+SparkFun
+Spectra Symbol
+Spectra-Strip / Amphenol
+Spectrol / Vishay
+Spectrum Control
+Spectrum Digital
+Sprague / Vishay
+Sprague Goodman
+SST
+Staco
+Stadium Group
+Standex
+Startco
+STEC
+steute
+Stewart Connector / Bel
+STMicroelectronics
+Storm Interface
+Stratos / Cinch Connectivity Solutions
+Sumida
+Sunbank
+Sunbrite
+Sunon
+Supertex
+Susumu
+SV Microwave / Amphenol
+Swissbit
+Switchcraft
+Syfer / Knowles
+Symmetry Electronics
+Tadiran Batteries
+Taica
+Taiwan Semiconductor
+Taiyo Yuden
+Tamura
+Taoglas
+TAOS / ams
+TCS/Amphenol
+TDK Corporation
+TDK-Lambda
+TE Connectivity
+Teccor / Littelfuse
+TechNexion
+Techno / Vishay
+Techspray
+Tektronix
+Teledyne LeCroy
+Teledyne Relays
+Telemecanique
+Temp-Flex Cable, Inc.
+Tempo Semiconductor
+Terasic Technologies
+Teridian Semiconductor
+Texas Instruments
+THAT Corporation
+Thermometrics / GE M&C
+Thin Film / Vishay
+TI
+TinyCircuits
+tinyTILE
+TOKIN / KEMET
+TOKO / Murata
+Torex Semiconductor
+Toshiba
+Toshiba Memory
+TRACO Power
+TriAccess Technologies
+Triad Magnetics
+Tripp Lite
+TriQuint Semiconductor
+Tri-Star Electronics
+Triune Systems
+Trompeter / Cinch Connectivity Solutions
+Tronics / TDK
+TRP Connector / Bel
+TT Electronics
+Tuchel / Amphenol
+Tusonix / CTS
+Twin Industries
+TXC
+Tyco Electronics (TE Connectivity)
+UDOO
+Ultralife
+United Chemi-Con
+UP Board
+US Sensor
+USCi (United Silicon Carbide, Inc.)
+Vacuumschmelze (VAC)
+Varitronix
+VCC
+Vector
+Vectron International
+Versarien Technologies
+VIA Technologies
+Vicor
+VISATON
+Vishay
+Vishay Precision Group
+Vision-Luxo
+Visionox
+Visual Communications Company
+Vitelec / Cinch Connectivity Solutions
+Vitramon / Vishay
+Volex
+Voltronics / Knowles
+VORAGO Technologies
+Waber
+Wakefield-Vette
+Walsin
+Wandboard
+WeEn Semiconductors
+Weller
+Welwyn / TT Electronics
+Western Design Center
+White Electronic Designs
+White Rodgers
+Wi2Wi
+Wickmann / Littelfuse
+Wiha
+WIMA
+Wiremold
+WIZnet
+WJ Communications
+WL Gore
+Wolfson / Cirrus Logic
+Wolfspeed / Cree
+Wurth Electronics
+Xeltek
+Xsens
+Yageo
+Yamaichi Electronics
+Zarlink Semiconductor
+Zentri
+Zetex / Diodes Inc.
+ZF Electronics
+Zilog / IXYS
+ZMDI
+
