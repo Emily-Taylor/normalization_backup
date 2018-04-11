@@ -63,10 +63,19 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
       - run:
-          name: deploy sls
+          name: install dependencies
           command: |
             sudo pip3 install pipenv
+            sudo npm i -g serverless
+            npm install
             pipenv install
+      - save_cache:
+          paths:
+            - /home/circleci/.cache
+          key: v1-dependencies-{{ checksum "Pipfile.lock" }}
+      - run:
+          name: deploy sls
+          command: |
             pipenv run sls   deploy
 workflows:
   version: 2
