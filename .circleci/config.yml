@@ -62,12 +62,11 @@ jobs:
           - v1-dependencies-{{ checksum "Pipfile.lock" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-
-        - run:
+      - run:
           name: deploy sls
           command: |
             pipenv install
-            pipenv run sls deploy
+            pipenv run sls   deploy
 workflows:
   version: 2
   build-deploy:
