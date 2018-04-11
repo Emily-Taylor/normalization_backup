@@ -66,6 +66,7 @@ jobs:
           name: install dependencies
           command: |
             sudo pip3 install pipenv
+            sudo apt-get install npm
             sudo npm i -g serverless
             npm install
             pipenv install
