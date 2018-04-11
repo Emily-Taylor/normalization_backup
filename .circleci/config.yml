@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  build:
+  build-job:
     docker:
       # specify the version you desire here
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
@@ -23,32 +23,50 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "requirements.txt" }}
+          - v1-dependencies-{{ checksum "Pipfile.lock" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
       - run:
           name: install dependencies
           command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements.txt
-
+            sudo pip3 install pipenv
+            pipenv install --dev
+            
       - save_cache:
           paths:
-            - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
+            - /home/circleci/.cache
+          key: v1-dependencies-{{ checksum "Pipfile.lock" }}
         
       # run tests!
       - run:
           name: run tests
           command: |
-            . venv/bin/activate
-             python -m unittest
+            pipenv run python -m unittest
 
       # more tests!
       - run:
-          name: run tests
+          name: run more tests
           command: |
-            . venv/bin/activate
-             mypy normalization/__init__.py  --ignore-missing-imports
+            pipenv run mypy normalization/__init__.py  --ignore-missing-imports
+  deploy-job:
+    docker:
+      - image: circleci/python:3.6.1
+    working_directory: ~/repo
+
+    steps:
+        - run:
+          name: run more tests
+          command: |
+            pipenv run sls deploy
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build-job
+      - deploy-job:
+          requires:
+            - build-job
+          filters:
+            branches:
+              only: master

@@ -1,8 +1,10 @@
 region_name:
   eu-central-1
 missing_queue_url:
- https://sqs.eu-central-1.amazonaws.com/202439666482/missing-mapping
+  https://sqs.eu-central-1.amazonaws.com/202439666482/missing-mapping
 missing_queue_name:
- missing-mapping
- 
-      
+  missing-mapping
+incoming_sns_topic:
+  arn:aws:sns:eu-central-1:202439666482:crawler-new-item
+outgoing_sns_topic:
+  arn:aws:sns:eu-central-1:202439666482:norm-new-item

@@ -1,36 +1,53 @@
-from os import getenv
+from lambda_decorators import dump_json_body
+import yaml
 import json
-import logging
-import common as c
+import common as c 
 import normalization as n
+import os
+
+
+@dump_json_body
+def hello(event, context):
+	 return {
+		  "statusCode": 200,
+		  "body": {
+				"message": "Go Serverless v1.0! Your function executed successfully!",
+				"input": event,
+		  },
+	 }
+
+@dump_json_body
+def norm(event, context):
+	 return {
+		  "statusCode": 200,
+		  "body": {
+				"message": "Go Serverless v1.0! Your function executed successfully!",
+				"input": event,
+		  },
+	 }
+
+import logging 
 from collections import defaultdict
 from hashlib import sha1
-import os
-import yaml
+
+
 here = os.path.dirname(os.path.realpath(__file__))
+
 with open(os.path.join(here,'mapping.yml'), 'r') as f:
-	mapping = yaml.load(f)
-
-import signal
-signal.signal(signal.SIGINT, signal.SIG_DFL)
+	 mapping = yaml.load(f)
 
 
-PORT = int(getenv('PORT',8080))
 
-from flask import Flask, request, jsonify
-
-app = Flask(__name__)
 
 def deep_set(part,value,keys):
-	d = part
-	for key in keys[:-1]:
-		d = d[key]
-	d[keys[-1]] = value
+	 d = part
+	 for key in keys[:-1]:
+		  d = d[key]
+	 d[keys[-1]] = value
 
+@dump_json_body
 
-@app.route('/normalize_parts', methods=['POST'])
-def norm_handler_post():
-	message = request.get_json(silent=True)
+def norm_handler(message, *args):
 	output = {'parts':[]}
 	if 'parts' in message:
 		if 'source' in message:
@@ -55,10 +72,9 @@ def norm_handler_post():
 				part['categories_raw'] = {}
 				part['categories_raw'][source] = raw_categories
 			#remote availablity and pricing, minimum_quantity
-			part.pop('availablity', None)
+			part.pop('availability', None)
 			part.pop('pricing', None)
 			part.pop('minimum_quantity', None)
-
 			for key in list(part): 
 				# apply norm
 					if key in mapping[source]:
@@ -138,11 +154,9 @@ def norm_handler_post():
 				#print(part['id'])
 			else:
 				logging.error("can't find MPN on part!")
-				return False
-			#append to output arya
-			output['parts'].append(part)
+				return False 
 			
-	return jsonify(output)
-
-
-app.run(host='0.0.0.0',port=PORT, threaded=True)    
+			output['parts'].append(part)
+	print("length of payload: {}".format(len(json.dumps(output).encode("utf8"))))
+	print(c.publish_data(output))
+	return output

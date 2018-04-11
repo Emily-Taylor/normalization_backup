@@ -1,11 +1,23 @@
 import os
 import yaml
 import boto3
-
+import json
 here = os.path.dirname(os.path.realpath(__file__))
 
 with open(os.path.join(here,'config.yml'), 'r') as f:
-    config = yaml.load(f)
+	config = yaml.load(f)
+
+
+client = boto3.client('sns', region_name=config['region_name'])
+
+#post to sns
+def publish_data(data: dict):
+	response = client.publish(
+	TopicArn=config['outgoing_sns_topic'],
+	Message=json.dumps(data),
+	Subject='normalized-data')
+	return response
+
 
 # Get the service resource
 sqs = boto3.resource('sqs', region_name=config['region_name'])
@@ -14,11 +26,11 @@ sqs = boto3.resource('sqs', region_name=config['region_name'])
 queue = sqs.get_queue_by_name(QueueName=config['missing_queue_name'])
 
 def send_msg(msg):
-    response = queue.send_message(
-    MessageBody=msg
-    )
-    # message ID and MD5
-    return(response.get('MessageId'),response.get('MD5OfMessageBody'))
+	response = queue.send_message(
+	MessageBody=msg
+	)
+	# message ID and MD5
+	return(response.get('MessageId'),response.get('MD5OfMessageBody'))
 
 
 # stuff related to sending signed requests to  mfr service
@@ -49,51 +61,51 @@ auth=AWSV4Sign(credentials, region, service)
 requests_cache.install_cache(backend='memory')
 
 def get_alias(mfr):
-    if isinstance(mfr, string_types):
-        #turn to lower case
-        mfr = mfr.lower()
-        url = uri_alias.format_map({"name":mfr, "env":env})
-        response= requests.get(url, auth=auth, headers=headers)
-        if response.ok:
-            logger.info('result from cache {0}'.format(response.from_cache))
-            data = response.json()
-            return data
-        else:
-            return False
-    else:
-        logger.error('alias is not a string')
-        return False
+	if isinstance(mfr, string_types):
+		#turn to lower case
+		mfr = mfr.lower()
+		url = uri_alias.format_map({"name":mfr, "env":env})
+		response= requests.get(url, auth=auth, headers=headers)
+		if response.ok:
+			logger.info('result from cache {0}'.format(response.from_cache))
+			data = response.json()
+			return data
+		else:
+			return False
+	else:
+		logger.error('alias is not a string')
+		return False
 
 def get_full(mfr):
-    if isinstance(mfr, string_types):
-        url = uri_full.format_map({"name":mfr, "env":env})
-        response= requests.get(url, auth=auth, headers=headers)
-        if response.ok:
-            data = response.json()
-            return data
-        else:
-            return False
-    else:
-        logger.error('alias is not a string')
-        return False
+	if isinstance(mfr, string_types):
+		url = uri_full.format_map({"name":mfr, "env":env})
+		response= requests.get(url, auth=auth, headers=headers)
+		if response.ok:
+			data = response.json()
+			return data
+		else:
+			return False
+	else:
+		logger.error('alias is not a string')
+		return False
 
 def normalize_mfr(mfr: str):
-    data = {"mfr": { "main":"","aliases":[]}}
-    if isinstance(mfr, string_types):
-        alias = get_alias((mfr))
-        if alias:
-            if 'data' in alias and 'parent' in alias['data']:
-                main = alias['data']['parent']
-                data['mfr']['main'] = main
-                alias2 =  get_full(main)
-                if 'data' in alias2 and 'alias' in alias2['data']:
-                    data['mfr']['aliases'] = alias2['data']['alias']
-            return data
-        elif not alias:
-            logger.error("mfr mapping not found. normalization wasn't done.")
-            data['mfr']['main'] = mfr.lower()
-            return data
-    else:
-        logger.error('bad mfr mapping received')
-        data['mfr']['main'] = mfr.lower()
-        return data
+	data = {"mfr": { "main":"","aliases":[]}}
+	if isinstance(mfr, string_types):
+		alias = get_alias((mfr))
+		if alias:
+			if 'data' in alias and 'parent' in alias['data']:
+				main = alias['data']['parent']
+				data['mfr']['main'] = main
+				alias2 =  get_full(main)
+				if 'data' in alias2 and 'alias' in alias2['data']:
+					data['mfr']['aliases'] = alias2['data']['alias']
+			return data
+		elif not alias:
+			logger.error("mfr mapping not found. normalization wasn't done.")
+			data['mfr']['main'] = mfr.lower()
+			return data
+	else:
+		logger.error('bad mfr mapping received')
+		data['mfr']['main'] = mfr.lower()
+		return data

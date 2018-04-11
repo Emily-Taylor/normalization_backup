@@ -18,8 +18,10 @@ var/
 
 # Serverless directories
 .serverless
+node_modules
 
 data/
+data-full/
 headers-data/
 
 

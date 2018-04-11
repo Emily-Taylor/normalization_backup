@@ -9,8 +9,6 @@ Unit tests for normalization functions
 """
 
 import unittest
-import pandas as pd
-import numpy as np
 import normalization
 import numbers
 # import preprocess
