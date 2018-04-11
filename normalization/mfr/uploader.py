@@ -10,13 +10,17 @@ from boto3 import session
 import os,sys
 import threading
 
+import signal
+signal.signal(signal.SIGINT, signal.SIG_DFL)
+
 # Establish credentials
 session = session.Session()
 credentials = session.get_credentials()
 region = session.region_name or 'eu-central-1'
 
 def post_data(data):
-    uri =  "https://app-dev.sourcingbot.com/entity/manufacturer"
+#    uri =  "https://app.sourcingbot.com/entity/manufacturer"
+    uri =  "http://localhost:3000/entity/manufacturer"
     headers={"Content-Type":"application/json"}
     service = 'execute-api'
     auth=AWSV4Sign(credentials, region, service)

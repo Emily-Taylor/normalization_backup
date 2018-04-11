@@ -46,3 +46,9 @@ jobs:
             . venv/bin/activate
              python -m unittest
 
+      # more tests!
+      - run:
+          name: run tests
+          command: |
+            . venv/bin/activate
+             mypy normalization/__init__.py  --ignore-missing-imports

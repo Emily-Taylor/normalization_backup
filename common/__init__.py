@@ -77,7 +77,7 @@ def get_full(mfr):
         logger.error('alias is not a string')
         return False
 
-def normalize_mfr(mfr):
+def normalize_mfr(mfr: str):
     data = {"mfr": { "main":"","aliases":[]}}
     if isinstance(mfr, string_types):
         alias = get_alias((mfr))
@@ -90,10 +90,10 @@ def normalize_mfr(mfr):
                     data['mfr']['aliases'] = alias2['data']['alias']
             return data
         elif not alias:
-            logger.error('mfr mapping not found')
-            data['mfr']['main'] = mfr
+            logger.error("mfr mapping not found. normalization wasn't done.")
+            data['mfr']['main'] = mfr.lower()
             return data
     else:
         logger.error('bad mfr mapping received')
-        data['mfr']['main'] = mfr
+        data['mfr']['main'] = mfr.lower()
         return data

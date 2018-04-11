@@ -1,37 +1,37 @@
-import asyncio
-import aiohttp
+from os import getenv
 import json
-URL  =  'https://6q9kqpdeof.execute-api.eu-central-1.amazonaws.com/production/entity/parts'
-import yaml
-import os
-from . import normalization as n
-from . import common as c
-
-import logging 
+import logging
+import common as c
+import normalization as n
 from collections import defaultdict
 from hashlib import sha1
-
-
+import os
+import yaml
 here = os.path.dirname(os.path.realpath(__file__))
-
 with open(os.path.join(here,'mapping.yml'), 'r') as f:
-    mapping = yaml.load(f)
+	mapping = yaml.load(f)
 
-@asyncio.coroutine
-async def post_data(data):
-	async with aiohttp.ClientSession() as session:
-		async with session.post(url=URL,json=data) as resp:
-			return resp
+import signal
+signal.signal(signal.SIGINT, signal.SIG_DFL)
 
+
+PORT = int(getenv('PORT',8080))
+
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
 
 def deep_set(part,value,keys):
-    d = part
-    for key in keys[:-1]:
-        d = d[key]
-    d[keys[-1]] = value
+	d = part
+	for key in keys[:-1]:
+		d = d[key]
+	d[keys[-1]] = value
 
 
-async def norm_handler(message, *args):
+@app.route('/normalize_parts', methods=['POST'])
+def norm_handler_post():
+	message = request.get_json(silent=True)
+	output = {'parts':[]}
 	if 'parts' in message:
 		if 'source' in message:
 			source = message['source']
@@ -58,6 +58,7 @@ async def norm_handler(message, *args):
 			part.pop('availablity', None)
 			part.pop('pricing', None)
 			part.pop('minimum_quantity', None)
+
 			for key in list(part): 
 				# apply norm
 					if key in mapping[source]:
@@ -137,17 +138,11 @@ async def norm_handler(message, *args):
 				#print(part['id'])
 			else:
 				logging.error("can't find MPN on part!")
-				return False 
+				return False
+			#append to output arya
+			output['parts'].append(part)
 			
-			# post data after normalization
-			
-			#print("going to post part:\n")
-			print(json.dumps(part))	
-			result = await post_data(part)
-			#print(result)				
-	return True
+	return jsonify(output)
 
-async def error_handler(exc_type, message):
-	print('exception {} received'.format(exc_type))
-	# do not delete the message that originated the error
-	return  False
+
+app.run(host='0.0.0.0',port=PORT, threaded=True)    

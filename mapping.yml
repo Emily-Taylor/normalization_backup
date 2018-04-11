@@ -1,6 +1,8 @@
 mouser:
-  categories_mouser: 
-    output_key: categories_mouser
+  description_raw:
+    output_key: description_raw
+  categories_raw:
+    output_key: categories_raw
   categories: 
     output_key: categories
   description:
@@ -214,7 +216,7 @@ mouser:
   frequency_stability:
     output_key: frequency_stability
     actions:
-      - parse_any_number
+      - extract_num
   lead_style:
     output_key: termination_style
   lifecycle:
@@ -467,16 +469,64 @@ digikey:
       - split_temp
     actions:
       - extract_num
+  port_style:
+    output_key: port_style
+    actions:
+      - lower
+  inductance_@_frequency:
+    output_key:
+      - inductance_@_frequency_inductance
+      - inductance_@_frequency_frequency
+    actions:
+      - split_at
+  "turns_ratio_primary:secondary":
+    output_key: "turns_ratio_primary:secondary"
+  frequency_stability:
+    output_key: frequency_stability
+    actions:
+      - extract_num
+  frequency_stability_(total):
+    output_key: frequency_stability_total
+    actions:
+      - extract_num
+  frequency_tolerance:
+    output_key: frequency_tolerance
+    actions:
+      - extract_num
+  signal_conditioning:
+    output_key: signal_conditioning
+    actions:
+      - lower
+  pressure_type:
+    output_key: pressure_type
+    actions:
+      - lower
+  load_capacitance:
+    output_key: load_capacitance
+    actions:
+      - extract_num
   attachment_method:
     output_key: attachment_method
   shape:
     output_key: shape
+  sensor_type:
+    output_key: sensor_type
+    actions:
+      - lower
+  response_time:
+    output_key: response_time
+    actions:
+      - extract_num
   access_time:
     output_key: access_time
     actions:
       - extract_num
   insertion_loss:
     output_key: insertion_loss
+    actions:
+      - parse_any_number
+  sensitivity:
+    output_key: sensitivity
     actions:
       - extract_num
   output:
@@ -543,6 +593,12 @@ digikey:
       - maximum_operating_temperature_junction
     actions:
       - split_temp
+  2nd_harmonic,_typ_(dbc):
+    output_key: 2nd_harmonic,_typ_(dbc)
+  contents:
+    output_key: contents
+    actions:
+      - lower
   resistance_wiper_(ohms)_(typ):
     output_key: resistance_wiper_(ohms)_(typ)
   number_of_bands:
@@ -553,14 +609,42 @@ digikey:
     output_key: thickness_(max)
     actions:
       - parse_dimension
+  icc_max:
+    output_key: icc_max
+    actions:
+      - extract_num
+  phase_noise_typ_(dbchz):
+    output_key: phase_noise_typ_(dbchz)
   operational_gauss:
     output_key: operational_gauss
     actions:
       - extract_num
+  tuning_voltage_(vdc):
+    output_key:
+      - tuning_voltage_(vdc)_min
+      - tuning_voltage_(vdc)_max
+    actions:
+      - split_temp
+  spread_spectrum_bandwidth:
+    output_key:
+      - spread_spectrum_bandwidth_center_spread_min
+      - spread_spectrum_bandwidth_center_spread_max
+      - spread_spectrum_bandwidth_down_spread_min
+      - spread_spectrum_bandwidth_down_spread_max
+    actions:
+      - split_spread
+  1st_connector:
+    output_key: 1st_connector
+  2nd_connector:
+    output_key: 2nd_connector
+  pushing_(mhzv):
+    output_key: pushing_(mhzv)
+  power_(dbm):
+    output_key: power_(dbm)
   return_loss:
     output_key: return_loss
     actions:
-      - extract_num
+      - parse_any_number
   outer_dimension:
     output_key:
       - outer_dimension_width
@@ -658,7 +742,57 @@ digikey:
     actions:
       - extract_num
   power_max:
-    output_key: power_max
+    output_key: power_rating
+    actions:
+      - extract_num
+  voltage_auxillary:
+    output_key:
+      - voltage_auxillary_voltage
+      - voltage_auxillary_current
+    actions:
+      - split_at
+  voltage_primary:
+    output_key:
+      - voltage_primary_min
+      - voltage_primary_max
+    actions:
+      - split_temp
+  voltage_secondary:
+    output_key: voltage_secondary
+    actions:
+      - extract_num
+  voltage_secondary_(full_load):
+    output_key:
+      - voltage_secondary_(full_load)_parallel
+      - voltage_secondary_(full_load)_series
+    actions:
+      - split_current
+  frequency_response:
+    output_key: frequency_response
+    actions:
+      - parse_any_number
+  e.t.:
+    output_key: e.t.
+    actions:
+      - extract_num
+  footprint:
+    output_key:
+      - footprint_length
+      - footprint_width
+    actions:
+      - parse_dimensions
+  approvals:
+    output_key: approvals
+  r_@_25°c:
+    output_key: resistance
+    actions:
+      - extract_num
+  resistance_@_25°c:
+    output_key: resistance
+    actions:
+      - extract_num
+  resistance_in_ohms_@_25°c:
+    output_key: resistance
     actions:
       - extract_num
   output_voltage_range:
@@ -687,7 +821,7 @@ digikey:
       - lifetime_@_temp_temp
     actions:
       - split_at    
-    esr_(equivalent_series_resistance):
+  esr_(equivalent_series_resistance):
     output_key:
       - esr_resistance
       - esr_frequency
@@ -748,7 +882,7 @@ digikey:
   packages_included:
     output_key: packages_included
   capacitance:
-    output_key: capacitance
+    output_key: load_capacitance
     actions:
       - extract_num
   capacitance_range:
@@ -980,6 +1114,10 @@ digikey:
     output_key: voltage_rating_ac
     actions:
       - extract_num
+  impedance_primary_(ohms):
+    output_key: primary_impedance
+  impedance_secondary_(ohms):
+    output_key: secondary_impedance
   frequency_range:
     output_key:
       - frequency_range_min
@@ -1016,6 +1154,8 @@ digikey:
     output_key: bundle_diameter
     actions:
       - parse_dimension
+  power_level:
+    output_key: power_level
   cable_diameter:
     output_key: cable_diameter
     actions:
@@ -1072,8 +1212,24 @@ digikey:
     output_key: charge_current_max
     actions:
       - extract_num
+  current_steady_state_max:
+    output_key: current_steady_state_max
+    actions:
+      - extract_num
   charge_injection:
     output_key: charge_injection
+    actions:
+      - extract_num
+  current_trip_(it):
+    output_key: current_trip_(it)
+    actions:
+      - extract_num
+  r_@_current:
+    output_key: r_@_current
+    actions:
+      - extract_num
+  resistance_tolerance:
+    output_key: resistance_tolerance
     actions:
       - extract_num
   charge_time:
@@ -1082,6 +1238,10 @@ digikey:
       - charge_time_max
     actions:
       - split_temp
+  voltage_max:
+    output_key: voltage_max
+    actions:
+      - extract_num
   cladding_diameter:
     output_key: cladding_diameter
     actions:
@@ -1118,18 +1278,36 @@ digikey:
     output_key: current_rating_max
     actions:
       - extract_num
+  current_ratio:
+    output_key: current_ratio
   mounting_type:
     output_key: mounting_style
   accessory_type:
     output_key: accessory_type
   type:
     output_key: type
+  port_size:
+    output_key: port_size
+    actions:
+      - parse_dimension
   voltage_clamping:
     output_key: clamping_voltage
     actions:
       - extract_num
   material_core:
     output_key: material_core
+  intended_chipset:
+    output_key: intended_chipset
+  chipset_manufacturer:
+    output_key: chipset_manufacturer
+  primary_winding(s):
+    output_key: primary_windings
+    actions:
+      - lower
+  secondary_winding(s):
+    output_key: secondary_windings
+    actions:
+      - lower
   ratings:
     output_key: ratings
   for_use_withrelated_products:
@@ -1161,13 +1339,41 @@ digikey:
     actions:
       - parse_dimension
   capacitance_input:
-    output_key: capacitance_input
+    output_key: load_capacitance
+    actions:
+      - extract_num
+  operating_mode:
+    output_key: operating_mode
+    actions:
+      - lower
+  transformer_type:
+    output_key: transformer_type
+    actions:
+      - lower
+  weight:
+    output_key: weight
+    actions:
+      - parse_any_number
+  resistance_initial_(ri)_(min):
+    output_key: resistance_initial_(ri)_(min)
+    actions:
+      - extract_num
+  resistance_post_trip_(r1)_(max):
+    output_key: resistance_post_trip_(r1)_(max)
+    actions:
+      - extract_num
+  resistance_25°c_(typ):
+    output_key: resistance_25°c_(typ)
     actions:
       - extract_num
   breakdown_voltage:
     output_key: breakdown_voltage
     actions:
       - extract_num
+  function:
+    output_key: function
+    actions:
+      - lower
   board_thickness:
     output_key: board_thickness
     actions:
@@ -1272,6 +1478,30 @@ digikey:
     output_key: current_supply_max
     actions:
       - extract_num
+  current_supply_(max):
+    output_key: current_supply_max
+    actions:
+      - extract_num
+  frequency_output_1:
+    output_key: frequency_output_1_MHz
+    actions:
+      - parse_any_number
+  frequency_output_2:
+    output_key: frequency_output_2_MHz
+    actions:
+      - parse_any_number
+  frequency_output_3:
+    output_key: frequency_output_3_MHz
+    actions:
+      - parse_any_number
+  programmable_type:
+    output_key: programmable_type
+    actions:
+      - lower
+  frequency_output_4:
+    output_key: frequency_output_4_MHz
+    actions:
+      - parse_any_number
   energy:
     output_key: surge_energy_rating
     actions:
@@ -1280,6 +1510,12 @@ digikey:
     output_key: current_supply
     actions:
       - extract_num
+  current_output_(max):
+    output_key:
+      - current_output_max_parallel
+      - current_output_max_series
+    actions:
+      - split_current
   resistance:
     output_key: resistance
     actions:
@@ -1309,7 +1545,7 @@ digikey:
     actions:
       - parse_dimension
   height_seated_(max):
-    output_key: height_seated_(max)
+    output_key: height
     actions:
       - parse_dimension
   inductance_connected_in_parallel:
@@ -1318,6 +1554,10 @@ digikey:
     output_key: inductanceseries_ph
   inductance:
     output_key: inductance
+    actions:
+      - extract_num
+  voltage_isolation:
+    output_key: voltage_isolation
     actions:
       - extract_num
   resistance_(ohms):
@@ -1396,18 +1636,47 @@ digikey:
       - maximum_operating_temperature
     actions:
       - split_temp
+  frequency_bands_(low_high):
+    output_key:
+      - frequency_low_band_min
+      - frequency_low_band_max
+      - frequency_high_band_min
+      - frequency_high_band_max
+    actions:
+      - split_double
   voltage_supply:
     output_key:
       - operating_supply_voltage_min
       - operating_supply_voltage_max
     actions:
       - split_temp
+  high_band_attenuation_(min_max_db):
+    output_key:
+      - high_band_attenuation-low_band-min_attenuation
+      - high_band_attenuation-high_band-max_attenuation
+      - high_band_attenuation-low_band-typical_attenuation
+    actions:
+      - split_band
+  low_band_attenuation_(min_max_db):
+    output_key:
+      - low_band_attenuation-high_band-min_attenuation
+      - low_land_attenuation-low_band-max_attenuation
+      - low_band_attenuation-high_band-typical_attenuation
+    actions:
+      - split_band
   voltage_supply,_analog:
     output_key:
       - minimum_voltage_supply_analog
       - maximum_voltage_supply_analog
     actions:
       - split_temp     
+  return_loss_(low_band_high_band):
+    output_key:
+      - return_loss-low_band
+      - return_loss-high_band
+      - return_loss-typical
+    actions:
+      - split_band
   voltage_supply,_digital:
     output_key:
       - minimum_voltage_supply_digital
@@ -1420,6 +1689,20 @@ digikey:
     output_key: packagecase
   pricing:
     output_key: pricing
+  dc_resistance_(dcr):
+    output_key:
+      - dc_resistance_primary
+      - dc_resistance_secondary
+    actions:
+        - split_resistance
+  dc_resistance_(dcr)_primary:
+    output_key: dc_resistance_primary
+    actions:
+      - extract_num
+  dc_resistance_(dcr)_secondary:
+    output_key: dc_resistance_secondary
+    actions:
+      - extract_num
   detent:
     output_key: detent
   series:
@@ -1442,6 +1725,8 @@ digikey:
       - parse_dimensions
   values:
     output_key: values
+  center_tap:
+    output_key: center_tap
   kit_type:
     output_key: kit_type
   size_dimension:
@@ -1472,12 +1757,36 @@ digikey:
     output_key: resistor_ratio_drift
     actions:
       - tempcoeff
+  time_to_trip:
+    output_key: time_to_trip
+    actions:
+      - extract_num
+  b25100:
+    output_key: b25100_K
+    actions:
+      - parse_any_number
+  b2550:
+    output_key: b2550_K
+    actions:
+      - parse_any_number
+  b2585:
+    output_key: b2585_K
+    actions:
+      - parse_any_number
+  current_hold_(ih)_(max):
+    output_key: current_hold_(ih)_(max)
+    actions:
+      - extract_num
   number_of_circuits:
     output_key: number_of_circuits
   sku:
     output_key: sku
   frequency_(centerband):
     output_key: frequency
+    actions:
+      - extract_num
+  b_value_tolerance:
+    output_key: b_value_tolerance
     actions:
       - extract_num
   tolerance:
@@ -1688,3 +1997,7 @@ digikey:
       - extract_num
   number_of_macro_cells:
     output_key: number_of_macro_cells
+  description_raw:
+    output_key: description_raw
+  categories_raw:
+    output_key: categories_raw
