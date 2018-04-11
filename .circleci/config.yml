@@ -65,6 +65,7 @@ jobs:
       - run:
           name: deploy sls
           command: |
+            sudo pip3 install pipenv
             pipenv install
             pipenv run sls   deploy
 workflows:
