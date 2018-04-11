@@ -67,6 +67,7 @@ jobs:
           command: |
             sudo pip3 install pipenv
             sudo apt-get install npm
+            node -v
             sudo npm i -g serverless
             npm install
             pipenv install
