@@ -53,10 +53,9 @@ jobs:
     docker:
       - image: circleci/python:3.6.1
     working_directory: ~/repo
-
     steps:
         - run:
-          name: run more tests
+          name: deploy sls
           command: |
             pipenv run sls deploy
 workflows:
