@@ -54,9 +54,19 @@ jobs:
       - image: circleci/python:3.6.1
     working_directory: ~/repo
     steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "Pipfile.lock" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
         - run:
           name: deploy sls
           command: |
+            pipenv install
             pipenv run sls deploy
 workflows:
   version: 2
