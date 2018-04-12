@@ -1,7 +1,7 @@
-service: normalization-service
-  
-custom:
-  stage: ${opt:stage, self:provider.stage} # shortcut for current stage
+service: srcbot-normalization-service
+
+#custom:
+#  stage: ${opt:stage, self:provider.stage} # shortcut for current stage
 
 provider:
   name: aws
@@ -9,7 +9,7 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: eu-central-1
   # allow use of ${AWS::blah} CFN syntax
-  variableSyntax: "\\${((?!AWS)[ ~:a-zA-Z0-9._'\",\\-\\/\\(\\)]+?)}"
+  #variableSyntax: "\\${((?!AWS)[ ~:a-zA-Z0-9._'\",\\-\\/\\(\\)]+?)}"
 
 #  iamRoleStatements:
 #    - Effect: Allow
@@ -23,13 +23,14 @@ provider:
 
 
   environment:
-    STAGE: ${self:custom.stage}
+  #  STAGE: ${self:custom.stage}
+    APP_AWS_REGION: eu-central-1
 
-package:
-  include:
-    - handler.py
-  exclude:
-    - '**/*'
+#package:
+#  include:
+#    - handler.py
+#  exclude:
+#    - '**/*'
 
 plugins:
   - serverless-python-requirements
