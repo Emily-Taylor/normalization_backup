@@ -3,12 +3,13 @@ service: srcbot-normalization-service
 custom:
   #stage: ${opt:stage, self:provider.stage} # shortcut for current stage
   serverless-offline:
-    resourceRoutes: true
+    #resourceRoutes: true
+    debug: true
     port: 4000
 
-  serverless-offline-sns:
-    port: 4002 # a free port for the sns server to run on
-    debug: true
+#  serverless-offline-sns:
+#    port: 4002 # a free port for the sns server to run on
+#    debug: true
 
 provider:
   name: aws
@@ -24,7 +25,11 @@ provider:
         - "sqs:SendMessage"
         - "sqs:GetQueueUrl"
         - "sqs:ListQueues"
-      Resource: arn:aws:sqs:eu-central-1:202439666482:missing-mapping	
+        - "sns:Publish"
+
+      Resource: 
+        - arn:aws:sqs:eu-central-1:202439666482:missing-mapping
+        - arn:aws:sns:eu-central-1:202439666482:norm-new-item
 
 package:
   exclude:
@@ -47,16 +52,23 @@ functions:
       - http:
           path: ping
           method: get
-  norm:
-    handler: handler.norm_handler
+  norm_sns:
+    handler: handler.norm_handler_sns
+    events:
+      - sns:
+            arn: arn:aws:sns:eu-central-1:202439666482:crawler-new-item
+  norm_http:
+    handler: handler.norm_handler_http
     events:
       - http:
           path: '/normalize'
-          method: 'ANY'
-      - sns:
-            arn: arn:aws:sns:eu-central-1:202439666482:crawler-new-item
+          method: post
+          response:
+            headers:
+              Content-Type: "'application/json'"
+            template: $input.path('$')
 
 plugins:
   - serverless-python-requirements
   - serverless-offline
-  - serverless-offline-sns
+#  - serverless-offline-sns

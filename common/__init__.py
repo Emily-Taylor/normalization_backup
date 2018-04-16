@@ -18,6 +18,13 @@ def publish_data(data: dict):
 	Subject='normalized-data')
 	return response
 
+#post to sns
+def publish_data_test(data: dict):
+	response = client.publish(
+	TopicArn=config['incoming_sns_topic'],
+	Message=json.dumps(data),
+	Subject='crawler-data')
+	return response
 
 # Get the service resource
 sqs = boto3.resource('sqs', region_name=config['region_name'])
