@@ -5,26 +5,15 @@ import common as c
 import normalization as n
 import os
 
-
 @dump_json_body
-def hello(event, context):
+def ping(event, context):
 	 return {
 		  "statusCode": 200,
 		  "body": {
-				"message": "Go Serverless v1.0! Your function executed successfully!",
-				"input": event,
+				"message": "Pong!"
 		  },
 	 }
 
-@dump_json_body
-def norm(event, context):
-	 return {
-		  "statusCode": 200,
-		  "body": {
-				"message": "Go Serverless v1.0! Your function executed successfully!",
-				"input": event,
-		  },
-	 }
 
 import logging 
 from collections import defaultdict
@@ -47,7 +36,23 @@ def deep_set(part,value,keys):
 
 @dump_json_body
 
-def norm_handler(message, *args):
+def norm_handler(event, *args):
+	if 'Records' in event:
+		if event['Records'][0]['EventSource'] == 'aws:sns':
+			print("we're doing sns")
+			message = event['Records'][0]['Sns']['Message']
+	if len(args)> 0:
+		context = args[0]
+		print("we're probs doing REST")
+	if context.function_name =='Fake':
+		print("found Fake in context, we are in testing")
+		if context.function_name =='Fake':
+			rest_call = True
+			message = event
+	# we aren't supposed to have context in sns
+	elif context:
+		rest_call = True
+		message = event
 	output = {'parts':[]}
 	if 'parts' in message:
 		if 'source' in message:
@@ -71,7 +76,7 @@ def norm_handler(message, *args):
 				raw_categories = part['categories']
 				part['categories_raw'] = {}
 				part['categories_raw'][source] = raw_categories
-			#remote availablity and pricing, minimum_quantity
+			#remove availablity and pricing, minimum_quantity
 			part.pop('availability', None)
 			part.pop('pricing', None)
 			part.pop('minimum_quantity', None)
@@ -155,8 +160,16 @@ def norm_handler(message, *args):
 			else:
 				logging.error("can't find MPN on part!")
 				return False 
-			
-			output['parts'].append(part)
-	print("length of payload: {}".format(len(json.dumps(output).encode("utf8"))))
-	print(c.publish_data(output))
+			# last big modification of the structure of the json
+			# we want to stuff everything but [mfr, mpn, category, sku, links, description, lifecycle] as nested properties.
+			main_keys = ['mfr', 'mpn', 'categories','categories_raw', 'sku', 'links', 'description', 'lifecycle','properties','id']
+			part['properties'] = {}
+			for k in list(part):
+				if k not in main_keys:
+					#print("{0} not in main_keys".format(k))
+					part['properties'][k] = part.pop(k, None)
+		output['parts'].append(part)
+	#print("length of payload: {}".format(len(json.dumps(output).encode("utf8"))))
+	if not rest_call:
+		print(c.publish_data(output))
 	return output

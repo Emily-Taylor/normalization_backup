@@ -1,45 +1,62 @@
 service: srcbot-normalization-service
 
-#custom:
-#  stage: ${opt:stage, self:provider.stage} # shortcut for current stage
+custom:
+  #stage: ${opt:stage, self:provider.stage} # shortcut for current stage
+  serverless-offline:
+    resourceRoutes: true
+    port: 4000
+
+  serverless-offline-sns:
+    port: 4002 # a free port for the sns server to run on
+    debug: true
 
 provider:
   name: aws
   runtime: python3.6
   stage: ${opt:stage, 'dev'}
   region: eu-central-1
-  # allow use of ${AWS::blah} CFN syntax
-  #variableSyntax: "\\${((?!AWS)[ ~:a-zA-Z0-9._'\",\\-\\/\\(\\)]+?)}"
-
-#  iamRoleStatements:
-#    - Effect: Allow
-#      Action: ssm:GetParameter
-#      Resource:
-#        Fn::Sub: arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${self:service}/${self:custom.stage}/*
-#    - Effect: Allow
-#      Action:  kms:Decrypt
-#      Resource:
-#        Rn::Sub: arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/*
-
-
   environment:
   #  STAGE: ${self:custom.stage}
     APP_AWS_REGION: eu-central-1
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "sqs:SendMessage"
+        - "sqs:GetQueueUrl"
+        - "sqs:ListQueues"
+      Resource: arn:aws:sqs:eu-central-1:202439666482:missing-mapping	
 
-#package:
-#  include:
-#    - handler.py
-#  exclude:
-#    - '**/*'
+package:
+  exclude:
+    - node_modules/**
+    - data/**
+    - data-full/**
+    - headers-data/**
+    - __pycache__/**
+    - .git/**
+    - .circleci/**
+    - .mypy_cache/**
+    - .ipynb_checkpoints/**
+    - .gitignore
+    - .vscode/**
+    - dev/**
+functions:
+  ping:
+    handler: handler.ping
+    events:
+      - http:
+          path: ping
+          method: get
+  norm:
+    handler: handler.norm_handler
+    events:
+      - http:
+          path: '/normalize'
+          method: 'ANY'
+      - sns:
+            arn: arn:aws:sns:eu-central-1:202439666482:crawler-new-item
 
 plugins:
   - serverless-python-requirements
   - serverless-offline
-functions:
-  hello:
-    handler: handler.hello
-  norm:
-    handler: handler.norm_handler
-    events:
-     - sns:
-          arn: arn:aws:sns:eu-central-1:202439666482:crawler-new-item
+  - serverless-offline-sns

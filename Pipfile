@@ -14,6 +14,7 @@ mypy = "*"
 
 [dev-packages]
 lambda-decorators = "*"
+pylint = "*"
 
 [requires]
 python_version = "3.6"
