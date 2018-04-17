@@ -3,7 +3,7 @@ service: srcbot-normalization-service
 custom:
   #stage: ${opt:stage, self:provider.stage} # shortcut for current stage
   serverless-offline:
-    #resourceRoutes: true
+    resourceRoutes: true
     debug: true
     port: 4000
 
@@ -69,6 +69,7 @@ functions:
             template: $input.path('$')
 
 plugins:
+
   - serverless-python-requirements
   - serverless-offline
 #  - serverless-offline-sns

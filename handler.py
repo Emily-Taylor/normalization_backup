@@ -185,12 +185,12 @@ def norm_handler_sns(event, *args):
 			#this is where the magic happens
 			part = adjust_structure(part, source)
 			output['parts'].append(part)
-			if not rest_call:
-				print(c.publish_data(part))
-	
-	final_out =json.dumps(output)
-	print("length of payload: {}".format(len(final_out.encode("utf8"))))
-	return final_out
+			#if not rest_call:
+			#	print(c.publish_data(part))
+	#final_out =json.dumps(output)
+	c.publish_data(output)
+	#print("length of payload: {}".format(len(final_out.encode("utf8"))))
+	return True
 
 @json_http_resp
 @dump_json_body
