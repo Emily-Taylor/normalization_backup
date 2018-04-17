@@ -122,7 +122,7 @@ def adjust_structure(part: dict, source):
 		part['links'][source] = new_links
 	#generate IDs
 	if 'mpn' in part and 'mfr' in part:
-		id = (part['mpn']+part['mfr']['main']).lower().replace(" ","")
+		id = (part['mpn']+part['mfr']).lower().replace(" ","")
 		hash_object = sha1(id.encode('utf-8'))
 		hex_dig = hash_object.hexdigest()
 		part['id'] = hex_dig
@@ -190,7 +190,7 @@ def norm_handler_sns(event, *args):
 			#	print(c.publish_data(part))
 	#final_out =json.dumps(output)
 	c.publish_data(output)
-	#print("length of payload: {}".format(len(final_out.encode("utf8"))))
+	#print("length of payload: {}".format(len(output.encode("utf8"))))
 	return True
 
 @json_http_resp
