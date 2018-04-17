@@ -39,8 +39,8 @@ def adjust_structure(part: dict, source):
 	part = defaultdict(dict,part)
 	#fix mfr before everything
 	if 'mfr' in part:
-		mfr = c.normalize_mfr(part['mfr'])
-		part['mfr'] =mfr['mfr']
+		mfr = c.get_alias(part['mfr'])
+		part['mfr'] = mfr
 	#keep desciprtion
 	if 'description' in part:
 		raw_desc = part['description']

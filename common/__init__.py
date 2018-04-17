@@ -67,7 +67,7 @@ auth=AWSV4Sign(credentials, region, service)
 #start caching requests 
 requests_cache.install_cache(backend='memory')
 
-def get_alias(mfr):
+def get_alias(mfr: str):
 	if isinstance(mfr, string_types):
 		#turn to lower case
 		mfr = mfr.lower()
@@ -76,12 +76,19 @@ def get_alias(mfr):
 		if response.ok:
 			logger.info('result from cache {0}'.format(response.from_cache))
 			data = response.json()
-			return data
+			try:
+				name =  data['data']['name']
+				return name
+			except:
+				logger.error("couldn't parse name out of the respone: \"{}\".".format(data))
+		elif response.status_code == 404:
+			logger.error("mfr mapping not found for \"{}\".".format(mfr))
+			return mfr
 		else:
-			return False
+			return mfr
 	else:
 		logger.error('alias is not a string')
-		return False
+		return mfr
 
 def get_full(mfr):
 	if isinstance(mfr, string_types):
@@ -95,25 +102,3 @@ def get_full(mfr):
 	else:
 		logger.error('alias is not a string')
 		return False
-
-def normalize_mfr(mfr: str):
-	mfr = mfr.lower()
-	data = {"mfr": { "main":"","aliases":[]}}
-	if isinstance(mfr, string_types):
-		alias = get_alias((mfr.lower()))
-		if alias:
-			if 'data' in alias and 'parent' in alias['data']:
-				main = alias['data']['parent']
-				data['mfr']['main'] = main
-				alias2 =  get_full(main)
-				if 'data' in alias2 and 'alias' in alias2['data']:
-					data['mfr']['aliases'] = alias2['data']['alias']
-			return data
-		elif not alias:
-			logger.error("mfr mapping not found for \"{}\". normalization wasn't done.".format(mfr))
-			data['mfr']['main'] = mfr
-			return data
-	else:
-		logger.error('bad mfr mapping received')
-		data['mfr']['main'] = mfr.lower()
-		return data
