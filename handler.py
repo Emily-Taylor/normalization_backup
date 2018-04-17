@@ -51,9 +51,10 @@ def adjust_structure(part: dict, source):
 		raw_categories = part['categories']
 		part['categories_raw'] = {}
 		part['categories_raw'][source] = raw_categories
-	#remove availablity and pricing, minimum_quantity
+	#remove availablity and pricing, minimum_quantity and packagecase
 	part.pop('availability', None)
 	part.pop('pricing', None)
+	part.pop('packagecase', None)
 	part.pop('minimum_quantity', None)
 	for key in list(part): 
 		# apply norm
