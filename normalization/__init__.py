@@ -13,6 +13,7 @@ import re
 import yaml
 import os
 import typing
+from fractions import Fraction
 # import numpy as np
 
 
@@ -98,8 +99,10 @@ def extract_num(d: str) -> float:
             if '@1Minute' in d:
                 d_float = parse_any_number(d)[0]
                 return d_float
-
-            if 'PSI' in d:
+            elif '@30Seconds' in d:
+                d_float = parse_any_number(d)[0]
+                return d_float
+            elif 'PSI' in d:
                 d_float = parse_any_number(d)[0]
                 return d_float
             else:
@@ -368,6 +371,11 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
 
 
 def parse_dimension(d: str):
+    
+    if ' in' in d:
+        d = re.sub(' in', '', d)
+        d_float = float(Fraction(re.sub(' in', '', d))) * 25.4
+        return(d_float)
 
     if 'mm)' in d:
         regexp = re.compile('\((.*)mm\)')
