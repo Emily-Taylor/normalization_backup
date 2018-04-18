@@ -9,6 +9,10 @@ mouser:
     output_key: description
     actions:
       - lower
+  number_of_outputs:
+    output_key: number_of_outputs
+    actions:
+      - extract_num
   illuminated:
     output_key: illuminated
     actions:
@@ -17,6 +21,24 @@ mouser:
     output_key: material
   number_of_channels:
     output_key: number_of_channels
+    actions:
+      - extract_num
+  number_of_positions:
+    output_key: number_of_positions
+    actions:
+      - extract_num
+  output_configuration:
+    output_key: output_configuration
+  output_currentchannel_1:
+    output_key: output_currentchannel_1
+    actions:
+      - extract_num
+  output_currentchannel_2:
+    output_key: output_currentchannel_2
+    actions:
+      - extract_num
+  output_currentchannel_3:
+    output_key: output_currentchannel_3
     actions:
       - extract_num
   indicator_style:
@@ -58,10 +80,14 @@ mouser:
     output_key: voltage_rating_ac
     actions:
       - extract_num
+  features:
+    output_key: features
   inductance:
     output_key: inductance
     actions:
       - extract_num
+  flammability_rating:
+    output_key: flammability_rating
   gain:
     output_key: gain
     actions:
@@ -219,6 +245,8 @@ mouser:
     output_key: drive_level
     actions:
       - extract_num
+  connection_method:
+    output_key: connection_method
   color:
     output_key: color
     actions:
@@ -375,14 +403,24 @@ mouser:
     output_key: mounting_style
   magnet_material:
     output_key: magnet_material
+  light_source:
+    output_key: light_source
   length:
     output_key: length
     actions:
       - parse_dimension
+  industry:
+    output_key: industry
+    actions:
+      - lower
+  input_type:
+    output_key: input_type
   life:
     output_key: life
     actions:
       - extract_num
+  housing_material:
+    output_key: housing_material
   height:
     output_key: height
     actions:
@@ -497,6 +535,14 @@ mouser:
     output_key: directional_properties
     actions:
       - lower
+  amplifier_type:
+    output_key: amplifier_type
+  analog_digital:
+    output_key: analog_digital
+    actions:
+      - lower
+  display_type:
+    output_key: display_type
   current_rating:
     output_key: current_rating
     actions:
