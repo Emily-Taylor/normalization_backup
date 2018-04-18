@@ -17,10 +17,22 @@ mouser:
     output_key: primary_winding
     actions:
       - lower
+  secondary_winding:
+    output_key: secondary_winding
+    actions:
+      - lower
+  sensing_distance:
+    output_key: sensing_distance
+    actions:
+      - parse_dimension
   illuminated:
     output_key: illuminated
     actions:
       - lower
+  size:
+    output_key: size
+  sensing_method:
+    output_key: sensing_method
   range:
     output_key:
       - range_min
@@ -511,6 +523,12 @@ mouser:
       - tempcoeff
   availability:
     output_key: availability
+  timing_range:
+    output_key:
+      - timing_range_min
+      - timing_range_max
+    actions:
+      - split_timing
   pitch:
     output_key: pitch
     actions:
@@ -520,9 +538,11 @@ mouser:
     actions:
       - extract_num
   voltage_rating:
-    output_key: voltage_rating
+    output_key:
+      - voltage_rating_min
+      - voltage_rating_max
     actions:
-      - extract_num
+      - split_to
   voltage_rating_dc:
     output_key: voltage_rating
     actions:
@@ -1429,11 +1449,11 @@ digikey:
   chipset_manufacturer:
     output_key: chipset_manufacturer
   primary_winding(s):
-    output_key: primary_windings
+    output_key: primary_winding
     actions:
       - lower
   secondary_winding(s):
-    output_key: secondary_windings
+    output_key: secondary_winding
     actions:
       - lower
   ratings:
