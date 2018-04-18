@@ -13,10 +13,24 @@ mouser:
     output_key: number_of_outputs
     actions:
       - extract_num
+  primary_winding:
+    output_key: primary_winding
+    actions:
+      - lower
   illuminated:
     output_key: illuminated
     actions:
       - lower
+  range:
+    output_key:
+      - range_min
+      - range_max
+    actions:
+      - split_to
+  output_power:
+    output_key: output_power
+    actions:
+      - extract_num
   material:
     output_key: material
   number_of_channels:
@@ -39,6 +53,18 @@ mouser:
       - extract_num
   output_currentchannel_3:
     output_key: output_currentchannel_3
+    actions:
+      - extract_num
+  output_voltagechannel_1:
+    output_key: output_voltagechannel_1
+    actions:
+      - extract_num
+  output_voltagechannel_2:
+    output_key: output_voltagechannel_2
+    actions:
+      - extract_num
+  output_voltagechannel_3:
+    output_key: output_voltagechannel_3
     actions:
       - extract_num
   indicator_style:
@@ -409,6 +435,10 @@ mouser:
     output_key: length
     actions:
       - parse_dimension
+  power_consumption:
+    output_key: power_consumption
+    actions:
+      - extract_num
   industry:
     output_key: industry
     actions:
@@ -481,6 +511,10 @@ mouser:
       - tempcoeff
   availability:
     output_key: availability
+  pitch:
+    output_key: pitch
+    actions:
+      - extract_num
   travel:
     output_key: travel
     actions:
