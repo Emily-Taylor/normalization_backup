@@ -105,6 +105,9 @@ def extract_num(d: str) -> float:
             elif 'PSI' in d:
                 d_float = parse_any_number(d)[0]
                 return d_float
+            elif 'Pole' in d:
+                d_float = parse_any_number(d)[0]
+                return d_float
             else:
                 d_float = float(Quantity(d, ''))
                 return d_float
