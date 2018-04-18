@@ -9,6 +9,10 @@ mouser:
     output_key: description
     actions:
       - lower
+  illuminated:
+    output_key: illuminated
+    actions:
+      - lower
   material:
     output_key: material
   number_of_channels:
@@ -19,6 +23,8 @@ mouser:
     output_key: indicator_style
     actions:
       - lower
+  actuator_type:
+    output_key: shaft_type
   design:
     output_key: design
     actions:
@@ -30,6 +36,10 @@ mouser:
       - core_size_length
     actions:
       - parse_any_number
+  number_of_poles:
+    output_key: number_of_poles
+    actions:
+      - extract_num
   series:
     output_key: series
   mfr:
