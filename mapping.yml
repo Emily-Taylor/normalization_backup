@@ -9,10 +9,20 @@ mouser:
     output_key: description
     actions:
       - lower
+  material:
+    output_key: material
   number_of_channels:
     output_key: number_of_channels
     actions:
       - extract_num
+  indicator_style:
+    output_key: indicator_style
+    actions:
+      - lower
+  design:
+    output_key: design
+    actions:
+      - lower
   core_size:
     output_key:
       - core_size_width
@@ -73,7 +83,7 @@ mouser:
   circuit_type:
     output_key: circuit_type
   packagecase:
-    output_key: packagecase
+    output_key: packaging
   links:
     output_key: links
   sku:
@@ -199,6 +209,10 @@ mouser:
     output_key: drive_level
     actions:
       - extract_num
+  color:
+    output_key: color
+    actions:
+      - lower
   core_material:
     output_key: core_material
   case:
@@ -215,6 +229,10 @@ mouser:
       - extract_num
   frequency_stability:
     output_key: frequency_stability
+    actions:
+      - extract_num
+  sound_pressure_level:
+    output_key: sound_pressure_level
     actions:
       - extract_num
   lead_style:
@@ -293,12 +311,8 @@ mouser:
     output_key: resistance
     actions:
       - extract_num
-  ripple_current:
-    output_key: ripple_current
-    actions:
-      - extract_num
   shaft_diameter:
-    output_key: shaft_length
+    output_key: shaft_diameter
     actions:
       - parse_dimension
   shaft_length:
@@ -347,6 +361,10 @@ mouser:
     output_key: diameter
     actions:
       - parse_dimension
+  mounting:
+    output_key: mounting_style
+  magnet_material:
+    output_key: magnet_material
   length:
     output_key: length
     actions:
@@ -393,6 +411,14 @@ mouser:
     output_key: case_code_mm
     actions:
       - inchtomm
+  sensitivity:
+    output_key: sensitivity
+    actions:
+      - extract_num
+  tone:
+    output_key: tone
+    actions:
+      - lower
   peak_surge_current:
     output_key: peak_surge_current
     actions:
@@ -423,10 +449,16 @@ mouser:
     output_key: tolerance
     actions:
       - extract_num
+  cone_material:
+    output_key: cone_material
+  depth:
+    output_key: depth
+    actions:
+      - extract_num
   shape:
     output_key: shape
     actions:
-      - extract_num
+      - lower
   technology:
     output_key: technology
   thickness:
@@ -449,6 +481,12 @@ mouser:
     output_key: supply_voltage_min
     actions:
       - extract_num
+  designed_for:
+    output_key: designed_for
+  directional_properties:
+    output_key: directional_properties
+    actions:
+      - lower
   current_rating:
     output_key: current_rating
     actions:
@@ -882,7 +920,7 @@ digikey:
   packages_included:
     output_key: packages_included
   capacitance:
-    output_key: load_capacitance
+    output_key: capacitance
     actions:
       - extract_num
   capacitance_range:
@@ -1426,10 +1464,6 @@ digikey:
     output_key: current_sensing
     actions:
       - extract_num
-  dc_resistance_(dcr):
-    output_key: maximum_dc_resistance
-    actions:
-      - extract_num
   dc_resistance_(dcr)_parallel:
     output_key: maximum_dc_resistance
     actions:
@@ -1686,7 +1720,7 @@ digikey:
   number_of_capacitors:
     output_key: number_of_capacitors
   packaging:
-    output_key: packagecase
+    output_key: packaging
   pricing:
     output_key: pricing
   dc_resistance_(dcr):
