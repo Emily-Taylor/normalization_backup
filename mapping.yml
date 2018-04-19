@@ -13,6 +13,10 @@ mouser:
     output_key: number_of_outputs
     actions:
       - extract_num
+  operating_force:
+    output_key: operating_force
+    actions:
+      - extract_num
   coil_current:
     output_key: coil_current
     actions:
@@ -45,10 +49,14 @@ mouser:
       - parse_dimension
   mounting_type:
     output_key: mounting_style
+  switch_function:
+    output_key: switch_function
   illuminated:
     output_key: illuminated
     actions:
       - lower
+  illumination:
+    output_key: illumination
   size:
     output_key: size
   sensing_method:
@@ -164,10 +172,26 @@ mouser:
       - extract_num
   mpn:
     output_key: mpn
+  actuator:
+    output_key: actuator
+    actions:
+      - lower
   impedance:
     output_key: impedance
     actions:
       - extract_num
+  control_type:
+    output_key: control_type
+    actions:
+      - lower
+  contact_rating:
+    output_key:
+      - contact_rating_min
+      - contact_rating_max
+    actions:
+      - split_to
+  contact_form:
+    output_key: contact_form
   cutoff_frequency:
     output_key: cutoff_frequency
     actions:
@@ -640,6 +664,12 @@ mouser:
         - frequency_range_max
     actions:
       - split_to
+  nema_rating:
+    output_key: nema_rating
+  illumination_color:
+    output_key: illumination_color
+    actions:
+        - lower
   supply_voltage_max:
     output_key: supply_voltage_max
     actions:
