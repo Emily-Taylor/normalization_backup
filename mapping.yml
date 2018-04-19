@@ -13,6 +13,20 @@ mouser:
     output_key: number_of_outputs
     actions:
       - extract_num
+  coil_current:
+    output_key: coil_current
+    actions:
+      - extract_num
+  coil_voltage:
+    output_key:
+      - coil_voltage_min
+      - coil_voltage_max
+    actions:
+      - split_to
+  contact_material:
+    output_key: contact_material
+    actions:
+      - extract_num
   primary_winding:
     output_key: primary_winding
     actions:
@@ -25,6 +39,8 @@ mouser:
     output_key: sensing_distance
     actions:
       - parse_dimension
+  mounting_type:
+    output_key: mounting_style
   illuminated:
     output_key: illuminated
     actions:
@@ -529,6 +545,20 @@ mouser:
       - timing_range_max
     actions:
       - split_timing
+  contact_termination:
+    output_key: contact_termination
+  switching_voltage:
+    output_key:
+      - switching_voltage_min
+      - switching_voltage_max
+    actions:
+      - split_to
+  contact_current_rating:
+    output_key: contact_current_rating
+    actions:
+      - extract_num
+  relay_contact_form:
+    output_key: relay_contact_form
   pitch:
     output_key: pitch
     actions:
