@@ -19,12 +19,15 @@ $ # Clone the template using the
 $ pipenv install
 ```
 To activate this project's virtualenv, run the following:
-``` $ pipenv shell
+``` 
+$ pipenv shell
 ```
 
 ### Test the sample lambda locally (sls is an included alias for serverless)
-```$ pipenv run sls invoke local -f norm -p data.json
+```
+$ pipenv run sls invoke local -f norm -p data.json
 ```
 $ # Deploy to AWS!
-```$ sls deploy
+```
+$ sls deploy
 ```
