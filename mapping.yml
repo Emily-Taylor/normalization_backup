@@ -23,6 +23,10 @@ mouser:
       - coil_voltage_max
     actions:
       - split_to
+  output_current:
+    output_key: output_current
+    actions:
+      - extract_num
   contact_material:
     output_key: contact_material
     actions:
@@ -189,7 +193,6 @@ mouser:
       - operating_supply_voltage_min
       - operating_supply_voltage_max
     actions:
-    actions:
       - split_to
   output_type:
     output_key: output_type
@@ -197,6 +200,12 @@ mouser:
     output_key: ripple_current
     actions:
       - extract_num
+  output_voltage:
+    output_key:
+      - output_voltage_min
+      - output_voltage_max
+    actions:
+      - split_to
   type:
     output_key: type
   dielectric:
@@ -217,6 +226,28 @@ mouser:
     output_key:
       - capacitance_range_min
       - capacitance_range_max
+    actions:
+      - split_to
+  input_current:
+    output_key:
+      - input_current_min
+      - input_current_max
+    actions:
+      - split_to
+  input_voltage:
+    output_key:
+      - input_voltage_min
+      - input_voltage_max
+    actions:
+      - split_to
+  load_current_rating:
+    output_key: load_current_rating
+    actions:
+      - extract_num
+  load_voltage_rating:
+    output_key:
+      - load_voltage_rating_min
+      - load_voltage_rating_max
     actions:
       - split_to
   with_switch:
@@ -309,6 +340,10 @@ mouser:
     output_key: core_material
   case:
     output_key: case
+  case_color:
+    output_key: case_color
+    actions:
+      - lower
   termination:
     output_key: termination_style
   ground_terminal:
