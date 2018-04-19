@@ -1,7 +1,7 @@
 service: srcbot-normalization-service
 
 custom:
-  #stage: ${opt:stage, self:provider.stage} # shortcut for current stage
+  stage: ${opt:stage, self:provider.stage} # shortcut for current stage
   serverless-offline:
     resourceRoutes: true
     debug: true
@@ -21,6 +21,11 @@ provider:
  #timeout: 62 # optional, in seconds, default is 6
   #  STAGE: ${self:custom.stage}
   APP_AWS_REGION: eu-central-1
+  REGION_NAME: eu-central-1
+  MISSING_QUEUE_URL:   https://sqs.eu-central-1.amazonaws.com/202439666482/missing-mapping
+  MISSING_QUEUE_NAME:   missing-mapping
+  INCOMING_SNS_TOPIC:   arn:aws:sns:eu-central-1:202439666482:crawler-new-item-${self:provider.stage}
+  OUTGOING_SNS_TOPIC:   arn:aws:sns:eu-central-1:202439666482:norm-new-item-${self:provider.stage}
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -31,7 +36,7 @@ provider:
 
       Resource: 
         - arn:aws:sqs:eu-central-1:202439666482:missing-mapping
-        - arn:aws:sns:eu-central-1:202439666482:norm-new-item
+        - arn:aws:sns:eu-central-1:202439666482:norm-new-item-${self:provider.stage}
 
 package:
   exclude:
@@ -58,7 +63,7 @@ functions:
     handler: handler.norm_handler_sns
     events:
       - sns:
-            arn: arn:aws:sns:eu-central-1:202439666482:crawler-new-item
+            arn: arn:aws:sns:eu-central-1:202439666482:crawler-new-item-${self:provider.stage}
   norm_http:
     handler: handler.norm_handler_http
     events:

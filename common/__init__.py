@@ -4,16 +4,22 @@ import boto3
 import json
 here = os.path.dirname(os.path.realpath(__file__))
 
+# this is deprecated
 with open(os.path.join(here,'config.yml'), 'r') as f:
 	config = yaml.load(f)
 
+REGION_NAME = os.getenv('REGION_NAME')
+OUTGOING_SNS_TOPIC = os.getenv('OUTGOING_SNS_TOPIC')
+INCOMING_SNS_TOPIC = os.getenv('INCOMING_SNS_TOPIC')
+MISSING_QUEUE_NAME = os.getenv('MISSING_QUEUE_NAME')
 
-client = boto3.client('sns', region_name=config['region_name'])
+
+client = boto3.client('sns', region_name=REGION_NAME)
 
 #post to sns
 def publish_data(data: dict):
 	response = client.publish(
-	TopicArn=config['outgoing_sns_topic'],
+	TopicArn=OUTGOING_SNS_TOPIC,
 	Message=json.dumps(data),
 	Subject='normalized-data')
 	return response
@@ -21,16 +27,16 @@ def publish_data(data: dict):
 #post to sns
 def publish_data_test(data: dict):
 	response = client.publish(
-	TopicArn=config['incoming_sns_topic'],
+	TopicArn=INCOMING_SNS_TOPIC,
 	Message=json.dumps(data),
 	Subject='crawler-data')
 	return response
 
 # Get the service resource
-sqs = boto3.resource('sqs', region_name=config['region_name'])
+sqs = boto3.resource('sqs', region_name=REGION_NAME)
 
 # Get the queue
-queue = sqs.get_queue_by_name(QueueName=config['missing_queue_name'])
+queue = sqs.get_queue_by_name(QueueName=MISSING_QUEUE_NAME)
 
 def send_msg(msg):
 	response = queue.send_message(
@@ -49,17 +55,17 @@ from six import string_types
 import logging as logger
 
 #get running enviroment  - necessariy for URL
-env =os.environ.get('ENV', "dev")
+stage =os.environ.get('stage', "dev")
 
 
 # Establish credentials using boto3
 session = session.Session()
 credentials = session.get_credentials()
-region = session.region_name or 'eu-central-1'
+region = session.region_name or REGION_NAME
 
 #set urls for the two functions
-uri_alias =  "https://app-{env}.sourcingbot.com/entity/manufacturer/alias/{name}"
-uri_full =  "https://app-{env}.sourcingbot.com/entity/manufacturer/{name}"
+uri_alias =  "https://app-{stage}.sourcingbot.com/entity/manufacturer/alias/{name}"
+uri_full =  "https://app-{stage}.sourcingbot.com/entity/manufacturer/{name}"
 headers={"Content-Type":"application/json"}
 service = 'execute-api'
 auth=AWSV4Sign(credentials, region, service)
@@ -71,7 +77,7 @@ def get_alias(mfr: str):
 	if isinstance(mfr, string_types):
 		#turn to lower case
 		mfr = mfr.lower()
-		url = uri_alias.format_map({"name":mfr, "env":env})
+		url = uri_alias.format_map({"name":mfr, "stage":stage})
 		response= requests.get(url, auth=auth, headers=headers)
 		if response.ok:
 			logger.info('result from cache {0}'.format(response.from_cache))
@@ -92,7 +98,7 @@ def get_alias(mfr: str):
 
 def get_full(mfr):
 	if isinstance(mfr, string_types):
-		url = uri_full.format_map({"name":mfr, "env":env})
+		url = uri_full.format_map({"name":mfr, "stage":stage})
 		response= requests.get(url, auth=auth, headers=headers)
 		if response.ok:
 			data = response.json()
