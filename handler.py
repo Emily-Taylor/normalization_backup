@@ -148,22 +148,22 @@ def adjust_structure(part: dict, source):
 
 
 def norm_handler_sns(event, *args):
-	print(event)
+	#print(event)
 	if 'Records' in event:
 		event_source = event['Records'][0]['EventSource']
-		print("event source: {}" .format(event_source))
+		#print("event source: {}" .format(event_source))
 		if event_source == 'aws:sns':
-			print("we're doing sns")
+			#print("we're doing sns")
 			rest_call = False
 			try:
 				message = json.loads(event['Records'][0]['Sns']['Message'])
 			except:
 				print("error loads message as valid json")
 				return "error loading json"
-			print(type(message))
+			#print(type(message))
 	if len(args)> 0:
 		context = args[0]
-		print(context.function_name)
+		#print(context.function_name)
 		if context.function_name =='Fake':
 			print("found Fake in context, we are in testing")
 			rest_call = True

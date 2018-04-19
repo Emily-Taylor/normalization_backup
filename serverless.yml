@@ -17,6 +17,8 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: eu-central-1
   environment:
+  memorySize: 256 # optional, in MB, default is 1024
+ #timeout: 62 # optional, in seconds, default is 6
   #  STAGE: ${self:custom.stage}
     APP_AWS_REGION: eu-central-1
   iamRoleStatements:
