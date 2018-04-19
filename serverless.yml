@@ -24,7 +24,7 @@ provider:
   REGION_NAME: eu-central-1
   MISSING_QUEUE_URL:   https://sqs.eu-central-1.amazonaws.com/202439666482/missing-mapping
   MISSING_QUEUE_NAME:   missing-mapping
-  INCOMING_SNS_TOPIC:   arn:aws:sns:eu-central-1:202439666482:crawler-new-item-${self:provider.stage}
+  INCOMING_SNS_TOPIC:   arn:aws:sns:eu-central-1:202439666482:crawler-new-item #-${self:provider.stage}
   OUTGOING_SNS_TOPIC:   arn:aws:sns:eu-central-1:202439666482:norm-new-item-${self:provider.stage}
   iamRoleStatements:
     - Effect: "Allow"
@@ -63,7 +63,7 @@ functions:
     handler: handler.norm_handler_sns
     events:
       - sns:
-            arn: arn:aws:sns:eu-central-1:202439666482:crawler-new-item-${self:provider.stage}
+            arn: arn:aws:sns:eu-central-1:202439666482:crawler-new-item #-${self:provider.stage}
   norm_http:
     handler: handler.norm_handler_http
     events:
