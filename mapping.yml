@@ -117,10 +117,28 @@ mouser:
     output_key: output_voltagechannel_3
     actions:
       - extract_num
+  screw_head:
+    output_key: screw_head
+  plating:
+    output_key: plating
+    actions:
+      - lower
+  dimensions:
+    output_key: dimensions
+  led_size:
+    output_key: led_size
+    actions:
+      - parse_dimension
+  mounting_hole_size:
+    output_key: mounting_hole_size
+    actions:
+      - parse_dimension
   indicator_style:
     output_key: indicator_style
     actions:
       - lower
+  fuse_size_group:
+    output_key: fuse_size_group
   actuator_type:
     output_key: shaft_type
   design:
@@ -176,6 +194,8 @@ mouser:
     output_key: vswr
   accessory_type:
     output_key: accessory_type
+  associated_relay_series:
+    output_key: associated_relay_series
   maximum_dc_current:
     output_key: maximum_dc_current
     actions:
@@ -396,6 +416,10 @@ mouser:
     output_key: sound_pressure_level
     actions:
       - extract_num
+  body_length:
+    output_key: body_length
+    actions:
+      - parse_dimension
   lead_style:
     output_key: termination_style
   lifecycle:
@@ -536,6 +560,18 @@ mouser:
     output_key: power_consumption
     actions:
       - extract_num
+  maximum_switched_current:
+    output_key: maximum_switched_current
+    actions:
+      - extract_num
+  maximum_switched_power:
+    output_key: maximum_switched_power
+    actions:
+      - extract_num
+  coil_suppression_diode:
+    output_key: coil_suppression_diode
+    actions:
+      - lower
   industry:
     output_key: industry
     actions:
@@ -654,6 +690,8 @@ mouser:
     output_key: tolerance
     actions:
       - extract_num
+  thread_size:
+    output_key: thread_size
   cone_material:
     output_key: cone_material
   depth:
@@ -684,6 +722,10 @@ mouser:
     output_key: illumination_color
     actions:
         - lower
+  insertion_loss:
+    output_key: insertion_loss
+    actions:
+      - parse_any_number
   supply_voltage_max:
     output_key: supply_voltage_max
     actions:
@@ -692,6 +734,14 @@ mouser:
     output_key: supply_voltage_min
     actions:
       - extract_num
+  maximum_switching_current:
+    output_key: maximum_switching_current
+    actions:
+      - extract_num
+  isolation:
+    output_key: isolation
+    actions:
+      - parse_any_number
   designed_for:
     output_key: designed_for
   directional_properties:
