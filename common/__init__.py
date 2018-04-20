@@ -64,8 +64,8 @@ credentials = session.get_credentials()
 region = session.region_name or REGION_NAME
 
 #set urls for the two functions
-uri_alias =  "https://app-{stage}.sourcingbot.com/entity/manufacturer/alias/{name}"
-uri_full =  "https://app-{stage}.sourcingbot.com/entity/manufacturer/{name}"
+uri_alias = "https://app-{stage}.sourcingbot.com/entity/manufacturer/alias/{name}"
+uri_full = "https://app-{stage}.sourcingbot.com/entity/manufacturer/{name}"
 headers={"Content-Type":"application/json"}
 service = 'execute-api'
 auth=AWSV4Sign(credentials, region, service)
