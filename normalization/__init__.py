@@ -7,7 +7,8 @@ Created on Fri Dec 22 14:08:54 2017
 Collection of normalization functions
 
 """
-from .. import common as c
+from importlib import import_module
+import_module('common')
 import json
 import logging
 from quantiphy import Quantity

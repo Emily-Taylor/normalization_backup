@@ -8,10 +8,10 @@ here = os.path.dirname(os.path.realpath(__file__))
 with open(os.path.join(here,'config.yml'), 'r') as f:
 	config = yaml.load(f)
 
-REGION_NAME = os.getenv('REGION_NAME')
-OUTGOING_SNS_TOPIC = os.getenv('OUTGOING_SNS_TOPIC')
-INCOMING_SNS_TOPIC = os.getenv('INCOMING_SNS_TOPIC')
-MISSING_QUEUE_NAME = os.getenv('MISSING_QUEUE_NAME')
+REGION_NAME = os.getenv('REGION_NAME','eu-central-1')
+OUTGOING_SNS_TOPIC = os.getenv('OUTGOING_SNS_TOPIC','arn:aws:sns:eu-central-1:202439666482:norm-new-item-dev')
+INCOMING_SNS_TOPIC = os.getenv('INCOMING_SNS_TOPIC','arn:aws:sns:eu-central-1:202439666482:crawler-new-item')
+MISSING_QUEUE_NAME = os.getenv('MISSING_QUEUE_NAME','missing-mapping')
 
 
 client = boto3.client('sns', region_name=REGION_NAME)
