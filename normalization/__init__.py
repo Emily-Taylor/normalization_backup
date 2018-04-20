@@ -7,8 +7,12 @@ Created on Fri Dec 22 14:08:54 2017
 Collection of normalization functions
 
 """
-from importlib import import_module
-import_module('common')
+import os,sys,inspect
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+sys.path.insert(0,parentdir) 
+import common
+
 import json
 import logging
 from quantiphy import Quantity
@@ -554,7 +558,7 @@ def category_normalize_digikey(d: dict):
 						d[n] = categories['digikey'][i]
 				else:
 						#logging.warning("missing mapping for category name: {0}".format(i))
-						c.send_msg(json.dumps(
+						common.send_msg(json.dumps(
 								{"source": 'digikey', "categories": d, "key": "missing_category_mapping"}))
 		return d
 
