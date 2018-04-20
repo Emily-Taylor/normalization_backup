@@ -25,9 +25,6 @@ here = os.path.dirname(os.path.realpath(__file__))
 with open(os.path.join(here,'mapping.yml'), 'r') as f:
 	 mapping = yaml.load(f)
 
-
-
-
 def deep_set(part,value,keys):
 	 d = part
 	 for key in keys[:-1]:
@@ -100,7 +97,7 @@ def adjust_structure(part: dict, source):
 						part.pop(key)
 
 			else:
-				print("{0} not in mapping".format(key))
+				#print("{0} not in mapping".format(key))
 				#call missing-mapping queue with the source, categories and missing mapping key.
 				c.send_msg(json.dumps({"source":source, "categories":part['categories'],"key":key}))
 				# we are going to continue in order to prevent writing json that's not fully mapped
@@ -156,10 +153,11 @@ def norm_handler_sns(event, *args):
 			#print("we're doing sns")
 			rest_call = False
 			try:
-				message = json.loads(event['Records'][0]['Sns']['Message'])
-			except:
-				print("error loads message as valid json")
-				return "error loading json"
+				message = json.loads(event['Records'][0]['Sns']['Message'].strip("'"))
+			except ValueError as error:
+				print("error loading message as valid json. see: ")
+				print(error)
+				return False
 			#print(type(message))
 	if len(args)> 0:
 		context = args[0]

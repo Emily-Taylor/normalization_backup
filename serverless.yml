@@ -16,16 +16,17 @@ provider:
   runtime: python3.6
   stage: ${opt:stage, 'dev'}
   region: eu-central-1
-  environment:
+  
   memorySize: 256 # optional, in MB, default is 1024
  #timeout: 62 # optional, in seconds, default is 6
+  environment:
   #  STAGE: ${self:custom.stage}
-  APP_AWS_REGION: eu-central-1
-  REGION_NAME: eu-central-1
-  MISSING_QUEUE_URL:   https://sqs.eu-central-1.amazonaws.com/202439666482/missing-mapping
-  MISSING_QUEUE_NAME:   missing-mapping
-  INCOMING_SNS_TOPIC:   arn:aws:sns:eu-central-1:202439666482:crawler-new-item #-${self:provider.stage}
-  OUTGOING_SNS_TOPIC:   arn:aws:sns:eu-central-1:202439666482:norm-new-item-${self:provider.stage}
+    APP_AWS_REGION: eu-central-1
+    REGION_NAME: eu-central-1
+    MISSING_QUEUE_URL: https://sqs.eu-central-1.amazonaws.com/202439666482/missing-mapping
+    MISSING_QUEUE_NAME: missing-mapping
+    INCOMING_SNS_TOPIC: arn:aws:sns:eu-central-1:202439666482:crawler-new-item #-${self:provider.stage}
+    OUTGOING_SNS_TOPIC: arn:aws:sns:eu-central-1:202439666482:norm-new-item-${self:provider.stage}
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -36,7 +37,8 @@ provider:
 
       Resource: 
         - arn:aws:sqs:eu-central-1:202439666482:missing-mapping
-        - arn:aws:sns:eu-central-1:202439666482:norm-new-item-${self:provider.stage}
+        - arn:aws:sns:eu-central-1:202439666482:norm-new-item-dev #${self:provider.stage}
+        - arn:aws:sns:eu-central-1:202439666482:norm-new-item-production #${self:provider.stage}
 
 package:
   exclude:
