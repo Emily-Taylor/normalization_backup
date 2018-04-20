@@ -21,6 +21,10 @@ mouser:
     output_key: coil_current
     actions:
       - extract_num
+  coil_resistance:
+    output_key: coil_resistance
+    actions:
+      - extract_num
   coil_voltage:
     output_key:
       - coil_voltage_min
@@ -57,6 +61,8 @@ mouser:
       - lower
   illumination:
     output_key: illumination
+  motor_drive_type:
+    output_key: motor_drive_type
   size:
     output_key: size
   sensing_method:
@@ -67,6 +73,10 @@ mouser:
       - range_max
     actions:
       - split_to
+  rated_speed:
+    output_key: rated_speed
+    actions:
+      - parse_any_number
   output_power:
     output_key: output_power
     actions:
@@ -604,6 +614,8 @@ mouser:
       - timing_range_max
     actions:
       - split_timing
+  coil_termination:
+    output_key: coil_termination
   contact_termination:
     output_key: contact_termination
   switching_voltage:
@@ -612,6 +624,8 @@ mouser:
       - switching_voltage_max
     actions:
       - split_to
+  coil_type:
+    output_key: coil_type
   contact_current_rating:
     output_key: contact_current_rating
     actions:
