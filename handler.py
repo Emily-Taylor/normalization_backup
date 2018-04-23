@@ -4,6 +4,7 @@ import json
 import common as c
 import normalization as n
 import os
+import base64
 
 
 @dump_json_body
@@ -68,7 +69,7 @@ def adjust_structure(part: dict, source: str, ts: int):
 														"n." + f + "({})".format("part['" + key + "']"))
 												part[key] = new_val
 						except BaseException:
-								raise ValueError("something wrong with functions")
+								raise ValueError("something wrong with functions: {0}".format(BaseException))
 
 						# check for new keys name
 						if isinstance(mapping[source][key]['output_key'], list):
@@ -165,6 +166,15 @@ def adjust_structure(part: dict, source: str, ts: int):
 						part['properties'][k] = part.pop(k, None)
 		return part
 
+def parse_record(rec):
+	if 'kinesis' in rec:
+		if 'data' in rec['kinesis']:
+			try:
+				val =  json.loads(base64.b64decode(rec['kinesis']['data']))
+			except:
+				logging.error("couldn't parse base64 or json from records arriving from kinesis")
+	return val
+
 
 def norm_handler_sns(event, *args):
 		# print(event)
@@ -215,6 +225,30 @@ def norm_handler_sns(event, *args):
 		#print("length of payload: {}".format(len(output.encode("utf8"))))
 		return True
 
+
+def norm_handler_sns_kinesis(event, *args):
+			# print(event)
+		if 'Records' in event:
+			for rec in event['Records']:
+				message = parse_record(rec)
+		output = {'parts': []}
+		if 'parts' in message and len(message.get('parts', 0)) > 0:
+				if 'source' in message:
+						source = message['source']
+						ts =  message['ts']
+				else:
+						logging.warning("could not find source (distributor) in message")
+						return False
+				for part in message['parts']:
+						# this is where the magic happens
+						part = adjust_structure(part, source, ts)
+						output['parts'].append(part)
+						# if not rest_call:
+						#	print(c.publish_data(part))
+		#final_out =json.dumps(output)
+		c.publish_data(output)
+		#print("length of payload: {}".format(len(output.encode("utf8"))))
+		return True
 
 @json_http_resp
 @dump_json_body

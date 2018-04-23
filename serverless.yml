@@ -6,10 +6,18 @@ custom:
     resourceRoutes: true
     debug: true
     port: 4000
-
+  names:
+    kinesis: crawler-data-raw-${self:provider.stage}
 #  serverless-offline-sns:
 #    port: 4002 # a free port for the sns server to run on
 #    debug: true
+resources:
+  Resources:
+    KinesisStream:
+      Type: AWS::Kinesis::Stream
+      Properties:
+        Name: ${self:custom.names.kinesis}
+        ShardCount: 1
 
 provider:
   name: aws
@@ -76,6 +84,14 @@ functions:
             headers:
               Content-Type: "'application/json'"
             template: $input.path('$')
+  norm_kinesis:
+    handler: handler.norm_handler_sns_kinesis
+    events:
+      - stream:
+          type: kinesis
+          arn: { Fn::GetAtt: [ KinesisStream, Arn ] }
+          batchSize: 100
+          startingPosition: TRIM_HORIZON
 
 plugins:
 
