@@ -68,14 +68,16 @@ def adjust_structure(part: dict, source: str, ts: int):
 												new_val = eval(
 														"n." + f + "({})".format("part['" + key + "']"))
 												part[key] = new_val
-						except BaseException:
-								raise ValueError("something wrong with functions: {0}".format(BaseException))
+						except Exception as error:
+							print('Caught this error: ' + repr(error))
+
+								#raise ValueError("something wrong with functions: {0}".format(BaseException))
 
 						# check for new keys name
-						if isinstance(mapping[source][key]['output_key'], list):
-								t_res = dict(
-										zip(mapping[source][key]['output_key'], part[key]))
-								# print(t_res.keys()	)
+						if isinstance(mapping[source][key]['output_key'], list) and isinstance(part[key], tuple) :
+								#print("going to zip: "+str(mapping[source][key]['output_key'])+" "+str(part[key]))
+								t_res = dict(zip(mapping[source][key]['output_key'], part[key]))
+								print(t_res.keys())
 								for k in t_res.keys():
 										if '.' not in k:
 												#print("handling double key, no nesting")
