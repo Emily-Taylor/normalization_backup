@@ -352,6 +352,12 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
 										t_min_float = float(Quantity(t_min))
 										t_max_float = float(Quantity(t_max))
 										return (t_min_float, t_max_float)
+						elif len(parse_any_number(d)) == 1:
+								parsed_temp = parse_any_number(d)
+								# we need to return 0.0 because that's the structure of the function.
+								t_min_float = 0.0
+								t_max_float = parsed_temp[0]
+								return (t_min_float, t_max_float)
 						else:
 								t_min_float = float(Quantity(d, ''))
 								t_max_float = t_min_float

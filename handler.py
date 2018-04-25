@@ -69,7 +69,8 @@ def adjust_structure(part: dict, source: str, ts: int):
 														"n." + f + "({})".format("part['" + key + "']"))
 												part[key] = new_val
 						except Exception as error:
-							print('Caught this error: ' + repr(error))
+							print('Caught this error: ' + repr(error)+' during processing of function '+f+" and key "+str(key))
+							raise error
 
 								#raise ValueError("something wrong with functions: {0}".format(BaseException))
 
@@ -95,7 +96,11 @@ def adjust_structure(part: dict, source: str, ts: int):
 								if '.' not in mapping[source][key]['output_key']:
 										#print("handling single key, no nesting")
 										new_key = mapping[source][key]['output_key']
-										part[new_key] = part.pop(key)
+										try:
+											part[new_key] = part.pop(key)
+										except Exception as error:
+											print("couldn't assign new key. for old key {0}, new key: {1}, data: {2}".format(str(key),str(new_key), str(part[key])))
+											print('Caught this error: ' + repr(error))
 								else:
 										#print("handling single key, with nesting")
 										keys = mapping[source][key]['output_key'].split('.')
