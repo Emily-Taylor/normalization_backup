@@ -70,7 +70,7 @@ def adjust_structure(part: dict, source: str, ts: int):
 												part[key] = new_val
 						except Exception as error:
 							print('Caught this error: ' + repr(error)+' during processing of function '+f+" and key "+str(key))
-							raise error
+							#raise error
 
 								#raise ValueError("something wrong with functions: {0}".format(BaseException))
 
