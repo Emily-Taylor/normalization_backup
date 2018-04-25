@@ -53,6 +53,14 @@ class TestNorm(unittest.TestCase):
 		self.assertTrue(isinstance(result[0], numbers.Real))
 		self.assertTrue(isinstance(result[1], numbers.Real))
 		self.assertEqual(result, output)
+		#"operating_temperature": "-40°C ~ 85°C (TA)",
+		d = "-40°C ~ 85°C (TA)" 
+		output = (-40.0,85.0)
+		result = normalization.split_temp(d)
+		self.assertTrue(isinstance(result[0], numbers.Real))
+		self.assertTrue(isinstance(result[1], numbers.Real))
+		self.assertEqual(result, output)
+
 
 	def test_split_to(self):
 		d = '1000 F to 330000 F'
