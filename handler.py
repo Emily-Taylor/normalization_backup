@@ -78,7 +78,7 @@ def adjust_structure(part: dict, source: str, ts: int):
 						if isinstance(mapping[source][key]['output_key'], list) and isinstance(part[key], tuple) :
 								#print("going to zip: "+str(mapping[source][key]['output_key'])+" "+str(part[key]))
 								t_res = dict(zip(mapping[source][key]['output_key'], part[key]))
-								print(t_res.keys())
+								#print(t_res.keys())
 								for k in t_res.keys():
 										if '.' not in k:
 												#print("handling double key, no nesting")
