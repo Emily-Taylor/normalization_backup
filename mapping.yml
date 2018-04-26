@@ -13,6 +13,14 @@ mouser:
     output_key: number_of_outputs
     actions:
       - extract_num
+  self_resonant_frequency:
+    output_key: self_resonant_frequency
+    actions:
+      - extract_num
+  linearity:
+    output_key: linearity
+    actions:
+      - extract_num
   operating_force:
     output_key: operating_force
     actions:
@@ -25,6 +33,12 @@ mouser:
     output_key: coil_resistance
     actions:
       - extract_num
+  resistance_range:
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
+    actions:
+      - split_to
   coil_voltage:
     output_key:
       - coil_voltage_min
@@ -669,6 +683,10 @@ mouser:
       - switching_voltage_max
     actions:
       - split_to
+  lead_diameter:
+    output_key: diameter
+    actions:
+      - parse_dimension
   coil_type:
     output_key: coil_type
   contact_current_rating:
