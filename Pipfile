@@ -15,6 +15,9 @@ mypy = "*"
 [dev-packages]
 lambda-decorators = "*"
 pylint = "*"
+jsonlines = "*"
+tabulate = "*"
+tqdm = "*"
 
 [requires]
 python_version = "3.6"

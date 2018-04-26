@@ -1,4 +1,5 @@
 import os
+from collections import defaultdict
 import yaml
 import boto3
 import json
@@ -108,3 +109,38 @@ def get_full(mfr):
 	else:
 		logger.error('alias is not a string')
 		return False
+
+
+class MissingMappingResults:
+	"""
+	Description : Aggregator for items
+	"""
+
+	def __init__(self, init_items = defaultdict(dict)):
+		self.items = init_items
+
+	def add_category(self, item):
+		cat = item['categories']
+		key = item['key']
+		source = item['source']
+		normalized_key = cat
+		
+		if normalized_key not in self.items:
+			self.items[normalized_key] = {}
+		if key not in self.items[normalized_key]:
+			self.items[normalized_key][key] = 0
+		self.items[normalized_key][key] += 1
+	def add_item(self, item):
+		cat = item['categories']
+		key = item['key']
+		source = item['source']
+		normalized_key = source+"/"+"__".join(cat).replace(" ","_").lower()
+		if normalized_key not in self.items:
+			self.items[normalized_key] = {}
+		if key not in self.items[normalized_key]:
+			self.items[normalized_key][key] = 0
+		self.items[normalized_key][key] += 1
+
+def init():
+	global agg
+	agg = MissingMappingResults()

@@ -11,10 +11,15 @@ import os,sys,inspect
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0,parentdir) 
-import common
-
+import common as c
 import json
-import logging
+import logging 
+logger = logging.getLogger('missing-mapping-processor')
+hdlr = logging.FileHandler('/var/tmp/missing-mapping.log')
+formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+hdlr.setFormatter(formatter)
+logger.addHandler(hdlr) 
+
 from quantiphy import Quantity
 import re
 import yaml
@@ -51,7 +56,7 @@ def attenuation(d: str) -> typing.Tuple[float, float, float]:
 
 				return(v, r1, r2)
 		else:
-				logging.warning('during type conversion got a non-string')
+				logger.warning('during type conversion got a non-string')
 
 
 def reverse(d: str):
@@ -80,15 +85,15 @@ def tempcoeff(d: str) -> float:
 								d_float = float(d)
 								return d_float
 						except ValueError:
-								logging.warning(
+								logger.warning(
 										"value: \"{0}\" doesn't cannot be converted to float".format(d))
 								return 0.0
 				else:
-						logging.warning(
+						logger.warning(
 								"value: \"{0}\" doesn't match expected pattern".format(d))
 						return 0.0
 		else:
-				logging.warning("during coeff type conversion got a non-string")
+				logger.warning("during coeff type conversion got a non-string")
 
 
 def extract_num(d: str) -> float:
@@ -125,11 +130,33 @@ def extract_num(d: str) -> float:
 								d_float = float(Quantity(d, ''))
 								return d_float
 				else:
-						logging.warning("during coversion got an empty string")
+						logger.warning("during coversion got an empty string")
 						return 0.0
 		else:
-				logging.warning("during type conversion got a non-string")
+				logger.warning("during type conversion got a non-string")
 
+def extract_torque(d: str):
+    """
+    Extracts torque in Nm (SI unit)
+    """
+    if isinstance(d, str):
+        if ',' in d:
+            
+            d = d.split(',')[0]
+        
+        if 'Nm' in d:
+            d_float = parse_any_number(d)[0]
+            return(d_float)
+        elif 'kg' in d:
+            d_float = d_float = parse_any_number(d)[0]
+            return(d_float)
+        elif 'oz-in' in d:
+            d_float = d_float = parse_any_number(d)[0]
+            d_float = d_float / 141.732
+            return(d_float)
+    else:
+        logging.warning('during type conversion got a non-string.')
+        return 0.0
 
 def split_spread(d: str):
 		"""
@@ -153,7 +180,7 @@ def split_spread(d: str):
 				down_max_float = abs(float(down_max))
 				return(center_min_float, center_max_float, down_min_float, down_max_float)
 		else:
-				logging.warning('during type conversion got a non-string.')
+				logger.warning('during type conversion got a non-string.')
 				return(0.0, 0.0, 0.0, 0.0)
 
 
@@ -179,6 +206,19 @@ def parse_any_number(d: str):
 				return d
 		return d
 
+def parse_dimension3d(d: str):
+    """
+    extracts w, h, d from 3d entries
+    """
+    if isinstance(d, str):
+        d_float = parse_any_number(d)
+        w = d_float[0]
+        h = d_float[1]
+        d = d_float[2]
+        return(w, h, d)
+    else:
+        logging.warning('during type conversion got a non-string.')
+        return (0.0, 0.0, 0.0)
 
 def inductance(d: str):
 		""" turns inducance string to numeric"""
@@ -187,7 +227,7 @@ def inductance(d: str):
 				d_float = float(Quantity(d, 'H'))
 				return d_float
 		else:
-				logging.warning("during inductance type conversion got a non-string")
+				logger.warning("during inductance type conversion got a non-string")
 				return d
 
 
@@ -198,7 +238,7 @@ def voltage(d: str):
 				d_float = float(Quantity(d, 'V'))
 				return d_float
 		else:
-				logging.warning("during voltage type conversion got a non-string")
+				logger.warning("during voltage type conversion got a non-string")
 				return 0.0
 
 
@@ -209,7 +249,7 @@ def tolerance(d: str):
 				d = d.replace('%', '')
 				return int(d)
 		else:
-				logging.warning("during tolerance type conversion got a non-string")
+				logger.warning("during tolerance type conversion got a non-string")
 
 
 def current(d: str):
@@ -222,7 +262,7 @@ def current(d: str):
 				d_float = float(Quantity(d, 'A'))
 				return d_float
 		else:
-				logging.warning("during current type conversion got a non-string")
+				logger.warning("during current type conversion got a non-string")
 				return d
 
 
@@ -238,7 +278,7 @@ def resistance(d: str):
 				d_float = float(Quantity(d, 'Ohm'))
 				return d_float
 		else:
-				logging.warning("during resistance type conversion got a non-string")
+				logger.warning("during resistance type conversion got a non-string")
 				return 0.0
 
 
@@ -260,7 +300,7 @@ def power(d: str):
 				d_float = float(Quantity(d, 'W'))
 				return d_float
 		else:
-				logging.warning("during power type conversion got a non-string")
+				logger.warning("during power type conversion got a non-string")
 				return 0.0
 
 
@@ -275,7 +315,7 @@ def capacitance(d: str):
 				d_float = float(Quantity(d, 'F'))
 				return d_float
 		else:
-				logging.warning("during capacitance type conversion got a non-string")
+				logger.warning("during capacitance type conversion got a non-string")
 				return d
 
 
@@ -290,7 +330,7 @@ def frequency(d: str):
 				d_float = float(Quantity(d, 'Hz'))
 				return d_float
 		else:
-				logging.warning("during frequency type conversion got a non-string")
+				logger.warning("during frequency type conversion got a non-string")
 				return 0.0
 
 
@@ -333,7 +373,7 @@ def split_band(d: str):
 						band_max_float = 0
 						return(band_min_float, band_max_float, band_typ)
 		else:
-				logging.warning('During type conversion got a non-string.')
+				logger.warning('During type conversion got a non-string.')
 				return(0.0, 0.0, 0.0)
 
 def split_temp(d: str) -> typing.Tuple[float, float]:
@@ -384,12 +424,12 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
 								return (t_min_float, t_max_float)
 
 				else:
-						logging.warning(
+						logger.warning(
 								"no commas were found while search for one. couldn't split temp")
 						return(0.0, 0.0)
 
 		else:
-				logging.warning("during type conversion got a non-string")
+				logger.warning("during type conversion got a non-string")
 				return(0.0, 0.0)
 
 
@@ -409,10 +449,10 @@ def parse_dimension(d: str):
 								d_float = float(Quantity(res[0], "mm"))
 								return(d_float)
 						else:
-								logging.warning("no given value to be extracted.")
+								logger.warning("no given value to be extracted.")
 								return(0.0)
 				else:
-						logging.warning("something went wrong.")
+						logger.warning("something went wrong.")
 						return(0.0)
 		else:
 				d = parse_any_number(d)[0]
@@ -443,12 +483,12 @@ def split_at(d):
 								n2 = 0
 								return(n1, n2)
 						else:
-								logging.warning(
+								logger.warning(
 										"recheck splitting symbol and update function accordingly")
 								return(0.0, 0.0)
 
 		else:
-				logging.warning("during type conversion got a non-string")
+				logger.warning("during type conversion got a non-string")
 				return(0.0, 0.0)
 
 
@@ -492,7 +532,7 @@ def split_to(d: str):
 						return(n1_float, n2_float)
 
 		else:
-				logging.warning("during type conversion got a non-string")
+				logger.warning("during type conversion got a non-string")
 				return(0.0, 0.0)
 
 
@@ -557,17 +597,22 @@ def split_lifetime(d):
 
 
 def category_normalize_digikey(d: dict):
-		"""
-		For categories, instead of changing the name
-		"""
-		for n, i in enumerate(d):
-				if i in categories['digikey']:
-						d[n] = categories['digikey'][i]
-				else:
-						#logging.warning("missing mapping for category name: {0}".format(i))
-						common.send_msg(json.dumps(
-								{"source": 'digikey', "categories": d, "key": "missing_category_mapping"}))
-		return d
+	"""
+	For categories, instead of changing the name
+	"""
+	for n, i in enumerate(d):
+			if i in categories['digikey']:
+					d[n] = categories['digikey'][i]
+			else:
+					#logger.warning("missing mapping for category name: {0}".format(i))
+					#common.send_msg(json.dumps({"source": 'digikey', "categories": d, "key": "missing_category_mapping"}))
+					try:
+						c.agg.add_category({"source": 'digikey', "categories": ("digikey/"+"__".join(d).replace(" ","_")).lower(), "key": "missing_category_mapping"})
+					except:
+						logger.warning("missing mapping for category name: {0}".format(i))
+						pass
+
+	return d
 
 
 def to_int(d: str):
@@ -585,7 +630,7 @@ def inchtomm(d: str):
 				d = d * 25.4
 				return d
 		else:
-				logging.warning('during type conversion met a string.')
+				logger.warning('during type conversion met a string.')
 
 
 def to_float(d: str):
@@ -606,11 +651,11 @@ def split_double(d: str):
 						high_min, high_max = split_temp(high)
 						return(low_min, low_max, high_min, high_max)
 				else:
-						logging.warning(
+						logger.warning(
 								'Range separator is different than noted. Please update.')
 						return(0.0, 0.0, 0.0, 0.0)
 		else:
-				logging.warning('during type conversion got a non-string.')
+				logger.warning('during type conversion got a non-string.')
 				return(0.0, 0.0, 0.0, 0.0)
 
 
@@ -627,10 +672,10 @@ def split_current(d: str):
 						s_float = float(Quantity(s, ''))
 						return (p_float, s_float)
 				else:
-						logging.warning('Splitting symbol is different. Please update.')
+						logger.warning('Splitting symbol is different. Please update.')
 						return (0.0, 0.0)
 		else:
-				logging.warning('during type conversion got a non-string.')
+				logger.warning('during type conversion got a non-string.')
 				return (0.0, 0.0)
 
 
@@ -652,10 +697,10 @@ def split_resistance(d: str):
 						s_float = p_float
 						return (p_float, s_float)
 				else:
-						logging.warning('Splitting symbol is different. Please update.')
+						logger.warning('Splitting symbol is different. Please update.')
 						return (0.0, 0.0)
 		else:
-				logging.warning('during type conversion got a non-string.')
+				logger.warning('during type conversion got a non-string.')
 				return (0.0, 0.0)
 
 
@@ -714,5 +759,5 @@ def split_timing(d: str):
 
 						return (t1_float, t2_float)
 		else:
-				logging.warning('during type conversion got a non-string.')
+				logger.warning('during type conversion got a non-string.')
 				return (0.0, 0.0)

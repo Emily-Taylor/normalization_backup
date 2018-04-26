@@ -51,6 +51,10 @@ mouser:
     output_key: sensing_distance
     actions:
       - parse_dimension
+  minimum_holding_torque:
+    output_key: minimum_holding_torque
+    actions:
+      - extract_torque
   mounting_type:
     output_key: mounting_style
   switch_function:
@@ -64,7 +68,12 @@ mouser:
   motor_drive_type:
     output_key: motor_drive_type
   size:
-    output_key: size
+    output_key:
+      - width
+      - height
+      - depth
+    actions:
+        - parse_dimension3d
   sensing_method:
     output_key: sensing_method
   range:
