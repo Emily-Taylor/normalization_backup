@@ -22,9 +22,11 @@ mouser:
     actions:
       - extract_num
   operating_force:
-    output_key: operating_force
+    output_key:
+      - operating_force_min
+      - operating_force_max
     actions:
-      - extract_num
+      - split_to
   coil_current:
     output_key: coil_current
     actions:
