@@ -435,11 +435,14 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
 
 def parse_dimension(d: str):
 
+		if d == '1 1/2' or d == '1 1/2"' or d == '1 1/2\"':
+				d_float = 38.1
+				return(d_float)
 		if ' in' in d:
 				d = re.sub(' in', '', d)
 				d_float = float(Fraction(re.sub(' in', '', d))) * 25.4
 				return(d_float)
-
+                
 		if 'mm)' in d:
 				regexp = re.compile(r'\((.*)mm\)')
 				res = regexp.findall(d)

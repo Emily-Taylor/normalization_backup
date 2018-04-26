@@ -226,11 +226,16 @@ class TestNorm(unittest.TestCase):
 		self.assertEqual(result, output)
 
 	def test_height(self):
-		d = '0.512" (13.00mm)'
-		output = 13.0
-		result = normalization.parse_dimension(d)
-		self.assertTrue(isinstance(result, numbers.Real))
-		self.assertEqual(result, output)
+		d1 = '0.512" (13.00mm)'
+		d2 = '22 mm (0.875)'
+		output1 = 13.0
+		output2 = 22.0
+		result1 = normalization.parse_dimension(d1)
+		result2 = normalization.parse_dimension(d2)
+		self.assertTrue(isinstance(result1, numbers.Real))
+		self.assertTrue(isinstance(result2, numbers.Real))
+		self.assertEqual(result1, output1)
+		self.assertEqual(result2, output2)
 
 
 if __name__ == '__main__':
