@@ -15,10 +15,6 @@ import common as c
 import json
 import logging 
 logger = logging.getLogger('missing-mapping-processor')
-hdlr = logging.FileHandler('/var/tmp/missing-mapping.log')
-formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-hdlr.setFormatter(formatter)
-logger.addHandler(hdlr) 
 
 from quantiphy import Quantity
 import re
