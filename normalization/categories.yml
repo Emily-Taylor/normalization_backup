@@ -7,11 +7,13 @@ digikey:
   Capacitor Networks, Arrays: Capacitor Networks, Arrays
   Capacitors: Capacitors
   Ceramic Capacitors: Ceramic Capacitors
-  Chassis Mount Resistors: Chassis Mount Resistors
-  Chip Resistor - Surface Mount: SMD Resistors / Chip Resistors
+  Chassis Mount Resistors: Resistors
+  Chip Resistor - Surface Mount: Resistors
+  Precision Trimmed Resistors: Resistors
   Delay Lines: Delay Lines
   Fixed Inductors: Fixed Inductors
   Inductors, Coils, Chokes: Inductors, Chokes & Coils
+  EMI/RFI Filters (LC, RC Networks): EMI Filters / EMI Suppression
   Resistors: Resistors
   Wireless Charging Coils: Wireless Charging Coils
   Electric Double Layer Capacitors (EDLC), Supercapacitors: Supercapacitors / Ultracapacitors
@@ -23,10 +25,10 @@ digikey:
   Tantalum Capacitors: Tantalum Capacitors
   Thin Film Capacitors: Thin Film Capacitors
   Trimmers, Variable Capacitors: Trimmer/Variable Capacitors
-  Resistor Networks, Arrays: Resistor Networks & Arrays
-  Specialized Resistors: Specialized Resistors
-  Through Hole Resistors: Through Hole Resistors
-  Crystals, Oscillators, Resonators: Crystals, Oscillators, Resonators
+  Resistor Networks, Arrays: Resistors
+  Specialized Resistors: Resistors
+  Through Hole Resistors: Resistors
+  Crystals, Oscillators, Resonators: Frequency Control & Timing Devices
   Crystals: Crystals
   Oscillators: Oscillators
   Pin Configurable/Selectable Oscillators: Pin Configurable/Selectable Oscillators
@@ -35,8 +37,10 @@ digikey:
   Sockets and Insulators: Sockets and Insulators
   Stand Alone Programmers: Stand Alone Programmers
   VCOs (Voltage Controlled Oscillators): VCOs (Voltage Controlled Oscillators)
-  RF/IF and RFID: RF/IF and RFID
-  RF Diplexers: RF Diplexers
+  RF Diplexers: Signal Conditioning
+  Current Transducers: Signal Conditioning
+  Pressure Sensors, Transducers: Signal Conditioning
+  Encoders: Encoders
   Potentiometers, Variable Resistors: Potentiometers, Trimmers & Rheostats
   Adjustable Power Resistor: Adjustable Power Resistor
   Joystick Potentiometers: Joystick Potentiometers
@@ -50,14 +54,17 @@ digikey:
   LED Thermal Products: LED Thermal Products
   Magnetics - Transformer, Inductor Components: Magnetics - Transformer, Inductor Components
   Bobbins (Coil Formers), Mounts, Hardware: Bobbins (Coil Formers), Mounts, Hardware
-  Ferrite Cores: Ferrite Cores
+  Ferrite Cores: Ferrites
+  Ferrite Beads and Chips: Ferrites
+  Ferrite Disks and Plates: Ferrites
   Magnetic Wire: Magnetic Wire
-  Kits: Kits
   Capacitor Kits: Capacitor Kits
   Crystal Kits: Crystal Kits
-  EMI, Filter Kits: EMI, Filter Kits
+  EMI, Filter Kits: EMI Filters / EMI Suppression
+  RFI and EMI - Shielding and Absorbing Materials: EMI Filters / EMI Suppression
+  RFI and EMI - Contacts, Fingerstock and Gaskets: EMI Filters / EMI Suppression
   Inductor Kits: Inductor Kits
-  Potentiometer Kits: Potentiometer Kits
+  Potentiometer Kits: Potentiometers, Trimmers & Rheostats
   Resistor Kits: Resistor Kits
   Integrated Circuits (ICs): Integrated Circuits - ICs
   Audio Special Purpose: Audio ICs
@@ -71,7 +78,7 @@ digikey:
   Data Acquisition - ADCs/DACs - Special Purpose: Data Converter ICs
   Data Acquisition - Analog Front End (AFE): Data Converter ICs
   Data Acquisition - Analog to Digital Converters (ADC): Data Converter ICs
-  Data Acquisition - Digital Potentiometers: Data Converter ICs
+  Data Acquisition - Digital Potentiometers: Potentiometers, Trimmers & Rheostats
   Data Acquisition - Digital to Analog Converters (DAC): Data Converter ICs
   Data Acquisition - Touch Screen Controllers: Data Converter ICs
   Embedded - CPLDs (Complex Programmable Logic Devices): Embedded Processors & Controllers
@@ -90,7 +97,7 @@ digikey:
   Interface - Controllers: Switch ICs
   Interface - Direct Digital Synthesis (DDS): Switch ICs
   Interface - Drivers, Receivers, Transceivers: Switch ICs
-  Interface - Encoders, Decoders, Converters: Switch ICs
+  Interface - Encoders, Decoders, Converters: Encoders
   Interface - Filters - Active: Switch ICs
   Interface - I/O Expanders: Switch ICs
   Interface - Modems - ICs and Modules: Switch ICs
@@ -98,9 +105,112 @@ digikey:
   Interface - Sensor and Detector Interfaces: Switch ICs
   Interface - Sensor, Capacitive Touch: Switch ICs
   Interface - Serializers, Deserializers: Switch ICs
-  Interface - Signal Buffers, Repeaters, Splitters: Switch ICs
+  Interface - Signal Buffers, Repeaters, Splitters: Signal Conditioning
   Interface - Signal Terminators: Switch ICs
   Interface - Specialized: Switch ICs
   Interface - Telecom: Switch ICs
   Interface - UARTs (Universal Asynchronous Receiver Transmitter): Switch ICs
   Interface - Voice Record and Playback: Switch ICs
+  SAW Filter: Signal Conditioning
+  Inrush Current Limiters (ICL): Thermistors – NTC
+  Temperature Sensors - NTC Thermistors: Thermistors – NTC
+  PTC Resettable Fuses: Thermistors – PTC
+  Temperature Sensors - PTC Thermistors: Thermistors – PTC
+  TVS - Varistors, MOVs: Varistors
+  TVS - Mixed Technology: Varistors
+  Transformers: Audio Transformers / Signal Transformers
+  RF Antennas: Antennas
+  RFID Antennas: Antennas
+  Ferrite Cores - Cables and Wiring: Ferrites
+  Power Relays, Over 2 Amps: Relays
+  Signal Relays, Up to 2 Amps: Relays
+  Relay Sockets: Relays
+  Solid State Relays: Relays
+  Relays: Relays
+  Time Delay Relays: Relays
+  Protection Relays & Systems: Relays
+  Miscellaneous: Relays
+  Circuit Protection: Circuit Breakers
+  Pushbutton Switches: Switches
+  Toggle Switches: Switches
+  Rocker Switches: Switches
+  Slide Switches: Switches
+  Tactile Switches: Switches
+  Snap Action, Limit Switches: Switches
+  Rotary Switches: Switches
+  DIP Switches: Switches
+  Keylock Switches: Switches
+  Selector Switches:Switches
+  Accessories:Switches
+  Accessories - Caps: Switches
+  Configurable Switch Components - Body: Switches
+  Magnetic, Reed Switches: Switches
+  Thumbwheel Switches: Switches
+  Microphones: Audio Devices
+  Alarms, Buzzers, and Sirens: Audio Devices
+  Speakers: Audio Devices
+  Buzzer Elements, Piezo Benders: Audio Devices
+  Audio Kits: Audio Devices
+  Cam Positioners:
+  Controllers - Accessories:
+  Controllers - Cable Assemblies:
+  Controllers - Liquid, Level:
+  Controllers - Machine Safety:
+  Controllers - PLC Modules:
+  Controllers - Process, Temperature:
+  Controllers - Programmable Logic (PLC):
+  Human Machine Interface (HMI):
+  Human Machine Interface (HMI) - Accessories:
+  Industrial Equipment: Industrial Automation
+  Lighting Control: Industrial Automation
+  Lighting Control - Accessories: Industrial Automation
+  Machine Safety - Light Curtains: Industrial Automation
+  Machine Vision - Accessories: Industrial Automation
+  Machine Vision - Cameras/Sensors: Industrial Automation
+  Machine Vision - Control/Processing: Industrial Automation
+  Machine Vision - Lens: Industrial Automation
+  Machine Vision - Lighting: Industrial Automation
+  Monitor - Current/Voltage - Relay Output: Industrial Automation
+  Monitor - Current/Voltage Transducer: Current Sensors
+  Panel Meters: Industrial Automation
+  Panel Meters - Accessories: Industrial Automation
+  Panel Meters - Counters, Hour Meters: Industrial Automation
+  Pneumatics, Hydraulics: Industrial Automation
+  Protection Relays & Systems: Industrial Automation
+  Specialized: Industrial Automation
+  Stackable Tower Lighting and Components: Industrial Automation
+  Motors - AC, DC: Motors & Drives
+  Motor Driver Boards, Modules: Motors & Drives
+  Solenoids, Actuators: Motors & Drives
+  Stepper Motors: Motors & Drives
+  Printers: Printers
+  Knobs: Knobs & Dials
+  Scale Dials: Knobs & Dials
+  Board Spacers, Standoffs: Hardware
+  Board Supports: Hardware
+  Bumpers, Feet, Pads, Grips: Hardware
+  Screws, Bolts: Hardware
+  Rack Accessories: Hardware
+  Box Accessories: Hardware
+  Boxes: Hardware
+  Accessories - Boots, Seals: Hardware
+  Fuseholders: Hardware
+  Clips, Hangers, Hooks: Hardware
+  Component Insulators, Mounts, Spacers: Hardware
+  DIN Rail Channel: Hardware
+  Foam: Hardware
+  Hole Plugs: Hardware
+  Labels, Labeling: Hardware
+  Lockouts, Padlocks: Hardware
+  Miscellaneous: Hardware
+  Mounting Brackets: Hardware
+  Nuts: Hardware
+  Reclosable Fasteners: Hardware
+  Rivets: Hardware
+  Screw Grommets: Hardware
+  Screws, Bolts: Hardware
+  Structural, Motion Hardware: Hardware
+  Washers: Hardware
+  Washers - Bushing, Shoulder: Hardware
+  Current Sense Transformers: Current Sensors
+  Specialized: Current Sensors
