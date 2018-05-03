@@ -95,6 +95,6 @@ functions:
 
 plugins:
 
-  - serverless-python-requirements
-  - serverless-offline
+#  - serverless-python-requirements
+#  - serverless-offline
 #  - serverless-offline-sns
