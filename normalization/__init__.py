@@ -438,7 +438,7 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
 										t_max_float7 = float(Quantity(t_max))
 										return (t_min_float7, t_max_float7)
 								else:
-										t_min_float8 = float(Quantity(t_min_float))
+										t_min_float8 = float(Quantity(t_min))
 										t_max_float8 = float(Quantity(t_max))
 										return (t_min_float8, t_max_float8)
 						elif ' to ' in d:
