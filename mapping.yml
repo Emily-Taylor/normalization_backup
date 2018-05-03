@@ -2327,6 +2327,12 @@ digikey:
     output_key: operating_supply_voltage
     actions:
       - extract_num
+  voltage_range:
+    output_key:
+      - voltage_range_min
+      - voltage_range_max
+    actions:
+      - split_temp
   number_of_macro_cells:
     output_key: number_of_macro_cells
   description_raw:
