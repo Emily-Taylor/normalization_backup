@@ -862,9 +862,12 @@ digikey:
     actions:
       - parse_any_number
   sensitivity:
-    output_key: sensitivity
+    output_key:
+        - sensitivity_typical
+        - sensitivity_typical_tolerance
+        - sensitivity_conditions
     actions:
-      - extract_num
+      - split_sensitivity
   output:
     output_key: output
   linearity:
@@ -1841,7 +1844,7 @@ digikey:
   current_supply:
     output_key: current_supply
     actions:
-      - extract_num
+      - split_temp
   current_output_(max):
     output_key:
       - current_output_max_parallel
