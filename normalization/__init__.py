@@ -386,21 +386,21 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
 								
 								if t_min == 'DC':
 										t_min_float = 0.0
-										t_min_float = float(Quantity(t_min_float))
-										t_max_float = float(Quantity(t_max))
-										return (t_min_float, t_max_float)
+										t_min_float1 = float(Quantity(t_min_float))
+										t_max_float1 = float(Quantity(t_max))
+										return (t_min_float1, t_max_float1)
 								else:
 										parsed_t_min = parse_any_number(t_min)[0]
 										parsed_t_max = parse_any_number(t_max)[0]
-										t_min_float = float(Quantity(parsed_t_min))
-										t_max_float = float(Quantity(parsed_t_max))
-										return (t_min_float, t_max_float)
+										t_min_float2 = float(Quantity(parsed_t_min))
+										t_max_float2 = float(Quantity(parsed_t_max))
+										return (t_min_float2, t_max_float2)
 						elif len(parse_any_number(d)) == 1:
 								parsed_temp = parse_any_number(d)
 								# we need to return 0.0 because that's the structure of the function.
-								t_min_float = 0.0
-								t_max_float = parsed_temp[0]
-								return (t_min_float, t_max_float)
+								t_min_float3 = 0.0
+								t_max_float3 = parsed_temp[0]
+								return (t_min_float3, t_max_float3)
 						elif ' to ' in d:
 								t_min, t_max = d.split(' to ')
 								t_min = re.sub(' ', '', t_min)
@@ -408,38 +408,52 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
 								
 								if t_min == 'DC':
 										t_min_float = 0.0
-										t_min_float = float(Quantity(t_min_float))
-										t_max_float = float(Quantity(t_max))
-										return (t_min_float, t_max_float)
+										t_min_float4 = float(Quantity(t_min_float))
+										t_max_float4 = float(Quantity(t_max))
+										return (t_min_float4, t_max_float4)
 								else:
 										parsed_t_min = parse_any_number(t_min)[0]
 										parsed_t_max = parse_any_number(t_max)[0]
-										t_min_float = float(Quantity(parsed_t_min))
-										t_max_float = float(Quantity(parsed_t_max))
-										return (t_min_float, t_max_float)
+										t_min_float5 = float(Quantity(parsed_t_min))
+										t_max_float5 = float(Quantity(parsed_t_max))
+										return (t_min_float5, t_max_float5)
 						else:
-								t_min_float = float(Quantity(d, ''))
-								t_max_float = t_min_float
-								return (t_min_float, t_max_float)
+								t_min_float6 = float(Quantity(d, ''))
+								t_max_float6 = t_min_float
+								return (t_min_float6, t_max_float6)
 
 				elif ', ' in d:
 						d = d.split(', ')[0]
 						if ' ~ ' in d:
 								t_min, t_max = d.split(' ~ ')
+								t_min = re.sub(' ', '', t_min)
+								t_max = re.sub(' ', '', t_max)
 								if t_min == 'DC':
 										t_min_float = 0.0
-										t_min_float = float(Quantity(t_min_float))
-										t_max_float = float(Quantity(t_max))
-										return (t_min_float, t_max_float)
+										t_min_float7 = float(Quantity(t_min_float))
+										t_max_float7 = float(Quantity(t_max))
+										return (t_min_float7, t_max_float7)
 								else:
-										t_min_float = float(Quantity(t_min_float))
-										t_max_float = float(Quantity(t_max))
-										return (t_min_float, t_max_float)
-
+										t_min_float8 = float(Quantity(t_min_float))
+										t_max_float8 = float(Quantity(t_max))
+										return (t_min_float8, t_max_float8)
+						elif ' to ' in d:
+								t_min, t_max = d.split(' to ')
+								t_min = re.sub(' ', '', t_min)
+								t_max = re.sub(' ', '', t_max)
+								if t_min == 'DC':
+										t_min_float = 0.0
+										t_min_float9 = float(Quantity(t_min_float))
+										t_max_float9 = float(Quantity(t_max))
+										return (t_min_float9, t_max_float9)
+								else:
+										t_min_float10 = float(Quantity(t_min))
+										t_max_float10 = float(Quantity(t_max))
+										return (t_min_float10, t_max_float10)
 						else:
-								t_min_float = float(Quantity(d, ''))
-								t_max_float = t_min_float
-								return (t_min_float, t_max_float)
+								t_min_float11 = float(Quantity(d, ''))
+								t_max_float11 = t_min_float
+								return (t_min_float11, t_max_float11)
 
 				else:
 						logger.warning(
