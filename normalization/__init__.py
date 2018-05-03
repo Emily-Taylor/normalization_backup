@@ -381,6 +381,9 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
 				if ', ' not in d:
 						if ' ~ ' in d:
 								t_min, t_max = d.split(' ~ ')
+								t_min = re.sub(' ', '', t_min)
+								t_max = re.sub(' ', '', t_max)
+								
 								if t_min == 'DC':
 										t_min_float = 0.0
 										t_min_float = float(Quantity(t_min_float))
@@ -398,6 +401,22 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
 								t_min_float = 0.0
 								t_max_float = parsed_temp[0]
 								return (t_min_float, t_max_float)
+						elif ' to ' in d:
+								t_min, t_max = d.split(' to ')
+								t_min = re.sub(' ', '', t_min)
+								t_max = re.sub(' ', '', t_max)
+								
+								if t_min == 'DC':
+										t_min_float = 0.0
+										t_min_float = float(Quantity(t_min_float))
+										t_max_float = float(Quantity(t_max))
+										return (t_min_float, t_max_float)
+								else:
+										parsed_t_min = parse_any_number(t_min)[0]
+										parsed_t_max = parse_any_number(t_max)[0]
+										t_min_float = float(Quantity(parsed_t_min))
+										t_max_float = float(Quantity(parsed_t_max))
+										return (t_min_float, t_max_float)
 						else:
 								t_min_float = float(Quantity(d, ''))
 								t_max_float = t_min_float
