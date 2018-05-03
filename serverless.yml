@@ -24,7 +24,7 @@ provider:
   runtime: python3.6
   stage: ${opt:stage, 'dev'}
   region: eu-central-1
-  
+
   memorySize: 256 # optional, in MB, default is 1024
   timeout: 15 # optional, in seconds, default is 6
   environment:
@@ -43,12 +43,13 @@ provider:
         - "sqs:ListQueues"
         - "sns:Publish"
 
-      Resource: 
+      Resource:
         - arn:aws:sqs:eu-central-1:202439666482:missing-mapping
         - arn:aws:sns:eu-central-1:202439666482:norm-new-item-dev #${self:provider.stage}
         - arn:aws:sns:eu-central-1:202439666482:norm-new-item-production #${self:provider.stage}
 
 package:
+  individually: true
   exclude:
     - node_modules/**
     - data/**
