@@ -164,6 +164,7 @@ def adjust_structure(part: dict, source: str, ts: int):
 				'sku',
 				'links',
 				'description',
+				'description_raw',
 				'lifecycle',
 				'properties',
 				'id',
