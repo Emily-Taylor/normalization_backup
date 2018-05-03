@@ -123,7 +123,7 @@ def extract_num(d: str) -> float:
 								d_float = parse_any_number(d)[0]
 								return d_float
 						elif '/' in d and 'A' in d:
-								d_float = float(Fraction(re.sub('A', '', d))) * 25.4
+								d_float = float(Fraction(re.sub('A', '', d)))
 								return d_float
 						else:
 								d_float = float(Quantity(d, ''))
