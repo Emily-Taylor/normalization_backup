@@ -124,10 +124,10 @@ def extract_num(d: str) -> float:
 								return d_float
 						elif '/' in d:
 								if 'A' in d:
-									d_float = float(Fraction(re.sub('A', '', d)))
+									d_float = convert_to_float(re.sub('A', '', d))
 									return d_float
 								elif 'Ohms' in d:
-									d_float = float(Fraction(eval(re.sub('Ohms', '', d))))
+									d_float = convert_to_float(re.sub('Ohms', '', d))
 									return d_float
 						else:
 								d_float = float(Quantity(d, ''))
@@ -835,3 +835,16 @@ def split_timing(d: str):
 		else:
 				logger.warning('during type conversion got a non-string.')
 				return (0.0, 0.0)
+
+def convert_to_float(frac_str):
+    try:
+        return float(frac_str)
+    except ValueError:
+        num, denom = frac_str.split('/')
+        try:
+            leading, num = num.split(' ')
+            whole = float(leading)
+        except ValueError:
+            whole = 0
+        frac = float(num) / float(denom)
+        return whole - frac if whole < 0 else whole + frac
