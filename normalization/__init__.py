@@ -122,6 +122,9 @@ def extract_num(d: str) -> float:
 						elif 'Position' in d:
 								d_float = parse_any_number(d)[0]
 								return d_float
+						elif '/' in d and 'A' in d:
+								d_float = float(Fraction(re.sub('A', '', d))) * 25.4
+								return d_float
 						else:
 								d_float = float(Quantity(d, ''))
 								return d_float
