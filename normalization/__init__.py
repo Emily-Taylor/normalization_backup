@@ -702,7 +702,25 @@ def split_resistance(d: str):
 				logger.warning('during type conversion got a non-string.')
 				return (0.0, 0.0)
 
-
+def split_spl(d: str):
+    
+    if isinstance(d, str):
+        volume = d.split('@')[0]
+        volume_float = extract_num(volume)
+        
+        v_d = d.split('@')[1]
+        
+        voltage = v_d.split(',')[0]
+        distance = v_d.split(',')[1]
+        
+        voltage_float = extract_num(voltage)
+        distance_float = extract_num(distance)
+        
+        return (volume_float, voltage_float, distance_float)
+    else:
+        logger.warning('during type conversion got a non-string.')
+        return (0.0, 0.0, 0.0)
+    
 def split_timing(d: str):
 
 		if isinstance(d, str):

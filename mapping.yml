@@ -2283,6 +2283,13 @@ digikey:
     output_key: length
     actions:
       - parse_dimension
+  sound_pressure_level_(spl):
+    output_key:
+      - sound_pressure_level_volume
+      - sound_pressure_level_rated_voltage
+      - sound_pressure_level_distance
+    actions:
+      - split_spl
   opening_size:
     output_key:
       - opening_size_width
