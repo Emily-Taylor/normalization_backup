@@ -848,3 +848,42 @@ def convert_to_float(frac_str):
             whole = 0
         frac = float(num) / float(denom)
         return whole - frac if whole < 0 else whole + frac
+
+def split_contact(d: str):
+    if isinstance(d, str):
+        
+        if ',' in d:
+            d = d.split(',')[0]
+        
+        if ' to ' in d:
+            d_min, d_max = d.split(' to ')
+            d_min_float = float(Quantity(d_min))
+            d_max_float = float(Quantity(d_max))
+            return (d_min_float, d_max_float, 0.0)
+        elif ' at ' in d:
+            d_min, v = d.split(' at ')
+            d_min_float = float(Quantity(d_min))
+            d_max_float = d_min_float
+            v_float = float(Quantity(v))
+            return (d_min_float, d_max_float, v_float)
+        else:
+            d_min_float = float(Quantity(d))
+            d_max_float = d_min_float
+            return (d_min_float, d_max_float, 0.0)
+    else:
+        logger.error('during type conversion got a non-string.')
+        return (0.0, 0.0, 0.0)
+            
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
