@@ -243,8 +243,9 @@ mouser:
     output_key:
       - contact_rating_min
       - contact_rating_max
+      - contact_rating_at_V
     actions:
-      - split_to
+      - split_contact
   contact_form:
     output_key: contact_form
   cutoff_frequency:
