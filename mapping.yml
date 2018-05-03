@@ -53,8 +53,6 @@ mouser:
       - extract_num
   contact_material:
     output_key: contact_material
-    actions:
-      - extract_num
   primary_winding:
     output_key: primary_winding
     actions:
@@ -798,6 +796,8 @@ digikey:
       - parse_dimension
   output_type:
     output_key: output_type
+  circuit:
+    output_key: circuit
   frequency_center:
     output_key:
       - frequency_range_min
@@ -2287,6 +2287,18 @@ digikey:
     output_key: length
     actions:
       - parse_dimension
+  voltage_input:
+    output_key:
+      - control_voltage_range_min
+      - control_voltage_range_max
+    actions:
+      - split_temp
+  voltage_load:
+    output_key:
+      - load_voltage_rating_min
+      - load_voltage_rating_max
+    actions:
+      - split_temp
   sound_pressure_level_(spl):
     output_key:
       - sound_pressure_level_volume
@@ -2294,6 +2306,12 @@ digikey:
       - sound_pressure_level_distance
     actions:
       - split_spl
+  contact_rating_@_voltage:
+    output_key:
+      - contact_rating
+      - contact_rating_at_V
+    actions:
+      - split_at
   opening_size:
     output_key:
       - opening_size_width
