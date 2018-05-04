@@ -2158,9 +2158,11 @@ digikey:
   supplier_device_package:
     output_key: supplier_device_package
   delay_time:
-    output_key: propagation_delay_time
+    output_key:
+      - timing_range_min
+      - timing_range_max
     actions:
-      - extract_num
+      - split_timing
   r25c:
     output_key: r25c
     actions:
