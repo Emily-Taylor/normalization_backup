@@ -247,7 +247,46 @@ class TestNorm(unittest.TestCase):
 		self.assertTrue(isinstance(result2, numbers.Real))
 		self.assertEqual(result1, output1)
 		self.assertEqual(result2, output2)
-
+	def test_split_timing(self):
+		d1 = '1023 s'
+		output1 = (1023.0, 1023.0)
+		d2 = '1 m to 100 m'
+		output2 = (60.0, 6000.0)
+		d3 = 'Fixed 3m'
+		output3 = (180.0, 180.0)
+		d4 = '0.1 s to 100 m'
+		output4 = (0.1, 6000.0)
+		d5 = '1 s to 1023 s'
+		output5 = (1.0, 1023.0)
+		d6 = '0.1 s to 10 d'
+		output6 = (0.1, 864000.0)
+		
+		result1 = normalization.split_timing(d1)
+		result2 = normalization.split_timing(d2)
+		result3 = normalization.split_timing(d3)
+		result4 = normalization.split_timing(d4)
+		result5 = normalization.split_timing(d5)
+		result6 = normalization.split_timing(d6)
+		
+		self.assertTrue(isinstance(result1[0], numbers.Real))
+		self.assertTrue(isinstance(result1[1], numbers.Real))
+		self.assertTrue(isinstance(result2[0], numbers.Real))
+		self.assertTrue(isinstance(result2[1], numbers.Real))
+		self.assertTrue(isinstance(result3[0], numbers.Real))
+		self.assertTrue(isinstance(result3[1], numbers.Real))
+		self.assertTrue(isinstance(result4[0], numbers.Real))
+		self.assertTrue(isinstance(result4[1], numbers.Real))
+		self.assertTrue(isinstance(result5[0], numbers.Real))
+		self.assertTrue(isinstance(result5[1], numbers.Real))
+		self.assertTrue(isinstance(result6[0], numbers.Real))
+		self.assertTrue(isinstance(result6[1], numbers.Real))
+		self.assertEqual(result1, output1)
+		self.assertEqual(result2, output2)
+		self.assertEqual(result3, output3)
+		self.assertEqual(result4, output4)
+		self.assertEqual(result5, output5)
+		self.assertEqual(result6, output6)
+		
 
 if __name__ == '__main__':
 	unittest.main()
