@@ -77,6 +77,10 @@ mouser:
     output_key: illuminated
     actions:
       - lower
+  step_angle:
+    output_key: step_angle
+    actions:
+      - parse_any_number
   illumination:
     output_key: illumination
   motor_drive_type:
@@ -96,6 +100,10 @@ mouser:
       - range_max
     actions:
       - split_to
+  rotor_inertia:
+    output_key: rotor_inertia
+    actions:
+      - parse_any_number
   rated_speed:
     output_key: rated_speed
     actions:
@@ -700,10 +708,16 @@ mouser:
     output_key: pitch
     actions:
       - extract_num
+  pin_or_wire_count:
+    output_key: pin_or_wire_count
+  connection:
+    output_key: connection
   travel:
     output_key: travel
     actions:
       - extract_num
+  frame_size_nema:
+    output_key: frame_size_nema
   voltage_rating:
     output_key:
       - voltage_rating_min
@@ -854,10 +868,28 @@ digikey:
     output_key: frequency_tolerance
     actions:
       - extract_num
+  diameter_shaft:
+    output_key: shaft_diameter
+    actions:
+      - parse_dimension
+  stroke_length:
+    output_key: stroke_length
+    actions:
+      - parse_dimension
   signal_conditioning:
     output_key: signal_conditioning
     actions:
       - lower
+  control_drive_type:
+    output_key: motor_drive_type
+  mounting_hole_spacing:
+    output_key: mounting_hole_spacing
+    actions:
+      - parse_dimension
+  length_shaft_and_bearing:
+    output_key: length_shaft_and_bearing
+    actions:
+      - parse_dimension
   pressure_type:
     output_key: pressure_type
     actions:
@@ -1433,7 +1465,7 @@ digikey:
   filter_order:
     output_key: filter_order
   current_output:
-    output_key: current_output
+    output_key: current_rating
     actions:
       - extract_num
   thickness_overall:
@@ -1470,8 +1502,14 @@ digikey:
     output_key: coupling_factor
     actions:
       - extract_num
+  nema_frame_size:
+    output_key: nema_frame_size
   voltage_rated:
     output_key: voltage_rating
+    actions:
+      - extract_num
+  wattage_load:
+    output_key: power_rating
     actions:
       - extract_num
   voltage_rating_ac:
@@ -1635,7 +1673,7 @@ digikey:
     actions:
       - extract_num
   current_rating:
-    output_key: maximum_dc_current
+    output_key: current_rating
     actions:
       - extract_num
   current_rating_max:
@@ -1672,6 +1710,24 @@ digikey:
     output_key: secondary_winding
     actions:
       - lower
+  shaft_detail:
+    output_key: shaft_detail
+    actions:
+      - lower
+  steps_per_revolution:
+    output_key: steps_per_revolution
+  motor_type:
+    output_key: motor_type
+    actions:
+      - lower
+  rpm:
+    output_key: rpm
+    actions:
+      - parse_any_number
+  number_of_motors:
+    output_key: number_of_motors
+  gear_reduction_ratio:
+    output_key: gear_reduction_ratio
   ratings:
     output_key: ratings
   for_use_withrelated_products:
@@ -2221,6 +2277,10 @@ digikey:
     output_key: number_of_gangs
     actions:
       - extract_num
+  coil_resistance:
+    output_key: coil_resistance
+    actions:
+      - extract_num
   voltage_breakdown:
     output_key: voltage_breakdown
     actions:
@@ -2315,12 +2375,28 @@ digikey:
     output_key: length
     actions:
       - parse_dimension
+  power_rated:
+    output_key: power_rating
+    actions:
+      - extract_num
   voltage_input:
     output_key:
       - control_voltage_range_min
       - control_voltage_range_max
     actions:
       - split_temp
+  torque_max_momentary_(oz_in_mnm):
+    output_key: momentary_torque_max
+    actions:
+      - extract_torque
+  torque_holding_(oz_in_mnm):
+    output_key: minimum_holding_torque
+    actions:
+      - extract_torque
+  torque_rated_(oz_in_mnm):
+    output_key: minimum_holding_torque
+    actions:
+      - extract_torque
   voltage_load:
     output_key:
       - load_voltage_rating_min
@@ -2340,6 +2416,10 @@ digikey:
       - contact_rating_at_V
     actions:
       - split_at
+  step_angle:
+    output_key: step_angle
+    actions:
+      - parse_any_number
   opening_size:
     output_key:
       - opening_size_width
