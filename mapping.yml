@@ -797,13 +797,37 @@ digikey:
   output_type:
     output_key: output_type
   circuit:
-    output_key: circuit
+    output_key: contact_termination
+  contact_rating_(current):
+    output_key: contact_current_rating
+    actions:
+      - extract_num
   frequency_center:
     output_key:
       - frequency_range_min
       - frequency_range_max
     actions:
       - split_temp
+    actions:
+      - extract_num
+  switching_voltage:
+    output_key:
+      - switching_voltage_vac_max
+      - switching_voltage_vdc_max
+      - switching_voltage_vac_nom
+      - switching_voltage_vdc_nom
+    actions:
+      - split_voltage
+  turn_on_voltage_(max):
+    output_key: turn_on_voltage_max
+    actions:
+      - extract_num
+  load_current:
+    output_key: load_current_rating
+    actions:
+      - extract_num
+  turn_off_voltage_(min):
+    output_key: turn_off_voltage_min
     actions:
       - extract_num
   port_style:
@@ -2199,6 +2223,8 @@ digikey:
     output_key: voltage_breakdown
     actions:
       - extract_num
+  contact_form:
+    output_key: contact_form
   impedance:
     output_key: impedance
     actions:
@@ -2328,12 +2354,32 @@ digikey:
     output_key: operate_time
     actions:
       - extract_num
+  release_time:
+    output_key: release_time
+    actions:
+      - extract_num
+  relay_type:
+    output_key: relay_type
+    actions:
+      - lower
   operating_angle:
     output_key: operating_angle
     actions:
       - extract_num
   operating_force:
     output_key: operating_force
+    actions:
+      - extract_num
+  timing_adjustment_method:
+    output_key: timing_adjustment_method
+    actions:
+      - lower
+  timing_initiate_method:
+    output_key: timing_initiate_method
+    actions:
+      - lower
+  on_state_resistance_(max):
+    output_key: on_state_resistance_max
     actions:
       - extract_num
   operating_frequency:
@@ -2344,6 +2390,8 @@ digikey:
     output_key: operating_point_min_max
     actions:
       - extract_num
+  coil_type:
+    output_key: coil_type
   operating_pressure:
     output_key: operating_pressure
     actions:
