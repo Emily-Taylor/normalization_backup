@@ -110,7 +110,7 @@ class TestNorm(unittest.TestCase):
 		self.assertEqual(result, output)
 
 	def test_split_l_w(self):
-		output = (7.00, 5.50)
+		output = (7.00, 5.50, 0.0)
 		d = '0.276" L x 0.217" W (7.00mm x 5.50mm)'
 		result = normalization.parse_dimensions(d)
 		self.assertTrue(isinstance(result[0], numbers.Real))
