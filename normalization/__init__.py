@@ -348,8 +348,14 @@ def parse_dimensions(d: str):
 				l, w = res[0], res[1]
 				l = float(Quantity(l, scale='mm'))
 				w = float(Quantity(w, scale='mm'))
-				return l, w
-		if len(res) == 1:
+				return (l, w, 0.0)
+		elif len(res) == 3:
+				l,w,h = res[0], res[1], res[2]
+				l = float(Quantity(l, scale='mm'))
+				w = float(Quantity(w, scale='mm'))
+				h = float(Quantity(h, scale='mm'))
+				return (l, w, h)
+		elif len(res) == 1:
 				dim = float(Quantity(res[0], scale='mm'))
 				return (dim,)
 
@@ -739,8 +745,9 @@ def split_resistance(d: str):
 						s_float = p_float
 						return (p_float, s_float)
 				else:
-						logger.warning('Splitting symbol is different. Please update.')
-						return (0.0, 0.0)
+						p_float = extract_num(d)
+						s_float = p_float
+						return (p_float, s_float)
 		else:
 				logger.warning('during type conversion got a non-string.')
 				return (0.0, 0.0)
