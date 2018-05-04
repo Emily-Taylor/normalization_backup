@@ -95,7 +95,7 @@ def tempcoeff(d: str) -> float:
 def extract_num(d: str) -> float:
 		"""turns strings with ANY unit into numbers"""
 		adict = {'µ': 'u', ' %': '', ' ': '', 'Max': '',
-						 '±': '', 'ppm/°C': '', ' (Cutoff)': '', 'ppm': '', ' (Typ)': ''}
+						 '±': '', 'ppm/°C': '', ' (Cutoff)': '', 'ppm': '', ' (Typ)': '', 'AC/DC': ''}
 
 		if isinstance(d, str):
 
@@ -456,7 +456,7 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
 										return (t_min_float10, t_max_float10)
 						else:
 								t_min_float11 = float(Quantity(d, ''))
-								t_max_float11 = t_min_float
+								t_max_float11 = t_min_float11
 								return (t_min_float11, t_max_float11)
 
 				else:
@@ -785,12 +785,15 @@ def split_timing(d: str):
 
 		if isinstance(d, str):
 
+				if 'Fixed, ' in d:
+						d = re.sub('Fixed, ', '', d)
+						
+				if 'Fixed' in d:
+						d = re.sub('Fixed', '', d)
+						
 				if ', ' in d:
 
 						d = re.sub(', .*', '', d)
-				
-				if 'Fixed' in d:
-						d = re.sub('Fixed', '', d)
 				
 				if '~' in d:
 						d = re.sub('~', 'to', d)
@@ -801,36 +804,36 @@ def split_timing(d: str):
 
 						# edit t1
 
-						if (('s' in t1) or ('Sec' in t1)):
-								t1_float = parse_any_number(t1)[0]
+						if 'd' in t1:
+								t1_float = parse_any_number(t1)[0] * 86400
 						elif (('h' in t1) or ('hr' in t1) or ('Hrs' in t1)):
 								t1_float = parse_any_number(t1)[0] * 3600
 						elif (('m' in t1) or ('min' in t1) or ('Min' in t1)):
 								t1_float = parse_any_number(t1)[0] * 60
-						elif 'd' in t1:
-								t1_float = parse_any_number(t1)[0] * 86400
+						elif (('s' in t1) or ('Sec' in t1)):
+								t1_float = parse_any_number(t1)[0]
 
 						# edit t2
 
-						if (('s' in t2) or ('Sec' in t2)):
-								t2_float = parse_any_number(t2)[0]
+						if 'd' in t2:
+								t2_float = parse_any_number(t2)[0] * 86400
 						elif (('h' in t2) or ('hr' in t2) or ('Hrs' in t2)):
 								t2_float = parse_any_number(t2)[0] * 3600
 						elif (('m' in t2) or ('min' in t2) or ('Min' in t2)):
 								t2_float = parse_any_number(t2)[0] * 60
-						elif 'd' in t2:
-								t2_float = parse_any_number(t2)[0] * 86400
+						elif (('s' in t2) or ('Sec' in t2)):
+								t2_float = parse_any_number(t2)[0]
                                 
 						return (t1_float, t2_float)
 				else:
-						if (('s' in d) or ('Sec' in d)):
-								t1_float = parse_any_number(d)[0]
+						if 'd' in d:
+								t1_float = parse_any_number(d)[0] * 86400
 						elif (('h' in d) or ('hr' in d) or ('Hrs' in d)):
 								t1_float = parse_any_number(d)[0] * 3600
 						elif (('m' in d) or ('min' in d)  or ('Min' in d)):
 								t1_float = parse_any_number(d)[0] * 60
-						elif 'd' in d:
-								t1_float = parse_any_number(d)[0] * 86400
+						elif (('s' in d) or ('Sec' in d)):
+								t1_float = parse_any_number(d)[0]
 
 						t2_float = t1_float
 
