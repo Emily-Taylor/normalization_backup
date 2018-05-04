@@ -153,7 +153,7 @@ def extract_torque(d: str):
         elif 'kg' in d:
             d_float = d_float = parse_any_number(d)[0]
             return(d_float)
-        elif 'oz-in' in d:
+        elif (('oz-in' in d) or ('/' in d)):
             d_float = d_float = parse_any_number(d)[0]
             d_float = d_float / 141.732
             return(d_float)
