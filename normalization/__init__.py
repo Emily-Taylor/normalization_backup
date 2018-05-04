@@ -539,6 +539,9 @@ def split_to(d: str):
 
 				if (', ' in d):
 						d = d.split(',', 1)[0]
+				
+				if ('/' in d):
+						d = d.split('/')[0]
 
 				if (' to ' in d):
 						n1, n2 = d.split(' to ')
