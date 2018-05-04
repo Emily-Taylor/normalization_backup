@@ -885,10 +885,58 @@ def split_contact(d: str):
     else:
         logger.error('during type conversion got a non-string.')
         return (0.0, 0.0, 0.0)
-            
         
-        
-        
+def split_voltage(d: str):
+	if isinstance(d, str):
+		if ('- Max' in d):
+			d = re.sub('- Max', '', d)
+			if (',' in d):
+				d1, d2 = d.split(',')
+				if 'VAC' in d1:
+					d_vac_max = float(Quantity(d1))
+					d_vdc_max = float(Quantity(d2))
+					return(d_vac_max, d_vdc_max, 0.0, 0.0)
+				elif 'VDC' in d1:
+					d_vac_max = float(Quantity(d2))
+					d_vdc_max = float(Quantity(d1))
+					return(d_vac_max, d_vdc_max, 0.0, 0.0)
+			else:
+				if 'VAC' in d:
+					d_vac_max = float(Quantity(d))
+					d_vdc_max = 0.0
+					return(d_vac_max, d_vdc_max, 0.0, 0.0)
+				elif 'VDC' in d:
+					d_vdc_max = float(Quantity(d))
+					d_vac_max = 0.0
+					return(d_vac_max, d_vdc_max, 0.0, 0.0)
+		elif (' - Nom' in d):
+			d = re.sub('- Nom', '', d)
+			if (',' in d):
+				d1, d2 = d.split(',')
+				if 'VAC' in d1:
+					d_vac_nom = float(Quantity(d1))
+					d_vdc_nom = float(Quantity(d2))
+					return (0.0, 0.0, d_vac_nom, d_vdc_nom)
+				elif 'VDC' in d1:
+					d_vac_nom = float(Quantity(d2))
+					d_vdc_nom = float(Quantity(d1))
+					return (0.0, 0.0, d_vac_nom, d_vdc_nom)
+			else:
+				if 'VAC' in d:
+					d_vac_nom = float(Quantity(d))
+					d_vdc_nom = 0.0
+					return (0.0, 0.0, d_vac_nom, d_vdc_nom)
+				elif 'VDC' in d:
+					d_vdc_nom = float(Quantity(d))
+					d_vac_nom = 0.0
+					return (0.0, 0.0, d_vac_nom, d_vdc_nom)
+		else:
+			logger.warning('New pattern found: %s', d)
+			return (0.0, 0.0, 0.0, 0.0)
+	else:
+		logger.error('during type conversion got a non-string.')
+		return (0.0, 0.0, 0.0, 0.0)
+					
         
         
         
