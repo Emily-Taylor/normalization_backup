@@ -791,52 +791,43 @@ def split_timing(d: str):
 				
 				if 'Fixed' in d:
 						d = re.sub('Fixed', '', d)
+				
+				if '~' in d:
+						d = re.sub('~', 'to', d)
 
-				if ' to ' in d:
+				if 'to' in d:
 						# split min and max from range
-						t1, t2 = d.split(' to ')
+						t1, t2 = d.split('to')
 
 						# edit t1
 
-						if 's' in t1:
+						if (('s' in t1) or ('Sec' in t1)):
 								t1_float = parse_any_number(t1)[0]
-						elif 'h' in t1:
+						elif (('h' in t1) or ('hr' in t1) or ('Hrs' in t1)):
 								t1_float = parse_any_number(t1)[0] * 3600
-						elif 'hr' in t1:
-								t1_float = parse_any_number(t1)[0] * 3600
-						elif 'm' in t1:
-								t1_float = parse_any_number(t1)[0] * 60
-						elif 'min' in t1:
+						elif (('m' in t1) or ('min' in t1) or ('Min' in t1)):
 								t1_float = parse_any_number(t1)[0] * 60
 						elif 'd' in t1:
 								t1_float = parse_any_number(t1)[0] * 86400
 
 						# edit t2
 
-						if 's' in t2:
+						if (('s' in t2) or ('Sec' in t2)):
 								t2_float = parse_any_number(t2)[0]
-						elif 'h' in t2:
+						elif (('h' in t2) or ('hr' in t2) or ('Hrs' in t2)):
 								t2_float = parse_any_number(t2)[0] * 3600
-						elif 'hr' in t2:
-								t2_float = parse_any_number(t2)[0] * 3600
-						elif 'm' in t2:
-								t2_float = parse_any_number(t2)[0] * 60
-						elif 'min' in t2:
+						elif (('m' in t2) or ('min' in t2) or ('Min' in t2)):
 								t2_float = parse_any_number(t2)[0] * 60
 						elif 'd' in t2:
 								t2_float = parse_any_number(t2)[0] * 86400
-
+                                
 						return (t1_float, t2_float)
 				else:
-						if 's' in d:
+						if (('s' in d) or ('Sec' in d)):
 								t1_float = parse_any_number(d)[0]
-						elif 'h' in d:
+						elif (('h' in d) or ('hr' in d) or ('Hrs' in d)):
 								t1_float = parse_any_number(d)[0] * 3600
-						elif 'hr' in d:
-								t1_float = parse_any_number(d)[0] * 3600
-						elif 'm' in d:
-								t1_float = parse_any_number(d)[0] * 60
-						elif 'min' in d:
+						elif (('m' in d) or ('min' in d)  or ('Min' in d)):
 								t1_float = parse_any_number(d)[0] * 60
 						elif 'd' in d:
 								t1_float = parse_any_number(d)[0] * 86400
