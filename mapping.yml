@@ -1045,6 +1045,7 @@ digikey:
     output_key:
       - outer_dimension_width
       - outer_dimension_height
+      - outer_dimension_length
     actions:
       - parse_dimensions
   output_power:
@@ -1175,6 +1176,7 @@ digikey:
     output_key:
       - footprint_length
       - footprint_width
+      - footprint_height
     actions:
       - parse_dimensions
   approvals:
@@ -1505,9 +1507,11 @@ digikey:
   nema_frame_size:
     output_key: nema_frame_size
   voltage_rated:
-    output_key: voltage_rating
+    output_key:
+      - voltage_rating_min
+      - voltage_rating_max
     actions:
-      - extract_num
+      - split_temp
   wattage_load:
     output_key: power_rating
     actions:
@@ -1574,6 +1578,7 @@ digikey:
     output_key:
       - cable_opening_width
       - cable_opening_height
+      - cable_opening_length
     actions:
       - parse_dimensions
   capacitance_vrf:
@@ -1584,6 +1589,7 @@ digikey:
     output_key:
       - card_size_range_width
       - card_size_range_height
+      - card_size_range_length
     actions:
       - parse_dimensions
   card_speed:
@@ -1608,6 +1614,7 @@ digikey:
     output_key:
       - character_size_width
       - character_size_height
+      - character_size_length
     actions:
       - parse_dimensions
   charge_current_max:
@@ -2137,6 +2144,7 @@ digikey:
     output_key:
       - surface_mount_land_size_length
       - surface_mount_land_size_width
+      - surface_mount_land_size_height
     actions:
       - parse_dimensions
   values:
@@ -2149,8 +2157,9 @@ digikey:
     output_key: 
       - length
       - width
+      - height
     actions:
-      - parse_dimensions 
+      - parse_dimensions
   adhesive:
     output_key: adhesive
   power_per_element:
@@ -2424,6 +2433,7 @@ digikey:
     output_key:
       - opening_size_width
       - opening_size_height
+      - opening_size_length
     actions:
       - parse_dimensions
   opening_temp:
