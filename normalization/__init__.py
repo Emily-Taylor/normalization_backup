@@ -788,6 +788,9 @@ def split_timing(d: str):
 				if ', ' in d:
 
 						d = re.sub(', .*', '', d)
+				
+				if 'Fixed' in d:
+						d = re.sub('Fixed', '', d)
 
 				if ' to ' in d:
 						# split min and max from range
@@ -795,42 +798,48 @@ def split_timing(d: str):
 
 						# edit t1
 
-						if ' s' in t1:
+						if 's' in t1:
 								t1_float = parse_any_number(t1)[0]
-						elif ' h' in t1:
+						elif 'h' in t1:
 								t1_float = parse_any_number(t1)[0] * 3600
-						elif ' hr' in t1:
+						elif 'hr' in t1:
 								t1_float = parse_any_number(t1)[0] * 3600
-						elif ' m' in t1:
+						elif 'm' in t1:
 								t1_float = parse_any_number(t1)[0] * 60
-						elif ' min' in t1:
+						elif 'min' in t1:
 								t1_float = parse_any_number(t1)[0] * 60
+						elif 'd' in t1:
+								t1_float = parse_any_number(t1)[0] * 86400
 
 						# edit t2
 
-						if ' s' in t2:
+						if 's' in t2:
 								t2_float = parse_any_number(t2)[0]
-						elif ' h' in t2:
+						elif 'h' in t2:
 								t2_float = parse_any_number(t2)[0] * 3600
-						elif ' hr' in t2:
+						elif 'hr' in t2:
 								t2_float = parse_any_number(t2)[0] * 3600
-						elif ' m' in t2:
+						elif 'm' in t2:
 								t2_float = parse_any_number(t2)[0] * 60
-						elif ' min' in t2:
+						elif 'min' in t2:
 								t2_float = parse_any_number(t2)[0] * 60
+						elif 'd' in t2:
+								t2_float = parse_any_number(t2)[0] * 86400
 
 						return (t1_float, t2_float)
 				else:
-						if ' s' in d:
+						if 's' in d:
 								t1_float = parse_any_number(d)[0]
-						elif ' h' in d:
+						elif 'h' in d:
 								t1_float = parse_any_number(d)[0] * 3600
-						elif ' hr' in d:
+						elif 'hr' in d:
 								t1_float = parse_any_number(d)[0] * 3600
-						elif ' m' in d:
+						elif 'm' in d:
 								t1_float = parse_any_number(d)[0] * 60
-						elif ' min' in d:
+						elif 'min' in d:
 								t1_float = parse_any_number(d)[0] * 60
+						elif 'd' in d:
+								t1_float = parse_any_number(d)[0] * 86400
 
 						t2_float = t1_float
 
