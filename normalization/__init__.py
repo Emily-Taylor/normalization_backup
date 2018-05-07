@@ -677,8 +677,13 @@ def inchtomm(d: str):
 		if isinstance(d, int):
 				d = d * 25.4
 				return d
+		elif isinstance(d, str):
+				d = parse_any_number(d)[0]
+				d = d * 25.4
+				return d
 		else:
 				logger.warning('during type conversion met a string.')
+				return(0.0)
 
 
 def to_float(d: str):
