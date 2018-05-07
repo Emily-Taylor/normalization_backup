@@ -481,6 +481,9 @@ def parse_dimension(d: str):
 		if d == '1 1/2' or d == '1 1/2"' or d == '1 1/2\"':
 				d_float = 38.1
 				return(d_float)
+		if d == '1 3/8 in':
+				d_float = 34.925
+				return(d_float)
 		if ' in' in d:
 				d = re.sub(' in', '', d)
 				d_float = float(Fraction(re.sub(' in', '', d))) * 25.4
