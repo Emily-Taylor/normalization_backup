@@ -137,6 +137,7 @@ def extract_num(d: str) -> float:
 						return 0.0
 		else:
 				logger.warning("during type conversion got a non-string")
+				return d
 
 def extract_torque(d: str):
     """
