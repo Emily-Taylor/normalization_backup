@@ -672,8 +672,6 @@ mouser:
       - extract_num
   temperature_coefficient:
     output_key: temperature_coefficient
-    actions:
-      - tempcoeff
   availability:
     output_key: availability
   timing_range:
@@ -725,7 +723,7 @@ mouser:
     actions:
       - split_to
   voltage_rating_dc:
-    output_key: voltage_rating
+    output_key: voltage_rating_dc
     actions:
         - extract_num
   tolerance:
@@ -927,6 +925,10 @@ digikey:
       - split_sensitivity
   output:
     output_key: output
+  voltage_rating_dc:
+    output_key: voltage_rating_dc
+    actions:
+        - extract_num
   linearity:
     output_key: linearity
     actions:
@@ -1239,12 +1241,8 @@ digikey:
     output_key: rohs
   temperature_coefficient:
     output_key: temperature_coefficient
-    actions:
-      - tempcoeff
   temperature_coefficient_(typ):
     output_key: temperature_coefficient
-    actions:
-      - tempcoeff
   composition:
     output_key: composition
   number_of_resistors:
