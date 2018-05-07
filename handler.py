@@ -6,6 +6,7 @@ import normalization as n
 c.init()
 import os
 import base64
+import copy
 
 
 @dump_json_body
@@ -49,7 +50,7 @@ def adjust_structure(part: dict, source: str, ts: int):
 				part['description_raw'][source] = raw_desc
 		# fix category before normalization
 		if 'categories' in part:
-				raw_categories = part['categories']
+				raw_categories = copy.deepcopy(part['categories'])
 				part['categories_raw'] = {}
 				part['categories_raw'][source] = raw_categories
 		# remove availablity and pricing, minimum_quantity and packagecase
