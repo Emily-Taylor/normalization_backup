@@ -1,215 +1,158 @@
 digikey: 
-  Accessories:  Accessories
-  Adjustable Inductors: Adjustable Inductors
-  Aluminum Electrolytic Capacitors: Aluminum Electrolytic Capacitors
-  Aluminum - Polymer Capacitors: Aluminum - Polymer Capacitors
-  Arrays, Signal Transformers: Arrays, Signal Transformers
-  Capacitor Networks, Arrays: Capacitor Networks, Arrays
-  Capacitors: Capacitors
-  Ceramic Capacitors: Ceramic Capacitors
-  Chassis Mount Resistors: Resistors
-  Chip Resistor - Surface Mount: Resistors
-  Precision Trimmed Resistors: Resistors
-  Delay Lines: Delay Lines
-  Fixed Inductors: Fixed Inductors
-  Inductors, Coils, Chokes: Inductors, Chokes & Coils
-  EMI/RFI Filters (LC, RC Networks): EMI Filters / EMI Suppression
-  Resistors: Resistors
-  Wireless Charging Coils: Wireless Charging Coils
-  Electric Double Layer Capacitors (EDLC), Supercapacitors: Supercapacitors / Ultracapacitors
-  Film Capacitors: Film Capacitors
-  Mica and PTFE Capacitors: Mica Capacitors
-  Niobium Oxide Capacitors: Niobium Oxide Capacitors
-  Silicon Capacitors: Silicon Capacitors
-  Tantalum - Polymer Capacitors: Tantalum Capacitors
-  Tantalum Capacitors: Tantalum Capacitors
-  Thin Film Capacitors: Thin Film Capacitors
-  Trimmers, Variable Capacitors: Trimmer/Variable Capacitors
-  Resistor Networks, Arrays: Resistors
-  Specialized Resistors: Resistors
-  Through Hole Resistors: Resistors
-  Crystals, Oscillators, Resonators: Frequency Control & Timing Devices
-  Crystals: Crystals
-  Oscillators: Oscillators
-  Pin Configurable/Selectable Oscillators: Pin Configurable/Selectable Oscillators
-  Programmable Oscillators: Programmable Oscillators
-  Resonators: Resonators
-  Sockets and Insulators: Sockets and Insulators
-  Stand Alone Programmers: Stand Alone Programmers
-  VCOs (Voltage Controlled Oscillators): VCOs (Voltage Controlled Oscillators)
-  RF Diplexers: Signal Conditioning
-  Current Transducers: Signal Conditioning
-  Pressure Sensors, Transducers: Signal Conditioning
-  Encoders: Encoders
-  Potentiometers, Variable Resistors: Potentiometers, Trimmers & Rheostats
-  Adjustable Power Resistor: Adjustable Power Resistor
-  Joystick Potentiometers: Joystick Potentiometers
-  Rotary Potentiometers, Rheostats: Rotary Potentiometers, Rheostats
-  Scale Dials: Scale Dials
-  Slide Potentiometers: Slide Potentiometers
-  Thumbwheel Potentiometers: Thumbwheel Potentiometers
-  Trimmer Potentiometers: Trimmer Potentiometers
-  Value Display Potentiometers: Value Display Potentiometers
-  Optoelectronics: Optoelectronics
-  LED Thermal Products: LED Thermal Products
-  Magnetics - Transformer, Inductor Components: Magnetics - Transformer, Inductor Components
-  Bobbins (Coil Formers), Mounts, Hardware: Bobbins (Coil Formers), Mounts, Hardware
-  Ferrite Cores: Ferrites
-  Ferrite Beads and Chips: Ferrites
-  Ferrite Disks and Plates: Ferrites
-  Magnetic Wire: Magnetic Wire
-  Capacitor Kits: Capacitor Kits
-  Crystal Kits: Crystal Kits
-  EMI, Filter Kits: EMI Filters / EMI Suppression
-  RFI and EMI - Shielding and Absorbing Materials: EMI Filters / EMI Suppression
-  RFI and EMI - Contacts, Fingerstock and Gaskets: EMI Filters / EMI Suppression
-  Inductor Kits: Inductor Kits
-  Potentiometer Kits: Potentiometers, Trimmers & Rheostats
-  Resistor Kits: Resistor Kits
-  Integrated Circuits (ICs): Integrated Circuits - ICs
-  Audio Special Purpose: Audio ICs
-  Clock/Timing - Application Specific: Clock & Timer ICs
-  Clock/Timing - Clock Buffers, Drivers: Clock & Timer ICs
-  Clock/Timing - Clock Generators, PLLs, Frequency Synthesizers: Clock & Timer ICs
-  Clock/Timing - Delay Lines: Clock & Timer ICs
-  Clock/Timing - IC Batteries: Clock & Timer ICs
-  Clock/Timing - Programmable Timers and Oscillators: Clock & Timer ICs
-  Clock/Timing - Real Time Clocks: Clock & Timer ICs
-  Data Acquisition - ADCs/DACs - Special Purpose: Data Converter ICs
-  Data Acquisition - Analog Front End (AFE): Data Converter ICs
-  Data Acquisition - Analog to Digital Converters (ADC): Data Converter ICs
-  Data Acquisition - Digital Potentiometers: Potentiometers, Trimmers & Rheostats
-  Data Acquisition - Digital to Analog Converters (DAC): Data Converter ICs
-  Data Acquisition - Touch Screen Controllers: Data Converter ICs
-  Embedded - CPLDs (Complex Programmable Logic Devices): Embedded Processors & Controllers
-  Embedded - DSP (Digital Signal Processors): Embedded Processors & Controllers
-  Embedded - FPGAs (Field Programmable Gate Array): Embedded Processors & Controllers
-  Embedded - FPGAs (Field Programmable Gate Array) with Microcontrollers: Embedded Processors & Controllers
-  Embedded - Microcontroller, Microprocessor, FPGA Modules: Embedded Processors & Controllers
-  Embedded - Microcontrollers: Embedded Processors & Controllers
-  Embedded - Microcontrollers - Application Specific: Embedded Processors & Controllers
-  Embedded - Microprocessors: Embedded Processors & Controllers
-  Embedded - PLDs (Programmable Logic Device): Embedded Processors & Controllers
-  Embedded - System On Chip (SoC): Embedded Processors & Controllers
-  Interface - Analog Switches - Special Purpose: Switch ICs
-  Interface - Analog Switches, Multiplexers, Demultiplexers: Switch ICs
-  Interface - CODECs: Switch ICs
-  Interface - Controllers: Switch ICs
-  Interface - Direct Digital Synthesis (DDS): Switch ICs
-  Interface - Drivers, Receivers, Transceivers: Switch ICs
-  Interface - Encoders, Decoders, Converters: Encoders
-  Interface - Filters - Active: Switch ICs
-  Interface - I/O Expanders: Switch ICs
-  Interface - Modems - ICs and Modules: Switch ICs
-  Interface - Modules: Switch ICs
-  Interface - Sensor and Detector Interfaces: Switch ICs
-  Interface - Sensor, Capacitive Touch: Switch ICs
-  Interface - Serializers, Deserializers: Switch ICs
-  Interface - Signal Buffers, Repeaters, Splitters: Signal Conditioning
-  Interface - Signal Terminators: Switch ICs
-  Interface - Specialized: Switch ICs
-  Interface - Telecom: Switch ICs
-  Interface - UARTs (Universal Asynchronous Receiver Transmitter): Switch ICs
-  Interface - Voice Record and Playback: Switch ICs
-  SAW Filter: Signal Conditioning
-  Inrush Current Limiters (ICL): Thermistors – NTC
-  Temperature Sensors - NTC Thermistors: Thermistors – NTC
-  PTC Resettable Fuses: Thermistors – PTC
-  Temperature Sensors - PTC Thermistors: Thermistors – PTC
-  TVS - Varistors, MOVs: Varistors
-  TVS - Mixed Technology: Varistors
-  Transformers: Audio Transformers / Signal Transformers
-  RF Antennas: Antennas
-  RFID Antennas: Antennas
-  Ferrite Cores - Cables and Wiring: Ferrites
-  Power Relays, Over 2 Amps: Relays
-  Signal Relays, Up to 2 Amps: Relays
-  Relay Sockets: Relays
-  Solid State Relays: Relays
-  Relays: Relays
-  Time Delay Relays: Relays
-  Protection Relays & Systems: Relays
-  Miscellaneous: Relays
-  Circuit Protection: Circuit Breakers
-  Pushbutton Switches: Switches
-  Toggle Switches: Switches
-  Rocker Switches: Switches
-  Slide Switches: Switches
-  Tactile Switches: Switches
-  Snap Action, Limit Switches: Switches
-  Rotary Switches: Switches
-  DIP Switches: Switches
-  Keylock Switches: Switches
-  Selector Switches: Switches
-  Accessories: Switches
-  Accessories - Caps: Switches
-  Configurable Switch Components - Body: Switches
-  Magnetic, Reed Switches: Switches
-  Thumbwheel Switches: Switches
-  Microphones: Audio Devices
-  Alarms, Buzzers, and Sirens: Audio Devices
-  Speakers: Audio Devices
-  Buzzer Elements, Piezo Benders: Audio Devices
-  Audio Kits: Audio Devices
-  Cam Positioners:
-  Controllers - Accessories:
-  Controllers - Cable Assemblies:
-  Controllers - Liquid, Level:
-  Controllers - Machine Safety:
-  Controllers - PLC Modules:
-  Controllers - Process, Temperature:
-  Controllers - Programmable Logic (PLC):
-  Human Machine Interface (HMI):
-  Human Machine Interface (HMI) - Accessories:
-  Industrial Equipment: Industrial Automation
-  Lighting Control: Industrial Automation
-  Lighting Control - Accessories: Industrial Automation
-  Machine Safety - Light Curtains: Industrial Automation
-  Machine Vision - Accessories: Industrial Automation
-  Machine Vision - Cameras/Sensors: Industrial Automation
-  Machine Vision - Control/Processing: Industrial Automation
-  Machine Vision - Lens: Industrial Automation
-  Machine Vision - Lighting: Industrial Automation
-  Monitor - Current/Voltage - Relay Output: Industrial Automation
-  Monitor - Current/Voltage Transducer: Current Sensors
-  Panel Meters: Industrial Automation
-  Panel Meters - Accessories: Industrial Automation
-  Panel Meters - Counters, Hour Meters: Industrial Automation
-  Pneumatics, Hydraulics: Industrial Automation
-  Specialized: Industrial Automation
-  Stackable Tower Lighting and Components: Industrial Automation
-  Motors - AC, DC: Motors & Drives
-  Motor Driver Boards, Modules: Motors & Drives
-  Solenoids, Actuators: Motors & Drives
-  Stepper Motors: Motors & Drives
-  Printers: Printers
-  Knobs: Knobs & Dials
-  Scale Dials: Knobs & Dials
-  Board Spacers, Standoffs: Hardware
-  Board Supports: Hardware
-  Bumpers, Feet, Pads, Grips: Hardware
-  Screws, Bolts: Hardware
-  Rack Accessories: Hardware
-  Box Accessories: Hardware
-  Boxes: Hardware
-  Accessories - Boots, Seals: Hardware
-  Fuseholders: Hardware
-  Clips, Hangers, Hooks: Hardware
-  Component Insulators, Mounts, Spacers: Hardware
-  DIN Rail Channel: Hardware
-  Foam: Hardware
-  Hole Plugs: Hardware
-  Labels, Labeling: Hardware
-  Lockouts, Padlocks: Hardware
-  Miscellaneous: Hardware
-  Mounting Brackets: Hardware
-  Nuts: Hardware
-  Reclosable Fasteners: Hardware
-  Rivets: Hardware
-  Screw Grommets: Hardware
-  Screws, Bolts: Hardware
-  Structural, Motion Hardware: Hardware
-  Washers: Hardware
-  Washers - Bushing, Shoulder: Hardware
-  Current Sense Transformers: Current Sensors
-  Specialized: Current Sensors
+  ['RF/IF and RFID','RF Antennas']: ['Passive Components','Antennas']  
+  ['RF/IF and RFID','RFID Antennas']:['Passive Components','Antennas']
+  ['Transformers','Audio Transformers']:['Passive Components','Audio Transformers / Signal Transformers']
+  ['Transformers','Current Sense Transformers']:['Passive Components','Audio Transformers / Signal Transformers']
+  ['Transformers','Isolation Transformers and Autotransformers, Step Up, Step Down']:['Passive Components','Audio Transformers / Signal Transformers']
+  ['Transformers','Power Transformers']:['Passive Components','Audio Transformers / Signal Transformers']
+  ['Transformers','Pulse Transformers']:['Passive Components','Audio Transformers / Signal Transformers']
+  ['Transformers','Specialty Transformers']:['Passive Components','Audio Transformers / Signal Transformers']
+  ['Transformers','Switching Converter, SMPS Transformers']:['Passive Components','Audio Transformers / Signal Transformers']
+  ['Capacitors','Accessories']:['Passive Components','Capacitors']
+  ['Capacitors','Aluminum - Polymer Capacitors']:['Passive Components','Capacitors']
+  ['Capacitors','Aluminum Electrolytic Capacitors']:['Passive Components','Capacitors']
+  ['Capacitors','Capacitor Networks, Arrays']:['Passive Components','Capacitors']
+  ['Capacitors','Ceramic Capacitors']:['Passive Components','Capacitors']
+  ['Capacitors','Electric Double Layer Capacitors (EDLC), Supercapacitors']:['Passive Components','Capacitors']
+  ['Capacitors','Film Capacitors']:['Passive Components','Capacitors']
+  ['Capacitors','Mica and PTFE Capacitors']:['Passive Components','Capacitors']
+  ['Capacitors','Niobium Oxide Capacitors']:['Passive Components','Capacitors']
+  ['Capacitors','Silicon Capacitors']:['Passive Components','Capacitors']
+  ['Capacitors','Tantalum - Polymer Capacitors']:['Passive Components','Capacitors']
+  ['Capacitors','Tantalum Capacitors']:['Passive Components','Capacitors']
+  ['Capacitors','Thin Film Capacitors']:['Passive Components','Capacitors']
+  ['Capacitors','Trimmers, Variable Capacitors']:['Passive Components','Capacitors']
+  ['RF/IF and RFID','RFI and EMI - Shielding and Absorbing Materials']:['Passive Components','EMI Filters / EMI Suppression']
+  ['RF/IF and RFID','RFI and EMI - Contacts, Fingerstock and Gaskets']:['Passive Components','EMI Filters / EMI Suppression']
+  ['Filters','EMI/RFI Filters (LC, RC Networks)']:['Passive Components','EMI Filters / EMI Suppression']
+  ['Kits','EMI, Filter Kits']:['Passive Components','EMI Filters / EMI Suppression']
+  ['Sensors, Transducers','Encoders']:['Passive Components','Encoders']
+  ['Integrated Circuits (ICs)','Interface - Encoders, Decoders, Converters']:['Passive Components','Encoders']
+  ['Filters','Ferrite Beads and Chips']:['Passive Components','Ferrites']
+  ['Filters','Ferrite Cores - Cables and Wiring']:['Passive Components','Ferrites']
+  ['Filters','Ferrite Disks and Plates']:['Passive Components','Ferrites']
+  ['Magnetics - Transformer, Inductor Components','Ferrite Cores']:['Passive Components','Ferrites']
+  ['Crystals, Oscillators, Resonators','Crystals']:['Passive Components','Frequency Control & Timing Devices']
+  ['Crystals, Oscillators, Resonators','Oscillators']:['Passive Components','Frequency Control & Timing Devices']
+  ['Crystals, Oscillators, Resonators','Pin Configurable/Selectable Oscillators']:['Passive Components','Frequency Control & Timing Devices']
+  ['Crystals, Oscillators, Resonators','Programmable Oscillators']:['Passive Components','Frequency Control & Timing Devices']
+  ['Crystals, Oscillators, Resonators','Resonators']:['Passive Components','Frequency Control & Timing Devices']
+  ['Crystals, Oscillators, Resonators','Sockets and Insulators']:['Passive Components','Frequency Control & Timing Devices']
+  ['Crystals, Oscillators, Resonators','Stand Alone Programmers']:['Passive Components','Frequency Control & Timing Devices']
+  ['Crystals, Oscillators, Resonators','VCOs (Voltage Controlled Oscillators)']:['Passive Components','Frequency Control & Timing Devices']
+  ['Inductors, Coils, Chokes','Adjustable Inductors']:['Passive Components','Inductors, Chokes & Coils ']
+  ['Inductors, Coils, Chokes','Arrays, Signal Transformers']:['Passive Components','Inductors, Chokes & Coils ']
+  ['Inductors, Coils, Chokes','Delay Lines']:['Passive Components','Inductors, Chokes & Coils ']
+  ['Inductors, Coils, Chokes','Fixed Inductors']:['Passive Components','Inductors, Chokes & Coils ']
+  ['Inductors, Coils, Chokes','Wireless Charging Coils']:['Passive Components','Inductors, Chokes & Coils ']
+  ['Potentiometers, Variable Resistors','Accessories']:['Passive Components','Potentiometers, Trimmers & Rheostats']
+  ['Potentiometers, Variable Resistors','Adjustable Power Resistor']:['Passive Components','Potentiometers, Trimmers & Rheostats']
+  ['Potentiometers, Variable Resistors','Joystick Potentiometers']:['Passive Components','Potentiometers, Trimmers & Rheostats']
+  ['Potentiometers, Variable Resistors','Rotary Potentiometers, Rheostats']:['Passive Components','Potentiometers, Trimmers & Rheostats']
+  ['Potentiometers, Variable Resistors','Scale Dials']:['Passive Components','Potentiometers, Trimmers & Rheostats']
+  ['Potentiometers, Variable Resistors','Slide Potentiometers']:['Passive Components','Potentiometers, Trimmers & Rheostats']
+  ['Potentiometers, Variable Resistors','Thumbwheel Potentiometers']:['Passive Components','Potentiometers, Trimmers & Rheostats']
+  ['Potentiometers, Variable Resistors','Trimmer Potentiometers']:['Passive Components','Potentiometers, Trimmers & Rheostats']
+  ['Potentiometers, Variable Resistors','Value Display Potentiometers']:['Passive Components','Potentiometers, Trimmers & Rheostats']
+  ['Kits','Potentiometer Kits']:['Passive Components','Potentiometers, Trimmers & Rheostats']
+  ['Integrated Circuits (ICs)','Data Acquisition - Digital Potentiometers']:['Passive Components','Potentiometers, Trimmers & Rheostats']
+  ['Resistors','Accessories']:['Passive Components','Resistors']
+  ['Resistors','Chassis Mount Resistors']:['Passive Components','Resistors']
+  ['Resistors','Chip Resistor - Surface Mount']:['Passive Components','Resistors']
+  ['Resistors','Precision Trimmed Resistors']:['Passive Components','Resistors']
+  ['Resistors','Resistor Networks, Arrays']:['Passive Components','Resistors']
+  ['Resistors','Specialized Resistors']:['Passive Components','Resistors']
+  ['Resistors','Through Hole Resistors']:['Passive Components','Resistors']
+  ['Filters','SAW Filters']:['Passive Components','Signal Conditioning']
+  ['RF/IF and RFID','RF Diplexers']:['Passive Components','Signal Conditioning']
+  ['Integrated Circuits (ICs)','Interface - Signal Buffers, Repeaters, Splitters']:['Passive Components','Signal Conditioning']
+  ['Sensors, Transducers','Current Transducers']:['Passive Components','Signal Conditioning']
+  ['Sensors, Transducers','Pressure Sensors, Transducers']:['Passive Components','Signal Conditioning']
+  ['Sensors, Transducers','Temperature Sensors - PTC Thermistors']:['Passive Components','Thermistors - PTC']
+  ['Circuit Protection','PTC Resettable Fuses']:['Passive Components','Thermistors - PTC']
+  ['Circuit Protection','Inrush Current Limiters (ICL)']:['Passive Components','Thermistors - NTC']
+  ['Circuit Protection','PTC Resettable Fuses']:['Passive Components','Thermistors - NTC']
+  ['Sensors, Transducers','Temperature Sensors - PTC Thermistors']:['Passive Components','Thermistors - NTC']
+  ['Sensors, Transducers','Temperature Sensors - NTC Thermistors']:['Passive Components','Thermistors - NTC']
+  ['Circuit Protection','TVS - Mixed Technology']:['Passive Components','Varistors']
+  ['Circuit Protection','TVS - Varistors, MOVs']:['Passive Components','Varistors']
+  ['Motors, Solenoids, Driver Boards/Modules','Motor Driver Boards, Modules']:['Electromechanical','Motors & Drives']
+  ['Motors, Solenoids, Driver Boards/Modules','Motors - AC, DC']:['Electromechanical','Motors & Drives']
+  ['Motors, Solenoids, Driver Boards/Modules','Solenoids, Actuators']:['Electromechanical','Motors & Drives']
+  ['Motors, Solenoids, Driver Boards/Modules','Stepper Motors']:['Electromechanical','Motors & Drives']
+  ['Hardware, Fasteners, Accessories','Board Spacers, Standoffs']:['Electromechanical','Hardware']
+  ['Hardware, Fasteners, Accessories','Board Supports']:['Electromechanical','Hardware']
+  ['Hardware, Fasteners, Accessories','Bumpers, Feet, Pads, Grips']:['Electromechanical','Hardware']
+  ['Hardware, Fasteners, Accessories','Screws, Bolts']:['Electromechanical','Hardware']
+  ['Hardware, Fasteners, Accessories','Knobs']:['Electromechanical','Hardware']
+  ['Circuit Protection','Fuseholders']:['Electromechanical','Hardware']
+  ['Relays','Power Relays, Over 2 Amps']:['Electromechanical','Relays']
+  ['Relays','Relay Sockets']:['Electromechanical','Relays']
+  ['Relays','Signal Relays, Up to 2 Amps']:['Electromechanical','Relays']
+  ['Relays','Solid State Relays']:['Electromechanical','Relays']
+  ['Industrial Controls','Protection Relays & Systems']:['Electromechanical','Relays']
+  ['Industrial Controls','Time Delay Relays']:['Electromechanical','Relays']
+  ['Hardware, Fasteners, Accessories','Knobs']:['Electromechanical','Knobs & Dials']
+  ['Potentiometers, Variable Resistors','Scale Dials']:['Electromechanical','Knobs & Dials']
+  ['Switches','Accessories']:['Electromechanical','Switches']
+  ['Switches','Accessories - Boots, Seals']:['Electromechanical','Switches']
+  ['Switches','Accessories - Caps']:['Electromechanical','Switches']
+  ['Switches','Cable Pull Switches']:['Electromechanical','Switches']
+  ['Switches','Configurable Switch Components - Body']:['Electromechanical','Switches']
+  ['Switches','Configurable Switch Components - Contact Block']:['Electromechanical','Switches']
+  ['Switches','Configurable Switch Components - Illumination Source']:['Electromechanical','Switches']
+  ['Switches','Configurable Switch Components - Lens']:['Electromechanical','Switches']
+  ['Switches','DIP Switches']:['Electromechanical','Switches']
+  ['Switches','Keylock Switches']:['Electromechanical','Switches']
+  ['Switches','Keypad Switches']:['Electromechanical','Switches']
+  ['Switches','Magnetic, Reed Switches']:['Electromechanical','Switches']
+  ['Switches','Navigation Switches, Joystick']:['Electromechanical','Switches']
+  ['Switches','Programmable Display Switches']:['Electromechanical','Switches']
+  ['Switches','Pushbutton Switches']:['Electromechanical','Switches']
+  ['Switches','Pushbutton Switches - Hall Effect']:['Electromechanical','Switches']
+  ['Switches','Rocker Switches']:['Electromechanical','Switches']
+  ['Switches','Rotary Switches']:['Electromechanical','Switches']
+  ['Switches','Selector Switches']:['Electromechanical','Switches']
+  ['Switches','Slide Switches']:['Electromechanical','Switches']
+  ['Switches','Snap Action, Limit Switches']:['Electromechanical','Switches']
+  ['Switches','Tactile Switches']:['Electromechanical','Switches']
+  ['Switches','Thumbwheel Switches']:['Electromechanical','Switches']
+  ['Switches','Toggle Switches']:['Electromechanical','Switches']
+  ['Circuit Protection','Circuit Breakers']:['Electromechanical','Circuit Breakers']
+  ['Audio Products','Alarms, Buzzers, and Sirens']:['Electromechanical','Audio Devices']
+  ['Audio Products','Buzzer Elements, Piezo Benders']:['Electromechanical','Audio Devices']
+  ['Audio Products','Microphones']:['Electromechanical','Audio Devices']
+  ['Audio Products,']:['Electromechanical, Audio Devices']
+  ['Industrial Controls','Stackable Tower Lighting and Components'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Specialized'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Protection Relays & Systems'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Pneumatics, Hydraulics'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Panel Meters - Counters, Hour Meters'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Panel Meters - Accessories'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Panel Meters'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Monitor - Current/Voltage Transducer'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Monitor - Current/Voltage - Relay Output'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Machine Vision - Lighting'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Machine Vision - Lens'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Machine Vision - Control/Processing'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Machine Vision - Cameras/Sensors'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Machine Vision - Accessories'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Machine Safety - Light Curtains'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Lighting Control - Accessories'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Lighting Control'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Industrial Equipment'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Human Machine Interface (HMI) - Accessories'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Human Machine Interface (HMI)'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Controllers - Programmable Logic (PLC)'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Controllers - Process, Temperature'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Controllers - PLC Modules'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Controllers - Machine Safety '] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Controllers - Liquid, Level'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Controllers - Cable Assemblies'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Controllers - Accessories'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Cam Positioners'] :['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Accessories'] :['Electromechanical','Industrial Automation']
+  ['Sensors, Transducers','Optical Sensors - Photoelectric, Industrial']:['Electromechanical','Industrial Automation']
+  ['Industrial Controls','Time Delay Relays'] :['Electromechanical','Industrial Automation']
+  ['Passive Components','Thermistors - NTC']: ['Passive Components','Thermistors - NTC']
+  ['Passive Components','Thermistors - PTC']: ['Passive Components','Thermistors - PTC']
