@@ -1,6 +1,6 @@
 digikey: 
-  ['RF/IF and RFID','RF Antennas']: ['Passive Components','Antennas']  
-  ['RF/IF and RFID','RFID Antennas']:['Passive Components','Antennas']
+  ['RF/IF and RFID','RF Antennas']: ['Passive Components','Antennas']
+  ['RF/IF and RFID','RFID Antennas']: ['Passive Components','Antennas']
   ['Transformers','Audio Transformers']:['Passive Components','Audio Transformers / Signal Transformers']
   ['Transformers','Current Sense Transformers']:['Passive Components','Audio Transformers / Signal Transformers']
   ['Transformers','Isolation Transformers and Autotransformers, Step Up, Step Down']:['Passive Components','Audio Transformers / Signal Transformers']
