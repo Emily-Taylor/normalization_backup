@@ -9,6 +9,10 @@ mouser:
     output_key: description
     actions:
       - lower
+  number_of_pots:
+    output_key: number_of_pots
+    actions:
+      - lower
   number_of_outputs:
     output_key: number_of_outputs
     actions:
@@ -17,10 +21,18 @@ mouser:
     output_key: self_resonant_frequency
     actions:
       - extract_num
+  taps_per_pot:
+    output_key: taps_per_pot
+  digital_interface:
+    output_key: digital_interface
   linearity:
     output_key: linearity
     actions:
       - extract_num
+  wiper_memory:
+    output_key: wiper_memory
+  adjustment:
+    output_key: adjustment
   operating_force:
     output_key:
       - operating_force_min
@@ -69,6 +81,10 @@ mouser:
     output_key: minimum_holding_torque
     actions:
       - extract_torque
+  operating_supply_current:
+    output_key: operating_supply_current
+    actions:
+      - extract_num
   mounting_type:
     output_key: mounting_style
   switch_function:
@@ -1244,7 +1260,7 @@ digikey:
   temperature_coefficient_(typ):
     output_key: temperature_coefficient
   composition:
-    output_key: composition
+    output_key: technology
   number_of_resistors:
     output_key: number_of_resistors
   number_of_terminations:
@@ -2251,7 +2267,7 @@ digikey:
     actions:
       - extract_num
   number_of_characters:
-    output_key: number_of_characters
+    output_key: number_of_gangs
   number_of_turns:
     output_key: number_of_turns
     actions:
@@ -2261,23 +2277,23 @@ digikey:
   resistive_material:
     output_key: resistive_material
   built_in_switch:
-    output_key: with_switch
+    output_key: switch_type
   taper:
     output_key: taper
   interface:
-    output_key: interface
+    output_key: digital_interface
   encoder_type:
     output_key: technology
   number_of_taps:
     output_key: number_of_taps
   memory_type:
-    output_key: memory_type
+    output_key: wiper_memory
   actuator_length:
-    output_key: actuator_length
+    output_key: shaft_length
     actions:
       - parse_dimension
   actuator_diameter:
-    output_key: actuator_diameter
+    output_key: diameter
     actions:
       - parse_dimension
   number_of_gangs:
@@ -2372,6 +2388,8 @@ digikey:
     output_key: number_of_switches
   number_of_taps_steps:
     output_key: number_of_taps_steps
+  number_of_taps:
+    output_key: number_of_taps
   number_of_sections:
     output_key: number_of_sections
   number_of_transceivers:
