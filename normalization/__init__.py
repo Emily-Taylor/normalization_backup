@@ -666,7 +666,19 @@ def category_normalize_digikey(d: dict):
 
 	return d
 
-
+def cat_normalize_digikey(d: list):
+	d_str = str(d)
+	d_str = re.sub('\', \'', '\',\'', d_str)
+	
+	if d_str in categories['digikey']:
+			result_str = categories['digikey'][d_str]
+			result = eval(result_str)
+			return result
+	else:
+			logger.warning("missing mapping for category name: {0}".format(d))
+			return d
+	
+	
 def to_int(d: str):
 		"""turns a string into integer"""
 		if isinstance(d, (str)):

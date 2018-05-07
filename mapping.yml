@@ -1834,7 +1834,7 @@ digikey:
   categories:
     output_key: categories
     actions:
-      - category_normalize_digikey
+      - cat_normalize_digikey
   categories_digikey:
     output_key: categories_digikey
   current_rating_parallel:
