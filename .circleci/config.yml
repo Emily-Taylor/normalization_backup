@@ -19,7 +19,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            sudo pipenv install --system
+            pipenv install --system
 
       - save_cache:
           paths:
@@ -63,7 +63,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            sudo pipenv install --system
+            pipenv install --system
 
       - save_cache:
           paths:
