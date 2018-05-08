@@ -793,18 +793,26 @@ def split_resistance(d: str):
 				return (0.0, 0.0)
 
 def split_sensitivity(d: str):
+    
     if isinstance(d, str):
-        sen, rest = d.split('±')
-        sen_float = extract_num(sen)
         
-        if ('@' in rest):
-            tol, cond = rest.split('@')
-            tol_float = extract_num(tol)
-            cond_float = extract_num(cond)
+        if ('±' in d):
+            
+            sen, rest = d.split('±')
+            sen_float = extract_num(sen)
+            
+            if ('@' in rest):
+                
+                tol, cond = rest.split('@')
+                tol_float = extract_num(tol)
+                cond_float = extract_num(cond)
+            else:
+                tol_float = extract_num(rest)
+                cond_float = 0.0
+                return(sen_float, tol_float, cond_float)
         else:
-            tol_float = extract_num(rest)
-            cond_float = 0.0
-        return (sen_float, tol_float, cond_float)
+            d_float = parse_any_number(d)[0]
+            return (d_float, 0.0, 0.0)
     else:
         logger.warning('during type conversion got a non-string.')
         return (0.0, 0.0, 0.0)

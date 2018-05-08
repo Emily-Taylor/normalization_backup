@@ -134,8 +134,6 @@ mouser:
     output_key: material
   number_of_channels:
     output_key: number_of_channels
-    actions:
-      - extract_num
   number_of_positions:
     output_key: number_of_positions
     actions:
@@ -226,9 +224,11 @@ mouser:
   features:
     output_key: features
   inductance:
-    output_key: inductance
+    output_key:
+      - inductance_range_min
+      - inductance_range_max
     actions:
-      - extract_num
+      - split_to
   flammability_rating:
     output_key: flammability_rating
   gain:
@@ -1994,9 +1994,11 @@ digikey:
     actions:
       - extract_num
   voltage_isolation:
-    output_key: voltage_isolation
+    output_key:
+        - voltage_isolation
+        - voltage_isolation_time
     actions:
-      - extract_num
+      - split_at
   resistance_(ohms):
     output_key:
       - resistance_range_min
