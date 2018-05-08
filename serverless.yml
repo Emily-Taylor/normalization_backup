@@ -31,7 +31,7 @@ provider:
     REGION_NAME: eu-central-1
     MISSING_QUEUE_URL: https://sqs.eu-central-1.amazonaws.com/202439666482/missing-mapping
     MISSING_QUEUE_NAME: missing-mapping
-    OUTGOING_KINESIS_TOPIC: arn:aws:kinesis:eu-central-1:202439666482:stream/norm-new-item-${self:provider.stage}
+    OUTGOING_KINESIS_TOPIC: norm-new-item-${self:provider.stage}
   iamRoleStatements:
     - Effect: "Allow"
       Action:
