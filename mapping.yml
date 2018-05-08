@@ -836,8 +836,6 @@ digikey:
       - frequency_range_max
     actions:
       - split_temp
-    actions:
-      - extract_num
   switching_voltage:
     output_key:
       - switching_voltage_vac_max
