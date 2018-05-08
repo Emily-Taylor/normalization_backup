@@ -95,7 +95,7 @@ def tempcoeff(d: str) -> float:
 def extract_num(d: str) -> float:
 		"""turns strings with ANY unit into numbers"""
 		adict = {'µ': 'u', ' %': '', ' ': '', 'Max': '',
-						 '±': '', 'ppm/°C': '', ' (Cutoff)': '', 'ppm': '', ' (Typ)': '', 'AC/DC': ''}
+						 '±': '', 'ppm/°C': '', ' (Cutoff)': '', 'ppm': '', ' (Typ)': '', 'AC/DC': '', '<': ''}
 
 		if isinstance(d, str):
 
@@ -515,10 +515,10 @@ def parse_dimension(d: str):
 								return(d_float)
 						else:
 								logger.warning("no given value to be extracted.")
-								return(0.0)
+								return(d)
 				else:
 						logger.warning("something went wrong.")
-						return(0.0)
+						return(d)
 		else:
 				d = parse_any_number(d)[0]
 				return(d)
