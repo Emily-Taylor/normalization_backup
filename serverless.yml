@@ -93,5 +93,6 @@ functions:
           startingPosition: TRIM_HORIZON
 
 plugins:
+
   - serverless-python-requirements
   - serverless-offline
