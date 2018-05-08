@@ -1998,9 +1998,11 @@ digikey:
     actions:
       - extract_num
   resistance_(ohms):
-    output_key: resistance
+    output_key:
+        - resistance_range_min
+        - resistance_range_max
     actions:
-      - extract_num
+      - split_temp
   q_@_freq:
     output_key: 
       - q_minimum
