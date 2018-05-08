@@ -390,10 +390,20 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
 		""" splits temperature (or similar) columns into min and max"""
 		if isinstance(d, str):
 				if ', ' not in d:
-						if ' ~ ' in d:
-								t_min, t_max = d.split(' ~ ')
+						if '~' in d:
+								t_min, t_max = d.split('~')
 								t_min = re.sub(' ', '', t_min)
 								t_max = re.sub(' ', '', t_max)
+								
+								if (t_min.endswith('k')):
+									t_min = re.sub('k', '000', t_min)
+								elif (t_min.endswith('M')):
+									t_min = re.sub('M', '000000', t_min)
+								
+								if (t_max.endswith('k')):
+									t_max = re.sub('k', '000', t_max)
+								elif (t_max.endswith('M')):
+									t_max = re.sub('M', '000000', t_max)
 								
 								if t_min == 'DC':
 										t_min_float = 0.0
@@ -473,7 +483,7 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
 
 		else:
 				logger.warning("during type conversion got a non-string")
-				return(0.0, 0.0)
+				return(d,)
 
 
 def parse_dimension(d: str):
