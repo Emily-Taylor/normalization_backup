@@ -510,6 +510,7 @@ def parse_dimension(d: str):
 						
 						if res[0] is not None:
 								res = re.sub('mm x.*', '', res[0])
+								res = re.sub('Swagelok™,.*', '', res)
 								d_float = float(Quantity(res, "mm"))
 								return(d_float)
 						else:
@@ -567,6 +568,9 @@ def split_to(d: str):
 				
 				if ('/' in d):
 						d = d.split('/')[0]
+				
+				if ('DC' in d):
+						d = re.sub('DC', '0', d)
 
 				if (' to ' in d):
 						n1, n2 = d.split(' to ')
