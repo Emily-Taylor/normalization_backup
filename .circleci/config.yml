@@ -5,7 +5,9 @@ jobs:
     working_directory: ~/tmp/workspace
     docker:
       - image: srcbot/docker-python-nodejs
-
+        environment:
+          LC_ALL: "C.UTF-8"
+          LANG: "C.UTF-8"
     steps:
       - checkout
 
@@ -48,7 +50,9 @@ jobs:
     working_directory: ~/tmp/workspace
     docker:
       - image:  srcbot/docker-python-nodejs
-
+        environment:
+          LC_ALL: "C.UTF-8"
+          LANG: "C.UTF-8"
     steps:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
@@ -83,7 +87,9 @@ jobs:
     working_directory: ~/tmp/workspace
     docker:
       - image: srcbot/docker-python-nodejs
-
+        environment:
+          LC_ALL: "C.UTF-8"
+          LANG: "C.UTF-8"
     steps:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
@@ -101,8 +107,10 @@ jobs:
 
     working_directory: ~/tmp/workspace
     docker:
-      - image: circleci/node:8.10
-
+      - image: srcbot/docker-python-nodejs
+        environment:
+          LC_ALL: "C.UTF-8"
+          LANG: "C.UTF-8"
     steps:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
@@ -116,7 +124,9 @@ jobs:
     working_directory: ~/tmp/workspace
     docker:
       - image:  srcbot/docker-python-nodejs
-
+        environment:
+          LC_ALL: "C.UTF-8"
+          LANG: "C.UTF-8"
     steps:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
