@@ -1,4 +1,4 @@
-service: srcbot-normalization-service
+service: norm-service
 
 custom:
   stage: ${opt:stage, self:provider.stage} # shortcut for current stage
@@ -7,10 +7,8 @@ custom:
     debug: true
     port: 4000
   names:
+  # this is where we define the incoming kinesis queue. we cannot let sls create it.
     kinesis: crawler-data-raw-${self:provider.stage}
-#  serverless-offline-sns:
-#    port: 4002 # a free port for the sns server to run on
-#    debug: true
 resources:
   Resources:
     KinesisStream:
@@ -33,8 +31,7 @@ provider:
     REGION_NAME: eu-central-1
     MISSING_QUEUE_URL: https://sqs.eu-central-1.amazonaws.com/202439666482/missing-mapping
     MISSING_QUEUE_NAME: missing-mapping
-    INCOMING_SNS_TOPIC: arn:aws:sns:eu-central-1:202439666482:crawler-new-item #-${self:provider.stage}
-    OUTGOING_SNS_TOPIC: arn:aws:sns:eu-central-1:202439666482:norm-new-item-${self:provider.stage}
+    OUTGOING_KINESIS_TOPIC: arn:aws:kinesis:eu-central-1:202439666482:stream/norm-new-item-${self:provider.stage}
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -47,6 +44,12 @@ provider:
         - arn:aws:sqs:eu-central-1:202439666482:missing-mapping
         - arn:aws:sns:eu-central-1:202439666482:norm-new-item-dev #${self:provider.stage}
         - arn:aws:sns:eu-central-1:202439666482:norm-new-item-production #${self:provider.stage}
+    - Effect: "Allow"
+      Action:
+        - "kinesis:PutRecords"
+        - "kinesis:PutRecord"
+      Resource:
+        - "arn:aws:kinesis:eu-central-1:202439666482:*"
 
 package:
   individually: true
@@ -70,11 +73,6 @@ functions:
       - http:
           path: ping
           method: get
-  norm_sns:
-    handler: handler.norm_handler_sns
-    events:
-      - sns:
-            arn: arn:aws:sns:eu-central-1:202439666482:crawler-new-item #-${self:provider.stage}
   norm_http:
     handler: handler.norm_handler_http
     events:
@@ -86,7 +84,7 @@ functions:
               Content-Type: "'application/json'"
             template: $input.path('$')
   norm_kinesis:
-    handler: handler.norm_handler_sns_kinesis
+    handler: handler.norm_handler_kinesis
     events:
       - stream:
           type: kinesis
@@ -96,6 +94,5 @@ functions:
 
 plugins:
 
-#  - serverless-python-requirements
-#  - serverless-offline
-#  - serverless-offline-sns
+  - serverless-python-requirements
+  - serverless-offline
