@@ -1999,8 +1999,8 @@ digikey:
       - extract_num
   resistance_(ohms):
     output_key:
-        - resistance_range_min
-        - resistance_range_max
+      - resistance_range_min
+      - resistance_range_max
     actions:
       - split_temp
   q_@_freq:
