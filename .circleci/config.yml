@@ -57,7 +57,7 @@ jobs:
 
       - run:
           name: Install Serverless CLI
-          command: sudo npm install
+          command: sudo npm install; sudo -H pip install pipenv
 
       - run:
           name: Install Serverless CLI
