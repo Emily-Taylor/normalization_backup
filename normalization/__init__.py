@@ -760,8 +760,9 @@ def split_current(d: str):
 						s_float = float(Quantity(s, ''))
 						return (p_float, s_float)
 				else:
-						logger.warning('Splitting symbol is different. Please update.')
-						return (0.0, 0.0)
+						p_float = float(Quantity(d, ''))
+						s_float = p_float
+						return (p_float, s_float)
 		else:
 				logger.warning('during type conversion got a non-string.')
 				return (0.0, 0.0)
