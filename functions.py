@@ -146,7 +146,7 @@ def adjust_structure(part: dict, source: str, ts: int):
         return False 
 
     #adding timestamp ts of the normalization
-    part['ts'] = c.now()
+    part['ts_norm'] = c.now()
     #adding timestamp ts of the crawler-
     part['ts_crawler'] = ts
     # last big modification of the structure of the json
@@ -164,7 +164,7 @@ def adjust_structure(part: dict, source: str, ts: int):
         'lifecycle',
         'properties',
         'id',
-        'ts',
+        'ts_norm',
         'ts_crawler']
     part['properties'] = {}
     for k in list(part):
