@@ -68,6 +68,7 @@ jobs:
           name: install dependencies
           command: |
             pipenv install --system
+            npm install
 
       - save_cache:
           paths:
