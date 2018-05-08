@@ -504,8 +504,10 @@ def parse_dimension(d: str):
 				res = regexp.findall(d)
 
 				if len(res) > 0:
+						
 						if res[0] is not None:
-								d_float = float(Quantity(res[0], "mm"))
+								res = re.sub('mm x.*', '', res[0])
+								d_float = float(Quantity(res, "mm"))
 								return(d_float)
 						else:
 								logger.warning("no given value to be extracted.")
