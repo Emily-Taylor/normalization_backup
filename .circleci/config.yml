@@ -48,12 +48,35 @@ jobs:
 
     working_directory: ~/tmp/workspace
     docker:
-      - image: circleci/node:8.10
+      - image: circleci/python:3.6.1
 
     steps:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: ./
+
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "Pipfile.lock" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run:
+          name: install dependencies
+          command: |
+            sudo pip3 install pipenv
+            sudo pipenv install --system
+
+      - save_cache:
+          paths:
+            - /home/circleci/.cache
+          key: v1-dependencies-{{ checksum "Pipfile.lock" }}
+
+      - run:
+          name: install node and npm
+          command: |
+            curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+            sudo apt-get install -y nodejs
 
       - run:
           name: Install Serverless CLI
