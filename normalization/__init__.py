@@ -122,6 +122,9 @@ def extract_num(d: str) -> float:
 						elif 'Position' in d:
 								d_float = parse_any_number(d)[0]
 								return d_float
+						elif d == 'Continuous':
+								d_float = 360.0
+								return d_float
 						elif '/' in d:
 								if 'A' in d:
 									d_float = convert_to_float(re.sub('A', '', d))
