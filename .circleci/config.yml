@@ -95,7 +95,11 @@ jobs:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: ./
-
+      - run:
+          name: install dependencies
+          command: |
+            pipenv install --system
+            npm install
       - run:
           command: sls package -v --region eu-central-1 --stage production
 
