@@ -38,7 +38,7 @@ jobs:
       - run:
           name: run more tests
           command: |
-            true #pipenv run mypy normalization/__init__.py  --ignore-missing-imports
+            pipenv run mypy normalization/__init__.py  --ignore-missing-imports  --follow-imports=skip
 
       - persist_to_workspace:
           root: ./
