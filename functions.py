@@ -9,9 +9,9 @@ import yaml
 
 import normalization as n
 import common as c
-here = os.path.dirname(os.path.realpath(__file__))
-with open(os.path.join(here, 'mapping.yml'), 'r') as f:
-  mapping = yaml.load(f)
+CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
+with open(os.path.join(CURRENT_DIR, 'mapping.yml'), 'r') as f:
+  MAPPING = yaml.load(f)
 
 
 
@@ -46,21 +46,19 @@ def adjust_structure(part: dict, source: str, ts: int):
     part.pop('minimum_quantity', None)
     for key in list(part):
     # apply norm
-        if key in mapping[source]:
+        if key in MAPPING[source]:
             try:
                 # attempt to apply functions
-                if 'actions' in mapping[source][key]:
-                    functions = mapping[source][key]['actions']
+                if 'actions' in MAPPING[source][key]:
+                    functions = MAPPING[source][key]['actions']
                     for func in functions:
                     # print(f,key)
                         new_val = eval(
                             "n." + func + "({})".format("part['" + key + "']"))
                     part[key] = new_val
             except Exception as error:
-                print('Caught this error: '
-                      + repr(error)
-                      +' during processing of function '
-                      +f
+                print('Caught this error: '+ repr(error)+' during processing of function '
+                      +func
                       +" and key "
                       +repr(key)
                      )
@@ -69,10 +67,10 @@ def adjust_structure(part: dict, source: str, ts: int):
                 #raise ValueError("something wrong with functions: {0}".format(BaseException))
 
             # check for new keys name
-            if isinstance(mapping[source][key]['output_key'], list)\
+            if isinstance(MAPPING[source][key]['output_key'], list)\
               and isinstance(part[key], tuple):
                 #print("going to zip: "+str(mapping[source][key]['output_key'])+" "+str(part[key]))
-                t_res = dict(zip(mapping[source][key]['output_key'], part[key]))
+                t_res = dict(zip(MAPPING[source][key]['output_key'], part[key]))
                 #print(t_res.keys())
                 for k in t_res.keys():
                     if '.' not in k:
@@ -85,12 +83,12 @@ def adjust_structure(part: dict, source: str, ts: int):
                         deep_set(part, t_res[k], keys)
                     if key in part:
                         part.pop(key)
-                if part[key] != mapping[source][key]['output_key']:
+                if part[key] != MAPPING[source][key]['output_key']:
                     part.pop(key)
                 else:
-                        if '.' not in mapping[source][key]['output_key']:
+                        if '.' not in MAPPING[source][key]['output_key']:
                             #print("handling single key, no nesting")
-                            new_key = mapping[source][key]['output_key']
+                            new_key = MAPPING[source][key]['output_key']
                             try:
                                 part[new_key] = part.pop(key)
                             except Exception as error:
@@ -98,7 +96,7 @@ def adjust_structure(part: dict, source: str, ts: int):
                                 print('Caught this error: ' + repr(error))
                         else:
                             #print("handling single key, with nesting")
-                            keys = mapping[source][key]['output_key'].split('.')
+                            keys = MAPPING[source][key]['output_key'].split('.')
                             deep_set(part, part[key], keys)
                             # finish the job
                             part.pop(key)
