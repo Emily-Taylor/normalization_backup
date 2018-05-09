@@ -760,8 +760,9 @@ def split_current(d: str):
 						s_float = float(Quantity(s, ''))
 						return (p_float, s_float)
 				else:
-						logger.warning('Splitting symbol is different. Please update.')
-						return (0.0, 0.0)
+						p_float = float(Quantity(d, ''))
+						s_float = p_float
+						return (p_float, s_float)
 		else:
 				logger.warning('during type conversion got a non-string.')
 				return (0.0, 0.0)
@@ -809,7 +810,7 @@ def split_sensitivity(d: str):
             else:
                 tol_float = extract_num(rest)
                 cond_float = 0.0
-                return(sen_float, tol_float, cond_float)
+            return(sen_float, tol_float, cond_float)
         else:
             d_float = parse_any_number(d)[0]
             return (d_float, 0.0, 0.0)
