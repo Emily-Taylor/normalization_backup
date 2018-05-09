@@ -62,7 +62,7 @@ def adjust_structure(part: dict, source: str, ts: int):
                       +' during processing of function '
                       +f
                       +" and key "
-                      +str(key)
+                      +repr(key)
                      )
             #raise error
 
