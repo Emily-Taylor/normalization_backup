@@ -18,6 +18,8 @@ pylint = "*"
 jsonlines = "*"
 tabulate = "*"
 tqdm = "*"
+"flake8" = "*"
+fire = "*"
 
 [requires]
 python_version = "3.6"
