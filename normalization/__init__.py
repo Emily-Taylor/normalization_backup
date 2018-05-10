@@ -707,7 +707,7 @@ def to_int(d: str):
 						'cannot cast {0} into float as it\'s not a string'.format(d))
 
 
-def inchtomm(d: str):
+def inchtomm(d):
 		"""turns inch into mm"""
 		if isinstance(d, int):
 				d = d * 25.4
