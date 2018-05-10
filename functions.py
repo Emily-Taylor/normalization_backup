@@ -94,6 +94,7 @@ def adjust_structure(part: dict, source: str, ts: int):
                             except Exception as error:
                                 print("couldn't assign new key. for old key {0}, new key: {1}, data: {2}".format(str(key),str(new_key), str(part[key])))
                                 print('Caught this error: ' + repr(error))
+                                logging.debug('this is a debug message')
                         else:
                             #print("handling single key, with nesting")
                             keys = MAPPING[source][key]['output_key'].split('.')
@@ -143,7 +144,7 @@ def adjust_structure(part: dict, source: str, ts: int):
         part['id'] = hex_dig
     # print(part['id'])
     else:
-        logging.error("can't find MPN on part!")
+        logging.debug("can't find MPN on part!")
         print("can't find MPN on part!")
         return False 
 

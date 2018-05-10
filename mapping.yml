@@ -473,7 +473,7 @@ mouser:
   lead_style:
     output_key: termination_style
   lifecycle:
-    output_key: life
+    output_key: lifecycle
   open_frameenclosed:
     output_key: open_frameenclosed
   number_of_detents:

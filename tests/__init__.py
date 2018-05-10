@@ -237,6 +237,7 @@ class TestNorm(unittest.TestCase):
 		self.assertEqual(result, output)
 
 	def test_height(self):
+  	#supposed to work with input like this:	'0.039" (1.00mm)'
 		d1 = '0.512" (13.00mm)'
 		d2 = '22 mm (0.875)'
 		output1 = 13.0
