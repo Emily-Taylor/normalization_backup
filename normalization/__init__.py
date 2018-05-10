@@ -7,13 +7,16 @@ Created on Fri Dec 22 14:08:54 2017
 Collection of normalization functions
 
 """
-import os,sys,inspect
-currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+import os
+import sys
+import inspect
+currentdir = os.path.dirname(os.path.abspath(
+    inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
-sys.path.insert(0,parentdir) 
+sys.path.insert(0, parentdir)
 import common as c
 import json
-import logging 
+import logging
 logger = logging.getLogger('missing-mapping-processor')
 
 from quantiphy import Quantity
@@ -127,11 +130,14 @@ def extract_num(d: str) -> float:
                 return d_float
             elif '/' in d:
                 if 'A' in d:
-                  d_float = convert_to_float(re.sub('A', '', d))
-                  return d_float
+                    d_float = convert_to_float(re.sub('A', '', d))
+                    return d_float
                 elif 'Ohms' in d:
-                  d_float = convert_to_float(re.sub('Ohms', '', d))
-                  return d_float
+                    d_float = convert_to_float(re.sub('Ohms', '', d))
+                    return d_float
+                else:
+                    d_float = parse_any_number(d)[0]
+                    return d_float
             else:
                 d_float = float(Quantity(d, ''))
                 return d_float
@@ -142,15 +148,16 @@ def extract_num(d: str) -> float:
         logger.warning("during type conversion got a non-string")
         return d
 
+
 def extract_torque(d: str):
     """
     Extracts torque in Nm (SI unit)
     """
     if isinstance(d, str):
         if ',' in d:
-            
+
             d = d.split(',')[0]
-        
+
         if 'Nm' in d:
             d_float = parse_any_number(d)[0]
             return(d_float)
@@ -164,6 +171,7 @@ def extract_torque(d: str):
     else:
         logging.warning('during type conversion got a non-string.')
         return 0.0
+
 
 def split_spread(d: str):
     """
@@ -213,6 +221,7 @@ def parse_any_number(d: str):
         return d
     return d
 
+
 def parse_dimension3d(d: str):
     """
     extracts w, h, d from 3d entries
@@ -226,6 +235,7 @@ def parse_dimension3d(d: str):
     else:
         logging.warning('during type conversion got a non-string.')
         return (0.0, 0.0, 0.0)
+
 
 def inductance(d: str):
     """ turns inducance string to numeric"""
@@ -354,7 +364,7 @@ def parse_dimensions(d: str):
         w = float(Quantity(w, scale='mm'))
         return (l, w, 0.0)
     elif len(res) == 3:
-        l,w,h = res[0], res[1], res[2]
+        l, w, h = res[0], res[1], res[2]
         l = float(Quantity(l, scale='mm'))
         w = float(Quantity(w, scale='mm'))
         h = float(Quantity(h, scale='mm'))
@@ -389,6 +399,7 @@ def split_band(d: str):
         logger.warning('During type conversion got a non-string.')
         return(0.0, 0.0, 0.0)
 
+
 def split_temp(d: str) -> typing.Tuple[float, float]:
     """ splits temperature (or similar) columns into min and max"""
     if isinstance(d, str):
@@ -397,17 +408,17 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
                 t_min, t_max = d.split('~')
                 t_min = re.sub(' ', '', t_min)
                 t_max = re.sub(' ', '', t_max)
-                
+
                 if (t_min.endswith('k')):
-                  t_min = re.sub('k', '000', t_min)
+                    t_min = re.sub('k', '000', t_min)
                 elif (t_min.endswith('M')):
-                  t_min = re.sub('M', '000000', t_min)
-                
+                    t_min = re.sub('M', '000000', t_min)
+
                 if (t_max.endswith('k')):
-                  t_max = re.sub('k', '000', t_max)
+                    t_max = re.sub('k', '000', t_max)
                 elif (t_max.endswith('M')):
-                  t_max = re.sub('M', '000000', t_max)
-                
+                    t_max = re.sub('M', '000000', t_max)
+
                 if t_min == 'DC':
                     t_min_float = 0.0
                     t_min_float1 = float(Quantity(t_min_float))
@@ -429,7 +440,7 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
                 t_min, t_max = d.split(' to ')
                 t_min = re.sub(' ', '', t_min)
                 t_max = re.sub(' ', '', t_max)
-                
+
                 if t_min == 'DC':
                     t_min_float = 0.0
                     t_min_float4 = float(Quantity(t_min_float))
@@ -501,17 +512,17 @@ def parse_dimension(d: str):
         d = re.sub(' in', '', d)
         d_float = float(Fraction(re.sub(' in', '', d))) * 25.4
         return(d_float)
-                
+
     if 'mm)' in d:
         regexp = re.compile(r'\((.*)mm\)')
         res = regexp.findall(d)
 
         if len(res) > 0:
-            
+
             if res[0] is not None:
-                res = re.sub('mm x.*', '', res[0])
-                res = re.sub('Swagelok™,.*', '', res)
-                d_float = float(Quantity(res, "mm"))
+                res1 = re.sub('mm x.*', '', res[0])
+                res2 = re.sub('Swagelok™,.*', '', res1)
+                d_float = float(Quantity(res2, "mm"))
                 return(d_float)
             else:
                 logger.warning("no given value to be extracted.")
@@ -565,10 +576,10 @@ def split_to(d: str):
 
         if (', ' in d):
             d = d.split(',', 1)[0]
-        
+
         if ('/' in d):
             d = d.split('/')[0]
-        
+
         if ('DC' in d):
             d = re.sub('DC', '0', d)
 
@@ -678,26 +689,29 @@ def category_normalize_digikey(d: dict):
             #logger.warning("missing mapping for category name: {0}".format(i))
             #common.send_msg(json.dumps({"source": 'digikey', "categories": d, "key": "missing_category_mapping"}))
             try:
-              c.agg.add_category({"source": 'digikey', "categories": ("digikey/"+"__".join(d).replace(" ","_")).lower(), "key": "missing_category_mapping"})
+                c.agg.add_category({"source": 'digikey', "categories": (
+                    "digikey/" + "__".join(d).replace(" ", "_")).lower(), "key": "missing_category_mapping"})
             except:
-              logger.warning("missing mapping for category name: {0}".format(i))
-              pass
+                logger.warning(
+                    "missing mapping for category name: {0}".format(i))
+                pass
 
     return d
 
+
 def cat_normalize_digikey(d: list):
-  d_str = str(d)
-  d_str = re.sub('\', \'', '\',\'', d_str)
-  
-  if d_str in categories['digikey']:
-      result_str = categories['digikey'][d_str]
-      result = eval(result_str)
-      return result
-  else:
-      logger.warning("missing mapping for category name: {0}".format(d))
-      return d
-  
-  
+    d_str = str(d)
+    d_str = re.sub('\', \'', '\',\'', d_str)
+
+    if d_str in categories['digikey']:
+        result_str = categories['digikey'][d_str]
+        result = eval(result_str)
+        return result
+    else:
+        logger.warning("missing mapping for category name: {0}".format(d))
+        return d
+
+
 def to_int(d: str):
     """turns a string into integer"""
     if isinstance(d, (str)):
@@ -709,16 +723,17 @@ def to_int(d: str):
 
 def inchtomm(d: str):
     """turns inch into mm"""
-    if isinstance(d, int):
-        d = d * 25.4
-        return d
-    elif isinstance(d, str):
-        d = parse_any_number(d)[0]
-        d = d * 25.4
-        return d
+    if isinstance(d, str):
+        d_float = parse_any_number(d)[0]
+        d_float = d_float * 25.4
+        return d_float
     else:
-        logger.warning('during type conversion met a string.')
-        return(0.0)
+        if isinstance(d, int):
+            d_float = d * 25.4
+            return d_float
+        func_name = inspect.currentframe().f_code.co_name
+        logger.warning('found an error in function "{0}" during type conversion found type{1} containing: {2}.'.format(func_name, type(d), repr(d)))
+        return 0.0
 
 
 def to_float(d: str):
@@ -793,17 +808,18 @@ def split_resistance(d: str):
         logger.warning('during type conversion got a non-string.')
         return (0.0, 0.0)
 
+
 def split_sensitivity(d: str):
-    
+
     if isinstance(d, str):
-        
+
         if ('±' in d):
-            
+
             sen, rest = d.split('±')
             sen_float = extract_num(sen)
-            
+
             if ('@' in rest):
-                
+
                 tol, cond = rest.split('@')
                 tol_float = extract_num(tol)
                 cond_float = extract_num(cond)
@@ -817,40 +833,42 @@ def split_sensitivity(d: str):
     else:
         logger.warning('during type conversion got a non-string.')
         return (0.0, 0.0, 0.0)
-            
+
+
 def split_spl(d: str):
-    
+
     if isinstance(d, str):
         volume = d.split('@')[0]
         volume_float = extract_num(volume)
-        
+
         v_d = d.split('@')[1]
-        
+
         voltage = v_d.split(',')[0]
         distance = v_d.split(',')[1]
-        
+
         voltage_float = extract_num(voltage)
         distance_float = extract_num(distance)
-        
+
         return (volume_float, voltage_float, distance_float)
     else:
         logger.warning('during type conversion got a non-string.')
         return (0.0, 0.0, 0.0)
-    
+
+
 def split_timing(d: str):
 
     if isinstance(d, str):
 
         if 'Fixed, ' in d:
             d = re.sub('Fixed, ', '', d)
-            
+
         if 'Fixed' in d:
             d = re.sub('Fixed', '', d)
-            
+
         if ', ' in d:
 
             d = re.sub(', .*', '', d)
-        
+
         if '~' in d:
             d = re.sub('~', 'to', d)
 
@@ -879,14 +897,14 @@ def split_timing(d: str):
                 t2_float = parse_any_number(t2)[0] * 60
             elif (('s' in t2) or ('Sec' in t2)):
                 t2_float = parse_any_number(t2)[0]
-                                
+
             return (t1_float, t2_float)
         else:
             if 'd' in d:
                 t1_float = parse_any_number(d)[0] * 86400
             elif (('h' in d) or ('hr' in d) or ('Hrs' in d)):
                 t1_float = parse_any_number(d)[0] * 3600
-            elif (('m' in d) or ('min' in d)  or ('Min' in d)):
+            elif (('m' in d) or ('min' in d) or ('Min' in d)):
                 t1_float = parse_any_number(d)[0] * 60
             elif (('s' in d) or ('Sec' in d)):
                 t1_float = parse_any_number(d)[0]
@@ -897,6 +915,7 @@ def split_timing(d: str):
     else:
         logger.warning('during type conversion got a non-string.')
         return (0.0, 0.0)
+
 
 def convert_to_float(frac_str):
     try:
@@ -911,12 +930,13 @@ def convert_to_float(frac_str):
         frac = float(num) / float(denom)
         return whole - frac if whole < 0 else whole + frac
 
+
 def split_contact(d: str):
     if isinstance(d, str):
-        
+
         if ',' in d:
             d = d.split(',')[0]
-        
+
         if ' to ' in d:
             d_min, d_max = d.split(' to ')
             d_min_float = float(Quantity(d_min))
@@ -935,65 +955,55 @@ def split_contact(d: str):
     else:
         logger.error('during type conversion got a non-string.')
         return (0.0, 0.0, 0.0)
-        
+
+
 def split_voltage(d: str):
-  if isinstance(d, str):
-    if ('- Max' in d):
-      d = re.sub('- Max', '', d)
-      if (',' in d):
-        d1, d2 = d.split(',')
-        if 'VAC' in d1:
-          d_vac_max = float(Quantity(d1))
-          d_vdc_max = float(Quantity(d2))
-          return(d_vac_max, d_vdc_max, 0.0, 0.0)
-        elif 'VDC' in d1:
-          d_vac_max = float(Quantity(d2))
-          d_vdc_max = float(Quantity(d1))
-          return(d_vac_max, d_vdc_max, 0.0, 0.0)
-      else:
-        if 'VAC' in d:
-          d_vac_max = float(Quantity(d))
-          d_vdc_max = 0.0
-          return(d_vac_max, d_vdc_max, 0.0, 0.0)
-        elif 'VDC' in d:
-          d_vdc_max = float(Quantity(d))
-          d_vac_max = 0.0
-          return(d_vac_max, d_vdc_max, 0.0, 0.0)
-    elif (' - Nom' in d):
-      d = re.sub('- Nom', '', d)
-      if (',' in d):
-        d1, d2 = d.split(',')
-        if 'VAC' in d1:
-          d_vac_nom = float(Quantity(d1))
-          d_vdc_nom = float(Quantity(d2))
-          return (0.0, 0.0, d_vac_nom, d_vdc_nom)
-        elif 'VDC' in d1:
-          d_vac_nom = float(Quantity(d2))
-          d_vdc_nom = float(Quantity(d1))
-          return (0.0, 0.0, d_vac_nom, d_vdc_nom)
-      else:
-        if 'VAC' in d:
-          d_vac_nom = float(Quantity(d))
-          d_vdc_nom = 0.0
-          return (0.0, 0.0, d_vac_nom, d_vdc_nom)
-        elif 'VDC' in d:
-          d_vdc_nom = float(Quantity(d))
-          d_vac_nom = 0.0
-          return (0.0, 0.0, d_vac_nom, d_vdc_nom)
+    if isinstance(d, str):
+        if ('- Max' in d):
+            d = re.sub('- Max', '', d)
+            if (',' in d):
+                d1, d2 = d.split(',')
+                if 'VAC' in d1:
+                    d_vac_max = float(Quantity(d1))
+                    d_vdc_max = float(Quantity(d2))
+                    return(d_vac_max, d_vdc_max, 0.0, 0.0)
+                elif 'VDC' in d1:
+                    d_vac_max = float(Quantity(d2))
+                    d_vdc_max = float(Quantity(d1))
+                    return(d_vac_max, d_vdc_max, 0.0, 0.0)
+            else:
+                if 'VAC' in d:
+                    d_vac_max = float(Quantity(d))
+                    d_vdc_max = 0.0
+                    return(d_vac_max, d_vdc_max, 0.0, 0.0)
+                elif 'VDC' in d:
+                    d_vdc_max = float(Quantity(d))
+                    d_vac_max = 0.0
+                    return(d_vac_max, d_vdc_max, 0.0, 0.0)
+        elif (' - Nom' in d):
+            d = re.sub('- Nom', '', d)
+            if (',' in d):
+                d1, d2 = d.split(',')
+                if 'VAC' in d1:
+                    d_vac_nom = float(Quantity(d1))
+                    d_vdc_nom = float(Quantity(d2))
+                    return (0.0, 0.0, d_vac_nom, d_vdc_nom)
+                elif 'VDC' in d1:
+                    d_vac_nom = float(Quantity(d2))
+                    d_vdc_nom = float(Quantity(d1))
+                    return (0.0, 0.0, d_vac_nom, d_vdc_nom)
+            else:
+                if 'VAC' in d:
+                    d_vac_nom = float(Quantity(d))
+                    d_vdc_nom = 0.0
+                    return (0.0, 0.0, d_vac_nom, d_vdc_nom)
+                elif 'VDC' in d:
+                    d_vdc_nom = float(Quantity(d))
+                    d_vac_nom = 0.0
+                    return (0.0, 0.0, d_vac_nom, d_vdc_nom)
+        else:
+            logger.warning('New pattern found: %s', d)
+            return (0.0, 0.0, 0.0, 0.0)
     else:
-      logger.warning('New pattern found: %s', d)
-      return (0.0, 0.0, 0.0, 0.0)
-  else:
-    logger.error('during type conversion got a non-string.')
-    return (0.0, 0.0, 0.0, 0.0)
-          
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        logger.error('during type conversion got a non-string.')
+        return (0.0, 0.0, 0.0, 0.0)
