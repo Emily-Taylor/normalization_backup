@@ -118,13 +118,17 @@ def adjust_structure(part: dict, source: str, ts: int):
     # fix SKU
     if 'sku' in part:
         new_sku = part.pop('sku')
-        part['sku'] = {}
-        part['sku'][source] = new_sku
+        #part['sku'] = {}
+        #part['sku'][source] = new_sku
     # fix links
     if 'links' in part:
         new_links = part.pop('links')
-        part['links'] = {}
-        part['links'][source] = new_links
+        part['sku'] = {}
+        part['sku'][source] = {}
+        part['sku'][source][new_sku[0]] = {}
+        part['sku'][source][new_sku[0]]['links'] = new_links
+        part['sku'][source][new_sku[0]]['packaging'] = part.pop('packaging', None)
+
     # generate IDs
     if 'mpn' in part and 'mfr' in part:
         id = (part['mpn'] + part['mfr']).lower().replace(" ", "")
