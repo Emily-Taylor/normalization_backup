@@ -111,10 +111,10 @@ def adjust_structure(part: dict, source: str, ts: int):
             # not fully mapped
             continue
     # fix lifecycle/life
-    if 'life' in part:
-        new_life = part.pop('life')
-        part['life'] = {}
-        part['life'][source] = new_life
+    if 'lifecycle' in part:
+        new_life = part.pop('lifecycle')
+        part['lifecycle'] = {}
+        part['lifecycle'][source] = new_life
     # fix SKU
     if 'sku' in part:
         new_sku = part.pop('sku')

@@ -629,7 +629,7 @@ mouser:
   input_type:
     output_key: input_type
   life:
-    output_key: life
+    output_key: lifecycle
     actions:
       - extract_num
   housing_material:
@@ -2032,7 +2032,7 @@ digikey:
   configuration:
     output_key: configuration
   lifecycle:
-    output_key: life
+    output_key: lifecycle
   links:
     output_key: links
   mfr:
