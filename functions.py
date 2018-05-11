@@ -24,27 +24,27 @@ def deep_set(part, value, keys):
 
 def adjust_structure(part: dict, source: str, ts: int):
   
-    part_new = defaultdict(dict, part)
+    part = defaultdict(dict, part)
     # fix mfr before everything
     if 'mfr' in part:
         #mfr = c.get_alias(part['mfr'])
         mfr = c.get_mfr_mapping(part['mfr'])
-        part_new['mfr'] = mfr
+        part['mfr'] = mfr
     # keep desciprtion
     if 'description' in part:
         raw_desc = deepcopy(part['description'])
-        part_new['description_raw'] = {}
-        part_new['description_raw'][source] = raw_desc
+        part['description_raw'] = {}
+        part['description_raw'][source] = raw_desc
         # fix category before normalization
     if 'categories' in part:
         raw_categories = deepcopy(part['categories'])
-        part_new['categories_raw'] = {}
-        part_new['categories_raw'][source] = raw_categories
+        part['categories_raw'] = {}
+        part['categories_raw'][source] = raw_categories
     # remove availablity and pricing, minimum_quantity and packagecase
-    part_new.pop('availability', None)
-    part_new.pop('pricing', None)
-    part_new.pop('packagecase', None)
-    part_new.pop('minimum_quantity', None)
+    part.pop('availability', None)
+    part.pop('pricing', None)
+    part.pop('packagecase', None)
+    part.pop('minimum_quantity', None)
     for key in list(part):
     # apply norm
         if key in MAPPING[source]:
@@ -56,7 +56,7 @@ def adjust_structure(part: dict, source: str, ts: int):
                     # print(f,key)
                         new_val = eval(
                             "n." + func + "({})".format("part['" + key + "']"))
-                    part_new[key] = new_val
+                    part[key] = new_val
             except Exception as error:
                 print('Caught this error: '+ repr(error)+' during processing of function '
                       +func
@@ -65,45 +65,27 @@ def adjust_structure(part: dict, source: str, ts: int):
                       +" and value: "
                       + repr(part[key])
                      )
-            #raise error
-
-                #raise ValueError("something wrong with functions: {0}".format(BaseException))
 
             # check for new keys name
-            if isinstance(MAPPING[source][key]['output_key'], list)\
-              and isinstance(part[key], tuple):
-                #print("going to zip: "+str(mapping[source][key]['output_key'])+" "+str(part[key]))
+            if isinstance(MAPPING[source][key]['output_key'], list) and isinstance(part[key], tuple):
                 t_res = dict(zip(MAPPING[source][key]['output_key'], part[key]))
-                #print(t_res.keys())
                 for k in list(t_res.keys()):
-                    if '.' not in k:
-                        #print("handling double key, no nesting")
-                        part_new[k] = t_res[k]
+                    if part[key] != MAPPING[source][key]['output_key']:
+                        part[k] = t_res[k]
+                        part.pop(key)
                     else:
-                        #print("handling double key, with nesting")
-                        keys = k.split('.')
-                        # print(k,keys,part[key])
-                        deep_set(part_new, t_res[k], keys)
-                    if key in part_new:
-                        part_new.pop(key)
-                if part_new[key] != MAPPING[source][key]['output_key']:
-                    part_new.pop(key)
-                else:
-                        if '.' not in MAPPING[source][key]['output_key']:
-                            #print("handling single key, no nesting")
-                            new_key = MAPPING[source][key]['output_key']
-                            try:
-                                part_new[new_key] = part.pop(key)
-                            except Exception as error:
-                                print("couldn't assign new key. for old key {0}, new key: {1}, data: {2}".format(str(key),str(new_key), str(part[key])))
-                                print('Caught this error: ' + repr(error))
-                                logging.debug('this is a debug message')
-                        else:
-                            #print("handling single key, with nesting")
-                            keys = MAPPING[source][key]['output_key'].split('.')
-                            deep_set(part_new, part[key], keys)
-                            # finish the job
-                            part_new.pop(key)
+                        part[k] = t_res[k]
+            elif  isinstance(MAPPING[source][key]['output_key'], str) and isinstance(part[key], tuple):
+                print("handling single output key")
+                output_key = MAPPING[source][key]['output_key']
+                part[output_key] = part.pop(key)
+            elif  isinstance(MAPPING[source][key]['output_key'], str):
+                output_key = MAPPING[source][key]['output_key']
+                part[output_key] = part.pop(key)
+            else:
+                new_keys = MAPPING[source][key]['output_key']
+                print("couldn't assign new key. for old key {0}, new_keys: {2}, data: {1}".format(str(key), str(part[key]), str(new_keys)))
+
 
         else:
             # call missing-mapping queue with the source, categories and
@@ -117,8 +99,8 @@ def adjust_structure(part: dict, source: str, ts: int):
     # fix lifecycle/life
     if 'lifecycle' in part:
         new_life = part.pop('lifecycle')
-        part_new['lifecycle'] = {}
-        part_new['lifecycle'][source] = new_life
+        part['lifecycle'] = {}
+        part['lifecycle'][source] = new_life
     # fix SKU
     if 'sku' in part:
         new_sku = part.pop('sku')
@@ -127,24 +109,24 @@ def adjust_structure(part: dict, source: str, ts: int):
     # fix links
     if 'links' in part:
         new_links = part.pop('links')
-        part_new['sku'] = {}
-        part_new['sku'][source] = {}
-        part_new['sku'][source][new_sku[0]] = {}
-        part_new['sku'][source][new_sku[0]]['links'] = new_links
-        part_new['sku'][source][new_sku[0]]['packaging'] = part.pop('packaging', None)
+        part['sku'] = {}
+        part['sku'][source] = {}
+        part['sku'][source][new_sku[0]] = {}
+        part['sku'][source][new_sku[0]]['links'] = new_links
+        part['sku'][source][new_sku[0]]['packaging'] = part.pop('packaging', None)
 
     # generate IDs
     if 'mpn' in part and 'mfr' in part:
         id = (part['mpn'] + part['mfr']).lower().replace(" ", "")
         hash_object = sha1(id.encode('utf-8'))
         hex_dig = hash_object.hexdigest()
-        part_new['id'] = hex_dig
+        part['id'] = hex_dig
     # print(part['id'])
     elif 'mpn' in part:
         id = part['mpn'].lower().replace(" ", "")
         hash_object = sha1(id.encode('utf-8'))
         hex_dig = hash_object.hexdigest()
-        part_new['id'] = hex_dig
+        part['id'] = hex_dig
     # print(part['id'])
     else:
         logging.debug("can't find MPN on part!")
@@ -172,9 +154,9 @@ def adjust_structure(part: dict, source: str, ts: int):
         'ts',
         'ts_norm',
         'ts_crawler']
-    part_new['properties'] = {}
-    for k in list(part_new):
+    part['properties'] = {}
+    for k in list(part):
         if k not in main_keys:
             #print("{0} not in main_keys".format(k))
-            part_new['properties'][k] = part_new.pop(k, None)
-    return part_new
+            part['properties'][k] = part.pop(k, None)
+    return part

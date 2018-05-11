@@ -133,7 +133,7 @@ def get_full(mfr):
     logger.error('alias is not a string')
     return False
 
-with open('../normalization/mfr/array.json', 'r') as f:
+with open(os.path.join(here,'../normalization/mfr/array.json'), 'r') as f:
     mapping = json.load(f)
 mapping_dict = {}
 for i in mapping:

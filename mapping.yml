@@ -2238,6 +2238,8 @@ digikey:
       - extract_num
   frequency_self_resonant:
     output_key: self_resonant_frequency
+    actions:
+      - extract_num
   supplier_device_package:
     output_key: supplier_device_package
   delay_time:

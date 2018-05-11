@@ -100,7 +100,6 @@ def norm_handler_http(event, *args):
         if 'source' in message:
             source = message['source']
             timestamp = message['ts']
-            print(source,timestamp)
         else:
             logging.warning("could not find source (distributor) in message")
             #return False
