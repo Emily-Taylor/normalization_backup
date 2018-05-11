@@ -170,6 +170,7 @@ def adjust_structure(part: dict, source: str, ts: int):
         'lifecycle',
         'properties',
         'id',
+        'ts',
         'ts_norm',
         'ts_crawler']
     part_new['properties'] = {}
