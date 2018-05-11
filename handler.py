@@ -100,13 +100,15 @@ def norm_handler_http(event, *args):
         if 'source' in message:
             source = message['source']
             timestamp = message['ts']
+            print(source,timestamp)
         else:
             logging.warning("could not find source (distributor) in message")
             #return False
         for part in message['parts']:
             # this is where the magic happens
             #print("magic!")
-            #print(part.keys())
+            #
+            # print(part.keys())
             part = adjust_structure(part, source, timestamp)
             output['parts'].append(part)
 

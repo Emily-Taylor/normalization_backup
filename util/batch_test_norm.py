@@ -31,15 +31,11 @@ from boto3 import session
 from six import string_types
 import logging 
 
-#from tqdm import tqdm
-from tqdm import tqdm_notebook as tqdm
+from tqdm import tqdm
 
 
-# In[16]:
-
-
-filename = '/home/username/projects/sourcingbot/normalization_service/data-full/digikey/inductor_digikey.ndjson.gz'
-#filename =  '/home/username/projects/sourcingbot/normalization_service/data/1000inductors.ndjson.gz'
+#filename = '/home/username/projects/sourcingbot/normalization_service/data-full/digikey/inductor_digikey.ndjson.gz'
+filename =  '/home/username/projects/sourcingbot/normalization_service/data/1000inductors.ndjson.gz'
 #filename =  '/home/username/projects/sourcingbot/normalization_service/data/100inductors.ndjson.gz'
 output_filename ='normalized_inductors.json'
 
@@ -92,8 +88,8 @@ def process(filename):
 
 # In[11]:
 
-
-process(filename)
+#this is the older version. let's not use it.
+#process(filename)
 
 
 # In[15]:

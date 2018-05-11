@@ -27,7 +27,8 @@ def adjust_structure(part: dict, source: str, ts: int):
     part_new = defaultdict(dict, part)
     # fix mfr before everything
     if 'mfr' in part:
-        mfr = c.get_alias(part['mfr'])
+        #mfr = c.get_alias(part['mfr'])
+        mfr = c.get_mfr_mapping(part['mfr'])
         part_new['mfr'] = mfr
     # keep desciprtion
     if 'description' in part:
