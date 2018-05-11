@@ -58,7 +58,7 @@ def norm_handler_kinesis(event: dict, *args):
     if 'parts' in message:
         if 'source' in message:
             source = message['source']
-            ts = message['ts']
+            timestamp = message['ts']
         else:
             logging.warning(
                 "could not find source (distributor) in message kinesis")
@@ -66,7 +66,7 @@ def norm_handler_kinesis(event: dict, *args):
             #return False
         for part in message['parts']:
             # this is where the magic happens
-            part = adjust_structure(part, source, ts)
+            part = adjust_structure(part, source, timestamp)
             output['parts'].append(part)
             # if not rest_call:
             #	print(c.publish_data(part))
@@ -91,16 +91,23 @@ def norm_handler_http(event, *args):
                 print(event['body'])
                 print("failed to load json from http request")
     output = {'parts': []}
-    if 'parts' in message and len(message.get('parts', 0)) > 0:
+    #print(  message)
+    #print( 'parts' in message )
+    #print(  len(message.get('parts', 0)))   
+
+    if 'parts' in message:
+        
         if 'source' in message:
             source = message['source']
-            ts = message['ts']
+            timestamp = message['ts']
         else:
             logging.warning("could not find source (distributor) in message")
             #return False
         for part in message['parts']:
             # this is where the magic happens
-            part = adjust_structure(part, source, ts)
+            #print("magic!")
+            #print(part.keys())
+            part = adjust_structure(part, source, timestamp)
             output['parts'].append(part)
 
     return output

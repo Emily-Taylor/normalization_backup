@@ -509,16 +509,20 @@ def parse_dimension(d: str):
         Swagelok™,111
         22 mm (0.875)
         0.512" (13.00mm)
+        0.512\" (13.00mm)
+
     """
+    #print("going to parse dimensions for input: {0}".format(d))
     if d == '1 1/2' or d == '1 1/2"' or d == '1 1/2\"':
         d_float = 38.1
         return d_float
+
     if d == '1 3/8 in':
         d_float = 34.925
         return d_float
-    
+
     if ' in' in d:
-        #TODO: test this. what happens if you have both mm and inches? in the same string
+        # TODO: test this. what happens if you have both mm and inches? in the same string
         d = re.sub(' in', '', d)
         d_float = float(Fraction(re.sub(' in', '', d))) * 25.4
         return d_float
@@ -532,25 +536,34 @@ def parse_dimension(d: str):
         the
         """
         regexp = re.compile(r'[\s]?([\d\.]+)[\s]?mm')
-        res = regexp.findall(d)
+        try:
+            res = regexp.findall(d)
+        except:
+            print("couldn't run regepxt on input {0}".format(d))
         if len(res) > 0:
-
-            if res[0] is not None:
-                res1 = re.sub('mm x.*', '', res[0])
-                res2 = re.sub('Swagelok™,.*', '', res1)
-                d_float = float(Quantity(res2, "mm"))
-                return d_float 
-            else:
-                func_name = inspect.stack()[0][3]
-                print('function "{0}" could not find any of the patters it knows under "res[0]". found type{1} containing: {2}.'.format(func_name, type(d), repr(d)))
-                return d 
+            try:
+                if res[0] is not None:
+                    res1 = re.sub('mm x.*', '', res[0])
+                    res2 = re.sub('Swagelok™,.*', '', res1)
+                    d_float = float(Quantity(res2, "mm"))
+                    return d_float
+                else:
+                    func_name = inspect.stack()[0][3]
+                    print('function "{0}" could not find any of the patters it knows under "res[0]". found type{1} containing: {2}.'.format(
+                        func_name, type(d), repr(d)))
+                    return d
+            except:
+                print("can't handle these special cases")
         else:
             func_name = inspect.stack()[0][3]
-            print('function "{0}" could not find any of the patters it knows under "mm". found type{1} containing: {2}.'.format(func_name, type(d), repr(d)))
+            print('function "{0}" could not find any of the patters it knows under "mm". found type{1} containing: {2}.'.format(
+                func_name, type(d), repr(d)))
             return d
     else:
-        func_name = inspect.stack()[0][3] #inspect.currentframe().f_code.co_name
-        print('function "{0}" could not find any of the patters it knows to handle. found type{1} containing: {2}.'.format(func_name, type(d), repr(d)))
+        # inspect.currentframe().f_code.co_name
+        func_name = inspect.stack()[0][3]
+        print('function "{0}" could not find any of the patters it knows to handle. found type{1} containing: {2}.'.format(
+            func_name, type(d), repr(d)))
         d = parse_any_number(d)[0]
         return d
 
@@ -752,7 +765,8 @@ def inchtomm(d: str):
             d_float = d * 25.4
             return d_float
         func_name = inspect.currentframe().f_code.co_name
-        print('found an error in function "{0}" during type conversion found type{1} containing: {2}.'.format(func_name, type(d), repr(d)))
+        print('found an error in function "{0}" during type conversion found type{1} containing: {2}.'.format(
+            func_name, type(d), repr(d)))
         return 0.0
 
 
