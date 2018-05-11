@@ -28,7 +28,7 @@ import multiprocessing as mp
 #filename = '/home/username/projects/sourcingbot/normalization_service/data-full/digikey/inductor_digikey.ndjson.gz'
 #filename =  '/home/username/projects/sourcingbot/normalization_service/data/1000inductors.ndjson.gz'
 #filename =  '/home/username/projects/sourcingbot/normalization_service/data/100inductors.ndjson.gz'
-#utput_filename ='normalized_inductors.json'
+#output_filename ='normalized_inductors.json'
 
 
 
