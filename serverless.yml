@@ -9,6 +9,7 @@ custom:
   names:
   # this is where we define the incoming kinesis queue. we cannot let sls create it.
     kinesis: crawler-data-raw-${self:provider.stage}
+resources:
   Resources:
     KinesisStream:
       Type: AWS::Kinesis::Stream
@@ -94,3 +95,4 @@ functions:
 plugins:
 
   - serverless-python-requirements
+  - serverless-offline
