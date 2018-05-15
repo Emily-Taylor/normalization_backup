@@ -671,6 +671,12 @@ def split_to(d: str):
 
         if ('/' in d):
             d = d.split('/')[0]
+            
+        if (' x 2' in d):
+            d = re.sub(' x 2', '', d)
+        
+        if ('ÂµH' in d):
+            d = re.sub('ÂµH', 'uH', d)
 
         if ('DC' in d):
             d = re.sub('DC', '0', d)
