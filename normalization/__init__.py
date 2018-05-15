@@ -583,6 +583,7 @@ def split_at(d):
     if isinstance(d, str):
 
         d = re.sub('µ', 'u', d)
+        d = re.sub(',.*', '', d)
         if ('@' in d):
             n1, n2 = d.split('@')
             n1 = n1.strip(" ")
