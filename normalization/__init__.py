@@ -510,21 +510,76 @@ def parse_dimension(d: str):
         22 mm (0.875)
         0.512" (13.00mm)
         0.512\" (13.00mm)
-
     """
     #print("going to parse dimensions for input: {0}".format(d))
-    if d == '1 1/2' or d == '1 1/2"' or d == '1 1/2\"':
+    if d == '1 1/2' or d == '1 1/2"' or d == '1 1/2\"' or d == '1 1/2 in':
         d_float = 38.1
         return d_float
-
-    if d == '1 3/8 in':
+    elif d == '1 15/16 in':
+        d_float = 49.2125
+        return d_float
+    elif d == '1 5/8 in':
+        d_float = 41.275
+        return d_float
+    elif d == '2 13/16 in':
+        d_float = 71.4375
+        return d_float
+    elif d == '2 1/16 in':
+        d_float = 52.3875
+        return d_float
+    elif d == '2 1/4 in':
+        d_float = 57.15
+        return d_float
+    elif d == '2 1/8 in':
+        d_float = 53.975
+        return d_float
+    elif d == '2 19/32 in':
+        d_float = 65.88125
+        return d_float
+    elif d == '2 9/32 in':
+        d_float = 57.94375
+        return d_float
+    elif d == '2 3/8 in':
+        d_float = 60.325
+        return d_float
+    elif d == '3 5/16 in':
+        d_float = 84.1375
+        return d_float
+    elif d == '3 11/16 in':
+        d_float = 93.6625
+        return d_float
+    elif d == '3 1/2 in':
+        d_float = 88.9
+        return d_float
+    elif d == '1 1/4 in':
+        d_float = 31.75
+        return d_float
+    elif d == '1 1/8 in':
+        d_float = 28.575
+        return d_float
+    elif d == '1 3/16 in':
+        d_float = 30.1625
+        return d_float
+    elif d == '1 3/8 in':
         d_float = 34.925
+        return d_float
+    elif d == '1 3/4 in':
+        d_float = 44.45
+        return d_float
+    elif d == '4 1/8 in':
+        d_float = 104.775
         return d_float
 
     if ' in' in d:
         # TODO: test this. what happens if you have both mm and inches? in the same string
         d = re.sub(' in', '', d)
         d_float = float(Fraction(re.sub(' in', '', d))) * 25.4
+        return d_float
+    elif (len(re.findall(' m$', d)) != 0):
+        d_float = parse_any_number(d)[0]
+        return d_float
+    elif (len(re.findall(' mm$', d)) != 0):
+        d_float = parse_any_number(d)[0]
         return d_float
 
     if 'mm' in d:
