@@ -523,13 +523,19 @@ def parse_dimension(d: str):
         d = re.sub(' in', '', d)
         d_float = convert_to_float(d) * 25.4
         return d_float
+    elif (len(re.findall('(\d+.\d)+m\)$', d)) != 0):
+        d_float = float(re.findall('(\d+.\d)+m\)$', d)[0]) * 1000
+        return d_float
+    elif (len(re.findall('(\d+)m\)$', d)) != 0):
+        d_float = float(re.findall('(\d+)m\)$', d)[0]) * 1000
+        return d_float
     elif ' in' in d:
         # TODO: test this. what happens if you have both mm and inches? in the same string
         d = re.sub(' in', '', d)
         d_float = float(Fraction(re.sub(' in', '', d))) * 25.4
         return d_float
     elif (len(re.findall(' m$', d)) != 0):
-        d_float = parse_any_number(d)[0]
+        d_float = parse_any_number(d)[0] * 1000
         return d_float
     elif (len(re.findall(' mm$', d)) != 0):
         d_float = parse_any_number(d)[0]
