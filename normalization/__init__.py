@@ -125,6 +125,10 @@ def extract_num(d: str) -> float:
             elif d == 'Continuous':
                 d_float = 360.0
                 return d_float
+            elif '/' in d:
+                d = re.sub('/.*', '', d)
+                d_float = float(Quantity(d))
+                return d_float
             elif 'mOhms/' in d:
                 d = d.split('/')[0]
                 d_float = float(Quantity(d, ''))
