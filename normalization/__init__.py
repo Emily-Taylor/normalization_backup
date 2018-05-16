@@ -525,7 +525,12 @@ def parse_dimension(d: str):
         0.512\" (13.00mm)
     """
     #print("going to parse dimensions for input: {0}".format(d))
-    if d == '1 1/2' or d == '1 1/2"' or d == '1 1/2\"' or d == '1 1/2 in':
+    
+    if d == 0.0:
+        return 0.0
+    elif d == '0.0':
+        return 0.0
+    elif d == '1 1/2' or d == '1 1/2"' or d == '1 1/2\"' or d == '1 1/2 in':
         d_float = 38.1
         return d_float
     elif (len(re.findall(' in$', d)) != 0):
