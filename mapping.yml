@@ -17,12 +17,18 @@ mouser:
     output_key: number_of_outputs
     actions:
       - extract_num
+  shielding:
+    output_key: shielding
   self_resonant_frequency:
     output_key:
       - self_resonant_frequency_min
       - self_resonant_frequency_max
     actions:
       - split_to
+  number_of_coils:
+    output_key: number_of_coils
+    actions:
+      - extract_num
   taps_per_pot:
     output_key: taps_per_pot
   digital_interface:
@@ -31,6 +37,10 @@ mouser:
     output_key: linearity
     actions:
       - extract_num
+  function:
+    output_key: function
+    actions:
+      - lower
   wiper_memory:
     output_key: wiper_memory
   adjustment:
@@ -71,6 +81,8 @@ mouser:
     output_key: primary_winding
     actions:
       - lower
+  q_minimum:
+    output_key: q_minimum
   secondary_winding:
     output_key: secondary_winding
     actions:
@@ -364,6 +376,14 @@ mouser:
       - control_voltage_range_max
     actions:
       - split_to
+  inductance_parallel:
+    output_key: inductance_parallel
+    actions:
+      - extract_num
+  inductance_series:
+    output_key: inductance_series
+    actions:
+      - extract_num
   termination_style:
     output_key: termination_style
   voltage_range:
@@ -1694,7 +1714,7 @@ digikey:
     actions:
       - extract_num
   current_rating:
-    output_key: current_rating
+    output_key: maximum_dc_current
     actions:
       - extract_num
   current_rating_max:
@@ -1986,9 +2006,9 @@ digikey:
     actions:
       - parse_dimension
   inductance_connected_in_parallel:
-    output_key: inductanceparallel_ph
+    output_key: inductance_parallel
   inductance_connected_in_series:
-    output_key: inductanceseries_ph
+    output_key: inductance_series
   inductance:
     output_key:
       - inductance_range_min
