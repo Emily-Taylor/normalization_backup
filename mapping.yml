@@ -1272,7 +1272,7 @@ digikey:
   circuit_type:
     output_key: circuit_type
   mounting_feature:
-    output_key: mounting_style
+    output_key: termination_style
   power_(watts):
     output_key: power_rating
     actions:
@@ -1704,7 +1704,7 @@ digikey:
   current_ratio:
     output_key: current_ratio
   mounting_type:
-    output_key: mounting_style
+    output_key: termination_style
   accessory_type:
     output_key: accessory_type
   type:
@@ -2134,10 +2134,9 @@ digikey:
     output_key: pricing
   dc_resistance_(dcr):
     output_key:
-      - dc_resistance_primary
-      - dc_resistance_secondary
+      - maximum_dc_resistance
     actions:
-        - split_resistance
+      - extract_num
   dc_resistance_(dcr)_primary:
     output_key: dc_resistance_primary
     actions:
