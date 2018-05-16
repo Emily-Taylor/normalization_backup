@@ -413,6 +413,10 @@ def split_band(d: str):
 def split_temp(d: str) -> typing.Tuple[float, float]:
     """ splits temperature (or similar) columns into min and max"""
     if isinstance(d, str):
+        
+        if 'µ' in d:
+            d = re.sub('µ', 'u', d)
+        
         if ', ' not in d:
             if '~' in d:
                 t_min, t_max = d.split('~')
