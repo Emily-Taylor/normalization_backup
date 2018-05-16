@@ -1990,9 +1990,11 @@ digikey:
   inductance_connected_in_series:
     output_key: inductanceseries_ph
   inductance:
-    output_key: inductance
+    output_key:
+      - inductance_range_min
+      - inductance_range_max
     actions:
-      - extract_num
+      - split_temp
   voltage_isolation:
     output_key:
         - voltage_isolation
