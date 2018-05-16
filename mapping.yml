@@ -258,7 +258,7 @@ mouser:
   associated_relay_series:
     output_key: associated_relay_series
   maximum_dc_current:
-    output_key: maximum_dc_current
+    output_key: current_rating
     actions:
       - extract_num
   mpn:
@@ -1714,7 +1714,7 @@ digikey:
     actions:
       - extract_num
   current_rating:
-    output_key: maximum_dc_current
+    output_key: current_rating
     actions:
       - extract_num
   current_rating_max:
@@ -1858,7 +1858,7 @@ digikey:
   categories_digikey:
     output_key: categories_digikey
   current_rating_parallel:
-    output_key: maximum_dc_current
+    output_key: current_rating
     actions:
       - extract_num
   current_rating_series:
