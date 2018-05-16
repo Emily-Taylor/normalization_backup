@@ -2237,9 +2237,11 @@ digikey:
     actions:
       - extract_num
   frequency_self_resonant:
-    output_key: self_resonant_frequency
+    output_key:
+      - self_resonant_frequency_min
+      - self_resonant_frequency_max
     actions:
-      - extract_num
+      - split_to
   supplier_device_package:
     output_key: supplier_device_package
   delay_time:
