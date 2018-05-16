@@ -2133,8 +2133,7 @@ digikey:
   pricing:
     output_key: pricing
   dc_resistance_(dcr):
-    output_key:
-      - maximum_dc_resistance
+    output_key: maximum_dc_resistance
     actions:
       - extract_num
   dc_resistance_(dcr)_primary:
