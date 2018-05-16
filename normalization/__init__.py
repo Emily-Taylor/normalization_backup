@@ -857,8 +857,12 @@ def split_resistance(d: str):
     if isinstance(d, str):
 
         if (', ' in d):
+            
+            if 'Max' in d:
+                d = re.sub('Max', '', d)
+                d = re.sub(' ', '', d)
 
-            p, s = d.split(', ')
+            p, s = d.split(',')
             p = re.sub(' Primary', '', p)
             s = re.sub(' Secondary', '', s)
             p_float = float(Quantity(p, ''))
