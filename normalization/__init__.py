@@ -133,6 +133,11 @@ def extract_num(d: str) -> float:
                 d = d.split('/')[0]
                 d_float = float(Quantity(d, ''))
                 return d_float
+            elif 'to' in d:
+                d = re.sub('.*to', '', d)
+                d = re.sub(' ', '', d)
+                d_float = float(Quantity(d, ''))
+                return d_float
             elif '/' in d:
                 if 'A' in d:
                     d_float = convert_to_float(re.sub('A', '', d))
