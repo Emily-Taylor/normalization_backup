@@ -559,15 +559,17 @@ mouser:
     actions:
       - extract_num
   resistance:
-    output_key: resistance
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
     actions:
-      - extract_num
+      - split_to
   resistor_values:
     output_key: resistance
     actions:
       - extract_num
   shaft_diameter:
-    output_key: shaft_diameter
+    output_key: shaft_length
     actions:
       - parse_dimension
   shaft_length:
@@ -1974,9 +1976,11 @@ digikey:
     actions:
       - split_current
   resistance:
-    output_key: resistance
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
     actions:
-      - extract_num
+      - split_temp
   description:
     output_key: description
     actions:
