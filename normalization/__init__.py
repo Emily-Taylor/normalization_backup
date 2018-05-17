@@ -53,6 +53,7 @@ def attenuation(d: str) -> typing.Tuple[float, float, float]:
         return(v, r1, r2)
     else:
         print('during type conversion got a non-string')
+        return (0.0, 0.0, 0.0)
 
 
 def reverse(d: str):
@@ -133,6 +134,8 @@ def extract_num(d: str) -> float:
                 d = d.split('/')[0]
                 d_float = float(Quantity(d, ''))
                 return d_float
+            elif d == 'Jumper':
+                return 0.0
             elif 'to' in d:
                 d = re.sub('.*to', '', d)
                 d = re.sub(' ', '', d)
@@ -642,6 +645,9 @@ def split_to(d: str):
 
         if (', ' in d):
             d = d.split(',', 1)[0]
+        
+        if (' + Jumper' in d):
+            d = re.sub(' \+ Jumper', '', d)
 
         if ('/' in d):
             d = d.split('/')[0]
