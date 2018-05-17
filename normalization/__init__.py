@@ -533,7 +533,9 @@ def parse_dimension(d: str):
     """
     #print("going to parse dimensions for input: {0}".format(d))
     
-    if d == 0.0:
+    if isinstance(d, int) or isinstance(d, float):
+        return d
+    elif d == 0.0:
         return 0.0
     elif d == '0.0':
         return 0.0
