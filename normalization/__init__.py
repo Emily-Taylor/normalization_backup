@@ -96,7 +96,7 @@ def tempcoeff(d: str) -> float:
 def extract_num(d: str) -> float:
     """turns strings with ANY unit into numbers"""
     adict = {'µ': 'u', ' %': '', ' ': '', 'Max': '',
-             '±': '', 'ppm/°C': '', ' (Cutoff)': '', 'ppm': '', ' (Typ)': '', 'AC/DC': '', '<': ''}
+             '±': '', 'ppm/°C': '', ' (Cutoff)': '', 'ppm': '', ' (Typ)': '', 'AC/DC': '', '<': '', '+/- ': ''}
 
     if isinstance(d, str):
 
@@ -135,6 +135,8 @@ def extract_num(d: str) -> float:
                 d_float = float(Quantity(d, ''))
                 return d_float
             elif d == 'Jumper':
+                return 0.0
+            elif d == 'Multiturn':
                 return 0.0
             elif 'to' in d:
                 d = re.sub('.*to', '', d)
