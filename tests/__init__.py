@@ -234,7 +234,26 @@ class TestNorm(unittest.TestCase):
         result = normalization.frequency(d)
         self.assertTrue(isinstance(result, numbers.Real))
         self.assertEqual(result, output)
-
+		
+	def test_mpn(self):
+		mpn1 = '123456'
+		mpn2 = '123-456'
+		mpn3 = 'aA*bcc-X'
+		mpn4 = 'aAbccX'
+		
+		out1 = normalization.create_id(mpn1, 'abc')
+		out2 = normalization.create_id(mpn2, 'abc')
+		out3 = normalization.create_id(mpn3, 'abc')
+		out4 = normalization.create_id(mpn4, 'abc')
+		
+		self.assertTrue(isinstance(out1, str))
+		self.assertTrue(isinstance(out2, str))
+		self.assertTrue(isinstance(out3, str))
+		self.assertTrue(isinstance(out4, str))
+		
+		self.assertTrue(out1 == out2)
+		self.assertTrue(out3 == out4)
+		
     def test_height(self):
         # supposed to work with input like this:	'0.039" (1.00mm)'
         d1 = '0.512" (13.00mm)'

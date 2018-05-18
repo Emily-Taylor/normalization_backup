@@ -17,12 +17,18 @@ mouser:
     output_key: number_of_outputs
     actions:
       - extract_num
+  shielding:
+    output_key: shielding
   self_resonant_frequency:
     output_key:
       - self_resonant_frequency_min
       - self_resonant_frequency_max
     actions:
       - split_to
+  number_of_coils:
+    output_key: number_of_coils
+    actions:
+      - extract_num
   taps_per_pot:
     output_key: taps_per_pot
   digital_interface:
@@ -31,6 +37,10 @@ mouser:
     output_key: linearity
     actions:
       - extract_num
+  function:
+    output_key: function
+    actions:
+      - lower
   wiper_memory:
     output_key: wiper_memory
   adjustment:
@@ -71,6 +81,8 @@ mouser:
     output_key: primary_winding
     actions:
       - lower
+  q_minimum:
+    output_key: q_minimum
   secondary_winding:
     output_key: secondary_winding
     actions:
@@ -88,7 +100,7 @@ mouser:
     actions:
       - extract_num
   mounting_type:
-    output_key: mounting_style
+    output_key: termination_style
   switch_function:
     output_key: switch_function
   illuminated:
@@ -246,7 +258,7 @@ mouser:
   associated_relay_series:
     output_key: associated_relay_series
   maximum_dc_current:
-    output_key: maximum_dc_current
+    output_key: current_rating
     actions:
       - extract_num
   mpn:
@@ -277,7 +289,7 @@ mouser:
     actions:
       - extract_num
   mounting_style:
-    output_key: mounting_style
+    output_key: termination_style
   circuit_type:
     output_key: circuit_type
   packagecase:
@@ -364,6 +376,14 @@ mouser:
       - control_voltage_range_max
     actions:
       - split_to
+  inductance_parallel:
+    output_key: inductance_parallel
+    actions:
+      - extract_num
+  inductance_series:
+    output_key: inductance_series
+    actions:
+      - extract_num
   termination_style:
     output_key: termination_style
   voltage_range:
@@ -539,15 +559,17 @@ mouser:
     actions:
       - extract_num
   resistance:
-    output_key: resistance
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
     actions:
-      - extract_num
+      - split_to
   resistor_values:
     output_key: resistance
     actions:
       - extract_num
   shaft_diameter:
-    output_key: shaft_diameter
+    output_key: shaft_length
     actions:
       - parse_dimension
   shaft_length:
@@ -597,7 +619,7 @@ mouser:
     actions:
       - parse_dimension
   mounting:
-    output_key: mounting_style
+    output_key: termination_style
   magnet_material:
     output_key: magnet_material
   light_source:
@@ -663,9 +685,11 @@ mouser:
     actions:
       - extract_num
   esr:
-    output_key: esr
+    output_key:
+      - esr_resistance
+      - esr_frequency
     actions:
-      - extract_num
+      - split_at
   case_code_mm:
     output_key: case_code_mm
   case_code_in:
@@ -1272,7 +1296,7 @@ digikey:
   circuit_type:
     output_key: circuit_type
   mounting_feature:
-    output_key: mounting_style
+    output_key: termination_style
   power_(watts):
     output_key: power_rating
     actions:
@@ -1704,7 +1728,7 @@ digikey:
   current_ratio:
     output_key: current_ratio
   mounting_type:
-    output_key: mounting_style
+    output_key: termination_style
   accessory_type:
     output_key: accessory_type
   type:
@@ -1838,7 +1862,7 @@ digikey:
   categories_digikey:
     output_key: categories_digikey
   current_rating_parallel:
-    output_key: maximum_dc_current
+    output_key: current_rating
     actions:
       - extract_num
   current_rating_series:
@@ -1954,9 +1978,11 @@ digikey:
     actions:
       - split_current
   resistance:
-    output_key: resistance
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
     actions:
-      - extract_num
+      - split_temp
   description:
     output_key: description
     actions:
@@ -1986,13 +2012,15 @@ digikey:
     actions:
       - parse_dimension
   inductance_connected_in_parallel:
-    output_key: inductanceparallel_ph
+    output_key: inductance_parallel
   inductance_connected_in_series:
-    output_key: inductanceseries_ph
+    output_key: inductance_series
   inductance:
-    output_key: inductance
+    output_key:
+      - inductance_range_min
+      - inductance_range_max
     actions:
-      - extract_num
+      - split_temp
   voltage_isolation:
     output_key:
         - voltage_isolation
@@ -2131,11 +2159,9 @@ digikey:
   pricing:
     output_key: pricing
   dc_resistance_(dcr):
-    output_key:
-      - dc_resistance_primary
-      - dc_resistance_secondary
+    output_key: maximum_dc_resistance
     actions:
-        - split_resistance
+      - extract_num
   dc_resistance_(dcr)_primary:
     output_key: dc_resistance_primary
     actions:
@@ -2237,9 +2263,11 @@ digikey:
     actions:
       - extract_num
   frequency_self_resonant:
-    output_key: self_resonant_frequency
+    output_key:
+      - self_resonant_frequency_min
+      - self_resonant_frequency_max
     actions:
-      - extract_num
+      - split_to
   supplier_device_package:
     output_key: supplier_device_package
   delay_time:

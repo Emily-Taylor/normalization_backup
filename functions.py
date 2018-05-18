@@ -6,6 +6,7 @@ from json import dumps
 import logging
 import os
 import yaml
+import re
 
 import normalization as n
 import common as c
@@ -40,6 +41,11 @@ def adjust_structure(part: dict, source: str, ts: int):
         raw_categories = deepcopy(part['categories'])
         part['categories_raw'] = {}
         part['categories_raw'][source] = raw_categories
+		# save raw mpn before normalizing
+    if 'mpn' in part:
+        raw_mpn = deepcopy(part['mpn'])
+        part['mpn_raw'] = {}
+        part['mpn_raw'][source] = raw_mpn
     # remove availablity and pricing, minimum_quantity and packagecase
     part.pop('availability', None)
     part.pop('pricing', None)
@@ -117,12 +123,14 @@ def adjust_structure(part: dict, source: str, ts: int):
 
     # generate IDs
     if 'mpn' in part and 'mfr' in part:
+        part['mpn'] = re.sub('[^0-9a-zA-Z]+', '', part['mpn'])
         id = (part['mpn'] + part['mfr']).lower().replace(" ", "")
         hash_object = sha1(id.encode('utf-8'))
         hex_dig = hash_object.hexdigest()
         part['id'] = hex_dig
     # print(part['id'])
     elif 'mpn' in part:
+        part['mpn'] = re.sub('[^0-9a-zA-Z]+', '', part['mpn'])
         id = part['mpn'].lower().replace(" ", "")
         hash_object = sha1(id.encode('utf-8'))
         hex_dig = hash_object.hexdigest()
@@ -153,7 +161,8 @@ def adjust_structure(part: dict, source: str, ts: int):
         'id',
         'ts',
         'ts_norm',
-        'ts_crawler']
+        'ts_crawler',
+		'mpn_raw']
     part['properties'] = {}
     for k in list(part):
         if k not in main_keys:

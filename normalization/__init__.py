@@ -22,6 +22,8 @@ import yaml
 import os
 import typing
 from fractions import Fraction
+from hashlib import sha1
+
 # import numpy as np
 
 
@@ -53,6 +55,7 @@ def attenuation(d: str) -> typing.Tuple[float, float, float]:
         return(v, r1, r2)
     else:
         print('during type conversion got a non-string')
+        return (0.0, 0.0, 0.0)
 
 
 def reverse(d: str):
@@ -67,6 +70,14 @@ def lower(d: str):
     else:
         return d
 
+def create_id(mpn, mfr):
+    
+    mpn = re.sub('[^0-9a-zA-Z]+', '', mpn)
+    id = (mpn + mfr).lower().replace(" ", "")
+    hash_object = sha1(id.encode('utf-8'))
+    hex_dig = hash_object.hexdigest()
+    
+    return hex_dig
 
 def tempcoeff(d: str) -> float:
     """turns temp coefficients into number"""
@@ -95,7 +106,7 @@ def tempcoeff(d: str) -> float:
 def extract_num(d: str) -> float:
     """turns strings with ANY unit into numbers"""
     adict = {'µ': 'u', ' %': '', ' ': '', 'Max': '',
-             '±': '', 'ppm/°C': '', ' (Cutoff)': '', 'ppm': '', ' (Typ)': '', 'AC/DC': '', '<': ''}
+             '±': '', 'ppm/°C': '', ' (Cutoff)': '', 'ppm': '', ' (Typ)': '', 'AC/DC': '', '<': '', '+/- ': ''}
 
     if isinstance(d, str):
 
@@ -124,6 +135,23 @@ def extract_num(d: str) -> float:
                 return d_float
             elif d == 'Continuous':
                 d_float = 360.0
+                return d_float
+            elif '/' in d:
+                d = re.sub('/.*', '', d)
+                d_float = float(Quantity(d))
+                return d_float
+            elif 'mOhms/' in d:
+                d = d.split('/')[0]
+                d_float = float(Quantity(d, ''))
+                return d_float
+            elif d == 'Jumper':
+                return 0.0
+            elif d == 'Multiturn':
+                return 0.0
+            elif 'to' in d:
+                d = re.sub('.*to', '', d)
+                d = re.sub(' ', '', d)
+                d_float = float(Quantity(d, ''))
                 return d_float
             elif '/' in d:
                 if 'A' in d:
@@ -400,6 +428,10 @@ def split_band(d: str):
 def split_temp(d: str) -> typing.Tuple[float, float]:
     """ splits temperature (or similar) columns into min and max"""
     if isinstance(d, str):
+        
+        if 'µ' in d:
+            d = re.sub('µ', 'u', d)
+        
         if ', ' not in d:
             if '~' in d:
                 t_min, t_max = d.split('~')
@@ -510,21 +542,43 @@ def parse_dimension(d: str):
         22 mm (0.875)
         0.512" (13.00mm)
         0.512\" (13.00mm)
-
     """
     #print("going to parse dimensions for input: {0}".format(d))
-    if d == '1 1/2' or d == '1 1/2"' or d == '1 1/2\"':
+    
+    if isinstance(d, int) or isinstance(d, float):
+        return d
+    elif d == 0.0:
+        return 0.0
+    elif d == '0.0':
+        return 0.0
+    elif d == '1 1/2' or d == '1 1/2"' or d == '1 1/2\"' or d == '1 1/2 in':
         d_float = 38.1
         return d_float
-
-    if d == '1 3/8 in':
-        d_float = 34.925
-        return d_float
-
-    if ' in' in d:
-        # TODO: test this. what happens if you have both mm and inches? in the same string
+    elif (len(re.findall(' in$', d)) != 0):
         d = re.sub(' in', '', d)
-        d_float = float(Fraction(re.sub(' in', '', d))) * 25.4
+        d_float = convert_to_float(d) * 25.4
+        return d_float
+    elif (len(re.findall('(\d+.\d)+m\)$', d)) != 0):
+        d_float = float(re.findall('(\d+.\d)+m\)$', d)[0]) * 1000
+        return d_float
+    elif (len(re.findall('(\d+)m\)$', d)) != 0):
+        d_float = float(re.findall('(\d+)m\)$', d)[0]) * 1000
+        return d_float
+    elif ' in' in d:
+        
+        if 'mm (' in d:
+            d_float = parse_any_number(d)[0]
+            return d_float
+        else:
+            # TODO: test this. what happens if you have both mm and inches? in the same string
+            d = re.sub(' in', '', d)
+            d_float = float(Fraction(re.sub(' in', '', d))) * 25.4
+            return d_float
+    elif (len(re.findall(' m$', d)) != 0):
+        d_float = parse_any_number(d)[0] * 1000
+        return d_float
+    elif (len(re.findall(' mm$', d)) != 0):
+        d_float = parse_any_number(d)[0]
         return d_float
 
     if 'mm' in d:
@@ -575,6 +629,7 @@ def split_at(d):
     if isinstance(d, str):
 
         d = re.sub('µ', 'u', d)
+        d = re.sub(',.*', '', d)
         if ('@' in d):
             n1, n2 = d.split('@')
             n1 = n1.strip(" ")
@@ -609,9 +664,18 @@ def split_to(d: str):
 
         if (', ' in d):
             d = d.split(',', 1)[0]
+        
+        if (' + Jumper' in d):
+            d = re.sub(' \+ Jumper', '', d)
 
         if ('/' in d):
             d = d.split('/')[0]
+            
+        if (' x 2' in d):
+            d = re.sub(' x 2', '', d)
+        
+        if ('ÂµH' in d):
+            d = re.sub('ÂµH', 'uH', d)
 
         if ('DC' in d):
             d = re.sub('DC', '0', d)
@@ -822,8 +886,12 @@ def split_resistance(d: str):
     if isinstance(d, str):
 
         if (', ' in d):
+            
+            if 'Max' in d:
+                d = re.sub('Max', '', d)
+                d = re.sub(' ', '', d)
 
-            p, s = d.split(', ')
+            p, s = d.split(',')
             p = re.sub(' Primary', '', p)
             s = re.sub(' Secondary', '', s)
             p_float = float(Quantity(p, ''))
