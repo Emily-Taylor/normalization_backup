@@ -22,6 +22,8 @@ import yaml
 import os
 import typing
 from fractions import Fraction
+from hashlib import sha1
+
 # import numpy as np
 
 
@@ -68,6 +70,14 @@ def lower(d: str):
     else:
         return d
 
+def create_id(mpn, mfr):
+    
+    mpn = re.sub('[^0-9a-zA-Z]+', '', mpn)
+    id = (mpn + mfr).lower().replace(" ", "")
+    hash_object = sha1(id.encode('utf-8'))
+    hex_dig = hash_object.hexdigest()
+    
+    return hex_dig
 
 def tempcoeff(d: str) -> float:
     """turns temp coefficients into number"""
