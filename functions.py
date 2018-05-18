@@ -122,15 +122,15 @@ def adjust_structure(part: dict, source: str, ts: int):
 
     # generate IDs
     if 'mpn' in part and 'mfr' in part:
-		mpn_norm = re.sub('[^0-9a-zA-Z]+', '', part['mpn'])
-        id = (mpn_norm + part['mfr']).lower().replace(" ", "")
+		part['mpn'] = re.sub('[^0-9a-zA-Z]+', '', part['mpn'])
+        id = (part['mpn'] + part['mfr']).lower().replace(" ", "")
         hash_object = sha1(id.encode('utf-8'))
         hex_dig = hash_object.hexdigest()
         part['id'] = hex_dig
     # print(part['id'])
     elif 'mpn' in part:
-		mpn_norm = re.sub('[^0-9a-zA-Z]+', '', part['mpn'])
-        id = mpn_norm.lower().replace(" ", "")
+		part['mpn'] = re.sub('[^0-9a-zA-Z]+', '', part['mpn'])
+        id = part['mpn'].lower().replace(" ", "")
         hash_object = sha1(id.encode('utf-8'))
         hex_dig = hash_object.hexdigest()
         part['id'] = hex_dig
