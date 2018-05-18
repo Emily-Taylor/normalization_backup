@@ -100,7 +100,7 @@ mouser:
     actions:
       - extract_num
   mounting_type:
-    output_key: mounting_style
+    output_key: termination_style
   switch_function:
     output_key: switch_function
   illuminated:
@@ -289,7 +289,7 @@ mouser:
     actions:
       - extract_num
   mounting_style:
-    output_key: mounting_style
+    output_key: termination_style
   circuit_type:
     output_key: circuit_type
   packagecase:
@@ -619,7 +619,7 @@ mouser:
     actions:
       - parse_dimension
   mounting:
-    output_key: mounting_style
+    output_key: termination_style
   magnet_material:
     output_key: magnet_material
   light_source:
@@ -1296,7 +1296,7 @@ digikey:
   circuit_type:
     output_key: circuit_type
   mounting_feature:
-    output_key: mounting_style
+    output_key: termination_style
   power_(watts):
     output_key: power_rating
     actions:
