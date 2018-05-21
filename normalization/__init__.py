@@ -425,12 +425,16 @@ def split_band(d: str):
         return(0.0, 0.0, 0.0)
 
 
+
 def split_temp(d: str) -> typing.Tuple[float, float]:
     """ splits temperature (or similar) columns into min and max"""
     if isinstance(d, str):
         
         if 'µ' in d:
             d = re.sub('µ', 'u', d)
+        
+        if ((' (' in d) and (')' in d)):
+            d = re.sub(' \(.*', '', d)
         
         if ', ' not in d:
             if '~' in d:
@@ -462,7 +466,7 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
             elif len(parse_any_number(d)) == 1:
                 parsed_temp = parse_any_number(d)
                 # we need to return 0.0 because that's the structure of the function.
-                t_min_float3 = 0.0
+                t_min_float3 = parsed_temp[0]
                 t_max_float3 = parsed_temp[0]
                 return (t_min_float3, t_max_float3)
             elif ' to ' in d:
@@ -483,7 +487,7 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
                     return (t_min_float5, t_max_float5)
             else:
                 t_min_float6 = float(Quantity(d, ''))
-                t_max_float6 = t_min_float
+                t_max_float6 = t_min_float6
                 return (t_min_float6, t_max_float6)
 
         elif ', ' in d:
@@ -527,7 +531,6 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
     else:
         print("during type conversion got a non-string")
         return(d,)
-
 
 def parse_dimension(d: str):
     """
