@@ -146,6 +146,8 @@ def extract_num(d: str) -> float:
                 return d_float
             elif d == 'Jumper':
                 return 0.0
+            elif d == 'Ohms':
+                return 0.0
             elif d == 'Multiturn':
                 return 0.0
             elif 'to' in d:
@@ -545,6 +547,7 @@ def parse_dimension(d: str):
         22 mm (0.875)
         0.512" (13.00mm)
         0.512\" (13.00mm)
+        12.7 mm (0.5 in)
     """
     #print("going to parse dimensions for input: {0}".format(d))
     
@@ -556,6 +559,9 @@ def parse_dimension(d: str):
         return 0.0
     elif d == '1 1/2' or d == '1 1/2"' or d == '1 1/2\"' or d == '1 1/2 in':
         d_float = 38.1
+        return d_float
+    elif d == '1 3/8':
+        d_float = 34.925
         return d_float
     elif (len(re.findall(' in$', d)) != 0):
         d = re.sub(' in', '', d)
@@ -698,6 +704,13 @@ def split_to(d: str):
             return(n1_float, n2_float)
         elif (' ~ ' in d):
             n1, n2 = d.split(' ~ ')
+            n1 = n1.strip(" ")
+            n2 = n2.strip(" ")
+            n1_float = float(Quantity(n1))
+            n2_float = float(Quantity(n2))
+            return(n1_float, n2_float)
+        elif (' - ' in d):
+            n1, n2 = d.split(' - ')
             n1 = n1.strip(" ")
             n2 = n2.strip(" ")
             n1_float = float(Quantity(n1))
