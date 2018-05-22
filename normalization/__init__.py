@@ -438,6 +438,9 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
         if ((' (' in d) and (')' in d)):
             d = re.sub(' \(.*', '', d)
         
+        if '±' in d:
+            d = re.sub('±', '', d)
+        
         if ', ' not in d:
             if '~' in d:
                 t_min, t_max = d.split('~')
@@ -676,6 +679,9 @@ def split_to(d: str):
         
         if (' + Jumper' in d):
             d = re.sub(' \+ Jumper', '', d)
+        
+        if ('+/- ' in d):
+            d = re.sub('\+/\- ', '', d)
 
         if ('/' in d):
             d = d.split('/')[0]
