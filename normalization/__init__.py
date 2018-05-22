@@ -699,6 +699,10 @@ def split_to(d: str):
             n1, n2 = d.split(' to ')
             n1 = n1.strip(" ")
             n2 = n2.strip(" ")
+            n1 = re.sub('\- ', '-', n1)
+            n1 = re.sub('\+ ', '+', n1)
+            n2 = re.sub('\- ', '-', n2)
+            n2 = re.sub('\+ ', '+', n2)
             if ' m' in n1:
                 n1_float = parse_any_number(n1)[0]
             else:
