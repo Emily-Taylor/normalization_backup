@@ -760,8 +760,8 @@ mouser:
     output_key: frame_size_nema
   voltage_rating:
     output_key:
-      - voltage_rating_min
-      - voltage_rating_max
+      - operating_supply_voltage_min
+      - operating_supply_voltage_max
     actions:
       - split_to
   voltage_rating_dc:
@@ -1302,7 +1302,7 @@ digikey:
     actions:
       - extract_num
   adjustment_type:
-    output_key: adjustment_type
+    output_key: adjustment
   termination:
     output_key: termination_style
   termination_style:
@@ -1546,8 +1546,8 @@ digikey:
     output_key: nema_frame_size
   voltage_rated:
     output_key:
-      - voltage_rating_min
-      - voltage_rating_max
+      - operating_supply_voltage_min
+      - operating_supply_voltage_max
     actions:
       - split_temp
   wattage_load:
@@ -2138,7 +2138,7 @@ digikey:
       - minimum_voltage_supply_analog
       - maximum_voltage_supply_analog
     actions:
-      - split_temp     
+      - split_temp
   return_loss_(low_band_high_band):
     output_key:
       - return_loss-low_band
@@ -2319,7 +2319,7 @@ digikey:
   encoder_type:
     output_key: technology
   number_of_taps:
-    output_key: number_of_taps
+    output_key: taps_per_pot
   memory_type:
     output_key: wiper_memory
   actuator_length:
@@ -2422,8 +2422,6 @@ digikey:
     output_key: number_of_switches
   number_of_taps_steps:
     output_key: number_of_taps_steps
-  number_of_taps:
-    output_key: number_of_taps
   number_of_sections:
     output_key: number_of_sections
   number_of_transceivers:
@@ -2543,9 +2541,11 @@ digikey:
     actions:
       - extract_num
   operating_supply_voltage:
-    output_key: operating_supply_voltage
+    output_key:
+      - operating_supply_voltage_min
+      - operating_supply_voltage_max
     actions:
-      - extract_num
+      - split_temp
   voltage_range:
     output_key:
       - voltage_range_min
