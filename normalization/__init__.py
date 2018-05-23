@@ -558,10 +558,15 @@ def parse_dimension(d: str):
         return d
     elif d == 0.0:
         return 0.0
+    elif d == 'No Shaft':
+        return 0.0
     elif d == '0.0':
         return 0.0
     elif d == '1 1/2' or d == '1 1/2"' or d == '1 1/2\"' or d == '1 1/2 in':
         d_float = 38.1
+        return d_float
+    elif d == '1/4"':
+        d_float = 6.35
         return d_float
     elif d == '1 3/8':
         d_float = 34.925
