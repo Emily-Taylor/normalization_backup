@@ -146,6 +146,8 @@ def extract_num(d: str) -> float:
                 return d_float
             elif d == 'Jumper':
                 return 0.0
+            elif d == 'Ohms':
+                return 0.0
             elif d == 'Multiturn':
                 return 0.0
             elif 'to' in d:
@@ -425,12 +427,19 @@ def split_band(d: str):
         return(0.0, 0.0, 0.0)
 
 
+
 def split_temp(d: str) -> typing.Tuple[float, float]:
     """ splits temperature (or similar) columns into min and max"""
     if isinstance(d, str):
         
         if 'µ' in d:
             d = re.sub('µ', 'u', d)
+        
+        if ((' (' in d) and (')' in d)):
+            d = re.sub(' \(.*', '', d)
+        
+        if '±' in d:
+            d = re.sub('±', '', d)
         
         if ', ' not in d:
             if '~' in d:
@@ -462,7 +471,7 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
             elif len(parse_any_number(d)) == 1:
                 parsed_temp = parse_any_number(d)
                 # we need to return 0.0 because that's the structure of the function.
-                t_min_float3 = 0.0
+                t_min_float3 = parsed_temp[0]
                 t_max_float3 = parsed_temp[0]
                 return (t_min_float3, t_max_float3)
             elif ' to ' in d:
@@ -483,7 +492,7 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
                     return (t_min_float5, t_max_float5)
             else:
                 t_min_float6 = float(Quantity(d, ''))
-                t_max_float6 = t_min_float
+                t_max_float6 = t_min_float6
                 return (t_min_float6, t_max_float6)
 
         elif ', ' in d:
@@ -528,7 +537,6 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
         print("during type conversion got a non-string")
         return(d,)
 
-
 def parse_dimension(d: str):
     """
     parse dimensions from strings.
@@ -542,6 +550,7 @@ def parse_dimension(d: str):
         22 mm (0.875)
         0.512" (13.00mm)
         0.512\" (13.00mm)
+        12.7 mm (0.5 in)
     """
     #print("going to parse dimensions for input: {0}".format(d))
     
@@ -549,10 +558,18 @@ def parse_dimension(d: str):
         return d
     elif d == 0.0:
         return 0.0
+    elif d == 'No Shaft':
+        return 0.0
     elif d == '0.0':
         return 0.0
     elif d == '1 1/2' or d == '1 1/2"' or d == '1 1/2\"' or d == '1 1/2 in':
         d_float = 38.1
+        return d_float
+    elif d == '1/4"':
+        d_float = 6.35
+        return d_float
+    elif d == '1 3/8':
+        d_float = 34.925
         return d_float
     elif (len(re.findall(' in$', d)) != 0):
         d = re.sub(' in', '', d)
@@ -667,6 +684,9 @@ def split_to(d: str):
         
         if (' + Jumper' in d):
             d = re.sub(' \+ Jumper', '', d)
+        
+        if ('+/- ' in d):
+            d = re.sub('\+/\- ', '', d)
 
         if ('/' in d):
             d = d.split('/')[0]
@@ -684,6 +704,10 @@ def split_to(d: str):
             n1, n2 = d.split(' to ')
             n1 = n1.strip(" ")
             n2 = n2.strip(" ")
+            n1 = re.sub('\- ', '-', n1)
+            n1 = re.sub('\+ ', '+', n1)
+            n2 = re.sub('\- ', '-', n2)
+            n2 = re.sub('\+ ', '+', n2)
             if ' m' in n1:
                 n1_float = parse_any_number(n1)[0]
             else:
@@ -695,6 +719,13 @@ def split_to(d: str):
             return(n1_float, n2_float)
         elif (' ~ ' in d):
             n1, n2 = d.split(' ~ ')
+            n1 = n1.strip(" ")
+            n2 = n2.strip(" ")
+            n1_float = float(Quantity(n1))
+            n2_float = float(Quantity(n2))
+            return(n1_float, n2_float)
+        elif (' - ' in d):
+            n1, n2 = d.split(' - ')
             n1 = n1.strip(" ")
             n2 = n2.strip(" ")
             n1_float = float(Quantity(n1))

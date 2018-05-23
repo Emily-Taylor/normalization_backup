@@ -162,7 +162,7 @@ def adjust_structure(part: dict, source: str, ts: int):
         'ts',
         'ts_norm',
         'ts_crawler',
-		'mpn_raw']
+    		'mpn_raw']
     part['properties'] = {}
     for k in list(part):
         if k not in main_keys:
