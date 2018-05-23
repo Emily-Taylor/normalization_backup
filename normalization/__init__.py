@@ -682,6 +682,9 @@ def split_to(d: str):
         if (', ' in d):
             d = d.split(',', 1)[0]
         
+        if ('< ' in d):
+            d = re.sub('< ', '0 to ', d)
+        
         if (' + Jumper' in d):
             d = re.sub(' \+ Jumper', '', d)
         
