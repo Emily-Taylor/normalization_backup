@@ -543,7 +543,7 @@ mouser:
     actions:
       - extract_num
   switch_type:
-    output_key: switch_type
+    output_key: with_switch
   shaft_type:
     output_key: shaft_type
   taper:
@@ -2311,7 +2311,7 @@ digikey:
   resistive_material:
     output_key: resistive_material
   built_in_switch:
-    output_key: switch_type
+    output_key: with_switch
   taper:
     output_key: taper
   interface:
