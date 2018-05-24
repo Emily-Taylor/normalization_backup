@@ -469,10 +469,10 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
                     t_max_float2 = float(Quantity(parsed_t_max))
                     return (t_min_float2, t_max_float2)
             elif len(parse_any_number(d)) == 1:
-                parsed_temp = parse_any_number(d)
+                parsed_temp = float(Quantity(d))
                 # we need to return 0.0 because that's the structure of the function.
-                t_min_float3 = parsed_temp[0]
-                t_max_float3 = parsed_temp[0]
+                t_min_float3 = parsed_temp
+                t_max_float3 = parsed_temp
                 return (t_min_float3, t_max_float3)
             elif ' to ' in d:
                 t_min, t_max = d.split(' to ')
