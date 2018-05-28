@@ -133,7 +133,23 @@ def get_full(mfr):
     logger.error('alias is not a string')
     return False
 
-
+with open(os.path.join(here,'../normalization/mfr/array.json'), 'r') as f:
+    mapping = json.load(f)
+mapping_dict = {}
+for i in mapping:
+    if len(i) == 1:
+        mapping_dict[i[0].lower()] = i[0].lower()
+    if len(i) >1:
+        for name in i:
+            mapping_dict[name.lower()] = i[0].lower()
+# this is the static file version of mfr mapping
+def get_mfr_mapping(mfr):
+    mfr = mfr.lower()
+    if mfr in mapping_dict:
+        return mapping_dict[mfr]
+    else:
+        print('error - missing mfr mapping for: "{}"'.format(mfr))
+        return mfr 
 class MissingMappingResults:
   """
   Description : Aggregator for items

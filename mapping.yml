@@ -17,12 +17,18 @@ mouser:
     output_key: number_of_outputs
     actions:
       - extract_num
+  shielding:
+    output_key: shielding
   self_resonant_frequency:
     output_key:
       - self_resonant_frequency_min
       - self_resonant_frequency_max
     actions:
       - split_to
+  number_of_coils:
+    output_key: number_of_coils
+    actions:
+      - extract_num
   taps_per_pot:
     output_key: taps_per_pot
   digital_interface:
@@ -31,6 +37,10 @@ mouser:
     output_key: linearity
     actions:
       - extract_num
+  function:
+    output_key: function
+    actions:
+      - lower
   wiper_memory:
     output_key: wiper_memory
   adjustment:
@@ -71,6 +81,8 @@ mouser:
     output_key: primary_winding
     actions:
       - lower
+  q_minimum:
+    output_key: q_minimum
   secondary_winding:
     output_key: secondary_winding
     actions:
@@ -88,7 +100,7 @@ mouser:
     actions:
       - extract_num
   mounting_type:
-    output_key: mounting_style
+    output_key: termination_style
   switch_function:
     output_key: switch_function
   illuminated:
@@ -246,7 +258,7 @@ mouser:
   associated_relay_series:
     output_key: associated_relay_series
   maximum_dc_current:
-    output_key: maximum_dc_current
+    output_key: current_rating
     actions:
       - extract_num
   mpn:
@@ -277,7 +289,7 @@ mouser:
     actions:
       - extract_num
   mounting_style:
-    output_key: mounting_style
+    output_key: termination_style
   circuit_type:
     output_key: circuit_type
   packagecase:
@@ -364,6 +376,14 @@ mouser:
       - control_voltage_range_max
     actions:
       - split_to
+  inductance_parallel:
+    output_key: inductance_parallel
+    actions:
+      - extract_num
+  inductance_series:
+    output_key: inductance_series
+    actions:
+      - extract_num
   termination_style:
     output_key: termination_style
   voltage_range:
@@ -473,7 +493,7 @@ mouser:
   lead_style:
     output_key: termination_style
   lifecycle:
-    output_key: life
+    output_key: lifecycle
   open_frameenclosed:
     output_key: open_frameenclosed
   number_of_detents:
@@ -523,7 +543,7 @@ mouser:
     actions:
       - extract_num
   switch_type:
-    output_key: switch_type
+    output_key: with_switch
   shaft_type:
     output_key: shaft_type
   taper:
@@ -539,15 +559,17 @@ mouser:
     actions:
       - extract_num
   resistance:
-    output_key: resistance
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
     actions:
-      - extract_num
+      - split_to
   resistor_values:
     output_key: resistance
     actions:
       - extract_num
   shaft_diameter:
-    output_key: shaft_diameter
+    output_key: shaft_length
     actions:
       - parse_dimension
   shaft_length:
@@ -597,7 +619,7 @@ mouser:
     actions:
       - parse_dimension
   mounting:
-    output_key: mounting_style
+    output_key: termination_style
   magnet_material:
     output_key: magnet_material
   light_source:
@@ -629,7 +651,7 @@ mouser:
   input_type:
     output_key: input_type
   life:
-    output_key: life
+    output_key: lifecycle
     actions:
       - extract_num
   housing_material:
@@ -663,9 +685,11 @@ mouser:
     actions:
       - extract_num
   esr:
-    output_key: esr
+    output_key:
+      - esr_resistance
+      - esr_frequency
     actions:
-      - extract_num
+      - split_at
   case_code_mm:
     output_key: case_code_mm
   case_code_in:
@@ -736,8 +760,8 @@ mouser:
     output_key: frame_size_nema
   voltage_rating:
     output_key:
-      - voltage_rating_min
-      - voltage_rating_max
+      - operating_supply_voltage_min
+      - operating_supply_voltage_max
     actions:
       - split_to
   voltage_rating_dc:
@@ -1200,17 +1224,23 @@ digikey:
   approvals:
     output_key: approvals
   r_@_25°c:
-    output_key: resistance
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
     actions:
-      - extract_num
+      - split_temp
   resistance_@_25°c:
-    output_key: resistance
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
     actions:
-      - extract_num
+      - split_temp
   resistance_in_ohms_@_25°c:
-    output_key: resistance
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
     actions:
-      - extract_num
+      - split_temp
   output_voltage_range:
     output_key: output_voltage_range
     actions:
@@ -1272,13 +1302,13 @@ digikey:
   circuit_type:
     output_key: circuit_type
   mounting_feature:
-    output_key: mounting_style
+    output_key: termination_style
   power_(watts):
     output_key: power_rating
     actions:
       - extract_num
   adjustment_type:
-    output_key: adjustment_type
+    output_key: adjustment
   termination:
     output_key: termination_style
   termination_style:
@@ -1522,8 +1552,8 @@ digikey:
     output_key: nema_frame_size
   voltage_rated:
     output_key:
-      - voltage_rating_min
-      - voltage_rating_max
+      - operating_supply_voltage_min
+      - operating_supply_voltage_max
     actions:
       - split_temp
   wattage_load:
@@ -1652,7 +1682,7 @@ digikey:
     actions:
       - extract_num
   resistance_tolerance:
-    output_key: resistance_tolerance
+    output_key: tolerance
     actions:
       - extract_num
   charge_time:
@@ -1704,7 +1734,7 @@ digikey:
   current_ratio:
     output_key: current_ratio
   mounting_type:
-    output_key: mounting_style
+    output_key: termination_style
   accessory_type:
     output_key: accessory_type
   type:
@@ -1804,9 +1834,11 @@ digikey:
     actions:
       - extract_num
   resistance_25°c_(typ):
-    output_key: resistance_25°c_(typ)
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
     actions:
-      - extract_num
+      - split_temp
   breakdown_voltage:
     output_key: breakdown_voltage
     actions:
@@ -1838,7 +1870,7 @@ digikey:
   categories_digikey:
     output_key: categories_digikey
   current_rating_parallel:
-    output_key: maximum_dc_current
+    output_key: current_rating
     actions:
       - extract_num
   current_rating_series:
@@ -1954,9 +1986,11 @@ digikey:
     actions:
       - split_current
   resistance:
-    output_key: resistance
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
     actions:
-      - extract_num
+      - split_temp
   description:
     output_key: description
     actions:
@@ -1986,13 +2020,15 @@ digikey:
     actions:
       - parse_dimension
   inductance_connected_in_parallel:
-    output_key: inductanceparallel_ph
+    output_key: inductance_parallel
   inductance_connected_in_series:
-    output_key: inductanceseries_ph
+    output_key: inductance_series
   inductance:
-    output_key: inductance
+    output_key:
+      - inductance_range_min
+      - inductance_range_max
     actions:
-      - extract_num
+      - split_temp
   voltage_isolation:
     output_key:
         - voltage_isolation
@@ -2032,7 +2068,7 @@ digikey:
   configuration:
     output_key: configuration
   lifecycle:
-    output_key: life
+    output_key: lifecycle
   links:
     output_key: links
   mfr:
@@ -2110,7 +2146,7 @@ digikey:
       - minimum_voltage_supply_analog
       - maximum_voltage_supply_analog
     actions:
-      - split_temp     
+      - split_temp
   return_loss_(low_band_high_band):
     output_key:
       - return_loss-low_band
@@ -2131,11 +2167,9 @@ digikey:
   pricing:
     output_key: pricing
   dc_resistance_(dcr):
-    output_key:
-      - dc_resistance_primary
-      - dc_resistance_secondary
+    output_key: maximum_dc_resistance
     actions:
-        - split_resistance
+      - extract_num
   dc_resistance_(dcr)_primary:
     output_key: dc_resistance_primary
     actions:
@@ -2237,7 +2271,11 @@ digikey:
     actions:
       - extract_num
   frequency_self_resonant:
-    output_key: self_resonant_frequency
+    output_key:
+      - self_resonant_frequency_min
+      - self_resonant_frequency_max
+    actions:
+      - split_to
   supplier_device_package:
     output_key: supplier_device_package
   delay_time:
@@ -2281,7 +2319,7 @@ digikey:
   resistive_material:
     output_key: resistive_material
   built_in_switch:
-    output_key: switch_type
+    output_key: with_switch
   taper:
     output_key: taper
   interface:
@@ -2289,7 +2327,7 @@ digikey:
   encoder_type:
     output_key: technology
   number_of_taps:
-    output_key: number_of_taps
+    output_key: taps_per_pot
   memory_type:
     output_key: wiper_memory
   actuator_length:
@@ -2392,8 +2430,6 @@ digikey:
     output_key: number_of_switches
   number_of_taps_steps:
     output_key: number_of_taps_steps
-  number_of_taps:
-    output_key: number_of_taps
   number_of_sections:
     output_key: number_of_sections
   number_of_transceivers:
@@ -2513,9 +2549,11 @@ digikey:
     actions:
       - extract_num
   operating_supply_voltage:
-    output_key: operating_supply_voltage
+    output_key:
+      - operating_supply_voltage_min
+      - operating_supply_voltage_max
     actions:
-      - extract_num
+      - split_temp
   voltage_range:
     output_key:
       - voltage_range_min
