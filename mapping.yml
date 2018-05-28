@@ -1224,17 +1224,23 @@ digikey:
   approvals:
     output_key: approvals
   r_@_25°c:
-    output_key: resistance
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
     actions:
-      - extract_num
+      - split_temp
   resistance_@_25°c:
-    output_key: resistance
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
     actions:
-      - extract_num
+      - split_temp
   resistance_in_ohms_@_25°c:
-    output_key: resistance
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
     actions:
-      - extract_num
+      - split_temp
   output_voltage_range:
     output_key: output_voltage_range
     actions:
@@ -1676,7 +1682,7 @@ digikey:
     actions:
       - extract_num
   resistance_tolerance:
-    output_key: resistance_tolerance
+    output_key: tolerance
     actions:
       - extract_num
   charge_time:
@@ -1828,9 +1834,11 @@ digikey:
     actions:
       - extract_num
   resistance_25°c_(typ):
-    output_key: resistance_25°c_(typ)
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
     actions:
-      - extract_num
+      - split_temp
   breakdown_voltage:
     output_key: breakdown_voltage
     actions:
