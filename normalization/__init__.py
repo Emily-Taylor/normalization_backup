@@ -465,8 +465,8 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
                 else:
                     parsed_t_min = parse_any_number(t_min)[0]
                     parsed_t_max = parse_any_number(t_max)[0]
-                    t_min_float2 = float(Quantity(parsed_t_min))
-                    t_max_float2 = float(Quantity(parsed_t_max))
+                    t_min_float2 = float(Quantity(t_min))
+                    t_max_float2 = float(Quantity(t_max))
                     return (t_min_float2, t_max_float2)
             elif len(parse_any_number(d)) == 1:
                 parsed_temp = float(Quantity(d))
@@ -665,7 +665,7 @@ def split_at(d):
                 return(n1, n2)
             else:
                 print(
-                    "recheck splitting symbol and update function accordingly")
+                    "recheck splitting symbol and update function accordingly. Pattern: ", d)
                 return(0.0, 0.0)
 
     else:
