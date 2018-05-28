@@ -851,21 +851,6 @@ def to_int(d: str):
         raise TypeError(
             'cannot cast {0} into float as it\'s not a string'.format(d))
 
-
-<<<<<<< HEAD
-def inchtomm(d):
-		"""turns inch into mm"""
-		if isinstance(d, int):
-				d = d * 25.4
-				return d
-		elif isinstance(d, str):
-				d = parse_any_number(d)[0]
-				d = d * 25.4
-				return d
-		else:
-				logger.warning('during type conversion met a string.')
-				return(0.0)
-=======
 def inchtomm(d: str):
     """turns inch into mm"""
     if isinstance(d, str):
@@ -880,8 +865,6 @@ def inchtomm(d: str):
         print('found an error in function "{0}" during type conversion found type{1} containing: {2}.'.format(
             func_name, type(d), repr(d)))
         return 0.0
->>>>>>> 4ebff4bd115995054232fd5a05f297cda9abe19d
-
 
 def to_float(d: str):
     """turns a string into decimal"""
