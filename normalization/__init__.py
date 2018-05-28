@@ -655,7 +655,7 @@ def split_at(d):
             n2 = float(Quantity(n2))
             return(n1, n2)
         elif ('@' not in d):
-            if ('Ohms' in d):
+            if ('Ohm' in d):
                 n1 = float(Quantity(d))
                 n2 = 0
                 return(n1, n2)
