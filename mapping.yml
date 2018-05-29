@@ -25,6 +25,8 @@ mouser:
       - self_resonant_frequency_max
     actions:
       - split_to
+  b_parameter:
+    output_key: b_parameter
   number_of_coils:
     output_key: number_of_coils
     actions:
@@ -894,6 +896,8 @@ digikey:
       - split_at
   "turns_ratio_primary:secondary":
     output_key: "turns_ratio_primary:secondary"
+  b2575:
+    output_key: b2575
   frequency_stability:
     output_key: frequency_stability
     actions:
@@ -918,6 +922,8 @@ digikey:
     output_key: signal_conditioning
     actions:
       - lower
+  b050:
+    output_key: b050
   control_drive_type:
     output_key: motor_drive_type
   mounting_hole_spacing:
@@ -926,6 +932,10 @@ digikey:
       - parse_dimension
   length_shaft_and_bearing:
     output_key: length_shaft_and_bearing
+    actions:
+      - parse_dimension
+  length_lead_wire:
+    output_key: length_lead_wire
     actions:
       - parse_dimension
   pressure_type:
