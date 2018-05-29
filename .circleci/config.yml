@@ -19,6 +19,11 @@ jobs:
           - v1-dependencies-
 
       - run:
+          name: get common deps.
+          command: |
+            ./build.sh
+
+      - run:
           name: install dependencies
           command: |
             pipenv install --system
@@ -63,7 +68,9 @@ jobs:
           - v1-dependencies-{{ checksum "Pipfile.lock" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-
+      - run:
+          name: get common deps.
+          command: ./build.sh
       - run:
           name: install dependencies
           command: |
@@ -95,6 +102,10 @@ jobs:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: ./
+      - run:
+          name: get common deps.
+          command: |
+            ./build.sh
       - run:
           name: install dependencies
           command: |
