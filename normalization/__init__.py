@@ -136,6 +136,8 @@ def extract_num(d: str) -> float:
             elif d == 'Continuous':
                 d_float = 360.0
                 return d_float
+            elif d == 'Adjustable':
+                return 0.0
             #elif '/' in d:
                 # d = re.sub('/.*', '', d)
                 # d_float = float(Quantity(d))
