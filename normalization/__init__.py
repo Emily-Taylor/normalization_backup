@@ -136,10 +136,10 @@ def extract_num(d: str) -> float:
             elif d == 'Continuous':
                 d_float = 360.0
                 return d_float
-            elif '/' in d:
-                d = re.sub('/.*', '', d)
-                d_float = float(Quantity(d))
-                return d_float
+            #elif '/' in d:
+                # d = re.sub('/.*', '', d)
+                # d_float = float(Quantity(d))
+                # return d_float
             elif 'mOhms/' in d:
                 d = d.split('/')[0]
                 d_float = float(Quantity(d, ''))
@@ -711,14 +711,9 @@ def split_to(d: str):
             n1 = re.sub('\+ ', '+', n1)
             n2 = re.sub('\- ', '-', n2)
             n2 = re.sub('\+ ', '+', n2)
-            if ' m' in n1:
-                n1_float = parse_any_number(n1)[0]
-            else:
-                n1_float = float(Quantity(n1))
-            if ' m' in n2:
-                n2_float = parse_any_number(n2)[0]
-            else:
-                n2_float = float(Quantity(n2))
+            
+            n1_float = float(Quantity(n1))
+            n2_float = float(Quantity(n2))
             return(n1_float, n2_float)
         elif (' ~ ' in d):
             n1, n2 = d.split(' ~ ')
