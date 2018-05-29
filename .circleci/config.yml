@@ -70,7 +70,7 @@ jobs:
           - v1-dependencies-
       - run:
           name: get common deps.
-          command: ./build.sh
+          command: ./build.sh $CIRCLE_BRANCH
       - run:
           name: install dependencies
           command: |
@@ -105,7 +105,7 @@ jobs:
       - run:
           name: get common deps.
           command: |
-            ./build.sh
+            ./build.sh $CIRCLE_BRANCH
       - run:
           name: install dependencies
           command: |
