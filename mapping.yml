@@ -2366,6 +2366,10 @@ digikey:
     output_key: impedance
     actions:
       - extract_num
+  shaft_size:
+    output_key: shaft_size
+    actions:
+      - parse_dimension
   polarization:
     output_key: polarization
   features:
