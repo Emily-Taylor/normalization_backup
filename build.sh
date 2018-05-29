@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
-git clone git@github.com:sourcingbot/common.git temp
-cp temp/array.json  normalization/mfr/array.json
-cp temp/mapping.yml mapping.yml
-cp temp/categories.yml  normalization/mapping.yml
+mkdir -p temp/
+cd temp/
+aws s3 cp s3://artifacts-1/common-artifacts.tar.gz .
+tar -xzvf common-artifacts.tar.gz
+cp array.json  ../normalization/mfr/array.json
+cp mapping.yml ../mapping.yml
+cp categories.yml ../normalization/mapping.yml
+cd ..
 rm -rf temp/
