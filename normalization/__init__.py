@@ -114,6 +114,12 @@ def extract_num(d: str) -> float:
             d = re.sub(r'\(.*\)', '', d)
             d = d.split(',', 1)[0]
             d = d.split('~', 1)[0]
+            
+            if 'dBi @' in d:
+                d = d.split('dBi', 1)[0]
+                d_float = float(Quantity(d))
+                return d_float
+            
             d = multiple_replace(d, adict)
 
             if '@1Minute' in d:
@@ -136,6 +142,10 @@ def extract_num(d: str) -> float:
                 return d_float
             elif d == 'Continuous':
                 d_float = 360.0
+                return d_float
+            elif 'dBi@' in d:
+                d = d.split('dBi', 1)[0]
+                d_float = float(Quantity(d))
                 return d_float
             elif d == 'Adjustable' or d == 'Programmable':
                 return 0.0
@@ -722,8 +732,8 @@ def split_to(d: str):
         if ('DC' in d):
             d = re.sub('DC', '0', d)
 
-        if (' to ' in d):
-            n1, n2 = d.split(' to ')
+        if ('to' in d):
+            n1, n2 = d.split('to')
             n1 = n1.strip(" ")
             n2 = n2.strip(" ")
             n1 = re.sub('\- ', '-', n1)
@@ -748,6 +758,20 @@ def split_to(d: str):
             n1_float = float(Quantity(n1))
             n2_float = float(Quantity(n2))
             return(n1_float, n2_float)
+        elif '-' in d and 'Hz' in d:
+                
+            unit_list = re.findall('[a-zA_Za-zA-Z](?!\d+\-\d+)', d)
+            unit = ''.join(unit_list)
+                
+            h_min, h_max = parse_any_number(d)
+            h_min = str(h_min) + unit
+            h_max = abs(h_max)
+            h_max = str(h_max) + unit
+                
+            h_min_float = extract_num(h_min)
+            h_max_float = extract_num(h_max)
+            return (h_min_float, h_max_float)
+
         elif (' Max' in d):
             d = re.sub(' Max', '', d)
             n1_float = 0
