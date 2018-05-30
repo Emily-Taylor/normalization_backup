@@ -113,6 +113,7 @@ def extract_num(d: str) -> float:
         if (len(d) > 0):
             d = re.sub(r'\(.*\)', '', d)
             d = d.split(',', 1)[0]
+            d = d.split('~', 1)[0]
             d = multiple_replace(d, adict)
 
             if '@1Minute' in d:
@@ -136,10 +137,12 @@ def extract_num(d: str) -> float:
             elif d == 'Continuous':
                 d_float = 360.0
                 return d_float
-            elif '/' in d:
-                d = re.sub('/.*', '', d)
-                d_float = float(Quantity(d))
-                return d_float
+            elif d == 'Adjustable' or d == 'Programmable':
+                return 0.0
+            #elif '/' in d:
+                # d = re.sub('/.*', '', d)
+                # d_float = float(Quantity(d))
+                # return d_float
             elif 'mOhms/' in d:
                 d = d.split('/')[0]
                 d_float = float(Quantity(d, ''))
@@ -438,6 +441,9 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
         if ((' (' in d) and (')' in d)):
             d = re.sub(' \(.*', '', d)
         
+        if d == 'Self Powered' or d == 'DC':
+            return (0.0, 0.0)
+        
         if '±' in d:
             d = re.sub('±', '', d)
         
@@ -490,6 +496,19 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
                     t_min_float5 = float(Quantity(parsed_t_min))
                     t_max_float5 = float(Quantity(parsed_t_max))
                     return (t_min_float5, t_max_float5)
+            elif '/' in d and 'Hz' in d:
+                
+                unit_list = re.findall('[a-zA_Za-zA-Z](?!\d+\/\d+)', d)
+                unit = ''.join(unit_list)
+                
+                h_min, h_max = parse_any_number(d)
+                h_min = str(h_min) + unit
+                h_max = str(h_max) + unit
+                
+                h_min_float = extract_num(h_min)
+                h_max_float = extract_num(h_max)
+                return (h_min_float, h_max_float)
+                
             else:
                 t_min_float6 = float(Quantity(d, ''))
                 t_max_float6 = t_min_float6
@@ -711,14 +730,9 @@ def split_to(d: str):
             n1 = re.sub('\+ ', '+', n1)
             n2 = re.sub('\- ', '-', n2)
             n2 = re.sub('\+ ', '+', n2)
-            if ' m' in n1:
-                n1_float = parse_any_number(n1)[0]
-            else:
-                n1_float = float(Quantity(n1))
-            if ' m' in n2:
-                n2_float = parse_any_number(n2)[0]
-            else:
-                n2_float = float(Quantity(n2))
+            
+            n1_float = float(Quantity(n1))
+            n2_float = float(Quantity(n2))
             return(n1_float, n2_float)
         elif (' ~ ' in d):
             n1, n2 = d.split(' ~ ')
