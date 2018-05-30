@@ -580,6 +580,7 @@ def parse_dimension(d: str):
         0.512" (13.00mm)
         0.512\" (13.00mm)
         12.7 mm (0.5 in)
+        83.500" (212.09cm)
     """
     #print("going to parse dimensions for input: {0}".format(d))
     
@@ -609,6 +610,11 @@ def parse_dimension(d: str):
         return d_float
     elif (len(re.findall('(\d+)m\)$', d)) != 0):
         d_float = float(re.findall('(\d+)m\)$', d)[0]) * 1000
+        return d_float
+    elif 'cm)' in d:
+        d = re.findall('\d+.\d+cm', d)[0]
+        d_float = parse_any_number(d)[0]
+        d_float = d_float * 10
         return d_float
     elif ' in' in d:
         
