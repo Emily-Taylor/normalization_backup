@@ -11,7 +11,7 @@ import re
 import normalization as n
 import common as c
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
-with open(os.path.join(CURRENT_DIR, 'mapping.yml'), 'r') as f:
+with open(os.path.join(CURRENT_DIR, 'key-mapping.yml'), 'r') as f:
     MAPPING = yaml.load(f)
 
 

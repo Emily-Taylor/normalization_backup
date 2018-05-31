@@ -303,7 +303,7 @@ async def adjust_structure(part: dict, source: str, ts: int, mapping: dict):
 # read mapping file
 async def processs_everything():
 	here = os.path.dirname(os.path.realpath(__file__))
-	with open(os.path.join(here, '../mapping.yml'), 'r') as f, jsonlines.Reader(gzip.open(os.path.join(here, '../data-full/digikey/large_digikey.ndjson.gz'))) as reader:
+	with open(os.path.join(here, '../key-mapping.yml'), 'r') as f, jsonlines.Reader(gzip.open(os.path.join(here, '../data-full/digikey/large_digikey.ndjson.gz'))) as reader:
 		mapping = yaml.load(f)
 		for obj in tqdm(reader):
 			ts = obj['ts']
