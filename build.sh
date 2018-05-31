@@ -7,9 +7,26 @@ mkdir -p temp/
 cd temp/
 aws s3 cp s3://artifacts-1/common-artifacts-$1.tar.gz .
 tar -xzvf common-artifacts-$1.tar.gz
-cp mfr-mapping.json  ../normalization/mfr/mfr-mapping.json
-cp key-mapping.yml ../key-mapping.yml
-cp categories.yml ../normalization/categories.yml
+if cp mfr-mapping.json  ../normalization/mfr/mfr-mapping.json
+  then 
+    echo copy successful
+else
+    exit $?
+fi
+
+if cp key-mapping.yml ../key-mapping.yml
+  then 
+    echo copy successful
+else
+    exit $?
+fi
+
+if cp categories.yml ../normalization/categories.yml
+  then 
+    echo copy successful
+else
+    exit $?
+fi
 cd ..
 rm -rf temp/
 
