@@ -115,72 +115,48 @@ def extract_num(d: str) -> float:
             d = d.split(',', 1)[0]
             d = d.split('~', 1)[0]
             
+            
             if 'dBi @' in d:
                 d = d.split('dBi', 1)[0]
                 d_float = float(Quantity(d))
                 return d_float
-            
-            d = multiple_replace(d, adict)
-
-            if '@1Minute' in d:
-                d_float = parse_any_number(d)[0]
-                return d_float
-            elif '@30Seconds' in d:
-                d_float = parse_any_number(d)[0]
-                return d_float
-            elif 'PSI' in d:
-                d_float = parse_any_number(d)[0]
-                return d_float
-            elif 'Pole' in d:
-                d_float = parse_any_number(d)[0]
-                return d_float
-            elif 'Output' in d:
-                d_float = parse_any_number(d)[0]
-                return d_float
-            elif 'Position' in d:
-                d_float = parse_any_number(d)[0]
-                return d_float
-            elif d == 'Continuous':
-                d_float = 360.0
-                return d_float
-            elif 'dBi@' in d:
-                d = d.split('dBi', 1)[0]
-                d_float = float(Quantity(d))
-                return d_float
-            elif d == 'Adjustable' or d == 'Programmable':
-                return 0.0
+            else:
+                d = multiple_replace(d, adict)
+                
+                if ('@1Minute' in d) or ('@30Seconds' in d) or ('PSI' in d) or ('Pole' in d) or ('Output' in d) or ('Position' in d):
+                    d_float = parse_any_number(d)[0]
+                    return d_float
+                elif d == 'Continuous':
+                    d_float = 360.0
+                    return d_float
+                elif d in ['Adjustable', 'Programmable', 'Jumper', 'Ohms', 'Multiturn', 'Series', 'GMV']:
+                    return 0.0
             #elif '/' in d:
                 # d = re.sub('/.*', '', d)
                 # d_float = float(Quantity(d))
                 # return d_float
-            elif 'mOhms/' in d:
-                d = d.split('/')[0]
-                d_float = float(Quantity(d, ''))
-                return d_float
-            elif d == 'Jumper':
-                return 0.0
-            elif d == 'Ohms':
-                return 0.0
-            elif d == 'Multiturn':
-                return 0.0
-            elif 'to' in d:
-                d = re.sub('.*to', '', d)
-                d = re.sub(' ', '', d)
-                d_float = float(Quantity(d, ''))
-                return d_float
-            elif '/' in d:
-                if 'A' in d:
-                    d_float = convert_to_float(re.sub('A', '', d))
+                elif 'mOhms/' in d:
+                    d = d.split('/')[0]
+                    d_float = float(Quantity(d, ''))
                     return d_float
-                elif 'Ohms' in d:
-                    d_float = convert_to_float(re.sub('Ohms', '', d))
+                elif 'to' in d:
+                    d = re.sub('.*to', '', d)
+                    d = re.sub(' ', '', d)
+                    d_float = float(Quantity(d, ''))
                     return d_float
+                elif '/' in d:
+                    if 'A' in d:
+                        d_float = convert_to_float(re.sub('A', '', d))
+                        return d_float
+                    elif 'Ohms' in d:
+                        d_float = convert_to_float(re.sub('Ohms', '', d))
+                        return d_float
+                    else:
+                        d_float = parse_any_number(d)[0]
+                        return d_float
                 else:
-                    d_float = parse_any_number(d)[0]
+                    d_float = float(Quantity(d, ''))
                     return d_float
-            else:
-                d_float = float(Quantity(d, ''))
-                return d_float
         else:
             print("during coversion got an empty string")
             return 0.0
@@ -581,6 +557,9 @@ def parse_dimension(d: str):
         0.512\" (13.00mm)
         12.7 mm (0.5 in)
         83.500" (212.09cm)
+        118.11µin (3.00µm)
+        7.6 m (25 ft)
+        25 ft
     """
     #print("going to parse dimensions for input: {0}".format(d))
     
@@ -588,7 +567,7 @@ def parse_dimension(d: str):
         return d
     elif d == 0.0:
         return 0.0
-    elif d == 'No Shaft':
+    elif d == 'No Shaft' or d == 'Flash':
         return 0.0
     elif d == '0.0':
         return 0.0
@@ -615,6 +594,15 @@ def parse_dimension(d: str):
         d = re.findall('\d+.\d+cm', d)[0]
         d_float = parse_any_number(d)[0]
         d_float = d_float * 10
+        return d_float
+    elif 'µm)' in d:
+        d = re.findall('\d+.\d+µm', d)[0]
+        d_float = parse_any_number(d)[0]
+        d_float = d_float * 0.001
+        return d_float
+    elif ' ft' in d:
+        d_float = parse_any_number(re.findall('\d+ ft', d)[0])[0]
+        d_float = d_float * 304.8
         return d_float
     elif ' in' in d:
         
