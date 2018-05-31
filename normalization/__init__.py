@@ -725,6 +725,9 @@ def split_to(d: str):
 
         if ('DC' in d):
             d = re.sub('DC', '0', d)
+            
+        if ('2.483.5GHz' in d):
+            d = re.sub('.5', '', d)
 
         if ('to' in d):
             n1, n2 = d.split('to')
