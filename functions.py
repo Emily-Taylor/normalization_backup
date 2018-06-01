@@ -142,6 +142,10 @@ def adjust_structure(part: dict, source: str, ts: int):
         print("can't find MPN on part!")
         return False
 
+    # trim category to maxmium 2 levels:
+    if part['categories']:
+        if len(part['categories']) >2:
+            part['categories'] = part['categories'][0:2]
     # adding timestamp ts of the normalization
     part['ts_norm'] = c.now()
     # adding timestamp ts of the crawler-
