@@ -23,6 +23,7 @@ import os
 import typing
 from fractions import Fraction
 from hashlib import sha1
+import numpy as np
 
 # import numpy as np
 
@@ -378,7 +379,7 @@ def parse_dimensions(d: str):
         l, w = res[0], res[1]
         l = float(Quantity(l, scale='mm'))
         w = float(Quantity(w, scale='mm'))
-        return (l, w, 0.0)
+        return (l, w, np.nan)
     elif len(res) == 3:
         l, w, h = res[0], res[1], res[2]
         l = float(Quantity(l, scale='mm'))
@@ -701,6 +702,8 @@ def split_to(d: str):
     in the format: 1000 pF to 330000 pF
     """
     if isinstance(d, str):
+        
+        d = re.sub('µ', 'u', d)
 
         if (', ' in d):
             d = d.split(',', 1)[0]
