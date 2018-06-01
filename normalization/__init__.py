@@ -47,13 +47,17 @@ def attenuation(d: str) -> typing.Tuple[float, float, float]:
     """splits attenuation header into 3 keys"""
     if isinstance(d, str):
         v_str, r_str = d.split(' @ ')
-        r1_str, r2_str = r_str.split(' ~ ')
-
-        v = float(Quantity(v_str, ''))
-        r1 = float(Quantity(r1_str, ''))
-        r2 = float(Quantity(r2_str, ''))
-
-        return(v, r1, r2)
+        if ' ~ ' in r_str:
+            r1_str, r2_str = r_str.split(' ~ ')
+            v = float(Quantity(v_str, ''))
+            r1 = float(Quantity(r1_str, ''))
+            r2 = float(Quantity(r2_str, ''))
+            return (v, r1, r2)
+        else:
+            v = float(Quantity(v_str, ''))
+            r1 = float(Quantity(r_str, ''))
+            r2 = float(Quantity(r_str, ''))
+            return (v, r1, r2)
     else:
         print('during type conversion got a non-string')
         return (0.0, 0.0, 0.0)
