@@ -11,6 +11,7 @@ requests-aws-sign = "*"
 requests-cache = "*"
 quantiphy = "*"
 mypy = "*"
+numpy = "*"
 
 [dev-packages]
 lambda-decorators = "*"
