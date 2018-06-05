@@ -635,8 +635,7 @@ def parse_dimension(d: str):
         return d_float
     elif (len(re.findall(' cm$', d)) != 0):
         d_float = parse_any_number(d)[0] * 10
-    return d_float
-
+        return d_float
     if 'mm' in d:
         #regexp = re.compile(r'[\()]?(.*)[\s]?mm')
         """
