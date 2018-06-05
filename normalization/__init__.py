@@ -565,6 +565,8 @@ def parse_dimension(d: str):
         118.11µin (3.00µm)
         7.6 m (25 ft)
         25 ft
+        15' (4.6m) 5 yds
+        50 cm
     """
     #print("going to parse dimensions for input: {0}".format(d))
     
@@ -572,7 +574,7 @@ def parse_dimension(d: str):
         return d
     elif d == 0.0:
         return 0.0
-    elif d == 'No Shaft' or d == 'Flash':
+    elif d == 'No Shaft' or d == 'Flash' or d == 'Custom':
         return 0.0
     elif d == '0.0':
         return 0.0
@@ -595,6 +597,12 @@ def parse_dimension(d: str):
     elif (len(re.findall('(\d+)m\)$', d)) != 0):
         d_float = float(re.findall('(\d+)m\)$', d)[0]) * 1000
         return d_float
+    elif (len(re.findall('(\d+.\d+)m\)', d)) != 0):
+       d_float = float(re.findall('(\d+.\d+)m\)', d)[0]) * 1000
+       return d_float
+    elif (len(re.findall('(\d+)m\)', d)) != 0):
+       d_float = float(re.findall('(\d+)m\)', d)[0]) * 1000
+       return d_float
     elif 'cm)' in d:
         d = re.findall('\d+.\d+cm', d)[0]
         d_float = parse_any_number(d)[0]
@@ -625,6 +633,9 @@ def parse_dimension(d: str):
     elif (len(re.findall(' mm$', d)) != 0):
         d_float = parse_any_number(d)[0]
         return d_float
+    elif (len(re.findall(' cm$', d)) != 0):
+        d_float = parse_any_number(d)[0] * 10
+    return d_float
 
     if 'mm' in d:
         #regexp = re.compile(r'[\()]?(.*)[\s]?mm')
