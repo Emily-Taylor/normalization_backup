@@ -48,11 +48,24 @@ def attenuation(d: str) -> typing.Tuple[float, float, float]:
        d = re.sub(',.*', '', d)
        v_str, r_str = d.split(' @ ')
        if ' ~ ' in r_str:
-           r1_str, r2_str = r_str.split(' ~ ')
-           v = float(Quantity(v_str, ''))
-           r1 = float(Quantity(r1_str, ''))
-           r2 = float(Quantity(r2_str, ''))
-           return (v, r1, r2)
+           
+           if len(re.findall('\d+.\d+ ~ \d+.\d+[a-zA-Z]+', r_str)) == 0:
+               r1_str, r2_str = r_str.split(' ~ ')
+               v = float(Quantity(v_str, ''))
+               r1 = float(Quantity(r1_str, ''))
+               r2 = float(Quantity(r2_str, ''))
+               return (v, r1, r2)
+           else:
+               r1_str, r2_str = r_str.split(' ~ ')
+               v = float(Quantity(v_str, ''))
+               
+               unit = re.findall('[a-zA-Z]+', r2_str)[0]
+               r1_str = r1_str + unit
+               
+               r1 = float(Quantity(r1_str, ''))
+               r2 = float(Quantity(r2_str, ''))
+               return (v, r1, r2)
+               
        else:
            v = float(Quantity(v_str, ''))
            r1 = float(Quantity(r_str, ''))
