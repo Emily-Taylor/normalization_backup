@@ -43,54 +43,18 @@ with open(os.path.join(__location__, 'categories.yml'), 'r') as f:
     categories = yaml.load(f)
 
 def attenuation(d: str) -> typing.Tuple[float, float, float]:
-    """splits attenuation header into 3 keys"""
-    if isinstance(d, str):
-        
-        if ', ' in d:
-           a_str = d.split(', ')[0]
-           c_str, d_str = a_str.split(' @ ')
+		"""splits attenuation header into 3 keys"""
+		if isinstance(d, str):
+				v_str, r_str = d.split(' @ ')
+				r1_str, r2_str = r_str.split(' ~ ')
 
-           if ' ~ ' in a_str:
-               if (len(re.findall('\d+.?\d+[a-zA-Z]+', d_str)) == 1):
-                   d_unit1 = re.findall('[a-zA-Z]+', re.findall('\d+.?\d+[a-zA-Z]+', d_str)[0])
-                   d1_str, d2_str = d_str.split(' ~ ')
-                   d1_str += d_unit1[0]
-                   c = float(Quantity(c_str, ''))
-                   d1 = float(Quantity(d1_str, ''))
-                   d2 = float(Quantity(d2_str, ''))
+				v = float(Quantity(v_str, ''))
+				r1 = float(Quantity(r1_str, ''))
+				r2 = float(Quantity(r2_str, ''))
 
-               else:
-                   d1_str, d2_str = d_str.split(' ~ ')
-                   c = float(Quantity(c_str, ''))
-                   d1 = float(Quantity(d1_str, ''))
-                   d2 = float(Quantity(d2_str, ''))
-
-               return (c, d1, d2)
-
-           else:
-               c = float(Quantity(c_str, ''))
-               d1 = float(Quantity(d_str, ''))
-               d2 = float(Quantity(d_str, ''))
-
-               return (c, d1, d2)
-        
-        elif ', ' not in d:
-            
-           v_str, r_str = d.split(' @ ')
-           if ' ~ ' in r_str:
-               r1_str, r2_str = r_str.split(' ~ ')
-               v = float(Quantity(v_str, ''))
-               r1 = float(Quantity(r1_str, ''))
-               r2 = float(Quantity(r2_str, ''))
-               return (v, r1, r2)
-           else:
-               v = float(Quantity(v_str, ''))
-               r1 = float(Quantity(r_str, ''))
-               r2 = float(Quantity(r_str, ''))
-               return (v, r1, r2)
-    else:
-        print('during type conversion got a non-string')
-        return (0.0, 0.0, 0.0)
+				return(v, r1, r2)
+		else:
+				print('during type conversion got a non-string')
 
 
 def reverse(d: str):
