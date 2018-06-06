@@ -447,6 +447,9 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
         if 'µ' in d:
             d = re.sub('µ', 'u', d)
         
+        if '°C' in d:
+            d = re.sub('°C', '', d)
+        
         if ((' (' in d) and (')' in d)):
             d = re.sub(' \(.*', '', d)
         
