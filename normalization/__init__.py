@@ -728,6 +728,7 @@ def split_to(d: str):
     if isinstance(d, str):
         
         d = re.sub('µ', 'u', d)
+        d = re.sub('Â', '', d)
 
         if (', ' in d):
             d = d.split(',', 1)[0]
