@@ -45,14 +45,14 @@ with open(os.path.join(__location__, 'categories.yml'), 'r') as f:
 def attenuation(d: str) -> typing.Tuple[float, float, float]:
     """splits attenuation header into 3 keys"""
     if isinstance(d, str):
+        
         if ', ' in d:
            a_str = d.split(', ')[0]
            c_str, d_str = a_str.split(' @ ')
 
            if ' ~ ' in a_str:
                if (len(re.findall('\d+.?\d+[a-zA-Z]+', d_str)) == 1):
-                   d_unit1 = re.findall('[a-zA-Z]+',
-                             re.findall('\d+.?\d+[a-zA-Z]+', d_str)[0])
+                   d_unit1 = re.findall('[a-zA-Z]+', re.findall('\d+.?\d+[a-zA-Z]+', d_str)[0])
                    d1_str, d2_str = d_str.split(' ~ ')
                    d1_str += d_unit1[0]
                    c = float(Quantity(c_str, ''))
