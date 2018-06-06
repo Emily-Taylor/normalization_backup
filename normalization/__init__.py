@@ -569,7 +569,7 @@ def parse_dimension(d: str):
         return d
     elif d == 0.0:
         return 0.0
-    elif d == 'No Shaft' or d == 'Flash' or d == 'Custom':
+    elif d == 'No Shaft' or d == 'Flash' or d == 'Custom' or d == 'mm x111':
         return 0.0
     elif d == '0.0':
         return 0.0
@@ -582,6 +582,12 @@ def parse_dimension(d: str):
     elif d == '1 3/8':
         d_float = 34.925
         return d_float
+    elif ' ft' in d and ' in' in d:
+       list = d.split()
+       ft_str = float(list[0])
+       in_str = float(list[2])
+       d_float = ft_str*304.8 + in_str*25.4
+       return d_float
     elif (len(re.findall(' in$', d)) != 0):
         d = re.sub(' in', '', d)
         d_float = convert_to_float(d) * 25.4
@@ -625,6 +631,9 @@ def parse_dimension(d: str):
     elif (len(re.findall(' m$', d)) != 0):
         d_float = parse_any_number(d)[0] * 1000
         return d_float
+    elif (len(re.findall(' M$', d)) != 0):
+       d_float = parse_any_number(d)[0] * 1000
+       return d_float
     elif (len(re.findall(' mm$', d)) != 0):
         d_float = parse_any_number(d)[0]
         return d_float
