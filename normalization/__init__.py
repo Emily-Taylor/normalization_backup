@@ -42,7 +42,6 @@ __location__ = os.path.realpath(
 with open(os.path.join(__location__, 'categories.yml'), 'r') as f:
     categories = yaml.load(f)
 
-
 def attenuation(d: str) -> typing.Tuple[float, float, float]:
     """splits attenuation header into 3 keys"""
     if isinstance(d, str):
