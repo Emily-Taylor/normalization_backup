@@ -43,54 +43,24 @@ with open(os.path.join(__location__, 'categories.yml'), 'r') as f:
     categories = yaml.load(f)
 
 def attenuation(d: str) -> typing.Tuple[float, float, float]:
-    """splits attenuation header into 3 keys"""
-    if isinstance(d, str):
-        if ', ' in d:
-           a_str = d.split(', ')[0]
-           c_str, d_str = a_str.split(' @ ')
-
-           if ' ~ ' in a_str:
-               if (len(re.findall('\d+.?\d+[a-zA-Z]+', d_str)) == 1):
-                   d_unit1 = re.findall('[a-zA-Z]+',
-                             re.findall('\d+.?\d+[a-zA-Z]+', d_str)[0])
-                   d1_str, d2_str = d_str.split(' ~ ')
-                   d1_str += d_unit1[0]
-                   c = float(Quantity(c_str, ''))
-                   d1 = float(Quantity(d1_str, ''))
-                   d2 = float(Quantity(d2_str, ''))
-
-               else:
-                   d1_str, d2_str = d_str.split(' ~ ')
-                   c = float(Quantity(c_str, ''))
-                   d1 = float(Quantity(d1_str, ''))
-                   d2 = float(Quantity(d2_str, ''))
-
-               return (c, d1, d2)
-
-           else:
-               c = float(Quantity(c_str, ''))
-               d1 = float(Quantity(d_str, ''))
-               d2 = float(Quantity(d_str, ''))
-
-               return (c, d1, d2)
-        
-        elif ', ' not in d:
-            
-           v_str, r_str = d.split(' @ ')
-           if ' ~ ' in r_str:
-               r1_str, r2_str = r_str.split(' ~ ')
-               v = float(Quantity(v_str, ''))
-               r1 = float(Quantity(r1_str, ''))
-               r2 = float(Quantity(r2_str, ''))
-               return (v, r1, r2)
-           else:
-               v = float(Quantity(v_str, ''))
-               r1 = float(Quantity(r_str, ''))
-               r2 = float(Quantity(r_str, ''))
-               return (v, r1, r2)
-    else:
-        print('during type conversion got a non-string')
-        return (0.0, 0.0, 0.0)
+   """splits attenuation header into 3 keys"""
+   if isinstance(d, str):
+       d = re.sub(',.*', '', d)
+       v_str, r_str = d.split(' @ ')
+       if ' ~ ' in r_str:
+           r1_str, r2_str = r_str.split(' ~ ')
+           v = float(Quantity(v_str, ''))
+           r1 = float(Quantity(r1_str, ''))
+           r2 = float(Quantity(r2_str, ''))
+           return (v, r1, r2)
+       else:
+           v = float(Quantity(v_str, ''))
+           r1 = float(Quantity(r_str, ''))
+           r2 = float(Quantity(r_str, ''))
+           return (v, r1, r2)
+   else:
+       print('during type conversion got a non-string')
+       return (0.0, 0.0, 0.0)
 
 
 def reverse(d: str):
@@ -605,7 +575,7 @@ def parse_dimension(d: str):
         return d
     elif d == 0.0:
         return 0.0
-    elif d == 'No Shaft' or d == 'Flash' or d == 'Custom':
+    elif d == 'No Shaft' or d == 'Flash' or d == 'Custom' or d == 'mm x111':
         return 0.0
     elif d == '0.0':
         return 0.0
@@ -618,6 +588,12 @@ def parse_dimension(d: str):
     elif d == '1 3/8':
         d_float = 34.925
         return d_float
+    elif ' ft' in d and ' in' in d:
+       list = d.split()
+       ft_str = float(list[0])
+       in_str = float(list[2])
+       d_float = ft_str*304.8 + in_str*25.4
+       return d_float
     elif (len(re.findall(' in$', d)) != 0):
         d = re.sub(' in', '', d)
         d_float = convert_to_float(d) * 25.4
@@ -661,6 +637,9 @@ def parse_dimension(d: str):
     elif (len(re.findall(' m$', d)) != 0):
         d_float = parse_any_number(d)[0] * 1000
         return d_float
+    elif (len(re.findall(' M$', d)) != 0):
+       d_float = parse_any_number(d)[0] * 1000
+       return d_float
     elif (len(re.findall(' mm$', d)) != 0):
         d_float = parse_any_number(d)[0]
         return d_float
