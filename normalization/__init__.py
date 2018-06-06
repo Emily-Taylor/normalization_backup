@@ -48,11 +48,24 @@ def attenuation(d: str) -> typing.Tuple[float, float, float]:
        d = re.sub(',.*', '', d)
        v_str, r_str = d.split(' @ ')
        if ' ~ ' in r_str:
-           r1_str, r2_str = r_str.split(' ~ ')
-           v = float(Quantity(v_str, ''))
-           r1 = float(Quantity(r1_str, ''))
-           r2 = float(Quantity(r2_str, ''))
-           return (v, r1, r2)
+           
+           if len(re.findall('\d+.\d+ ~ \d+.\d+[a-zA-Z]+', r_str)) == 0:
+               r1_str, r2_str = r_str.split(' ~ ')
+               v = float(Quantity(v_str, ''))
+               r1 = float(Quantity(r1_str, ''))
+               r2 = float(Quantity(r2_str, ''))
+               return (v, r1, r2)
+           else:
+               r1_str, r2_str = r_str.split(' ~ ')
+               v = float(Quantity(v_str, ''))
+               
+               unit = re.findall('[a-zA-Z]+', r2_str)[0]
+               r1_str = r1_str + unit
+               
+               r1 = float(Quantity(r1_str, ''))
+               r2 = float(Quantity(r2_str, ''))
+               return (v, r1, r2)
+               
        else:
            v = float(Quantity(v_str, ''))
            r1 = float(Quantity(r_str, ''))
@@ -119,6 +132,7 @@ def extract_num(d: str) -> float:
             d = re.sub(r'\(.*\)', '', d)
             d = d.split(',', 1)[0]
             d = d.split('~', 1)[0]
+            d = d.split('/', 1)[0]
             
             
             if 'dBi @' in d:
@@ -378,22 +392,25 @@ def parse_dimensions(d: str):
     example: '0.276" L x 0.217" W (7.00mm x 5.50mm)'
     ignoring inches, focusing on millimeters
     """
-    regexp = re.compile(r'([\d\.]+mm)')
-    res = regexp.findall(d)
-    if len(res) == 2:
-        l, w = res[0], res[1]
-        l = float(Quantity(l, scale='mm'))
-        w = float(Quantity(w, scale='mm'))
-        return (l, w, np.nan)
-    elif len(res) == 3:
-        l, w, h = res[0], res[1], res[2]
-        l = float(Quantity(l, scale='mm'))
-        w = float(Quantity(w, scale='mm'))
-        h = float(Quantity(h, scale='mm'))
-        return (l, w, h)
-    elif len(res) == 1:
-        dim = float(Quantity(res[0], scale='mm'))
-        return (dim,)
+    if isinstance(d, str):
+        regexp = re.compile(r'([\d\.]+mm)')
+        res = regexp.findall(d)
+        if len(res) == 2:
+            l, w = res[0], res[1]
+            l = float(Quantity(l, scale='mm'))
+            w = float(Quantity(w, scale='mm'))
+            return (l, w, np.nan)
+        elif len(res) == 3:
+            l, w, h = res[0], res[1], res[2]
+            l = float(Quantity(l, scale='mm'))
+            w = float(Quantity(w, scale='mm'))
+            h = float(Quantity(h, scale='mm'))
+            return (l, w, h)
+        elif len(res) == 1:
+            dim = float(Quantity(res[0], scale='mm'))
+            return (dim, np.nan, np.nan)
+    else:
+        return (d, np.nan, np.nan)
 
 
 def split_band(d: str):
@@ -728,6 +745,7 @@ def split_to(d: str):
     if isinstance(d, str):
         
         d = re.sub('µ', 'u', d)
+        d = re.sub('Â', '', d)
 
         if (', ' in d):
             d = d.split(',', 1)[0]
