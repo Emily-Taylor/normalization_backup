@@ -133,6 +133,7 @@ def extract_num(d: str) -> float:
             d = d.split(',', 1)[0]
             d = d.split('~', 1)[0]
             d = d.split('/', 1)[0]
+            d = re.sub('Wire Wound Inductors', '0', d)
             
             
             if 'dBi @' in d:
