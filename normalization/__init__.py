@@ -132,7 +132,6 @@ def extract_num(d: str) -> float:
             d = re.sub(r'\(.*\)', '', d)
             d = d.split(',', 1)[0]
             d = d.split('~', 1)[0]
-            d = d.split('/', 1)[0]
             d = re.sub('Wire Wound Inductors', '0', d)
             
             
@@ -142,6 +141,7 @@ def extract_num(d: str) -> float:
                 return d_float
             else:
                 d = multiple_replace(d, adict)
+                d = d.split('/', 1)[0]
                 
                 if ('@1Minute' in d) or ('@30Seconds' in d) or ('PSI' in d) or ('Pole' in d) or ('Output' in d) or ('Position' in d):
                     d_float = parse_any_number(d)[0]
