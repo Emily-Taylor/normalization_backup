@@ -416,11 +416,11 @@ def parse_dimensions(d: str):
         
         if 'mm' not in d:
             if 'x' in d:
-                d = d.split(' x ')
-                if len(d) == 2:
-                    return (float(d[0]),float(d[1]), np.nan)
-                elif len(d) == 3:
-                    return (float(d[0]),float(d[1]),float(d[2]))
+                d_list = d.split(' x ')
+                if len(d_list) == 2:
+                    return (float(d_list[0]),float(d_list[1]), np.nan)
+                elif len(d_list) == 3:
+                    return (float(d_list[0]),float(d_list[1]),float(d_list[2]))
             elif 'x' not in d:
                 return (float(d), np.nan, np.nan)
         else:
