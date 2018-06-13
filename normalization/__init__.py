@@ -405,6 +405,8 @@ def parse_dimensions(d: str):
             d = re.sub('PM ', '', d)
         if ' (EER ' in d:
             d = re.sub('\ \(EER\ \d\d?\.?\d?\)', '', d)
+        if ' (EF ' in d:
+            d = re.sub('\ \(EF\ \d\d?\.?\d?\)','',d)
         if 'PS ' in d:
             d = re.sub('PS ', '', d)
         if 'RM ' in d:
@@ -442,8 +444,6 @@ def parse_dimensions(d: str):
             d = d[:k] + "" + d[k+2:]
         if d.endswith('-1'):
             d = re.sub('-1', '', d)
-        if ' (EF ' in d:
-            d = re.sub('\ \(EF\ \d\d?\.?\d?\)','',d)
         
         if 'mm' not in d:
             if 'x' in d:
