@@ -807,6 +807,9 @@ def split_to(d: str):
             
         if ('2.483.5GHz' in d):
             d = re.sub('.5', '', d)
+        
+        if (' and ' in d):
+            d = d.split(' and ')[0]
 
         if ('to' in d):
             n1, n2 = d.split('to')
@@ -850,9 +853,14 @@ def split_to(d: str):
 
         elif (' Max' in d):
             d = re.sub(' Max', '', d)
-            n1_float = 0
+            n1_float = np.nan
             n2_float = float(Quantity(d, ''))
             return(n1_float, n2_float)
+        elif (' Min' in d):
+            d = re.sub(' Min', '', d)
+            n1_float = float(Quantity(d, ''))
+            n2_float = np.nan
+            return (n1_float, n2_float)
         else:
             n1_float = float(Quantity(d, ''))
             n2_float = float(Quantity(d, ''))
