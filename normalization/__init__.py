@@ -132,7 +132,6 @@ def extract_num(d: str) -> float:
             d = re.sub(r'\(.*\)', '', d)
             d = d.split(',', 1)[0]
             d = d.split('~', 1)[0]
-            d = d.split('/', 1)[0]
             d = re.sub('Wire Wound Inductors', '0', d)
             
             
@@ -140,8 +139,16 @@ def extract_num(d: str) -> float:
                 d = d.split('dBi', 1)[0]
                 d_float = float(Quantity(d))
                 return d_float
+            elif 'N/A' in d:
+               d_float = 0.0
+               return d_float
+            elif ' and ' in d:
+               d = d.split(' and ')[0]
+               d_float = float(Quantity(d, ''))
+               return d_float
             else:
                 d = multiple_replace(d, adict)
+                d = d.split('/', 1)[0]
                 
                 if ('@1Minute' in d) or ('@30Seconds' in d) or ('PSI' in d) or ('Pole' in d) or ('Output' in d) or ('Position' in d):
                     d_float = parse_any_number(d)[0]
@@ -394,22 +401,45 @@ def parse_dimensions(d: str):
     ignoring inches, focusing on millimeters
     """
     if isinstance(d, str):
-        regexp = re.compile(r'([\d\.]+mm)')
-        res = regexp.findall(d)
-        if len(res) == 2:
-            l, w = res[0], res[1]
-            l = float(Quantity(l, scale='mm'))
-            w = float(Quantity(w, scale='mm'))
-            return (l, w, np.nan)
-        elif len(res) == 3:
-            l, w, h = res[0], res[1], res[2]
-            l = float(Quantity(l, scale='mm'))
-            w = float(Quantity(w, scale='mm'))
-            h = float(Quantity(h, scale='mm'))
-            return (l, w, h)
-        elif len(res) == 1:
-            dim = float(Quantity(res[0], scale='mm'))
-            return (dim, np.nan, np.nan)
+        if 'PM ' in d:
+            d = re.sub('PM ', '', d)
+        if 'PS ' in d:
+            d = re.sub('PS ', '', d)
+        if 'RM ' in d:
+            d = re.sub('RM ', '', d)
+        if 'E ' in d:
+            d = re.sub('E ', '', d)
+        if 'ETD ' in d:
+            d = re.sub('ETD ', '', d)
+        if ' (EF ' in d:
+            d = re.sub('\ \(EF\ \d\d?\.?\d?\)','',d)
+        
+        if 'mm' not in d:
+            if 'x' in d:
+                d_list = d.split(' x ')
+                if len(d_list) == 2:
+                    return (float(d_list[0]),float(d_list[1]), np.nan)
+                elif len(d_list) == 3:
+                    return (float(d_list[0]),float(d_list[1]),float(d_list[2]))
+            elif 'x' not in d:
+                return (float(d), np.nan, np.nan)
+        else:
+            regexp = re.compile(r'([\d\.]+mm)')
+            res = regexp.findall(d)
+            if len(res) == 2:
+                l, w = res[0], res[1]
+                l = float(Quantity(l, scale='mm'))
+                w = float(Quantity(w, scale='mm'))
+                return (l, w, np.nan)
+            elif len(res) == 3:
+                l, w, h = res[0], res[1], res[2]
+                l = float(Quantity(l, scale='mm'))
+                w = float(Quantity(w, scale='mm'))
+                h = float(Quantity(h, scale='mm'))
+                return (l, w, h)
+            elif len(res) == 1:
+                dim = float(Quantity(res[0], scale='mm'))
+                return (dim, np.nan, np.nan)
     else:
         return (d, np.nan, np.nan)
 
@@ -718,19 +748,32 @@ def split_at(d):
         d = re.sub(',.*', '', d)
         if ('@' in d):
             n1, n2 = d.split('@')
+            n1 = re.sub('Parallel ', '', n1)
+            n2 = re.sub('Series ', '', n2)
             n1 = n1.strip(" ")
             n2 = n2.strip(" ")
-            n1 = float(Quantity(n1))
-            n2 = float(Quantity(n2))
+            if (' Minute' in n2):
+                n1 = float(Quantity(n1))
+                n2 = float(n2[0]) * 60
+            elif (' Hrs' in n1):
+                n1 = float(Quantity(n1)) * 3600
+                n2 = float(Quantity(n2))
+            else:
+                n1 = float(Quantity(n1))
+                n2 = float(Quantity(n2))
             return(n1, n2)
         elif ('@' not in d):
-            if ('Ohm' in d):
+            if ('/' in d):
+                n1 = float(Quantity(d.split('/')[0]))
+                n2 = np.nan
+                return (n1, n2)
+            elif ('Ohm' in d):
                 n1 = float(Quantity(d))
-                n2 = 0
+                n2 = np.nan
                 return(n1, n2)
             elif ('V' in d):
                 n1 = float(Quantity(d))
-                n2 = 0
+                n2 = np.nan
                 return(n1, n2)
             else:
                 print(
@@ -777,6 +820,9 @@ def split_to(d: str):
             
         if ('2.483.5GHz' in d):
             d = re.sub('.5', '', d)
+        
+        if (' and ' in d):
+            d = d.split(' and ')[0]
 
         if ('to' in d):
             n1, n2 = d.split('to')
@@ -820,9 +866,14 @@ def split_to(d: str):
 
         elif (' Max' in d):
             d = re.sub(' Max', '', d)
-            n1_float = 0
+            n1_float = np.nan
             n2_float = float(Quantity(d, ''))
             return(n1_float, n2_float)
+        elif (' Min' in d):
+            d = re.sub(' Min', '', d)
+            n1_float = float(Quantity(d, ''))
+            n2_float = np.nan
+            return (n1_float, n2_float)
         else:
             n1_float = float(Quantity(d, ''))
             n2_float = float(Quantity(d, ''))
@@ -981,10 +1032,18 @@ def split_current(d: str):
     if isinstance(d, str):
 
         if (', ' in d):
-
-            p, s = d.split(', ')
+            
+            res = d.split(', ')
+            p = res[0]
+            s = res[1]
             p = re.sub('Parallel ', '', p)
             s = re.sub('Series ', '', s)
+            p = re.sub('±', '', p)
+            s = re.sub('±', '', s)
+            if ('/' in p):
+                p = p.split('/')[0]
+            if ('/' in s):
+                s = s.split('/')[0]
             p_float = float(Quantity(p, ''))
             s_float = float(Quantity(s, ''))
             return (p_float, s_float)
