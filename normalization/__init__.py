@@ -146,6 +146,10 @@ def extract_num(d: str) -> float:
                d = d.split(' and ')[0]
                d_float = float(Quantity(d, ''))
                return d_float
+            elif 'Parallel @ ' in d:
+               d = re.sub('Parallel @ ', '', d)
+               d_float = float(Quantity(d))
+               return d_float
             else:
                 d = multiple_replace(d, adict)
                 d = d.split('/', 1)[0]
@@ -156,7 +160,7 @@ def extract_num(d: str) -> float:
                 elif d == 'Continuous':
                     d_float = 360.0
                     return d_float
-                elif d in ['Adjustable', 'Programmable', 'Jumper', 'Ohms', 'Multiturn', 'Series', 'GMV']:
+                elif d in ['Adjustable', 'Programmable', 'Jumper', 'Ohms', 'Multiturn', 'Series', 'GMV', 'Varies']:
                     return 0.0
             #elif '/' in d:
                 # d = re.sub('/.*', '', d)
@@ -403,6 +407,10 @@ def parse_dimensions(d: str):
     if isinstance(d, str):
         if 'PM ' in d:
             d = re.sub('PM ', '', d)
+        if ' (EER ' in d:
+            d = re.sub('\ \(EER\ \d\d?\.?\d?\)', '', d)
+        if ' (EF ' in d:
+            d = re.sub('\ \(EF\ \d\d?\.?\d?\)','',d)
         if 'PS ' in d:
             d = re.sub('PS ', '', d)
         if 'RM ' in d:
@@ -417,6 +425,8 @@ def parse_dimensions(d: str):
             d = re.sub('ER ', '', d)
         if 'EV ' in d:
             d = re.sub('EV ', '', d)
+        if 'EF ' in d:
+            d = re.sub('EF ', '', d)
         if 'P ' in d:
             d = re.sub('P ', '', d)
         if 'PQ ' in d:
@@ -438,8 +448,6 @@ def parse_dimensions(d: str):
             d = d[:k] + "" + d[k+2:]
         if d.endswith('-1'):
             d = re.sub('-1', '', d)
-        if ' (EF ' in d:
-            d = re.sub('\ \(EF\ \d\d?\.?\d?\)','',d)
         
         if 'mm' not in d:
             if 'x' in d:
