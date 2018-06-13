@@ -139,6 +139,13 @@ def extract_num(d: str) -> float:
                 d = d.split('dBi', 1)[0]
                 d_float = float(Quantity(d))
                 return d_float
+            elif 'N/A' in d:
+               d_float = 0.0
+               return d_float
+            elif ' and ' in d:
+               d = d.split(' and ')[0]
+               d_float = float(Quantity(d, ''))
+               return d_float
             else:
                 d = multiple_replace(d, adict)
                 d = d.split('/', 1)[0]
@@ -394,22 +401,45 @@ def parse_dimensions(d: str):
     ignoring inches, focusing on millimeters
     """
     if isinstance(d, str):
-        regexp = re.compile(r'([\d\.]+mm)')
-        res = regexp.findall(d)
-        if len(res) == 2:
-            l, w = res[0], res[1]
-            l = float(Quantity(l, scale='mm'))
-            w = float(Quantity(w, scale='mm'))
-            return (l, w, np.nan)
-        elif len(res) == 3:
-            l, w, h = res[0], res[1], res[2]
-            l = float(Quantity(l, scale='mm'))
-            w = float(Quantity(w, scale='mm'))
-            h = float(Quantity(h, scale='mm'))
-            return (l, w, h)
-        elif len(res) == 1:
-            dim = float(Quantity(res[0], scale='mm'))
-            return (dim, np.nan, np.nan)
+        if 'PM ' in d:
+            d = re.sub('PM ', '', d)
+        if 'PS ' in d:
+            d = re.sub('PS ', '', d)
+        if 'RM ' in d:
+            d = re.sub('RM ', '', d)
+        if 'E ' in d:
+            d = re.sub('E ', '', d)
+        if 'ETD ' in d:
+            d = re.sub('ETD ', '', d)
+        if ' (EF ' in d:
+            d = re.sub('\ \(EF\ \d\d?\.?\d?\)','',d)
+        
+        if 'mm' not in d:
+            if 'x' in d:
+                d = d.split(' x ')
+                if len(d) == 2:
+                    return (float(d[0]),float(d[1]), np.nan)
+                elif len(d) == 3:
+                    return (float(d[0]),float(d[1]),float(d[2]))
+            elif 'x' not in d:
+                return (float(d), np.nan, np.nan)
+        else:
+            regexp = re.compile(r'([\d\.]+mm)')
+            res = regexp.findall(d)
+            if len(res) == 2:
+                l, w = res[0], res[1]
+                l = float(Quantity(l, scale='mm'))
+                w = float(Quantity(w, scale='mm'))
+                return (l, w, np.nan)
+            elif len(res) == 3:
+                l, w, h = res[0], res[1], res[2]
+                l = float(Quantity(l, scale='mm'))
+                w = float(Quantity(w, scale='mm'))
+                h = float(Quantity(h, scale='mm'))
+                return (l, w, h)
+            elif len(res) == 1:
+                dim = float(Quantity(res[0], scale='mm'))
+                return (dim, np.nan, np.nan)
     else:
         return (d, np.nan, np.nan)
 
