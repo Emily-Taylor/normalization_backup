@@ -748,19 +748,32 @@ def split_at(d):
         d = re.sub(',.*', '', d)
         if ('@' in d):
             n1, n2 = d.split('@')
+            n1 = re.sub('Parallel ', '', n1)
+            n2 = re.sub('Series ', '', n2)
             n1 = n1.strip(" ")
             n2 = n2.strip(" ")
-            n1 = float(Quantity(n1))
-            n2 = float(Quantity(n2))
+            if (' Minute' in n2):
+                n1 = float(Quantity(n1))
+                n2 = float(n2[0]) * 60
+            elif (' Hrs' in n1):
+                n1 = float(Quantity(n1)) * 3600
+                n2 = float(Quantity(n2))
+            else:
+                n1 = float(Quantity(n1))
+                n2 = float(Quantity(n2))
             return(n1, n2)
         elif ('@' not in d):
-            if ('Ohm' in d):
+            if ('/' in d):
+                n1 = float(Quantity(d.split('/')[0]))
+                n2 = np.nan
+                return (n1, n2)
+            elif ('Ohm' in d):
                 n1 = float(Quantity(d))
-                n2 = 0
+                n2 = np.nan
                 return(n1, n2)
             elif ('V' in d):
                 n1 = float(Quantity(d))
-                n2 = 0
+                n2 = np.nan
                 return(n1, n2)
             else:
                 print(
