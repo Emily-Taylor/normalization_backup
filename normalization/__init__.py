@@ -1032,10 +1032,18 @@ def split_current(d: str):
     if isinstance(d, str):
 
         if (', ' in d):
-
-            p, s = d.split(', ')
+            
+            res = d.split(', ')
+            p = res[0]
+            s = res[1]
             p = re.sub('Parallel ', '', p)
             s = re.sub('Series ', '', s)
+            p = re.sub('±', '', p)
+            s = re.sub('±', '', s)
+            if ('/' in p):
+                p = p.split('/')[0]
+            if ('/' in s):
+                s = s.split('/')[0]
             p_float = float(Quantity(p, ''))
             s_float = float(Quantity(s, ''))
             return (p_float, s_float)
