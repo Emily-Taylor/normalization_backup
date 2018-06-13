@@ -146,6 +146,10 @@ def extract_num(d: str) -> float:
                d = d.split(' and ')[0]
                d_float = float(Quantity(d, ''))
                return d_float
+            elif 'Parallel @ ' in d:
+               d = re.sub('Parallel @ ', '', d)
+               d_float = float(Quantity(d))
+               return d_float
             else:
                 d = multiple_replace(d, adict)
                 d = d.split('/', 1)[0]
@@ -156,7 +160,7 @@ def extract_num(d: str) -> float:
                 elif d == 'Continuous':
                     d_float = 360.0
                     return d_float
-                elif d in ['Adjustable', 'Programmable', 'Jumper', 'Ohms', 'Multiturn', 'Series', 'GMV']:
+                elif d in ['Adjustable', 'Programmable', 'Jumper', 'Ohms', 'Multiturn', 'Series', 'GMV', 'Varies']:
                     return 0.0
             #elif '/' in d:
                 # d = re.sub('/.*', '', d)
