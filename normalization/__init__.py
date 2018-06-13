@@ -409,14 +409,42 @@ def parse_dimensions(d: str):
             d = re.sub('RM ', '', d)
         if 'E ' in d:
             d = re.sub('E ', '', d)
+        if 'EP ' in d:
+            d = re.sub('EP ', '', d)
+        if 'Ep ' in d:
+            d = re.sub('Ep ', '', d)
+        if 'ER ' in d:
+            d = re.sub('ER ', '', d)
+        if 'EV ' in d:
+            d = re.sub('EV ', '', d)
+        if 'P ' in d:
+            d = re.sub('P ', '', d)
+        if 'PQ ' in d:
+            d = re.sub('PQ ', '', d)
+        if 'RMR ' in d:
+            d = re.sub('RMR ', '', d)
+        if 'EPO ' in d:
+            d = re.sub('EPO ', '', d)
+        if 'EPX ' in d:
+            d = re.sub('EPX ', '', d)
         if 'ETD ' in d:
             d = re.sub('ETD ', '', d)
+        if 'EFD ' in d:
+            d = re.sub('EFD ', '', d)
+        if 'X' in d:
+            d = re.sub('X', 'x', d)
+        if (d.endswith(' x') == True):
+            k = d.rfind(" x")
+            d = d[:k] + "" + d[k+2:]
+        if d.endswith('-1'):
+            d = re.sub('-1', '', d)
         if ' (EF ' in d:
             d = re.sub('\ \(EF\ \d\d?\.?\d?\)','',d)
         
         if 'mm' not in d:
             if 'x' in d:
-                d_list = d.split(' x ')
+                d_list = d.split('x')
+                d_list = [w.replace(' ', '') for w in d_list]
                 if len(d_list) == 2:
                     return (float(d_list[0]),float(d_list[1]), np.nan)
                 elif len(d_list) == 3:
