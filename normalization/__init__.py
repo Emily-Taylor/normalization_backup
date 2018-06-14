@@ -662,7 +662,7 @@ def parse_dimension(d: str):
         return d
     elif d == 0.0:
         return 0.0
-    elif d == 'No Shaft' or d == 'Flash' or d == 'Custom' or d == 'mm x111':
+    elif d == 'No Shaft' or d == 'Flash' or d == 'Custom' or d == 'mm x111' or d == 'CG' or d == 'DG':
         return 0.0
     elif d == '0.0':
         return 0.0
@@ -704,6 +704,11 @@ def parse_dimension(d: str):
         return d_float
     elif 'µm)' in d:
         d = re.findall('\d+.\d+µm', d)[0]
+        d_float = parse_any_number(d)[0]
+        d_float = d_float * 0.001
+        return d_float
+    elif 'um' in d:
+        d = re.findall('\d+ um', d)[0]
         d_float = parse_any_number(d)[0]
         d_float = d_float * 0.001
         return d_float
