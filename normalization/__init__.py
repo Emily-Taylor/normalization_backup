@@ -816,6 +816,10 @@ def split_at(d):
                 n1 = float(Quantity(d))
                 n2 = np.nan
                 return(n1, n2)
+            elif (('mm' in d) or ('A' in d) or ('ohm' in d) or ('OHm' in d)):
+                n1 = float(Quantity(d))
+                n2 = np.nan
+                return (n1, n2)
             else:
                 print(
                     "recheck splitting symbol and update function accordingly. Pattern: ", d)
