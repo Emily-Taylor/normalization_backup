@@ -871,6 +871,11 @@ def split_to(d: str):
         
         if (' and ' in d):
             d = d.split(' and ')[0]
+            
+        if d == 'Custom' or d == 'Programmable':
+            n1_float = np.nan
+            n2_float = np.nan
+            return (n1_float, n2_float)
 
         if ('to' in d):
             n1, n2 = d.split('to')
@@ -929,7 +934,7 @@ def split_to(d: str):
 
     else:
         print("during type conversion got a non-string")
-        return(0.0, 0.0)
+        return(d, d)
 
 
 def split_q(d: str)-> typing.Tuple[float, float]:
