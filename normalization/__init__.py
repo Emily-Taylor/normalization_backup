@@ -669,6 +669,9 @@ def parse_dimension(d: str):
     elif d == '1 1/2' or d == '1 1/2"' or d == '1 1/2\"' or d == '1 1/2 in':
         d_float = 38.1
         return d_float
+    elif d == '6 uF':
+        d_float = 6.0
+        return d_float
     elif d == '1/4"':
         d_float = 6.35
         return d_float
