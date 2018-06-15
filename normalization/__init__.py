@@ -222,29 +222,46 @@ def extract_torque(d: str):
 
 
 def split_spread(d: str):
-    """
-    splits `spread_spectrum_bandwidth` specifically
-    """
+   """
+   splits `spread_spectrum_bandwidth` specifically
+   """
 
-    if isinstance(d, str):
+   if isinstance(d, str):
 
-        center, down = d.split(', ')
+       center, down = d.split(', ')
 
-        # normalize center range
-        center = re.sub(' Center Spread|±|%', '', center)
-        center_min, center_max = center.split(' ~ ')
-        center_min_float = abs(float(center_min))
-        center_max_float = abs(float(center_max))
+       if ' ~ ' in center:
+           # normalize center range
+           center = re.sub(' Center Spread|±|%', '', center)
+           center_min, center_max = center.split(' ~ ')
+           center_min_float = abs(float(center_min))
+           center_max_float = abs(float(center_max))
+       else:
+           center = re.sub('%', '', center)
+           center = re.sub('±', '', center)
+           center = re.sub('-', '', center)
+           if down == 'Center Spread':
+               center_min_float = abs(float(center))
+               center_max_float = abs(float(center))
+               down_min_float = np.nan
+               down_max_float = np.nan
+           if down == 'Down Spread':
+               center_min_float = np.nan
+               center_max_float = np.nan
+               down_min_float = abs(float(center))
+               down_max_float = abs(float(center))
 
-        # normalize down range
-        down = re.sub(' Down Spread|±|%', '', down)
-        down_min, down_max = down.split(' ~ ')
-        down_min_float = abs(float(down_min))
-        down_max_float = abs(float(down_max))
-        return(center_min_float, center_max_float, down_min_float, down_max_float)
-    else:
-        print('during type conversion got a non-string.')
-        return(0.0, 0.0, 0.0, 0.0)
+       if ' ~ ' in down:
+           down = re.sub(' Down Spread|±|%', '', down)
+           down_min, down_max = down.split(' ~ ')
+           down_min_float = abs(float(down_min))
+           down_max_float = abs(float(down_max))
+
+
+       return (center_min_float, center_max_float, down_min_float, down_max_float)
+   else:
+       print('during type conversion got a non-string.')
+       return (0.0, 0.0, 0.0, 0.0)
 
 
 def parse_any_number(d: str):
