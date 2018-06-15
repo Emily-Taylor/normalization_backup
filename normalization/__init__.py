@@ -139,8 +139,8 @@ def extract_num(d: str) -> float:
                 d = d.split('dBi', 1)[0]
                 d_float = float(Quantity(d))
                 return d_float
-            elif 'N/A' in d:
-               d_float = 0.0
+            elif 'N/A' in d or d == 'CMOS' or d == 'HCMOS' or d == 'HCMOS, TTL':
+               d_float = np.nan
                return d_float
             elif ' and ' in d:
                d = d.split(' and ')[0]
@@ -190,7 +190,7 @@ def extract_num(d: str) -> float:
                     d_float = float(Quantity(d, ''))
                     return d_float
         else:
-            print("during coversion got an empty string")
+            print("during conversion got an empty string")
             return 0.0
     else:
         print("during type conversion got a non-string")
