@@ -139,8 +139,8 @@ def extract_num(d: str) -> float:
                 d = d.split('dBi', 1)[0]
                 d_float = float(Quantity(d))
                 return d_float
-            elif 'N/A' in d:
-               d_float = 0.0
+            elif 'N/A' in d or d == 'CMOS' or d == 'HCMOS' or d == 'HCMOS, TTL':
+               d_float = np.nan
                return d_float
             elif ' and ' in d:
                d = d.split(' and ')[0]
@@ -190,7 +190,7 @@ def extract_num(d: str) -> float:
                     d_float = float(Quantity(d, ''))
                     return d_float
         else:
-            print("during coversion got an empty string")
+            print("during conversion got an empty string")
             return 0.0
     else:
         print("during type conversion got a non-string")
@@ -222,29 +222,46 @@ def extract_torque(d: str):
 
 
 def split_spread(d: str):
-    """
-    splits `spread_spectrum_bandwidth` specifically
-    """
+   """
+   splits `spread_spectrum_bandwidth` specifically
+   """
 
-    if isinstance(d, str):
+   if isinstance(d, str):
 
-        center, down = d.split(', ')
+       center, down = d.split(', ')
 
-        # normalize center range
-        center = re.sub(' Center Spread|±|%', '', center)
-        center_min, center_max = center.split(' ~ ')
-        center_min_float = abs(float(center_min))
-        center_max_float = abs(float(center_max))
+       if ' ~ ' in center:
+           # normalize center range
+           center = re.sub(' Center Spread|±|%', '', center)
+           center_min, center_max = center.split(' ~ ')
+           center_min_float = abs(float(center_min))
+           center_max_float = abs(float(center_max))
+       else:
+           center = re.sub('%', '', center)
+           center = re.sub('±', '', center)
+           center = re.sub('-', '', center)
+           if down == 'Center Spread':
+               center_min_float = abs(float(center))
+               center_max_float = abs(float(center))
+               down_min_float = np.nan
+               down_max_float = np.nan
+           if down == 'Down Spread':
+               center_min_float = np.nan
+               center_max_float = np.nan
+               down_min_float = abs(float(center))
+               down_max_float = abs(float(center))
 
-        # normalize down range
-        down = re.sub(' Down Spread|±|%', '', down)
-        down_min, down_max = down.split(' ~ ')
-        down_min_float = abs(float(down_min))
-        down_max_float = abs(float(down_max))
-        return(center_min_float, center_max_float, down_min_float, down_max_float)
-    else:
-        print('during type conversion got a non-string.')
-        return(0.0, 0.0, 0.0, 0.0)
+       if ' ~ ' in down:
+           down = re.sub(' Down Spread|±|%', '', down)
+           down_min, down_max = down.split(' ~ ')
+           down_min_float = abs(float(down_min))
+           down_max_float = abs(float(down_max))
+
+
+       return (center_min_float, center_max_float, down_min_float, down_max_float)
+   else:
+       print('during type conversion got a non-string.')
+       return (0.0, 0.0, 0.0, 0.0)
 
 
 def parse_any_number(d: str):
@@ -669,6 +686,9 @@ def parse_dimension(d: str):
     elif d == '1 1/2' or d == '1 1/2"' or d == '1 1/2\"' or d == '1 1/2 in':
         d_float = 38.1
         return d_float
+    elif d == '6 uF':
+        d_float = 6.0
+        return d_float
     elif d == '1/4"':
         d_float = 6.35
         return d_float
@@ -868,6 +888,11 @@ def split_to(d: str):
         
         if (' and ' in d):
             d = d.split(' and ')[0]
+            
+        if d == 'Custom' or d == 'Programmable':
+            n1_float = np.nan
+            n2_float = np.nan
+            return (n1_float, n2_float)
 
         if ('to' in d):
             n1, n2 = d.split('to')
@@ -926,7 +951,7 @@ def split_to(d: str):
 
     else:
         print("during type conversion got a non-string")
-        return(0.0, 0.0)
+        return(d, d)
 
 
 def split_q(d: str)-> typing.Tuple[float, float]:
