@@ -46,13 +46,13 @@ jobs:
             pipenv run mypy normalization/__init__.py  --ignore-missing-imports  --follow-imports=skip
             
       - run:
-        name: deploy
-        command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                sls deploy --stage production --region eu-central-1
-            elif [ "${CIRCLE_BRANCH}" == "dev" ]; then
-              sls deploy --stage dev --region eu-central-1
-            fi
+          name: deploy
+          command: |
+              if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                  sls deploy --stage production --region eu-central-1
+              elif [ "${CIRCLE_BRANCH}" == "dev" ]; then
+                sls deploy --stage dev --region eu-central-1
+              fi
 workflows:
   version: 2
   build-deploy:
