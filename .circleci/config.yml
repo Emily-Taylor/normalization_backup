@@ -1,7 +1,7 @@
 version: 2
 
 jobs:
-  build-job:
+  build-deploy-job:
     working_directory: ~/tmp/workspace
     docker:
       - image: srcbot/docker-python-nodejs
@@ -44,139 +44,17 @@ jobs:
           name: run more tests
           command: |
             pipenv run mypy normalization/__init__.py  --ignore-missing-imports  --follow-imports=skip
-
-      - persist_to_workspace:
-          root: ./
-          paths:
-            - ./*
-
-  pkg-dev-job:
-
-    working_directory: ~/tmp/workspace
-    docker:
-      - image:  srcbot/docker-python-nodejs
-        environment:
-          LC_ALL: "C.UTF-8"
-          LANG: "C.UTF-8"
-    steps:
-      - attach_workspace:
-          # Must be absolute path or relative path from working_directory
-          at: ./
-
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "Pipfile.lock" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+            
       - run:
-          name: get common deps.
-          command: ./build.sh $CIRCLE_BRANCH
-      - run:
-          name: install dependencies
-          command: |
-            pipenv install --system
-            npm install
-
-      - save_cache:
-          paths:
-            - /home/circleci/.cache
-          key: v1-dependencies-{{ checksum "Pipfile.lock" }}
-
-      - run:
-          command: sls package -v --region eu-central-1 --stage dev
-
-      - persist_to_workspace:
-          root: ./
-          paths:
-            - ./*
-
-  pkg-prod-job:
-
-    working_directory: ~/tmp/workspace
-    docker:
-      - image: srcbot/docker-python-nodejs
-        environment:
-          LC_ALL: "C.UTF-8"
-          LANG: "C.UTF-8"
-    steps:
-      - attach_workspace:
-          # Must be absolute path or relative path from working_directory
-          at: ./
-      - run:
-          name: get common deps.
-          command: |
-            ./build.sh $CIRCLE_BRANCH
-      - run:
-          name: install dependencies
-          command: |
-            pipenv install --system
-            npm install
-      - run:
-          command: sls package -v --region eu-central-1 --stage production
-
-      - persist_to_workspace:
-          root: ./
-          paths:
-            - ./*
-
-  deploy-dev-job:
-
-    working_directory: ~/tmp/workspace
-    docker:
-      - image: srcbot/docker-python-nodejs
-        environment:
-          LC_ALL: "C.UTF-8"
-          LANG: "C.UTF-8"
-    steps:
-      - attach_workspace:
-          # Must be absolute path or relative path from working_directory
-          at: ./
-
-      - run:
-          command: sls deploy --package ./serverless --stage dev --region eu-central-1
-
-  deploy-prod-job:
-
-    working_directory: ~/tmp/workspace
-    docker:
-      - image:  srcbot/docker-python-nodejs
-        environment:
-          LC_ALL: "C.UTF-8"
-          LANG: "C.UTF-8"
-    steps:
-      - attach_workspace:
-          # Must be absolute path or relative path from working_directory
-          at: ./
-
-      - run:
-          command: sls deploy --package ./serverless --stage production --region eu-central-1
-
+        name: deploy
+        command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                sls deploy --stage production --region eu-central-1
+            elif [ "${CIRCLE_BRANCH}" == "dev" ]; then
+              sls deploy --stage dev --region eu-central-1
+            fi
 workflows:
   version: 2
   build-deploy:
     jobs:
-      - build-job
-      - pkg-dev-job:
-          requires:
-            - build-job
-          filters:
-            branches:
-              only: dev
-      - deploy-dev-job:
-          requires:
-            - pkg-dev-job
-          filters:
-            branches:
-              only: dev
-      - pkg-prod-job:
-          requires:
-            - build-job
-          filters:
-            branches:
-              only: master
-      - deploy-prod-job:
-          requires:
-            - pkg-prod-job
-          filters:
-            branches:
-              only: master
+      - build-deploy-job
