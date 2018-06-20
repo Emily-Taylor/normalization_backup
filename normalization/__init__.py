@@ -324,14 +324,52 @@ def voltage(d: str):
         return 0.0
 
 
-def tolerance(d: str):
+def split_tolerance(d: str):
     """ turns tolerance into number """
     if isinstance(d, str):
-        d = d.replace('±', '')
-        d = d.replace('%', '')
-        return int(d)
+        d = d.replace(' ', '')
+        if 'nS' in d or 'Ohms' in d:
+            return (np.nan, np.nan)
+        if ',' in d:
+            a, b = d.split(',')
+            if '%' in a and '%' in b:
+                a = a.replace('%', '')
+                b = b = b.replace('%', '')
+                if float(Quantity(a)) > float(Quantity(b)):
+                    d_float = float(Quantity(a))
+                else:
+                    d_float = float(Quantity(b))
+                return (d_float, np.nan)
+            if 'H' in d:
+                if float(Quantity(a)) > float(Quantity(b)):
+                    d_float = float(Quantity(a))
+                else:
+                    d_float = float(Quantity(b))
+                return (np.nan, d_float)
+        elif '/' in d:
+            a, b = d.split('/')
+            if '%' in a and '%' in b:
+                a = a.replace('%', '')
+                b = b.replace('%', '')
+                if float(Quantity(a)) > float(Quantity(b)):
+                    d_float = float(Quantity(a))
+                else:
+                    d_float = float(Quantity(b))
+                return (d_float, np.nan)
+        else:
+            d = d.replace('±', '')
+            d = d.replace('+', '')
+            d = d.replace('-', '')
+            if '%' in d:
+                d = d.replace('%', '')
+                d_float = float(d)
+                return (d_float, np.nan)
+            elif 'H' in d:
+                d_float = float(Quantity(d))
+                return (np.nan, d_float)
     else:
         print("during tolerance type conversion got a non-string")
+        return (d, np.nan)
 
 
 def current(d: str):
