@@ -139,7 +139,7 @@ def extract_num(d: str) -> float:
                 d = d.split('dBi', 1)[0]
                 d_float = float(Quantity(d))
                 return d_float
-            elif 'N/A' in d or d == 'CMOS' or d == 'HCMOS' or d == 'HCMOS, TTL':
+            elif 'N/A' in d or d == 'CMOS' or d == 'HCMOS' or d == 'HCMOS, TTL' or d == 'Variable':
                d_float = np.nan
                return d_float
             elif ' and ' in d:
@@ -926,7 +926,7 @@ def split_to(d: str):
         if (' and ' in d):
             d = d.split(' and ')[0]
             
-        if d == 'Custom' or d == 'Programmable':
+        if d == 'Custom' or d == 'Programmable' or d == 'Variable':
             n1_float = np.nan
             n2_float = np.nan
             return (n1_float, n2_float)
@@ -934,6 +934,7 @@ def split_to(d: str):
         if ('to' in d):
             n1, n2 = d.split('to')
             n1 = n1.strip(" ")
+            n1 = re.sub("kHz Hz", "kHz", n1)
             n2 = n2.strip(" ")
             n1 = re.sub('\- ', '-', n1)
             n1 = re.sub('\+ ', '+', n1)
