@@ -323,7 +323,6 @@ def voltage(d: str):
         print("during voltage type conversion got a non-string")
         return 0.0
 
-
 def split_tolerance(d: str):
     """ turns tolerance into number """
     if isinstance(d, str):
@@ -879,8 +878,8 @@ def split_at(d):
                 n2 = np.nan
                 return (n1, n2)
             else:
-                print(
-                    "recheck splitting symbol and update function accordingly. Pattern: ", d)
+                #print(
+                    #"recheck splitting symbol and update function accordingly. Pattern: ", d)
                 return(0.0, 0.0)
 
     else:
