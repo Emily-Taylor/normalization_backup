@@ -23,8 +23,6 @@ import os
 import typing
 from fractions import Fraction
 from hashlib import sha1
-import numpy as np
-
 # import numpy as np
 
 # define function to get constant
@@ -895,6 +893,103 @@ def split_to(d):
     in the format: 1000 pF to 330000 pF
     """
     if isinstance(d, str):
+        
+        if ('N' in d):
+            if ('N cm' in d):
+                d = re.sub('N ', '', d)
+                d_float = float(Quantity(d))
+                return (d_float, CONST_NA)
+            elif ('N m' in d):
+                d = re.sub('N ', '', d)
+                d_float = float(Quantity(d))*1000
+                return (d_float, CONST_NA)
+            elif ('+/-' in d):
+                if ('mN' in d):
+                    d = re.sub('\+/\-', '', d)
+                    a = d.split('mN')[0]
+                    b = d.split('mN')[1]
+                    a = re.sub(' ', '', a)
+                    b = re.sub(' ', '', b)
+                    a_float = float(a)
+                    b_float = float(b)
+                    d_float1 = (a_float - b_float)/1000
+                    d_float2 = (a_float + b_float)/1000
+                    return (d_float1, d_float2)
+                else:
+                    d = re.sub('\+/\-', '', d)
+                    a = d.split('N')[0]
+                    b = d.split('N')[1]
+                    a = re.sub(' ', '', a)
+                    b = re.sub(' ', '', b)
+                    a_float = float(a)
+                    b_float = float(b)
+                    d_float1 = (a_float - b_float)
+                    d_float2 = (a_float + b_float)
+                    return (d_float1, d_float2)
+            elif ('lb' in d):
+                a = d.split('N')[0]
+                a = re.sub(' ', '', a)
+                d_float = float(a)
+                return (d_float, CONST_NA)
+            elif ('g' in d):
+                a = d.split('N')[0]
+                a = re.sub(' ', '', a)
+                d_float = float(a)
+                return (d_float, CONST_NA)
+            elif ('cN' in d):
+                a = d.split('G')[1]
+                a = re.sub(' ', '', a)
+                a = re.sub('cN', '', a)
+                d_float = float(a)/100
+                return (d_float, CONST_NA)
+            elif ('to' in d and 'oz' in d):
+                d = d.split('(')[0]
+                a,b = d.split(' to ')
+                a = re.sub('N', '', a)
+                b = re.sub('N', '', b)
+                a = re.sub(' ', '', a)
+                b = re.sub(' ', '', b)
+                d_float1 = float(a)
+                d_float2 = float(b)
+                return (d_float1, d_float2)
+            else:
+                a = d.split('N')[0]
+                b = d.split('N')[1]
+                a = re.sub(' ', '', a)
+                b = re.sub(' ', '', b)
+                d_float1 = float(a) - float(b)
+                d_float2 = float(a) + float(b)
+                return (d_float1, d_float2)
+        elif ('oz' in d):
+            if ( ' + ' in d and ' - ' in d):
+                a = d.split('oz')[0]
+                b = d.split('oz')[1]
+                c = d.split('oz')[2]
+                a = re.sub(' ', '', a)
+                b = re.sub(' ', '', b)
+                c = re.sub(' ', '', c)
+                a_float = float(a)
+                b_float = float(b)
+                c_float = float(c)
+                d_float1 = (a_float + c_float)/3.6
+                d_float2 = (a_float + b_float)/3.6
+                return (d_float1, d_float2)
+            elif ('+/-' in d):
+                d = re.sub('\+/\-', '', d)
+                a = d.split('oz')[0]
+                b = d.split('oz')[1]
+                a = re.sub(' ', '', a)
+                b = re.sub(' ', '', b)
+                a_float = float(a)
+                b_float = float(b)
+                d_float1 = (a_float - b_float) / 3.6
+                d_float2 = (a_float + b_float) / 3.6
+                return (d_float1, d_float2)
+        elif (' in lb' in d):
+            d = re.sub(' in lb', '', d)
+            d_float = float(d) * 4.44
+            return (d_float, CONST_NA)
+            
         
         d = re.sub('µ', 'u', d)
         d = re.sub('Â', '', d)
