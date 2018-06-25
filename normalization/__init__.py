@@ -27,6 +27,21 @@ import numpy as np
 
 # import numpy as np
 
+# define function to get constant
+
+def constant(f):
+    def fset(self, value):
+        raise TypeError
+    def fget(self):
+        return f()
+    return property(fget, fset)
+
+class _Const(object):
+    @constant
+    def NA():
+        return "n/a"
+
+CONST = _Const()
 
 def multiple_replace(text: str, adict: dict):
     rx = re.compile('|'.join(map(re.escape, adict)))
@@ -140,7 +155,7 @@ def extract_num(d):
                 d_float = float(Quantity(d))
                 return d_float
             elif 'N/A' in d or d == 'CMOS' or d == 'HCMOS' or d == 'HCMOS, TTL' or d == 'Variable':
-               d_float = "n/a"
+               d_float = CONST.NA
                return d_float
             elif ' and ' in d:
                d = d.split(' and ')[0]
@@ -243,11 +258,11 @@ def split_spread(d):
            if down == 'Center Spread':
                center_min_float = abs(float(center))
                center_max_float = abs(float(center))
-               down_min_float = "n/a"
-               down_max_float = "n/a"
+               down_min_float = CONST.NA
+               down_max_float = CONST.NA
            if down == 'Down Spread':
-               center_min_float = "n/a"
-               center_max_float = "n/a"
+               center_min_float = CONST.NA
+               center_max_float = CONST.NA
                down_min_float = abs(float(center))
                down_max_float = abs(float(center))
 
@@ -328,7 +343,7 @@ def split_tolerance(d):
     if isinstance(d, str):
         d = d.replace(' ', '')
         if 'nS' in d or 'Ohms' in d:
-            return ("n/a", "n/a")
+            return (CONST.NA, CONST.NA)
         if ',' in d:
             a, b = d.split(',')
             if '%' in a and '%' in b:
@@ -338,13 +353,13 @@ def split_tolerance(d):
                     d_float = float(Quantity(a))
                 else:
                     d_float = float(Quantity(b))
-                return (d_float, "n/a")
+                return (d_float, CONST.NA)
             if 'H' in d:
                 if float(Quantity(a)) > float(Quantity(b)):
                     d_float = float(Quantity(a))
                 else:
                     d_float = float(Quantity(b))
-                return ("n/a", d_float)
+                return (CONST.NA, d_float)
         elif '/' in d:
             a, b = d.split('/')
             if '%' in a and '%' in b:
@@ -354,7 +369,7 @@ def split_tolerance(d):
                     d_float = float(Quantity(a))
                 else:
                     d_float = float(Quantity(b))
-                return (d_float, "n/a")
+                return (d_float, CONST.NA)
         else:
             d = d.replace('±', '')
             d = d.replace('+', '')
@@ -362,13 +377,13 @@ def split_tolerance(d):
             if '%' in d:
                 d = d.replace('%', '')
                 d_float = float(d)
-                return (d_float, "n/a")
+                return (d_float, CONST.NA)
             elif 'H' in d:
                 d_float = float(Quantity(d))
-                return ("n/a", d_float)
+                return (CONST.NA, d_float)
     else:
         print("during tolerance type conversion got a non-string")
-        return (d, "n/a")
+        return (d, CONST.NA)
 
 
 def current(d: str):
@@ -508,11 +523,11 @@ def parse_dimensions(d):
                 d_list = d.split('x')
                 d_list = [w.replace(' ', '') for w in d_list]
                 if len(d_list) == 2:
-                    return (float(d_list[0]),float(d_list[1]), "n/a")
+                    return (float(d_list[0]),float(d_list[1]), CONST.NA)
                 elif len(d_list) == 3:
                     return (float(d_list[0]),float(d_list[1]),float(d_list[2]))
             elif 'x' not in d:
-                return (float(d), "n/a", "n/a")
+                return (float(d), CONST.NA, CONST.NA)
         else:
             regexp = re.compile(r'([\d\.]+mm)')
             res = regexp.findall(d)
@@ -520,7 +535,7 @@ def parse_dimensions(d):
                 l, w = res[0], res[1]
                 l = float(Quantity(l, scale='mm'))
                 w = float(Quantity(w, scale='mm'))
-                return (l, w, "n/a")
+                return (l, w, CONST.NA)
             elif len(res) == 3:
                 l, w, h = res[0], res[1], res[2]
                 l = float(Quantity(l, scale='mm'))
@@ -529,9 +544,9 @@ def parse_dimensions(d):
                 return (l, w, h)
             elif len(res) == 1:
                 dim = float(Quantity(res[0], scale='mm'))
-                return (dim, "n/a", "n/a")
+                return (dim, CONST.NA, CONST.NA)
     else:
-        return (d, "n/a", "n/a")
+        return (d, CONST.NA, CONST.NA)
 
 
 def split_band(d: str):
@@ -687,7 +702,7 @@ def split_temp(d):
 
     else:
         print("during type conversion got a non-string")
-        return(d, "n/a")
+        return(d, CONST.NA)
 
 def parse_dimension(d):
     """
@@ -863,19 +878,19 @@ def split_at(d):
         elif ('@' not in d):
             if ('/' in d):
                 n1 = float(Quantity(d.split('/')[0]))
-                n2 = "n/a"
+                n2 = CONST.NA
                 return (n1, n2)
             elif ('Ohm' in d):
                 n1 = float(Quantity(d))
-                n2 = "n/a"
+                n2 = CONST.NA
                 return(n1, n2)
             elif ('V' in d):
                 n1 = float(Quantity(d))
-                n2 = "n/a"
+                n2 = CONST.NA
                 return(n1, n2)
             elif (('mm' in d) or ('A' in d) or ('ohm' in d) or ('OHm' in d)):
                 n1 = float(Quantity(d))
-                n2 = "n/a"
+                n2 = CONST.NA
                 return (n1, n2)
             else:
                 #print(
@@ -927,8 +942,8 @@ def split_to(d):
             d = d.split(' and ')[0]
             
         if d == 'Custom' or d == 'Programmable' or d == 'Variable':
-            n1_float = "n/a"
-            n2_float = "n/a"
+            n1_float = CONST.NA
+            n2_float = CONST.NA
             return (n1_float, n2_float)
 
         if ('to' in d):
@@ -974,13 +989,13 @@ def split_to(d):
 
         elif (' Max' in d):
             d = re.sub(' Max', '', d)
-            n1_float = "n/a"
+            n1_float = CONST.NA
             n2_float = float(Quantity(d, ''))
             return(n1_float, n2_float)
         elif (' Min' in d):
             d = re.sub(' Min', '', d)
             n1_float = float(Quantity(d, ''))
-            n2_float = "n/a"
+            n2_float = CONST.NA
             return (n1_float, n2_float)
         else:
             n1_float = float(Quantity(d, ''))
