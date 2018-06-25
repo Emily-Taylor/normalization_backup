@@ -121,7 +121,7 @@ def tempcoeff(d: str) -> float:
         print("during coeff type conversion got a non-string")
 
 
-def extract_num(d: str):
+def extract_num(d):
     """turns strings with ANY unit into numbers"""
     adict = {'µ': 'u', ' %': '', ' ': '', 'Max': '',
              '±': '', 'ppm/°C': '', ' (Cutoff)': '', 'ppm': '', ' (Typ)': '', 'AC/DC': '', '<': '', '+/- ': ''}
@@ -197,7 +197,7 @@ def extract_num(d: str):
         return d
 
 
-def extract_torque(d: str):
+def extract_torque(d):
     """
     Extracts torque in Nm (SI unit)
     """
@@ -221,7 +221,7 @@ def extract_torque(d: str):
         return 0.0
 
 
-def split_spread(d: str):
+def split_spread(d):
    """
    splits `spread_spectrum_bandwidth` specifically
    """
@@ -323,7 +323,7 @@ def voltage(d: str):
         print("during voltage type conversion got a non-string")
         return 0.0
 
-def split_tolerance(d: str):
+def split_tolerance(d):
     """ turns tolerance into number """
     if isinstance(d, str):
         d = d.replace(' ', '')
@@ -453,7 +453,7 @@ def frequency(d: str):
         return 0.0
 
 
-def parse_dimensions(d: str):
+def parse_dimensions(d):
     """splits Lenght and Width from strings
     example: '0.276" L x 0.217" W (7.00mm x 5.50mm)'
     ignoring inches, focusing on millimeters
@@ -561,7 +561,7 @@ def split_band(d: str):
 
 
 
-def split_temp(d: str) -> typing.Tuple[float, float]:
+def split_temp(d):
     """ splits temperature (or similar) columns into min and max"""
     if isinstance(d, str):
         
@@ -689,7 +689,7 @@ def split_temp(d: str) -> typing.Tuple[float, float]:
         print("during type conversion got a non-string")
         return(d, "n/a")
 
-def parse_dimension(d: str):
+def parse_dimension(d):
     """
     parse dimensions from strings.
     works with using the following formats:
@@ -887,7 +887,7 @@ def split_at(d):
         return(0.0, 0.0)
 
 
-def split_to(d: str):
+def split_to(d):
     """split headers with extension 'to'
     in the format: 1000 pF to 330000 pF
     """
