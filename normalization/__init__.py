@@ -985,6 +985,17 @@ def split_to(d):
                 d_float1 = (a_float - b_float) / 3.6
                 d_float2 = (a_float + b_float) / 3.6
                 return (d_float1, d_float2)
+            elif ('+' in d):
+                d = re.sub('\+', '', d)
+                a = d.split('oz')[0]
+                b = d.split('oz')[1]
+                a = re.sub(' ', '', a)
+                b = re.sub(' ', '', b)
+                a_float = float(a)
+                b_float = float(b)
+                d_float1 = (a_float - b_float) / 3.6
+                d_float2 = (a_float + b_float) / 3.6
+                return (d_float1, d_float2)
         elif (' in lb' in d):
             d = re.sub(' in lb', '', d)
             d_float = float(d) * 4.44
