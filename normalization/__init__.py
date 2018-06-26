@@ -717,6 +717,8 @@ def parse_dimension(d):
         return d
     elif d == 0.0:
         return 0.0
+    elif d == 'n/a':
+        return d
     elif d == 'No Shaft' or d == 'Flash' or d == 'Custom' or d == 'mm x111' or d == 'CG' or d == 'DG':
         return 0.0
     elif d == '0.0':
@@ -831,7 +833,7 @@ def parse_dimension(d):
     else:
         # inspect.currentframe().f_code.co_name
         func_name = inspect.stack()[0][3]
-        print('function "{0}" could not find any of the patters it knows to handle. found type{1} containing: {2}.'.format(
+        print('function "{0}" could not find any of the patterns it knows to handle. found type{1} containing: {2}.'.format(
             func_name, type(d), repr(d)))
         d = parse_any_number(d)[0]
         return d
