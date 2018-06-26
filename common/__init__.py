@@ -17,7 +17,7 @@ stage =os.environ.get('stage', "dev")
 REGION_NAME = os.getenv('REGION_NAME','eu-central-1')
 OUTGOING_KINESIS_TOPIC = os.getenv('OUTGOING_KINESIS_TOPIC','arn:aws:kinesis:eu-central-1:202439666482:stream/norm-new-item-dev')
 INCOMING_SNS_TOPIC = os.getenv('INCOMING_SNS_TOPIC','arn:aws:sns:eu-central-1:202439666482:crawler-new-item')
-MISSING_QUEUE_NAME = os.getenv('MISSING_QUEUE_NAME','missing-mapping')
+# MISSING_QUEUE_NAME = os.getenv('MISSING_QUEUE_NAME','missing-mapping')
 
 
 
@@ -58,17 +58,17 @@ def publish_kinesis_single(record: dict):
 
 
 # Get the service resource
-sqs = boto3.resource('sqs', region_name=REGION_NAME)
+# sqs = boto3.resource('sqs', region_name=REGION_NAME)
 
 # Get the queue
-queue = sqs.get_queue_by_name(QueueName=MISSING_QUEUE_NAME)
+# queue = sqs.get_queue_by_name(QueueName=MISSING_QUEUE_NAME)
 
-def send_msg(msg):
-  response = queue.send_message(
-  MessageBody=msg
-  )
-  # message ID and MD5
-  return(response.get('MessageId'),response.get('MD5OfMessageBody'))
+# def send_msg(msg):
+#   response = queue.send_message(
+#   MessageBody=msg
+#   )
+#   # message ID and MD5
+#  return(response.get('MessageId'),response.get('MD5OfMessageBody'))
 
 
 # stuff related to sending signed requests to  mfr service
