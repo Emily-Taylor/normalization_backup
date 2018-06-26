@@ -97,8 +97,8 @@ def adjust_structure(part: dict, source: str, ts: int):
             # call missing-mapping queue with the source, categories and
             # missing mapping key.
             # print("missing mapping")
-            c.send_msg(dumps(
-                {"source": source, "categories": part['categories'], "key": key}))
+            #c.send_msg(dumps(
+            #    {"source": source, "categories": part['categories'], "key": key}))
             # we are going to continue in order to prevent writing json that's
             # not fully mapped
             continue
