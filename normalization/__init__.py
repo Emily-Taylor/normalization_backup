@@ -346,6 +346,8 @@ def split_tolerance(d):
                 else:
                     d_float = float(Quantity(b))
                 return (CONST_NA, d_float)
+        elif d == 'GMV':
+            return (CONST_NA, CONST_NA)
         elif '/' in d:
             a, b = d.split('/')
             if '%' in a and '%' in b:
@@ -515,7 +517,7 @@ def parse_dimensions(d):
             elif 'x' not in d:
                 return (float(d), CONST_NA, CONST_NA)
         else:
-            regexp = re.compile(r'([\d\.]+mm)')
+            regexp = re.compile(r'([\d\.*]+[\ ]?mm)')
             res = regexp.findall(d)
             if len(res) == 2:
                 l, w = res[0], res[1]
