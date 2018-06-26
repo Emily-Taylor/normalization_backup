@@ -330,22 +330,54 @@ def split_tolerance(d):
         d = d.replace(' ', '')
         if 'nS' in d or 'Ohms' in d:
             return (CONST_NA, CONST_NA)
-        if ',' in d:
-            a, b = d.split(',')
+        elif ',' in d:
+            if len(d.split(',')) == 3:
+                a,b,c = d.split(',')
+                a = a.replace('%', '')
+                b = b.replace('%', '')
+                c = c.replace('%', '')
+                a = a.replace('±', '')
+                b = b.replace('±', '')
+                c = c.replace('±', '')
+                if float(Quantity(a)) > float(Quantity(b)) and float(Quantity(a)) > float(Quantity(c)):
+                    d_float = float(Quantity(a))
+                    return (d_float, CONST_NA)
+                elif float(Quantity(b)) > float(Quantity(a)) and float(Quantity(b)) > float(Quantity(c)):
+                    d_float = float(Quantity(b))
+                    return (d_float, CONST_NA)
+                elif float(Quantity(c)) > float(Quantity(b)) and float(Quantity(c)) > float(Quantity(a)):
+                    d_float = float(Quantity(c))
+                    return (d_float, CONST_NA)
+            elif len(d.split(',')) == 2:
+                a,b = d.split(',')
+                if '%' in a and '%' in b:
+                    a = a.replace('%', '')
+                    b = b.replace('%', '')
+                    a = a.replace('±', '')
+                    b = b.replace('±', '')
+                    if float(Quantity(a)) > float(Quantity(b)):
+                        d_float = float(Quantity(a))
+                    else:
+                        d_float = float(Quantity(b))
+                    return (d_float, CONST_NA)
+                elif 'H' in d:
+                    if float(Quantity(a)) > float(Quantity(b)):
+                        d_float = float(Quantity(a))
+                    else:
+                        d_float = float(Quantity(b))
+                    return (CONST_NA, d_float)
+        elif d == 'GMV':
+            return (CONST_NA, CONST_NA)
+        elif 'to' in d:
+            a, b = d.split('to')
             if '%' in a and '%' in b:
                 a = a.replace('%', '')
-                b = b = b.replace('%', '')
+                b = b.replace('%', '')
                 if float(Quantity(a)) > float(Quantity(b)):
                     d_float = float(Quantity(a))
                 else:
                     d_float = float(Quantity(b))
                 return (d_float, CONST_NA)
-            if 'H' in d:
-                if float(Quantity(a)) > float(Quantity(b)):
-                    d_float = float(Quantity(a))
-                else:
-                    d_float = float(Quantity(b))
-                return (CONST_NA, d_float)
         elif '/' in d:
             a, b = d.split('/')
             if '%' in a and '%' in b:
@@ -515,7 +547,7 @@ def parse_dimensions(d):
             elif 'x' not in d:
                 return (float(d), CONST_NA, CONST_NA)
         else:
-            regexp = re.compile(r'([\d\.]+mm)')
+            regexp = re.compile(r'([\d\.*]+[\ ]?mm)')
             res = regexp.findall(d)
             if len(res) == 2:
                 l, w = res[0], res[1]
@@ -717,6 +749,8 @@ def parse_dimension(d):
         return d
     elif d == 0.0:
         return 0.0
+    elif d == 'n/a':
+        return d
     elif d == 'No Shaft' or d == 'Flash' or d == 'Custom' or d == 'mm x111' or d == 'CG' or d == 'DG':
         return 0.0
     elif d == '0.0':
@@ -831,7 +865,7 @@ def parse_dimension(d):
     else:
         # inspect.currentframe().f_code.co_name
         func_name = inspect.stack()[0][3]
-        print('function "{0}" could not find any of the patters it knows to handle. found type{1} containing: {2}.'.format(
+        print('function "{0}" could not find any of the patterns it knows to handle. found type{1} containing: {2}.'.format(
             func_name, type(d), repr(d)))
         d = parse_any_number(d)[0]
         return d
