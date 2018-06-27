@@ -606,8 +606,8 @@ def split_temp(d):
         if ((' (' in d) and (')' in d)):
             d = re.sub(' \(.*', '', d)
         
-        if d == 'Self Powered' or d == 'DC':
-            return (0.0, 0.0)
+        if d == 'Self Powered' or d == 'DC' or d == "Multi-Voltage":
+            return (CONST_NA, CONST_NA)
         
         if '±' in d:
             d = re.sub('±', '', d)
@@ -673,6 +673,13 @@ def split_temp(d):
                 h_min_float = extract_num(h_min)
                 h_max_float = extract_num(h_max)
                 return (h_min_float, h_max_float)
+            
+            elif '/' in d and 'VAC' in d:
+                d = re.sub('VAC', '', d)
+                a,b = d.split('/')
+                d_float1 = float(a)
+                d_float2 = float(b)
+                return (d_float1, d_float2)
                 
             else:
                 t_min_float6 = float(Quantity(d, ''))
@@ -1158,6 +1165,13 @@ def split_to(d):
             d = re.sub(' Min', '', d)
             n1_float = float(Quantity(d, ''))
             n2_float = CONST_NA
+            return (n1_float, n2_float)
+        elif (' mV0o' in d):
+            d = re.sub(' mV0o', 'mV', d)
+            d = re.sub(' V0', 'V', d)
+            a,b = d.split(' ')
+            n1_float = float(Quantity(a, ''))
+            n2_float = float(Quantity(b, ''))
             return (n1_float, n2_float)
         else:
             n1_float = float(Quantity(d, ''))
