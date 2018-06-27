@@ -23,7 +23,6 @@ import os
 import typing
 from fractions import Fraction
 from hashlib import sha1
-# import numpy as np
 
 # define function to get constant
 
