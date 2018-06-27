@@ -772,9 +772,36 @@ def parse_dimension(d):
        in_str = float(list[2])
        d_float = ft_str*304.8 + in_str*25.4
        return d_float
+    elif ' in Flatted' in d:
+        if 'to' in d:
+            a,b = d.split(' in Flatted to ')
+            if convert_to_float(Quantity(a)) < convert_to_float(Quantity(b)):
+                d_float = convert_to_float(a) * 25.4
+            else:
+                d_float = convert_to_float(b) * 25.4
+        else:
+            d = re.sub(' in Flatted', '', d)
+            d_float = convert_to_float(d) * 25.4
+        return d_float
+    elif ' - ' in d:
+        a = d.split(' - ')[0]
+        a = re.sub(' in', '', a)
+        d_float = convert_to_float(a) * 25.4
+        return d_float
+    elif ' in D-Shaft' in d:
+        d = re.sub(' in D-Shaft', '', d)
+        d_float = convert_to_float(d) * 25.4
+        return d_float
     elif (len(re.findall(' in$', d)) != 0):
         d = re.sub(' in', '', d)
-        d_float = convert_to_float(d) * 25.4
+        if ', ' in d:
+            a,b = d.split(', ')
+            if convert_to_float(Quantity(a)) < convert_to_float(Quantity(b)):
+                d_float = convert_to_float(a) * 25.4
+            else:
+                d_float = convert_to_float(b) * 25.4
+        else:
+            d_float = convert_to_float(d) * 25.4
         return d_float
     elif (len(re.findall('(\d+.\d)+m\)$', d)) != 0):
         d_float = float(re.findall('(\d+.\d)+m\)$', d)[0]) * 1000
@@ -890,6 +917,14 @@ def split_at(d):
             elif (' Hrs' in n1):
                 n1 = float(Quantity(n1)) * 3600
                 n2 = float(Quantity(n2))
+            elif 'VAC' in n2:
+                n1 = float(Quantity(n1))
+                n2 = re.sub('VAC', '', n2)
+                a,b = n2.split('/')
+                if float(a) > float(b):
+                    n2 = float(a)
+                else:
+                    n2 = float(b)
             else:
                 n1 = float(Quantity(n1))
                 n2 = float(Quantity(n2))
@@ -1398,6 +1433,9 @@ def split_timing(d: str):
 
         if '~' in d:
             d = re.sub('~', 'to', d)
+        
+        if 'FPM' in d or 'Cyc' in d:
+            return (CONST_NA, CONST_NA)
 
         if 'to' in d:
             # split min and max from range
@@ -1418,12 +1456,16 @@ def split_timing(d: str):
 
             if 'd' in t2:
                 t2_float = parse_any_number(t2)[0] * 86400
-            elif (('h' in t2) or ('hr' in t2) or ('Hrs' in t2)):
+            elif (('h' in t2) or ('hr' in t2) or ('Hrs' in t2) or ('Hr' in t2)):
                 t2_float = parse_any_number(t2)[0] * 3600
             elif (('m' in t2) or ('min' in t2) or ('Min' in t2)):
                 t2_float = parse_any_number(t2)[0] * 60
-            elif (('s' in t2) or ('Sec' in t2)):
+            elif (('s' in t2) or ('Sec' in t2) or ('S' in t2)):
                 t2_float = parse_any_number(t2)[0]
+            elif (('y' in t2) or ('Year' in t2)):
+                t2_float = parse_any_number(t2)[0] * 31536000
+            elif (('Week' in t2)):
+                t2_float = parse_any_number(t2)[0] * 604800
 
             return (t1_float, t2_float)
         else:
