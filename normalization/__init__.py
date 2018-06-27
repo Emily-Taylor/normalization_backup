@@ -23,7 +23,6 @@ import os
 import typing
 from fractions import Fraction
 from hashlib import sha1
-# import numpy as np
 
 # define function to get constant
 
@@ -330,6 +329,17 @@ def split_tolerance(d):
         d = d.replace(' ', '')
         if 'nS' in d or 'Ohms' in d:
             return (CONST_NA, CONST_NA)
+        elif 'PPM' in d:
+            d = re.sub('PPM', '', d)
+            if ',' in d:
+                a,b = d.split(',')
+                if float(a) > float(b):
+                    d_float = float(a)/1000000
+                else:
+                    d_float = float(b)/1000000
+            else:
+                d_float = float(d)/1000000
+            return(d_float,CONST_NA)
         elif ',' in d:
             if len(d.split(',')) == 3:
                 a,b,c = d.split(',')
@@ -396,7 +406,7 @@ def split_tolerance(d):
                 d = d.replace('%', '')
                 d_float = float(d)
                 return (d_float, CONST_NA)
-            elif 'H' in d:
+            elif 'H' in d or 'C' in d:
                 d_float = float(Quantity(d))
                 return (CONST_NA, d_float)
     else:
@@ -607,8 +617,8 @@ def split_temp(d):
         if ((' (' in d) and (')' in d)):
             d = re.sub(' \(.*', '', d)
         
-        if d == 'Self Powered' or d == 'DC':
-            return (0.0, 0.0)
+        if d == 'Self Powered' or d == 'DC' or d == "Multi-Voltage":
+            return (CONST_NA, CONST_NA)
         
         if '±' in d:
             d = re.sub('±', '', d)
@@ -674,6 +684,13 @@ def split_temp(d):
                 h_min_float = extract_num(h_min)
                 h_max_float = extract_num(h_max)
                 return (h_min_float, h_max_float)
+            
+            elif '/' in d and 'VAC' in d:
+                d = re.sub('VAC', '', d)
+                a,b = d.split('/')
+                d_float1 = float(a)
+                d_float2 = float(b)
+                return (d_float1, d_float2)
                 
             else:
                 t_min_float6 = float(Quantity(d, ''))
@@ -773,9 +790,36 @@ def parse_dimension(d):
        in_str = float(list[2])
        d_float = ft_str*304.8 + in_str*25.4
        return d_float
+    elif ' in Flatted' in d:
+        if 'to' in d:
+            a,b = d.split(' in Flatted to ')
+            if convert_to_float(Quantity(a)) < convert_to_float(Quantity(b)):
+                d_float = convert_to_float(a) * 25.4
+            else:
+                d_float = convert_to_float(b) * 25.4
+        else:
+            d = re.sub(' in Flatted', '', d)
+            d_float = convert_to_float(d) * 25.4
+        return d_float
+    elif ' - ' in d:
+        a = d.split(' - ')[0]
+        a = re.sub(' in', '', a)
+        d_float = convert_to_float(a) * 25.4
+        return d_float
+    elif ' in D-Shaft' in d:
+        d = re.sub(' in D-Shaft', '', d)
+        d_float = convert_to_float(d) * 25.4
+        return d_float
     elif (len(re.findall(' in$', d)) != 0):
         d = re.sub(' in', '', d)
-        d_float = convert_to_float(d) * 25.4
+        if ', ' in d:
+            a,b = d.split(', ')
+            if convert_to_float(Quantity(a)) < convert_to_float(Quantity(b)):
+                d_float = convert_to_float(a) * 25.4
+            else:
+                d_float = convert_to_float(b) * 25.4
+        else:
+            d_float = convert_to_float(d) * 25.4
         return d_float
     elif (len(re.findall('(\d+.\d)+m\)$', d)) != 0):
         d_float = float(re.findall('(\d+.\d)+m\)$', d)[0]) * 1000
@@ -891,6 +935,14 @@ def split_at(d):
             elif (' Hrs' in n1):
                 n1 = float(Quantity(n1)) * 3600
                 n2 = float(Quantity(n2))
+            elif 'VAC' in n2:
+                n1 = float(Quantity(n1))
+                n2 = re.sub('VAC', '', n2)
+                a,b = n2.split('/')
+                if float(a) > float(b):
+                    n2 = float(a)
+                else:
+                    n2 = float(b)
             else:
                 n1 = float(Quantity(n1))
                 n2 = float(Quantity(n2))
@@ -1124,6 +1176,13 @@ def split_to(d):
             d = re.sub(' Min', '', d)
             n1_float = float(Quantity(d, ''))
             n2_float = CONST_NA
+            return (n1_float, n2_float)
+        elif (' mV0o' in d):
+            d = re.sub(' mV0o', 'mV', d)
+            d = re.sub(' V0', 'V', d)
+            a,b = d.split(' ')
+            n1_float = float(Quantity(a, ''))
+            n2_float = float(Quantity(b, ''))
             return (n1_float, n2_float)
         else:
             n1_float = float(Quantity(d, ''))
@@ -1399,6 +1458,9 @@ def split_timing(d: str):
 
         if '~' in d:
             d = re.sub('~', 'to', d)
+        
+        if 'FPM' in d or 'Cyc' in d:
+            return (CONST_NA, CONST_NA)
 
         if 'to' in d:
             # split min and max from range
@@ -1419,12 +1481,16 @@ def split_timing(d: str):
 
             if 'd' in t2:
                 t2_float = parse_any_number(t2)[0] * 86400
-            elif (('h' in t2) or ('hr' in t2) or ('Hrs' in t2)):
+            elif (('h' in t2) or ('hr' in t2) or ('Hrs' in t2) or ('Hr' in t2)):
                 t2_float = parse_any_number(t2)[0] * 3600
             elif (('m' in t2) or ('min' in t2) or ('Min' in t2)):
                 t2_float = parse_any_number(t2)[0] * 60
-            elif (('s' in t2) or ('Sec' in t2)):
+            elif (('s' in t2) or ('Sec' in t2) or ('S' in t2)):
                 t2_float = parse_any_number(t2)[0]
+            elif (('y' in t2) or ('Year' in t2)):
+                t2_float = parse_any_number(t2)[0] * 31536000
+            elif (('Week' in t2)):
+                t2_float = parse_any_number(t2)[0] * 604800
 
             return (t1_float, t2_float)
         else:
