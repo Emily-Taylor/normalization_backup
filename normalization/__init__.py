@@ -406,7 +406,7 @@ def split_tolerance(d):
                 d = d.replace('%', '')
                 d_float = float(d)
                 return (d_float, CONST_NA)
-            elif 'H' in d or 'C' in d:
+            elif 'H' in d or 'C' in d or 'F' in d:
                 d_float = float(Quantity(d))
                 return (CONST_NA, d_float)
     else:
