@@ -329,6 +329,17 @@ def split_tolerance(d):
         d = d.replace(' ', '')
         if 'nS' in d or 'Ohms' in d:
             return (CONST_NA, CONST_NA)
+        elif 'PPM' in d:
+            d = re.sub('PPM', '', d)
+            if ',' in d:
+                a,b = d.split(',')
+                if float(a) > float(b):
+                    d_float = float(a)/1000000
+                else:
+                    d_float = float(b)/1000000
+            else:
+                d_float = float(d)/1000000
+            return(d_float,CONST_NA)
         elif ',' in d:
             if len(d.split(',')) == 3:
                 a,b,c = d.split(',')
@@ -395,7 +406,7 @@ def split_tolerance(d):
                 d = d.replace('%', '')
                 d_float = float(d)
                 return (d_float, CONST_NA)
-            elif 'H' in d:
+            elif 'H' in d or 'C' in d:
                 d_float = float(Quantity(d))
                 return (CONST_NA, d_float)
     else:
