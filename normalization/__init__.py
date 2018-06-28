@@ -327,7 +327,7 @@ def split_tolerance(d):
     """ turns tolerance into number """
     if isinstance(d, str):
         d = d.replace(' ', '')
-        if 'nS' in d or 'Ohms' in d:
+        if 'nS' in d or 'Ohms' in d or 'Jumper' in d or 'GMV' in d:
             return (CONST_NA, CONST_NA)
         elif 'PPM' in d:
             d = re.sub('PPM', '', d)
@@ -340,8 +340,31 @@ def split_tolerance(d):
             else:
                 d_float = float(d)/1000000
             return(d_float,CONST_NA)
+        elif 'Ohm' in d:
+            d = d.replace('%', '')
+            d = d.replace('±', '')
+            d = d.replace('Ohm', '')
+            if (',') in d:
+                a,b = d.split(',')
+                d_float1 = float(Quantity(b))
+                d_float2 = float(Quantity(a))
+                return (d_float1, d_float2)
+            else:
+                d = d.replace('Ohm', '')
+                d_float = float(d)
+                return (CONST_NA, d_float)
         elif ',' in d:
-            if len(d.split(',')) == 3:
+            if len(d.split(',')) == 4:
+                d = d.replace('%', '')
+                a,b,c,d = d.split(',')
+                a = float(a)
+                b = float(b)
+                c = float(c)
+                d = float(d)
+                d_float = min(a,b,c,d)
+                return (CONST_NA, d_float)
+                
+            elif len(d.split(',')) == 3:
                 a,b,c = d.split(',')
                 a = a.replace('%', '')
                 b = b.replace('%', '')
@@ -376,8 +399,6 @@ def split_tolerance(d):
                     else:
                         d_float = float(Quantity(b))
                     return (CONST_NA, d_float)
-        elif d == 'GMV':
-            return (CONST_NA, CONST_NA)
         elif 'to' in d:
             a, b = d.split('to')
             if '%' in a and '%' in b:
