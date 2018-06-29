@@ -638,7 +638,7 @@ def split_temp(d):
         if ((' (' in d) and (')' in d)):
             d = re.sub(' \(.*', '', d)
         
-        if d == 'Self Powered' or d == 'DC' or d == "Multi-Voltage":
+        if d == 'Self Powered' or d == 'DC' or d == "Multi-Voltage" or d == "Multiple":
             return (CONST_NA, CONST_NA)
         
         if '±' in d:
@@ -1446,21 +1446,26 @@ def split_sensitivity(d: str):
 def split_spl(d: str):
 
     if isinstance(d, str):
-        volume = d.split('@')[0]
-        volume_float = extract_num(volume)
+        if '@' in d:
+            
+            volume = d.split('@')[0]
+            volume_float = extract_num(volume)
 
-        v_d = d.split('@')[1]
+            v_d = d.split('@')[1]
 
-        voltage = v_d.split(',')[0]
-        distance = v_d.split(',')[1]
+            voltage = v_d.split(',')[0]
+            distance = v_d.split(',')[1]
 
-        voltage_float = extract_num(voltage)
-        distance_float = extract_num(distance)
+            voltage_float = extract_num(voltage)
+            distance_float = extract_num(distance)
 
-        return (volume_float, voltage_float, distance_float)
+            return (volume_float, voltage_float, distance_float)
+        else:
+            volume_float = extract_num(d)
+            return (volume_float, CONST_NA, CONST_NA)
     else:
         print('during type conversion got a non-string.')
-        return (0.0, 0.0, 0.0)
+        return (d, CONST_NA, CONST_NA)
 
 
 def split_timing(d: str):
