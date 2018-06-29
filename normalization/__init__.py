@@ -139,7 +139,7 @@ def extract_num(d):
                 d = d.split('dBi', 1)[0]
                 d_float = float(Quantity(d))
                 return d_float
-            elif 'N/A' in d or d == 'CMOS' or d == 'HCMOS' or d == 'HCMOS, TTL' or d == 'Variable':
+            elif 'N/A' in d or d == 'CMOS' or d == 'HCMOS' or d == 'HCMOS, TTL' or d == 'Variable' or d == 'No' or d == 'Yes':
                d_float = CONST_NA
                return d_float
             elif ' and ' in d:
@@ -171,11 +171,14 @@ def extract_num(d):
                     d_float = float(Quantity(d, ''))
                     return d_float
                 elif 'to' in d:
-                    
-                    d = re.sub('.*to', '', d)
-                    d = re.sub(' ', '', d)
-                    d_float = float(Quantity(d, ''))
-                    return d_float
+                    if 'Posiiton' in d:
+                        d_float = parse_any_number(d)[0]
+                        return d_float
+                    else:
+                        d = re.sub('.*to', '', d)
+                        d = re.sub(' ', '', d)
+                        d_float = float(Quantity(d, ''))
+                        return d_float
                 elif '/' in d:
                     if 'A' in d:
                         d_float = convert_to_float(re.sub('A', '', d))
@@ -789,8 +792,8 @@ def parse_dimension(d):
         return 0.0
     elif d == 'n/a':
         return d
-    elif d == 'No Shaft' or d == 'Flash' or d == 'Custom' or d == 'mm x111' or d == 'CG' or d == 'DG':
-        return 0.0
+    elif d == 'No Shaft' or d == 'Swagelok™,111' or d == '1/4, 15/32' or d == '15/32 -32' or d == '10-48' or d == 'M6' or d == 'Flash' or d == 'Custom' or d == 'mm x111' or d == 'CG' or d == 'DG' or d == '1/4-40' or d == 'M12' or d == '15/32-32' or d == '11/16-28' or d == 'M6P' or d == 'M5' or d == 'M15' or d == 'M18' or d == 'M10' or d == '40-48' or d == '15/32':
+        return CONST_NA
     elif d == '0.0':
         return 0.0
     elif d == '1 1/2' or d == '1 1/2"' or d == '1 1/2\"' or d == '1 1/2 in':
@@ -878,6 +881,9 @@ def parse_dimension(d):
         if 'mm (' in d:
             d_float = parse_any_number(d)[0]
             return d_float
+        elif 'mm)' in d:
+            d_float = parse_any_number(d)[1]
+            return d_float
         else:
             # TODO: test this. what happens if you have both mm and inches? in the same string
             d = re.sub(' in', '', d)
@@ -959,11 +965,16 @@ def split_at(d):
             elif 'VAC' in n2:
                 n1 = float(Quantity(n1))
                 n2 = re.sub('VAC', '', n2)
-                a,b = n2.split('/')
-                if float(a) > float(b):
-                    n2 = float(a)
+                n2 = re.sub('VDC', '', n2)
+                if '/' in n2:
+                    
+                    a,b = n2.split('/')
+                    if float(a) > float(b):
+                        n2 = float(a)
+                    else:
+                        n2 = float(b)
                 else:
-                    n2 = float(b)
+                    n2 = float(n2)
             else:
                 n1 = float(Quantity(n1))
                 n2 = float(Quantity(n2))
@@ -992,7 +1003,7 @@ def split_at(d):
 
     else:
         print("during type conversion got a non-string")
-        return(0.0, 0.0)
+        return(d, 0.0)
 
 
 def split_to(d):
@@ -1050,23 +1061,43 @@ def split_to(d):
                 d_float = float(a)/100
                 return (d_float, CONST_NA)
             elif ('to' in d and 'oz' in d):
-                d = d.split('(')[0]
+                if '(' in d:
+                    d = d.split('(')[0]
+                    a,b = d.split(' to ')
+                    a = re.sub('N', '', a)
+                    b = re.sub('N', '', b)
+                    a = re.sub(' ', '', a)
+                    b = re.sub(' ', '', b)
+                    d_float1 = float(a)
+                    d_float2 = float(b)
+                    return (d_float1, d_float2)
+                elif '/' in d:
+                    d_float1 = parse_any_number(d)[1]
+                    d_float2 = parse_any_number(d)[3]
+                    return (d_float1, d_float2)
+            elif ' to ' in d:
                 a,b = d.split(' to ')
-                a = re.sub('N', '', a)
-                b = re.sub('N', '', b)
-                a = re.sub(' ', '', a)
-                b = re.sub(' ', '', b)
-                d_float1 = float(a)
-                d_float2 = float(b)
+                d_float1 = float(Quantity(a))
+                d_float2 = float(Quantity(b))
                 return (d_float1, d_float2)
             else:
-                a = d.split('N')[0]
-                b = d.split('N')[1]
-                a = re.sub(' ', '', a)
-                b = re.sub(' ', '', b)
-                d_float1 = float(a) - float(b)
-                d_float2 = float(a) + float(b)
-                return (d_float1, d_float2)
+                if (d.count('N') == 1):
+                    d_float1 = float(Quantity(d))
+                    d_float2 = d_float1
+                    return (d_float1, d_float2)
+                elif ', ' in d:
+                    d = d.split(', ')[0]
+                    d_float1 = float(Quantity(d))
+                    d_float2 = d_float1
+                    return (d_float1, d_float2)
+                else:
+                    a = d.split('N')[0]
+                    b = d.split('N')[1]
+                    a = re.sub(' ', '', a)
+                    b = re.sub(' ', '', b)
+                    d_float1 = float(a) - float(b)
+                    d_float2 = float(a) + float(b)
+                    return (d_float1, d_float2)
         elif ('oz' in d):
             if ( ' + ' in d and ' - ' in d):
                 a = d.split('oz')[0]
@@ -1156,6 +1187,8 @@ def split_to(d):
             n1 = re.sub('\+ ', '+', n1)
             n2 = re.sub('\- ', '-', n2)
             n2 = re.sub('\+ ', '+', n2)
+            if ',' in n2:
+                n2 = re.sub(',', '.', n2)
             
             n1_float = float(Quantity(n1))
             n2_float = float(Quantity(n2))
@@ -1551,30 +1584,61 @@ def convert_to_float(frac_str):
         return whole - frac if whole < 0 else whole + frac
 
 
-def split_contact(d: str):
+def split_contact(d):
     if isinstance(d, str):
 
         if ',' in d:
             d = d.split(',')[0]
+        if ' or ' in d:
+            d = d.split(' or ')[0]
 
         if ' to ' in d:
-            d_min, d_max = d.split(' to ')
+            if ' at ' in d:
+                d,v = d.split(' at ')
+                v = v.split(' to ')[0]
+                v_float = float(Quantity(v))
+            else:
+                v_float = CONST_NA
+            
+            if ' to ' in d:
+                
+                d_min, d_max = d.split(' to ')
+                d_min_float = float(Quantity(d_min))
+                d_max_float = float(Quantity(d_max))
+                return (d_min_float, d_max_float, v_float)
+            else:
+                d_min_float = float(Quantity(d))
+                d_max_float = d_min_float
+                return (d_min_float, d_max_float, v_float)
+        elif ' at ' in d:
+            if ' to ' in d:
+                d = d.split(' to ')[0]
+                
+                d_min, v = d.split(' at ')
+                d_min_float = float(Quantity(d_min))
+                d_max_float = d_min_float
+                v_float = float(Quantity(v))
+                return (d_min_float, d_max_float, v_float)
+            else:
+                d_min, v = d.split(' at ')
+                d_min_float = float(Quantity(d_min))
+                d_max_float = d_min_float
+                v_float = float(Quantity(v))
+                return (d_min_float, d_max_float, v_float)
+        elif d == "Tin":
+            return (CONST_NA, CONST_NA, CONST_NA)
+        elif ' - ' in d:
+            d_min, d_max = d.split(' - ')
             d_min_float = float(Quantity(d_min))
             d_max_float = float(Quantity(d_max))
-            return (d_min_float, d_max_float, 0.0)
-        elif ' at ' in d:
-            d_min, v = d.split(' at ')
-            d_min_float = float(Quantity(d_min))
-            d_max_float = d_min_float
-            v_float = float(Quantity(v))
-            return (d_min_float, d_max_float, v_float)
+            return (d_min_float, d_max_float, CONST_NA)
         else:
             d_min_float = float(Quantity(d))
             d_max_float = d_min_float
-            return (d_min_float, d_max_float, 0.0)
+            return (d_min_float, d_max_float, CONST_NA)
     else:
         print('during type conversion got a non-string.')
-        return (0.0, 0.0, 0.0)
+        return (d, d, CONST_NA)
 
 
 def split_voltage(d: str):
