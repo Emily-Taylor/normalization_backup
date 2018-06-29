@@ -959,11 +959,16 @@ def split_at(d):
             elif 'VAC' in n2:
                 n1 = float(Quantity(n1))
                 n2 = re.sub('VAC', '', n2)
-                a,b = n2.split('/')
-                if float(a) > float(b):
-                    n2 = float(a)
+                n2 = re.sub('VDC', '', n2)
+                if '/' in n2:
+                    
+                    a,b = n2.split('/')
+                    if float(a) > float(b):
+                        n2 = float(a)
+                    else:
+                        n2 = float(b)
                 else:
-                    n2 = float(b)
+                    n2 = float(n2)
             else:
                 n1 = float(Quantity(n1))
                 n2 = float(Quantity(n2))
@@ -992,7 +997,7 @@ def split_at(d):
 
     else:
         print("during type conversion got a non-string")
-        return(0.0, 0.0)
+        return(d, 0.0)
 
 
 def split_to(d):
