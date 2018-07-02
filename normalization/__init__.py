@@ -828,14 +828,25 @@ def parse_dimension(d):
             d = re.sub(' in Flatted', '', d)
             d_float = convert_to_float(d) * 25.4
         return d_float
-    elif ' - ' in d:
-        a = d.split(' - ')[0]
-        a = re.sub(' in', '', a)
-        d_float = convert_to_float(a) * 25.4
+    elif ' Flatted to M' in d:
+        d_float = float(d.split(' Flatted to M')[1])
         return d_float
     elif ' in D-Shaft' in d:
         d = re.sub(' in D-Shaft', '', d)
         d_float = convert_to_float(d) * 25.4
+        return d_float
+    elif ' mm D-Shaft' in d:
+        d = re.sub(' mm D-Shaft', '', d)
+        d_float = convert_to_float(d)
+        return d_float
+    elif '-' in d:
+        a = d.split('-')[0]
+        a = a.strip(' ')
+        a = re.sub('in', '', a)
+        d_float = convert_to_float(a) * 25.4
+        return d_float
+    elif len(re.findall('T\d+', d)) == 1:
+        d_float = float(re.sub('T', '', d))
         return d_float
     elif (len(re.findall(' in$', d)) != 0):
         d = re.sub(' in', '', d)
