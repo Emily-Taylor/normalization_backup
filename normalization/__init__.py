@@ -129,6 +129,13 @@ def extract_num(d):
     if isinstance(d, str):
 
         if (len(d) > 0):
+            if 'mm)' in d:
+                d = d.split('(')[1]
+                d = re.sub(', Full', '', d)
+                d = re.sub(', Half', '', d)
+                d_float = float(re.sub('mm\)', '', d))
+                return d_float
+            
             d = re.sub(r'\(.*\)', '', d)
             d = d.split(',', 1)[0]
             d = d.split('~', 1)[0]
