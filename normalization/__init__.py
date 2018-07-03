@@ -802,7 +802,7 @@ def parse_dimension(d):
     elif "°" in d:
         d_float = parse_any_number(d)[0]
         return d_float
-    elif d == 'No Shaft' or d == 'Swagelok™,111' or d == '1/4, 15/32' or d == '15/32 -32' or d == '10-48' or d == 'M6' or d == 'Flash' or d == 'Custom' or d == 'mm x111' or d == 'CG' or d == 'DG' or d == '1/4-40' or d == 'M12' or d == '15/32-32' or d == '11/16-28' or d == 'M6P' or d == 'M5' or d == 'M15' or d == 'M18' or d == 'M10' or d == '40-48' or d == '15/32':
+    elif d == 'No Shaft' or d == 'Flush' or d == 'Swagelok™,111' or d == '1/4, 15/32' or d == '15/32 -32' or d == '10-48' or d == 'M6' or d == 'Flash' or d == 'Custom' or d == 'mm x111' or d == 'CG' or d == 'DG' or d == '1/4-40' or d == 'M12' or d == '15/32-32' or d == '11/16-28' or d == 'M6P' or d == 'M5' or d == 'M15' or d == 'M18' or d == 'M10' or d == '40-48' or d == '15/32':
         return CONST_NA
     elif d == '0.0':
         return 0.0
