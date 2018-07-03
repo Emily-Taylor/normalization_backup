@@ -983,6 +983,9 @@ def split_at(d):
             elif (' Hrs' in n1):
                 n1 = float(Quantity(n1)) * 3600
                 n2 = float(Quantity(n2))
+            elif 'VAC/DC' in n2:
+                n1 = float(re.sub('A', '', n1))
+                n2 = float(re.sub('VAC/DC', '', n2))
             elif 'VAC' in n2:
                 n1 = float(Quantity(n1))
                 n2 = re.sub('VAC', '', n2)
