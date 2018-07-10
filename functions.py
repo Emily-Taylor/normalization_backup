@@ -124,14 +124,14 @@ def adjust_structure(part: dict, source: str, ts: int):
 
     # generate IDs
     if 'mpn' in part and 'mfr' in part:
-        part['mpn'] = re.sub('[- ]', '', part['mpn'])
+        part['mpn'] = re.sub('[-. ]', '', part['mpn'])
         id = (part['mpn'] + part['mfr']).lower().replace(" ", "")
         hash_object = sha1(id.encode('utf-8'))
         hex_dig = hash_object.hexdigest()
         part['id'] = hex_dig
     # print(part['id'])
     elif 'mpn' in part:
-        part['mpn'] = re.sub('[- ]', '', part['mpn'])
+        part['mpn'] = re.sub('[-. ]', '', part['mpn'])
         id = part['mpn'].lower().replace(" ", "")
         hash_object = sha1(id.encode('utf-8'))
         hex_dig = hash_object.hexdigest()
@@ -227,14 +227,14 @@ def adjust_structure_minimal(part: dict, source: str, ts: int):
 
     # generate IDs
     if 'mpn' in part and 'mfr' in part:
-        part['mpn'] = re.sub('[- ]', '', part['mpn'])
+        part['mpn'] = re.sub('[-. ]', '', part['mpn'])
         id = (part['mpn'] + part['mfr']).lower().replace(" ", "")
         hash_object = sha1(id.encode('utf-8'))
         hex_dig = hash_object.hexdigest()
         part['id'] = hex_dig
     # print(part['id'])
     elif 'mpn' in part:
-        part['mpn'] = re.sub('[- ]', '', part['mpn'])
+        part['mpn'] = re.sub('[-. ]', '', part['mpn'])
         id = part['mpn'].lower().replace(" ", "")
         hash_object = sha1(id.encode('utf-8'))
         hex_dig = hash_object.hexdigest()
