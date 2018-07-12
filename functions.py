@@ -158,6 +158,7 @@ def adjust_structure(part: dict, source: str, ts: int):
     # description, lifecycle] as nested properties.
     main_keys = [
         'mfr',
+		'mfr_raw',
         'mpn',
         'categories',
         'categories_raw',
@@ -262,6 +263,7 @@ def adjust_structure_minimal(part: dict, source: str, ts: int):
 
     main_keys = [
         'mfr',
+		'mfr_raw',
         'mpn',
         'categories',
         'categories_raw',
