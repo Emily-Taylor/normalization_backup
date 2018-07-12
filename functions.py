@@ -28,6 +28,9 @@ def adjust_structure(part: dict, source: str, ts: int):
     # fix mfr before everything
     if 'mfr' in part:
         # mfr = c.get_alias(part['mfr'])
+        mfr_raw = deepcopy(part['mfr'])
+        part['mfr_raw'] = {}
+        part['mfr_raw'][source] = mfr_raw
         mfr = c.get_mfr_mapping(part['mfr'])
         part['mfr'] = mfr
     # keep desciprtion
@@ -124,14 +127,14 @@ def adjust_structure(part: dict, source: str, ts: int):
 
     # generate IDs
     if 'mpn' in part and 'mfr' in part:
-        part['mpn'] = re.sub('[-. ]', '', part['mpn'])
+        part['mpn'] = re.sub('[-.# ]', '', part['mpn'])
         id = (part['mpn'] + part['mfr']).lower().replace(" ", "")
         hash_object = sha1(id.encode('utf-8'))
         hex_dig = hash_object.hexdigest()
         part['id'] = hex_dig
     # print(part['id'])
     elif 'mpn' in part:
-        part['mpn'] = re.sub('[-. ]', '', part['mpn'])
+        part['mpn'] = re.sub('[-.# ]', '', part['mpn'])
         id = part['mpn'].lower().replace(" ", "")
         hash_object = sha1(id.encode('utf-8'))
         hex_dig = hash_object.hexdigest()
@@ -183,6 +186,9 @@ def adjust_structure_minimal(part: dict, source: str, ts: int):
     # fix mfr before everything
     if 'mfr' in part:
         # mfr = c.get_alias(part['mfr'])
+        mfr_raw = deepcopy(part['mfr'])
+        part['mfr_raw'] = {}
+        part['mfr_raw'][source] = mfr_raw
         mfr = c.get_mfr_mapping(part['mfr'])
         part['mfr'] = mfr
     # keep desciprtion
@@ -227,14 +233,14 @@ def adjust_structure_minimal(part: dict, source: str, ts: int):
 
     # generate IDs
     if 'mpn' in part and 'mfr' in part:
-        part['mpn'] = re.sub('[-. ]', '', part['mpn'])
+        part['mpn'] = re.sub('[-.# ]', '', part['mpn'])
         id = (part['mpn'] + part['mfr']).lower().replace(" ", "")
         hash_object = sha1(id.encode('utf-8'))
         hex_dig = hash_object.hexdigest()
         part['id'] = hex_dig
     # print(part['id'])
     elif 'mpn' in part:
-        part['mpn'] = re.sub('[-. ]', '', part['mpn'])
+        part['mpn'] = re.sub('[-.# ]', '', part['mpn'])
         id = part['mpn'].lower().replace(" ", "")
         hash_object = sha1(id.encode('utf-8'))
         hex_dig = hash_object.hexdigest()
