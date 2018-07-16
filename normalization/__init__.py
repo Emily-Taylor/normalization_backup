@@ -75,7 +75,13 @@ def attenuation(d: str) -> typing.Tuple[float, float, float]:
        print('during type conversion got a non-string')
        return (0.0, 0.0, 0.0)
 
-
+def parse_resolution(d):
+    try:
+        val = int(d)
+        return d
+    except ValueError:
+        return CONST_NA
+    
 def reverse(d: str):
     d = d[::-1]
     return d
