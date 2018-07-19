@@ -689,9 +689,9 @@ def split_temp(d):
                     return (t_min_float2, t_max_float2)
             elif len(parse_any_number(d)) == 1:
                 parsed_temp = float(Quantity(d))
-                # we need to return 0.0 because that's the structure of the function.
+                # changed here: 4yy9p
                 t_min_float3 = parsed_temp
-                t_max_float3 = parsed_temp
+                t_max_float3 = CONST_NA
                 return (t_min_float3, t_max_float3)
             elif ' to ' in d:
                 t_min, t_max = d.split(' to ')
@@ -730,8 +730,9 @@ def split_temp(d):
                 return (d_float1, d_float2)
                 
             else:
+                # changed here: 4yy9p
                 t_min_float6 = float(Quantity(d, ''))
-                t_max_float6 = t_min_float6
+                t_max_float6 = CONST_NA
                 return (t_min_float6, t_max_float6)
 
         elif ', ' in d:
@@ -763,8 +764,9 @@ def split_temp(d):
                     t_max_float10 = float(Quantity(t_max))
                     return (t_min_float10, t_max_float10)
             else:
+                # changed here: 4yy9p
                 t_min_float11 = float(Quantity(d, ''))
-                t_max_float11 = t_min_float11
+                t_max_float11 = CONST_NA
                 return (t_min_float11, t_max_float11)
 
         else:
@@ -1113,13 +1115,15 @@ def split_to(d):
                 return (d_float1, d_float2)
             else:
                 if (d.count('N') == 1):
+                    # changed here: 4yyma
                     d_float1 = float(Quantity(d))
-                    d_float2 = d_float1
+                    d_float2 = CONST_NA
                     return (d_float1, d_float2)
                 elif ', ' in d:
+                    # changed here: 4yyma
                     d = d.split(', ')[0]
                     d_float1 = float(Quantity(d))
-                    d_float2 = d_float1
+                    d_float2 = CONST_NA
                     return (d_float1, d_float2)
                 else:
                     a = d.split('N')[0]
@@ -1270,8 +1274,9 @@ def split_to(d):
             n2_float = float(Quantity(b, ''))
             return (n1_float, n2_float)
         else:
+            # changed here: 4yyma
             n1_float = float(Quantity(d, ''))
-            n2_float = float(Quantity(d, ''))
+            n2_float = CONST_NA
             return(n1_float, n2_float)
 
     else:
