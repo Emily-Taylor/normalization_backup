@@ -21,6 +21,20 @@ else
     exit $?
 fi
 
+if cp mpn_mapping.json ../mpn_mapping.json
+  then 
+    echo copy successful
+else
+    exit $?
+fi
+
+if cp pkg_mapping.json ../pkg_mapping.json
+  then 
+    echo copy successful
+else
+    exit $?
+fi
+
 if cp categories.yml ../normalization/categories.yml
   then 
     echo copy successful

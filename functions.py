@@ -2,7 +2,7 @@
 from hashlib import sha1
 from copy import deepcopy
 from collections import defaultdict
-from json import dumps
+import json
 import logging
 import os
 import yaml
@@ -11,10 +11,45 @@ import re
 import normalization as n
 import common as c
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
+
+# load key-mapping file
 with open(os.path.join(CURRENT_DIR, 'key-mapping.yml'), 'r') as f:
     MAPPING = yaml.load(f)
 
-
+# load mpn_mapping file
+with open(os.path.join(CURRENT_DIR, 'mpn_mapping.json'), 'r') as f:
+    MPN_MAPPING = json.load(f)
+    
+# load pkg_mapping file
+with open(os.path.join(CURRENT_DIR, 'pkg_mapping.json'), 'r') as f:
+    PKG_MAPPING = json.load(f)
+    
+# create function to map mpn
+    
+def set_mpn(MPN_MAPPING: dict, m: str):
+    for key, value in MPN_MAPPING.items():
+        if m in value:
+            return key
+        else:
+            return m
+# create function to map pkg
+            
+def set_pkg(PKG_MAPPING: dict, p: list):
+    
+    p_str = p[0].lower()
+    sim_vec = []
+    
+    for i in range(len(list(PKG_MAPPING.values()))):
+        if p_str in list(PKG_MAPPING.values())[i]:
+            sim_vec.append(1)
+        else:
+            sim_vec.append(0)
+    if 1 in sim_vec:
+        p_index = sim_vec.index(1)
+        return [list(PKG_MAPPING.keys())[p_index]]
+    else:
+        return p
+    
 def deep_set(part, value, keys):
     data = part
     for key in keys[:-1]:
@@ -45,9 +80,15 @@ def adjust_structure(part: dict, source: str, ts: int):
         part['categories_raw'][source] = raw_categories
         # save raw mpn before normalizing
     if 'mpn' in part:
+        part['mpn'] = set_mpn(MPN_MAPPING, part['mpn'])
         raw_mpn = deepcopy(part['mpn'])
         part['mpn_raw'] = {}
         part['mpn_raw'][source] = raw_mpn
+    if 'packaging' in part:
+        raw_pack = deepcopy(part['packaging'])
+        part['packaging_raw'] = {}
+        part['packaging_raw'][source] = raw_pack
+        part['packaging'] = set_pkg(PKG_MAPPING, part['packaging'])
     # remove availablity and pricing, minimum_quantity and packagecase
     part.pop('availability', None)
     part.pop('pricing', None)
@@ -100,7 +141,7 @@ def adjust_structure(part: dict, source: str, ts: int):
             # call missing-mapping queue with the source, categories and
             # missing mapping key.
             # print("missing mapping")
-            #c.send_msg(dumps(
+            #c.send_msg(json.dumps(
             #    {"source": source, "categories": part['categories'], "key": key}))
             # we are going to continue in order to prevent writing json that's
             # not fully mapped
@@ -160,6 +201,7 @@ def adjust_structure(part: dict, source: str, ts: int):
         'mfr',
 		'mfr_raw',
         'mpn',
+        'packaging_raw',
         'categories',
         'categories_raw',
         'sku',
@@ -204,9 +246,15 @@ def adjust_structure_minimal(part: dict, source: str, ts: int):
         part['categories_raw'][source] = raw_categories
         # save raw mpn before normalizing
     if 'mpn' in part:
+        part['mpn'] = set_mpn(MPN_MAPPING, part['mpn'])
         raw_mpn = deepcopy(part['mpn'])
         part['mpn_raw'] = {}
         part['mpn_raw'][source] = raw_mpn
+    if 'packaging' in part:
+        raw_pack = deepcopy(part['packaging'])
+        part['packaging_raw'] = {}
+        part['packaging_raw'][source] = raw_pack
+        part['packaging'] = set_pkg(PKG_MAPPING, part['packaging'])
     # remove availablity and pricing, minimum_quantity and packagecase
     part.pop('availability', None)
     part.pop('pricing', None)
@@ -266,6 +314,7 @@ def adjust_structure_minimal(part: dict, source: str, ts: int):
 		'mfr_raw',
         'mpn',
         'categories',
+        'packaging_raw',
         'categories_raw',
         'sku',
         'description',
