@@ -36,17 +36,21 @@ def set_mpn(MPN_MAPPING: dict, m: str):
             
 def set_pkg(PKG_MAPPING: dict, p: list):
     
-    p_str = p[0].lower()
-    sim_vec = []
+    if len(p) != 0:
+        p_str = p[0].lower()
+        sim_vec = []
     
-    for i in range(len(list(PKG_MAPPING.values()))):
-        if p_str in list(PKG_MAPPING.values())[i]:
-            sim_vec.append(1)
+        for i in range(len(list(PKG_MAPPING.values()))):
+            if p_str in list(PKG_MAPPING.values())[i]:
+                sim_vec.append(1)
+            else:
+                sim_vec.append(0)
+    
+        if 1 in sim_vec:
+            p_index = sim_vec.index(1)
+            return [list(PKG_MAPPING.keys())[p_index]]
         else:
-            sim_vec.append(0)
-    if 1 in sim_vec:
-        p_index = sim_vec.index(1)
-        return [list(PKG_MAPPING.keys())[p_index]]
+            return p
     else:
         return p
     
