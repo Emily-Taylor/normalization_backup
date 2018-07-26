@@ -26,12 +26,29 @@ with open(os.path.join(CURRENT_DIR, 'pkg_mapping.json'), 'r') as f:
     
 # create function to map mpn
     
+# def set_mpn(MPN_MAPPING: dict, m: str):
+    # for key, value in MPN_MAPPING.items():
+        # if m in value:
+            # return key
+        # else:
+            # return m
+
 def set_mpn(MPN_MAPPING: dict, m: str):
-    for key, value in MPN_MAPPING.items():
-        if m in value:
-            return key
+    
+    sim_vec = []
+    
+    for i in range(len(list(MPN_MAPPING.values()))):
+        if m in list(MPN_MAPPING.values())[i]:
+            sim_vec.append(1)
         else:
-            return m
+            sim_vec.append(0)
+        
+    if 1 in sim_vec:
+        m_index = sim_vec.index(1)
+        return list(MPN_MAPPING.keys())[m_index]
+    else:
+        return m
+        
 # create function to map pkg
             
 def set_pkg(PKG_MAPPING: dict, p: list):
