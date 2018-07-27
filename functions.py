@@ -78,6 +78,7 @@ def mpn_norm(m: str):
     """
     
     m_final = re.sub('[# /.,=_%]', '-', m.upper())
+    m_final = re.sub('--', '-', m_final)
                        
     return m_final
     
