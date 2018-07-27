@@ -79,6 +79,9 @@ def mpn_norm(m: str):
     
     m_final = re.sub('[# /.,=_%]', '-', m.upper())
     m_final = re.sub('--', '-', m_final)
+    
+    if m_final[0] == '-':
+        m_final = re.sub('-', '', m_final, count=1)
                        
     return m_final
     
