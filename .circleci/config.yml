@@ -38,7 +38,7 @@ jobs:
       - run:
           name: run tests
           command: |
-            pipenv run python3 -m unittest
+            python -m unittest
 
       # more tests!
       - run:
