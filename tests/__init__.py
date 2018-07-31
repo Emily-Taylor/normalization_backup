@@ -22,15 +22,52 @@ class TestNorm(unittest.TestCase):
         d2 = "28mA @ 120Hz"
         d3 = "520 mOhm @ 100kHz"
         d4 = "2000 Hrs @ 85°C"
+        d5 = '37 mOhms'
+        d6 = '11 mm'
+        d7 = '1.22 A'
+        d8 = '21 mOHms'
+        d9 = '3 ohms'
+        d10 = '55 mohms'
+        d11 = '2500V @ 1 Second'
+        d12 = '120/240VAC'
+        d13 = '1500VRMS @ 1 Minute'
+        d14 = '100VRMS'
+        d15 = '25V, 70V'
+        d16 = 'Parallel 21.6µH @ 10kHz, Series 778µH @ 10kHz'
+        
         output1 = (72.0, 100000000.0)
         output2 = (0.028, 120)
         output3 = (0.52, 100000.0)
-        output4 = (2000.0, 85.0)
+        output4 = (7200000.0, 85.0)
+        output5 = (0.037, 'n/a')
+        output6 = (0.011, 'n/a')
+        output7 = (1.22, 'n/a')
+        output8 = (0.021, 'n/a')
+        output9 = (3.0, 'n/a')
+        output10 = (0.055, 'n/a')
+        output11 = (2500.0, 1.0)
+        output12 = (120.0, 'n/a')
+        output13 = (1500.0, 60.0)
+        output14 = (100.0, 'n/a')
+        output15 = (25.0, 'n/a')
+        output16 = (2.16e-05, 10000.0)
 
         result1 = normalization.split_at(d1)
         result2 = normalization.split_at(d2)
         result3 = normalization.split_at(d3)
         result4 = normalization.split_at(d4)
+        result5 = normalization.split_at(d5)
+        result6 = normalization.split_at(d6)
+        result7 = normalization.split_at(d7)
+        result8 = normalization.split_at(d8)
+        result9 = normalization.split_at(d9)
+        result10 = normalization.split_at(d10)
+        result11 = normalization.split_at(d11)
+        result12 = normalization.split_at(d12)
+        result13 = normalization.split_at(d13)
+        result14 = normalization.split_at(d14)
+        result15 = normalization.split_at(d15)
+        result16 = normalization.split_at(d16)
 
         self.assertTrue(isinstance(result1[0], numbers.Real))
         self.assertTrue(isinstance(result1[1], numbers.Real))
@@ -44,14 +81,27 @@ class TestNorm(unittest.TestCase):
         self.assertTrue(isinstance(result4[0], numbers.Real))
         self.assertTrue(isinstance(result4[1], numbers.Real))
         self.assertEqual(result4, output4)
+        
+        self.assertEqual(result5, output5)
+        self.assertEqual(result6, output6)
+        self.assertEqual(result7, output7)
+        self.assertEqual(result8, output8)
+        self.assertEqual(result9, output9)
+        self.assertEqual(result10, output10)
+        self.assertEqual(result11, output11)
+        self.assertEqual(result12, output12)
+        self.assertEqual(result13, output13)
+        self.assertEqual(result14, output14)
+        self.assertEqual(result15, output15)
+        self.assertEqual(result16, output16)
 
     def test_split_temp(self):
         # this test only covers a single, abnormal edge case. more testing need for ranges like (-10 - 80) etc.
         d = "105°C (TA)"
-        output = (0.0, 105.0)
+        output = (105.0, 'n/a')
         result = normalization.split_temp(d)
         self.assertTrue(isinstance(result[0], numbers.Real))
-        self.assertTrue(isinstance(result[1], numbers.Real))
+        # self.assertTrue(isinstance(result[1], numbers.Real))
         self.assertEqual(result, output)
         # "operating_temperature": "-40°C ~ 85°C (TA)",
         d = "-40°C ~ 85°C (TA)"
@@ -60,6 +110,30 @@ class TestNorm(unittest.TestCase):
         self.assertTrue(isinstance(result[0], numbers.Real))
         self.assertTrue(isinstance(result[1], numbers.Real))
         self.assertEqual(result, output)
+        
+        d1 = "50/60Hz"
+        d2 = '881.5/1960.0MHz'
+        d3 = "1.843/1.96GHz"
+        d4 = "763/793MHz"
+        d5 = "769/860.5MHz"
+        
+        output1 = (50.0, 60.0)
+        output2 = (881500000.0, 1960000000.0)
+        output3 = (1843000000.0, 1960000000.0)
+        output4 = (763000000.0, 793000000.0)
+        output5 = (769000000.0, 860500000.0)
+        
+        result1 = normalization.split_temp(d1)
+        result2 = normalization.split_temp(d2)
+        result3 = normalization.split_temp(d3)
+        result4 = normalization.split_temp(d4)
+        result5 = normalization.split_temp(d5)
+        
+        self.assertEqual(result1, output1)
+        self.assertEqual(result2, output2)
+        self.assertEqual(result3, output3)
+        self.assertEqual(result4, output4)
+        self.assertEqual(result5, output5)
 
     def test_split_to(self):
         d = '1000 F to 330000 F'
@@ -68,6 +142,34 @@ class TestNorm(unittest.TestCase):
         self.assertTrue(isinstance(result[0], numbers.Real))
         self.assertTrue(isinstance(result[1], numbers.Real))
         self.assertEqual(result, output)
+        
+        d1 = '2.4GHz ~ 2.483.5GHz, 4.9GHz ~ 5.9GHz'
+        d2 = '2.4GHz ~ 2.483.5GHz'
+        d3 = '0.47 ÂµH'
+        d4 = '0.3 uH to 0.55 uH and 0.8 uH'
+        d5 = '250kHz Min'
+        d6 = 'Custom'
+        
+        output1 = (2400000000.0, 2483000000.0)
+        output2 = (2400000000.0, 2483000000.0)
+        output3 = (4.7e-07, 'n/a')
+        output4 = (3e-07, 5.5e-07)
+        output5 = (250000.0, 'n/a')
+        output6 = ('n/a', 'n/a')
+        
+        result1 = normalization.split_to(d1)
+        result2 = normalization.split_to(d2)
+        result3 = normalization.split_to(d3)
+        result4 = normalization.split_to(d4)
+        result5 = normalization.split_to(d5)
+        result6 = normalization.split_to(d6)
+        
+        self.assertEqual(result1, output1)
+        self.assertEqual(result2, output2)
+        self.assertEqual(result3, output3)
+        self.assertEqual(result4, output4)
+        self.assertEqual(result5, output5)
+        self.assertEqual(result6, output6)
 
     def test_split_Q(self):
         output = (72.0, 100000000.0)
@@ -109,15 +211,141 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result, output)
 
     def test_split_l_w(self):
-        output = (7.00, 5.50, 0.0)
+        output = (7.00, 5.50, 'n/a')
         d = '0.276" L x 0.217" W (7.00mm x 5.50mm)'
         result = normalization.parse_dimensions(d)
         self.assertTrue(isinstance(result[0], numbers.Real))
         self.assertTrue(isinstance(result[1], numbers.Real))
         self.assertEqual(result, output)
+        
+    def test_parse_dimensions(self):
+        result1 = normalization.parse_dimensions("39 x 20 x 13")
+        result2 = normalization.parse_dimensions('32 x 30')
+        result3 = normalization.parse_dimensions('PS 30.5 x 10.2')
+        result4 = normalization.parse_dimensions('PM 62 x 49')
+        result5 = normalization.parse_dimensions('13 x 7 x 4 (EF 12.6)')
+        result6 = normalization.parse_dimensions('RM 10')
+        result7 = normalization.parse_dimensions('E 5')
+        result8 = normalization.parse_dimensions('RM 6')
+        result9 = normalization.parse_dimensions('25.4 x 10 x 7 (EF 20)')
+        result10 = normalization.parse_dimensions('ETD 34')
+        result11 = normalization.parse_dimensions("EP 7")
+        result12 = normalization.parse_dimensions("P 26 x 16")
+        result13 = normalization.parse_dimensions("PQ 26 x 25")
+        result14 = normalization.parse_dimensions("28.5 x 16.9 x")
+        result15 = normalization.parse_dimensions("15 x 12-1")
+        result16 = normalization.parse_dimensions("EPO 13")
+        result17 = normalization.parse_dimensions("EPX 10")
+        result18 = normalization.parse_dimensions("Ep 7")
+        result19 = normalization.parse_dimensions("35 X 9")
+        result20 = normalization.parse_dimensions("12 x 3 x12")
+        result21 = normalization.parse_dimensions("EPO 13")
+        result22 = normalization.parse_dimensions("RMR 6")
+        result23 = normalization.parse_dimensions("ER 11")
+        result24 = normalization.parse_dimensions("EV 30")
+        result25 = normalization.parse_dimensions("EFD 10")
+        result26 = normalization.parse_dimensions("EF 16")
+        result27 = normalization.parse_dimensions("ETD 59 (EER 60)")
+        
+        output1 = (39.0, 20.0, 13.0)
+        output2 = (32.0, 30.0, 'n/a')
+        output3 = (30.5, 10.2, 'n/a')
+        output4 = (62.0, 49.0, 'n/a')
+        output5 = (13.0, 7.0, 4.0)
+        output6 = (10.0, 'n/a', 'n/a')
+        output7 = (5.0, 'n/a', 'n/a')
+        output8 = (6.0, 'n/a', 'n/a')
+        output9 = (25.4, 10.0, 7.0)
+        output10 = (34.0, 'n/a', 'n/a')
+        output11 = (7.0, 'n/a', 'n/a')
+        output12 = (26.0, 16.0, 'n/a')
+        output13 = (26.0, 25.0, 'n/a')
+        output14 = (28.5, 16.9, 'n/a')
+        output15 = (15.0, 12.0, 'n/a')
+        output16 = (13.0, 'n/a', 'n/a')
+        output17 = (10.0, 'n/a', 'n/a')
+        output18 = (7.0, 'n/a', 'n/a')
+        output19 = (35.0, 9.0, 'n/a')
+        output20 = (12.0, 3.0, 12.0)
+        output21 = (13.0, 'n/a', 'n/a')
+        output22 = (6.0, 'n/a', 'n/a')
+        output23 = (11.0, 'n/a', 'n/a')
+        output24 = (30.0, 'n/a', 'n/a')
+        output25 = (10.0, 'n/a', 'n/a')
+        output26 = (16.0, 'n/a', 'n/a')
+        output27 = (59.0, 'n/a', 'n/a')
+        
+        self.assertEqual(result1, output1)
+        self.assertEqual(result2, output2)
+        self.assertEqual(result3, output3)
+        self.assertEqual(result4, output4)
+        self.assertEqual(result5, output5)
+        self.assertEqual(result6, output6)
+        self.assertEqual(result7, output7)
+        self.assertEqual(result8, output8)
+        self.assertEqual(result9, output9)
+        self.assertEqual(result10, output10)
+        self.assertEqual(result11, output11)
+        self.assertEqual(result12, output12)
+        self.assertEqual(result13, output13)
+        self.assertEqual(result14, output14)
+        self.assertEqual(result15, output15)
+        self.assertEqual(result16, output16)
+        self.assertEqual(result17, output17)
+        self.assertEqual(result18, output18)
+        self.assertEqual(result19, output19)
+        self.assertEqual(result20, output20)
+        self.assertEqual(result21, output21)
+        self.assertEqual(result22, output22)
+        self.assertEqual(result23, output23)
+        self.assertEqual(result24, output24)
+        self.assertEqual(result25, output25)
+        self.assertEqual(result26, output26)
+        self.assertEqual(result27, output27)
+        
+    def test_split_current(self):
+        result1 = normalization.split_current('600V, 6.3V, 5V')
+        result2 = normalization.split_current('5V, ±12V')
+        result3 = normalization.split_current('Parallel 18V, Series 36V')
+        result4 = normalization.split_current('12.6V')
+        result5 = normalization.split_current('600V, 6.3V, 5V, 2.5V, 2.5V')
+        result6 = normalization.split_current('230mA, 6A, 3A')
+        result7 = normalization.split_current('230mA, 6A, 3A, 2.5A, 2.5A')
+        result8 = normalization.split_current('120V, 12/12V')
+        
+        output1 = (600.0, 6.3)
+        output2 = (5.0, 12.0)
+        output3 = (18.0, 36.0)
+        output4 = (12.6, 12.6)
+        output5 = (600.0, 6.3)
+        output6 = (0.23, 6.0)
+        output7 = (0.23, 6.0)
+        output8 = (120.0, 12.0)
+        
+        self.assertEqual(result1, output1)
+        self.assertEqual(result2, output2)
+        self.assertEqual(result3, output3)
+        self.assertEqual(result4, output4)
+        self.assertEqual(result5, output5)
+        self.assertEqual(result6, output6)
+        self.assertEqual(result7, output7)
+        self.assertEqual(result8, output8)
+        
+    def test_split_spread(self):
+        result1 = normalization.split_spread('±0.25%, Center Spread')
+        result2 = normalization.split_spread('-0.50%, Down Spread')
+        result3 = normalization.split_spread('±0.25% ~ ±2% Center Spread, -0.5% ~ -4% Down Spread')
+        
+        output1 = (0.25, 0.25, 'n/a', 'n/a')
+        output2 = ('n/a', 'n/a', 0.5, 0.5)
+        output3 = (0.25, 2.0, 0.5, 4.0)
+        
+        self.assertEqual(result1, output1)
+        self.assertEqual(result2, output2)
+        self.assertEqual(result3, output3)
 
     def test_split_dia(self):
-        output = (7.62,)
+        output = (7.62, 'n/a', 'n/a')
         d = '0.300" Dia (7.62mm)'
         result = normalization.parse_dimensions(d)
         self.assertTrue(isinstance(result[0], numbers.Real))
@@ -126,8 +354,10 @@ class TestNorm(unittest.TestCase):
     def test_extract_num(self):
         output1 = (5.3e-07)
         output2 = (20.0)
-        output3 = (4.0)
-        output4 = (0.5)
+        output3 = (3.0)
+        output4 = (1.0)
+        output5 = (1.4)
+        output7 = (1.1)
 
         d1 = '530nH'
         d2 = '530nW'
@@ -139,6 +369,8 @@ class TestNorm(unittest.TestCase):
         d8 = '±20ppm/°C'
         d9 = '3/0.75Ohms'
         d10 = '1/2A'
+        d11 = '1.4 Ohms/350 mOhms'
+        d12 = '1.1 Ohms and 1.7 Ohms'
 
         result1 = normalization.extract_num(d1)
         result2 = normalization.extract_num(d2)
@@ -150,6 +382,8 @@ class TestNorm(unittest.TestCase):
         result8 = normalization.extract_num(d8)
         result9 = normalization.extract_num(d9)
         result10 = normalization.extract_num(d10)
+        result11 = normalization.extract_num(d11)
+        result12 = normalization.extract_num(d12)
 
         self.assertTrue(isinstance(result1, numbers.Real))
         self.assertTrue(isinstance(result2, numbers.Real))
@@ -171,6 +405,8 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result8, output2)
         self.assertEqual(result9, output3)
         self.assertEqual(result10, output4)
+        self.assertEqual(result11, output5)
+        self.assertEqual(result12, output7)
 
     def test_capacitance(self):
         output = (5.3e-07)
@@ -199,13 +435,71 @@ class TestNorm(unittest.TestCase):
         result = normalization.power(d)
         self.assertTrue(isinstance(result, numbers.Real))
         self.assertEqual(result, output)
-
+        
     def test_tolerance(self):
-        output = (20)
-        d = '±20%'
-        result = normalization.tolerance(d)
-        self.assertTrue(isinstance(result, numbers.Real))
-        self.assertEqual(result, output)
+        output1 = (20, 'n/a')
+        output2 = (5.0, 'n/a')
+        output3 = (0.1, 'n/a')
+        output4 = (20.0, 'n/a')
+        output5 = (50.0, 'n/a')
+        output6 = (50.0, 'n/a')
+        output7 = (50.0, 'n/a')
+        output8 = ('n/a', 3e-10)
+        output9 = (20.0, 'n/a')
+        output10 = ('n/a', 'n/a')
+        output11 = ('n/a', 'n/a')
+        output12 = ('n/a', 1e-10)
+        output13 = ('n/a', 3e-05)
+        output14 = ('n/a', 'n/a')
+        output15 = ('n/a', 3e-10)
+        
+        d1 = '±20%'
+        d2 = "±5%"
+        d3 = "0.1 %"
+        d4 = "-15%, +20%"
+        d5 = "+ 50 %, - 30 %"
+        d6 = "- 30 % / + 50 %"
+        d7 = "- 30 %, + 50 %"
+        d8 = "0.3 nH, 0.2 nH"
+        d9 = "20 %"
+        d10 = "5 Ohms"
+        d11 = "-0.5/+0.1 nS"
+        d12 = "0.1 nH"
+        d13 = "30 uH"
+        d14 = "±0.28nS"
+        d15 = "±0.3nH"
+        
+        result1 = normalization.split_tolerance(d1)
+        result2 = normalization.split_tolerance(d2)
+        result3 = normalization.split_tolerance(d3)
+        result4 = normalization.split_tolerance(d4)
+        result5 = normalization.split_tolerance(d5)
+        result6 = normalization.split_tolerance(d6)
+        result7 = normalization.split_tolerance(d7)
+        result8 = normalization.split_tolerance(d8)
+        result9 = normalization.split_tolerance(d9)
+        result10 = normalization.split_tolerance(d10)
+        result11 = normalization.split_tolerance(d11)
+        result12 = normalization.split_tolerance(d12)
+        result13 = normalization.split_tolerance(d13)
+        result14 = normalization.split_tolerance(d14)
+        result15 = normalization.split_tolerance(d15)
+        
+        self.assertEqual(result1, output1)
+        self.assertEqual(result2, output2)
+        self.assertEqual(result3, output3)
+        self.assertEqual(result4, output4)
+        self.assertEqual(result5, output5)
+        self.assertEqual(result6, output6)
+        self.assertEqual(result7, output7)
+        self.assertEqual(result8, output8)
+        self.assertEqual(result9, output9)
+        self.assertEqual(result10, output10)
+        self.assertEqual(result11, output11)
+        self.assertEqual(result12, output12)
+        self.assertEqual(result13, output13)
+        self.assertEqual(result14, output14)
+        self.assertEqual(result15, output15)
 
     def test_voltage(self):
         output = (5.3e-07)
@@ -234,25 +528,23 @@ class TestNorm(unittest.TestCase):
         result = normalization.frequency(d)
         self.assertTrue(isinstance(result, numbers.Real))
         self.assertEqual(result, output)
-		
-	def test_mpn(self):
-		mpn1 = '123456'
-		mpn2 = '123-456'
-		mpn3 = 'aA*bcc-X'
-		mpn4 = 'aAbccX'
-		
-		out1 = normalization.create_id(mpn1, 'abc')
-		out2 = normalization.create_id(mpn2, 'abc')
-		out3 = normalization.create_id(mpn3, 'abc')
-		out4 = normalization.create_id(mpn4, 'abc')
-		
-		self.assertTrue(isinstance(out1, str))
-		self.assertTrue(isinstance(out2, str))
-		self.assertTrue(isinstance(out3, str))
-		self.assertTrue(isinstance(out4, str))
-		
-		self.assertTrue(out1 == out2)
-		self.assertTrue(out3 == out4)
+        
+    def test_mpn(self):
+        mpn1 = '123456'
+        mpn2 = '123-456'
+        mpn3 = 'aA*bcc-X'
+        mpn4 = 'aAbccX'
+        
+        out1 = normalization.create_id(mpn1, 'abc')
+        out2 = normalization.create_id(mpn2, 'abc')
+        out3 = normalization.create_id(mpn3, 'abc')
+        out4 = normalization.create_id(mpn4, 'abc')
+        self.assertTrue(isinstance(out1, str))
+        self.assertTrue(isinstance(out2, str))
+        self.assertTrue(isinstance(out3, str))
+        self.assertTrue(isinstance(out4, str))
+        self.assertTrue(out1 == out2)
+        self.assertTrue(out3 == out4)
 		
     def test_height(self):
         # supposed to work with input like this:	'0.039" (1.00mm)'
@@ -273,6 +565,30 @@ class TestNorm(unittest.TestCase):
         result1 = normalization.parse_dimension(d1)
         self.assertTrue(isinstance(result1, numbers.Real))
         self.assertEqual(result1, output1)
+        
+    def test_attenuation(self):
+        d1 = '25dB @ 1.71 ~ 1.91GHz, 30dB @ 880 ~ 960MHz'
+        output1 = (25.0, 1710000000.0, 1910000000.0)
+        d2 = '25dB @ 900 MHz ~ 1000 MHz'
+        output2 = (25.0, 900000000.0, 1000000000.0)
+        d3 = '35dB @ 800MHz ~ 2.7GHz, 40dB @ 1GHz'
+        output3 = (35.0, 800000000.0, 2700000000.0)
+        d4 = '-25dB @ 900MHz'
+        output4 = (-25.0, 900000000.0, 900000000.0)
+        d5 = '50dB @ 100MHz'
+        output5 = (50.0, 100000000.0, 100000000.0)
+        
+        result1 = normalization.attenuation(d1)
+        result2 = normalization.attenuation(d2)
+        result3 = normalization.attenuation(d3)
+        result4 = normalization.attenuation(d4)
+        result5 = normalization.attenuation(d5)
+        
+        self.assertEqual(result1, output1)
+        self.assertEqual(result2, output2)
+        self.assertEqual(result3, output3)
+        self.assertEqual(result4, output4)
+        self.assertEqual(result5, output5)
 
     def test_split_timing(self):
         d1 = '1023 s'
@@ -313,6 +629,70 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result4, output4)
         self.assertEqual(result5, output5)
         self.assertEqual(result6, output6)
+        
+    def test_parse_dimension(self):
+        result1 = normalization.parse_dimension('1 1/2')
+        result2 = normalization.parse_dimension('1 3/8')
+        result3 = normalization.parse_dimension('2 in')
+        result4 = normalization.parse_dimension('33 mm)')
+        result5 = normalization.parse_dimension('0.512" (13.00mm)')
+        result6 = normalization.parse_dimension('0.512\" (13.00mm)')
+        result7 = normalization.parse_dimension('22 mm (0.875)')
+        result8 = normalization.parse_dimension('12.7 mm (0.5 in)')
+        result9 = normalization.parse_dimension('7.6m (25 ft)')
+        result10 = normalization.parse_dimension('25 ft')
+        result11 = normalization.parse_dimension('19.69µin (0.50µm)')
+        result12 = normalization.parse_dimension('Flash')
+        result13 = normalization.parse_dimension('Custom')
+        result14 = normalization.parse_dimension('83.500" (212.09cm)')
+        result15 = normalization.parse_dimension('50 cm')
+        result16 = normalization.parse_dimension("12' (3.65m) 4 yds")
+        result17 = normalization.parse_dimension('6 ft 8 in')
+        result18 = normalization.parse_dimension('1 M')
+        result19 = normalization.parse_dimension('100 um')
+        result20 = normalization.parse_dimension('CG')
+        
+        output1 = 38.1
+        output2 = 34.925
+        output3 = 50.8
+        output4 = 33.0
+        output5 = 13.0
+        output6 = 13.0
+        output7 = 22.0
+        output8 = 12.7
+        output9 = 7620.0
+        output10 = 7620.0
+        output11 = 0.0005
+        output12 = 'n/a'
+        output13 = 'n/a'
+        output14 = 2120.9
+        output15 = 500.0
+        output16 = 3650.0
+        output17 = 2032.0000000000002
+        output18 = 1000.0
+        output19 = 0.1
+        output20 = 'n/a'
+        
+        self.assertEqual(result1, output1)
+        self.assertEqual(result2, output2)
+        self.assertEqual(result3, output3)
+        self.assertEqual(result4, output4)
+        self.assertEqual(result5, output5)
+        self.assertEqual(result6, output6)
+        self.assertEqual(result7, output7)
+        self.assertEqual(result8, output8)
+        self.assertEqual(result9, output9)
+        self.assertEqual(result10, output10)
+        self.assertEqual(result11, output11)
+        self.assertEqual(result12, output12)
+        self.assertEqual(result13, output13)
+        self.assertEqual(result14, output14)
+        self.assertEqual(result15, output15)
+        self.assertEqual(result16, output16)
+        self.assertEqual(result17, output17)
+        self.assertEqual(result18, output18)
+        self.assertEqual(result19, output19)
+        self.assertEqual(result20, output20)
 
 
 if __name__ == '__main__':
