@@ -25,7 +25,7 @@ class TestNorm(unittest.TestCase):
         output1 = (72.0, 100000000.0)
         output2 = (0.028, 120)
         output3 = (0.52, 100000.0)
-        output4 = (2000.0, 85.0)
+        output4 = (7200000.0, 85.0)
 
         result1 = normalization.split_at(d1)
         result2 = normalization.split_at(d2)
@@ -48,10 +48,10 @@ class TestNorm(unittest.TestCase):
     def test_split_temp(self):
         # this test only covers a single, abnormal edge case. more testing need for ranges like (-10 - 80) etc.
         d = "105°C (TA)"
-        output = (0.0, 105.0)
+        output = (105.0, 'n/a')
         result = normalization.split_temp(d)
         self.assertTrue(isinstance(result[0], numbers.Real))
-        self.assertTrue(isinstance(result[1], numbers.Real))
+        # self.assertTrue(isinstance(result[1], numbers.Real))
         self.assertEqual(result, output)
         # "operating_temperature": "-40°C ~ 85°C (TA)",
         d = "-40°C ~ 85°C (TA)"
@@ -109,7 +109,7 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result, output)
 
     def test_split_l_w(self):
-        output = (7.00, 5.50, 0.0)
+        output = (7.00, 5.50, 'n/a')
         d = '0.276" L x 0.217" W (7.00mm x 5.50mm)'
         result = normalization.parse_dimensions(d)
         self.assertTrue(isinstance(result[0], numbers.Real))
@@ -117,7 +117,7 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result, output)
 
     def test_split_dia(self):
-        output = (7.62,)
+        output = (7.62, 'n/a', 'n/a')
         d = '0.300" Dia (7.62mm)'
         result = normalization.parse_dimensions(d)
         self.assertTrue(isinstance(result[0], numbers.Real))
@@ -126,8 +126,8 @@ class TestNorm(unittest.TestCase):
     def test_extract_num(self):
         output1 = (5.3e-07)
         output2 = (20.0)
-        output3 = (4.0)
-        output4 = (0.5)
+        output3 = (3.0)
+        output4 = (1.0)
 
         d1 = '530nH'
         d2 = '530nW'
@@ -200,13 +200,6 @@ class TestNorm(unittest.TestCase):
         self.assertTrue(isinstance(result, numbers.Real))
         self.assertEqual(result, output)
 
-    def test_tolerance(self):
-        output = (20)
-        d = '±20%'
-        result = normalization.tolerance(d)
-        self.assertTrue(isinstance(result, numbers.Real))
-        self.assertEqual(result, output)
-
     def test_voltage(self):
         output = (5.3e-07)
         d = '530nV'
@@ -234,25 +227,23 @@ class TestNorm(unittest.TestCase):
         result = normalization.frequency(d)
         self.assertTrue(isinstance(result, numbers.Real))
         self.assertEqual(result, output)
-		
-	def test_mpn(self):
-		mpn1 = '123456'
-		mpn2 = '123-456'
-		mpn3 = 'aA*bcc-X'
-		mpn4 = 'aAbccX'
-		
-		out1 = normalization.create_id(mpn1, 'abc')
-		out2 = normalization.create_id(mpn2, 'abc')
-		out3 = normalization.create_id(mpn3, 'abc')
-		out4 = normalization.create_id(mpn4, 'abc')
-		
-		self.assertTrue(isinstance(out1, str))
-		self.assertTrue(isinstance(out2, str))
-		self.assertTrue(isinstance(out3, str))
-		self.assertTrue(isinstance(out4, str))
-		
-		self.assertTrue(out1 == out2)
-		self.assertTrue(out3 == out4)
+        
+    def test_mpn(self):
+        mpn1 = '123456'
+        mpn2 = '123-456'
+        mpn3 = 'aA*bcc-X'
+        mpn4 = 'aAbccX'
+        
+        out1 = normalization.create_id(mpn1, 'abc')
+        out2 = normalization.create_id(mpn2, 'abc')
+        out3 = normalization.create_id(mpn3, 'abc')
+        out4 = normalization.create_id(mpn4, 'abc')
+        self.assertTrue(isinstance(out1, str))
+        self.assertTrue(isinstance(out2, str))
+        self.assertTrue(isinstance(out3, str))
+        self.assertTrue(isinstance(out4, str))
+        self.assertTrue(out1 == out2)
+        self.assertTrue(out3 == out4)
 		
     def test_height(self):
         # supposed to work with input like this:	'0.039" (1.00mm)'
