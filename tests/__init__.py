@@ -646,6 +646,32 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result2, output2)
         self.assertEqual(result3, output3)
         self.assertEqual(result4, output4)
+    
+    def test_split_slash(self):
+        
+        result1 = normalization.split_slash('8ns/8ns')
+        result2 = normalization.split_slash('8ns/8Âµs')
+        result3 = normalization.split_slash('8Âµs/8Âµs')
+        result4 = normalization.split_slash('8Âµs/-')
+        result5 = normalization.split_slash('8ns/-')
+        result6 = normalization.split_slash('-/8Âµs')
+        result7 = normalization.split_slash('-/8ns')
+        
+        output1 = (8e-09, 8e-09)
+        output2 = (8e-09, 8e-06)
+        output3 = (8e-06, 8e-06)
+        output4 = (8e-06, 'n/a')
+        output5 = (8e-09, 'n/a')
+        output6 = ('n/a', 8e-06)
+        output7 = ('n/a', 8e-09)
+        
+        self.assertEqual(result1, output1)
+        self.assertEqual(result2, output2)
+        self.assertEqual(result3, output3)
+        self.assertEqual(result4, output4)
+        self.assertEqual(result5, output5)
+        self.assertEqual(result6, output6)
+        self.assertEqual(result7, output7)
         
     def test_parse_dimension(self):
         result1 = normalization.parse_dimension('1 1/2')
