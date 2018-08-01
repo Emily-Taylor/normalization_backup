@@ -1676,7 +1676,107 @@ def split_contact(d):
         print('during type conversion got a non-string.')
         return (d, d, CONST_NA)
 
+def split_comma(d):
+    """
+    splits values by comma into float range
+    """
+    
+    if isinstance(d, str):
+        
+        if ',' in d:
+            
+            d_min, d_max = d.split(',')
+            
+            d_min_float = float(Quantity(d_min))
+            d_max_float = float(Quantity(d_max))
+            
+            return (d_min_float, d_max_float)
+        
+        else:
+            
+            d_float = float(Quantity(d))
+            return (d_float, CONST_NA)
+    else:
+        print('during type conversion got a non-string.')
+        return (d, CONST_NA)
 
+def split_slash(d):
+    """
+    splits valye by / into float range
+    """
+    
+    if isinstance(d, str):
+        
+        d = re.sub('Â', '', d)
+        d = re.sub('µ', 'u', d)
+        
+        d_min, d_max = d.split('/')
+        
+        if d_min != '-':
+            
+            d_min_float = float(Quantity(d_min))
+        
+        else:
+            
+            d_min_float = CONST_NA
+        
+        if d_max != '-':
+            
+            d_max_float = float(Quantity(d_max))
+        
+        else:
+            
+            d_max_float = CONST_NA
+        
+        return (d_min_float, d_max_float)
+    
+    else:
+        
+        print('during type conversion got a non-string.')
+        return (d, CONST_NA)
+
+def split_three(d):
+    """
+    splits headers with three entries into a float range
+    """
+    if isinstance(d, str):
+        d = re.sub('Â', '', d)
+        d = re.sub('µ', 'u', d)
+        d = re.sub(' ', '', d)
+        d = re.sub('/.*', '', d)
+        d = re.sub('M', 'm', d)
+        d = re.sub('\(Typ\)', '', d)
+        if '@' not in d: 
+            d1_float = float(Quantity(d))
+            return (d1_float, CONST_NA, CONST_NA)
+        else:
+            if ',' in d:    
+                d1 = d.split(',')[0]
+                d2 = d.split(',')[1]    
+                if '@' in d1:
+                    d1_1, d1_2 = d1.split('@')
+                    d1_1_float = float(Quantity(d1_1))
+                    
+                    if 'A' in d1_2:
+                        d1_2_float = float(Quantity(d1_2))
+                        d2_float = float(Quantity(d2))
+                    elif 'V' in d1_2:
+                        d2_float = float(Quantity(d1_2))
+                        d1_2_float = float(Quantity(d2))
+                return (d1_1_float, d1_2_float, d2_float)
+            else:
+                d1, d2 = d.split('@')
+                d1_float = float(Quantity(d1))
+                d2_float = float(Quantity(d2))
+                
+                if 'V' in d2:    
+                    return (d1_float, CONST_NA, d2_float)
+                else:
+                    return (d1_float, d2_float, CONST_NA)
+    else:
+        print('during type conversion got a non-string.')
+        return (d, CONST_NA, CONST_NA)
+    
 def split_voltage(d: str):
     if isinstance(d, str):
         if ('- Max' in d):
