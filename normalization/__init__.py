@@ -1676,6 +1676,29 @@ def split_contact(d):
         print('during type conversion got a non-string.')
         return (d, d, CONST_NA)
 
+def split_comma(d):
+    """
+    splits values by comma into float range
+    """
+    
+    if isinstance(d, str):
+        
+        if ',' in d:
+            
+            d_min, d_max = d.split(',')
+            
+            d_min_float = float(Quantity(d_min))
+            d_max_float = float(Quantity(d_max))
+            
+            return (d_min_float, d_max_float)
+        
+        else:
+            
+            d_float = float(Quantity(d))
+            return (d_float, CONST_NA)
+    else:
+        print('during type conversion got a non-string.')
+        return (d, CONST_NA)
 
 def split_voltage(d: str):
     if isinstance(d, str):
