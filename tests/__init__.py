@@ -629,6 +629,23 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result4, output4)
         self.assertEqual(result5, output5)
         self.assertEqual(result6, output6)
+    
+    def test_split_comma(self):
+        
+        result1 = normalization.split_comma('2.5V, 4V')
+        result2 = normalization.split_comma('11.3V')
+        result3 = normalization.split_comma('1.8 V, 5V')
+        result4 = normalization.split_comma('-0.35V')
+        
+        output1 = (2.5, 4.0)
+        output2 = (11.3, 'n/a')
+        output3 = (1.8, 5.0)
+        output4 = (-0.35, 'n/a')
+        
+        self.assertEqual(result1, output1)
+        self.assertEqual(result2, output2)
+        self.assertEqual(result3, output3)
+        self.assertEqual(result4, output4)
         
     def test_parse_dimension(self):
         result1 = normalization.parse_dimension('1 1/2')
