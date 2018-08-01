@@ -1700,6 +1700,42 @@ def split_comma(d):
         print('during type conversion got a non-string.')
         return (d, CONST_NA)
 
+def split_slash(d):
+    """
+    splits valye by / into float range
+    """
+    
+    if isinstance(d, str):
+        
+        d = re.sub('Â', '', d)
+        d = re.sub('µ', 'u', d)
+        
+        d_min, d_max = d.split('/')
+        
+        if d_min != '-':
+            
+            d_min_float = float(Quantity(d_min))
+        
+        else:
+            
+            d_min_float = CONST_NA
+        
+        if d_max != '-':
+            
+            d_max_float = float(Quantity(d_max))
+        
+        else:
+            
+            d_max_float = CONST_NA
+        
+        return (d_min_float, d_max_float)
+    
+    else:
+        
+        print('during type conversion got a non-string.')
+        return (d, CONST_NA)
+    
+    
 def split_voltage(d: str):
     if isinstance(d, str):
         if ('- Max' in d):
