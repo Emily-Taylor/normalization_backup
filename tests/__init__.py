@@ -40,6 +40,7 @@ class TestNorm(unittest.TestCase):
         d20 = '1V @ 2µA (Typ)'
         d21 = '1mV @ 2µA (Min)'
         d22 = '1mV @ 2mA (Min)'
+        d23 = '30pF @ 10V (VGS)'
         
         output1 = (72.0, 100000000.0)
         output2 = (0.028, 120)
@@ -63,6 +64,7 @@ class TestNorm(unittest.TestCase):
         output20 = (1.0, 2e-06)
         output21 = (0.001, 2e-06)
         output22 = (0.001, 0.002)
+        output23 = (3e-11, 10.0)
 
         result1 = normalization.split_at(d1)
         result2 = normalization.split_at(d2)
@@ -86,6 +88,7 @@ class TestNorm(unittest.TestCase):
         result20 = normalization.split_at(d20)
         result21 = normalization.split_at(d21)
         result22 = normalization.split_at(d22)
+        result23 = normalization.split_at(d23)
 
         self.assertTrue(isinstance(result1[0], numbers.Real))
         self.assertTrue(isinstance(result1[1], numbers.Real))
@@ -118,6 +121,7 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result20, output20)
         self.assertEqual(result21, output21)
         self.assertEqual(result22, output22)
+        self.assertEqual(result23, output23)
 
     def test_split_temp(self):
         # this test only covers a single, abnormal edge case. more testing need for ranges like (-10 - 80) etc.
