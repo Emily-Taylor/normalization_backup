@@ -130,7 +130,7 @@ def tempcoeff(d: str) -> float:
 def extract_num(d):
     """turns strings with ANY unit into numbers"""
     adict = {'µ': 'u', ' %': '', ' ': '', 'Max': '',
-             '±': '', 'ppm/°C': '', ' (Cutoff)': '', 'ppm': '', ' (Typ)': '', 'AC/DC': '', '<': '', '+/- ': ''}
+             '±': '', 'ppm/°C': '', ' (Cutoff)': '', 'ppm': '', ' (Typ)': '', 'AC/DC': '', '<': '', '+/- ': '', '-/+ ': ''}
 
     if isinstance(d, str):
 
@@ -146,13 +146,15 @@ def extract_num(d):
             d = d.split(',', 1)[0]
             d = d.split('~', 1)[0]
             d = re.sub('Wire Wound Inductors', '0', d)
+            d = re.sub(' @.*', '', d)
+            d = re.sub(' at.*', '', d)
             
             
             if 'dBi @' in d:
                 d = d.split('dBi', 1)[0]
                 d_float = float(Quantity(d))
                 return d_float
-            elif 'N/A' in d or d == 'CMOS' or d == 'HCMOS' or d == 'HCMOS, TTL' or d == 'Variable' or d == 'No' or d == 'Yes':
+            elif 'N/A' in d or d == 'CMOS' or d == 'HCMOS' or d == 'HCMOS, TTL' or d == 'Variable' or d == 'No' or d == 'Yes' or d == 'Clamped':
                d_float = CONST_NA
                return d_float
             elif ' and ' in d:
