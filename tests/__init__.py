@@ -34,6 +34,12 @@ class TestNorm(unittest.TestCase):
         d14 = '100VRMS'
         d15 = '25V, 70V'
         d16 = 'Parallel 21.6µH @ 10kHz, Series 778µH @ 10kHz'
+        d17 = '1V @ 2mA (Min)'
+        d18 = '1V @ 2µA (Min)'
+        d19 = '1V @ 2mA (Typ)'
+        d20 = '1V @ 2µA (Typ)'
+        d21 = '1mV @ 2µA (Min)'
+        d22 = '1mV @ 2mA (Min)'
         
         output1 = (72.0, 100000000.0)
         output2 = (0.028, 120)
@@ -51,6 +57,12 @@ class TestNorm(unittest.TestCase):
         output14 = (100.0, 'n/a')
         output15 = (25.0, 'n/a')
         output16 = (2.16e-05, 10000.0)
+        output17 = (1.0, 0.002)
+        output18 = (1.0, 2e-06)
+        output19 = (1.0, 0.002)
+        output20 = (1.0, 2e-06)
+        output21 = (0.001, 2e-06)
+        output22 = (0.001, 0.002)
 
         result1 = normalization.split_at(d1)
         result2 = normalization.split_at(d2)
@@ -68,6 +80,12 @@ class TestNorm(unittest.TestCase):
         result14 = normalization.split_at(d14)
         result15 = normalization.split_at(d15)
         result16 = normalization.split_at(d16)
+        result17 = normalization.split_at(d17)
+        result18 = normalization.split_at(d18)
+        result19 = normalization.split_at(d19)
+        result20 = normalization.split_at(d20)
+        result21 = normalization.split_at(d21)
+        result22 = normalization.split_at(d22)
 
         self.assertTrue(isinstance(result1[0], numbers.Real))
         self.assertTrue(isinstance(result1[1], numbers.Real))
@@ -94,6 +112,12 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result14, output14)
         self.assertEqual(result15, output15)
         self.assertEqual(result16, output16)
+        self.assertEqual(result17, output17)
+        self.assertEqual(result18, output18)
+        self.assertEqual(result19, output19)
+        self.assertEqual(result20, output20)
+        self.assertEqual(result21, output21)
+        self.assertEqual(result22, output22)
 
     def test_split_temp(self):
         # this test only covers a single, abnormal edge case. more testing need for ranges like (-10 - 80) etc.
