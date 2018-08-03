@@ -130,7 +130,7 @@ def tempcoeff(d: str) -> float:
 def extract_num(d):
     """turns strings with ANY unit into numbers"""
     adict = {'µ': 'u', ' %': '', ' ': '', 'Max': '',
-             '±': '', 'ppm/°C': '', ' (Cutoff)': '', 'ppm': '', ' (Typ)': '', 'AC/DC': '', '<': '', '+/- ': ''}
+             '±': '', 'ppm/°C': '', ' (Cutoff)': '', 'ppm': '', ' (Typ)': '', 'AC/DC': '', '<': '', '+/- ': '', '-/+ ': ''}
 
     if isinstance(d, str):
 
@@ -146,13 +146,15 @@ def extract_num(d):
             d = d.split(',', 1)[0]
             d = d.split('~', 1)[0]
             d = re.sub('Wire Wound Inductors', '0', d)
+            d = re.sub(' @.*', '', d)
+            d = re.sub(' at.*', '', d)
             
             
             if 'dBi @' in d:
                 d = d.split('dBi', 1)[0]
                 d_float = float(Quantity(d))
                 return d_float
-            elif 'N/A' in d or d == 'CMOS' or d == 'HCMOS' or d == 'HCMOS, TTL' or d == 'Variable' or d == 'No' or d == 'Yes':
+            elif 'N/A' in d or d == 'CMOS' or d == 'HCMOS' or d == 'HCMOS, TTL' or d == 'Variable' or d == 'No' or d == 'Yes' or d == 'Clamped':
                d_float = CONST_NA
                return d_float
             elif ' and ' in d:
@@ -660,6 +662,18 @@ def split_temp(d):
         if '±' in d:
             d = re.sub('±', '', d)
         
+        if (' NPN' in d) or (' PNP' in d):
+            d = re.sub(' NPN', '', d)
+            d = re.sub(' PNP', '', d)
+            d = re.sub('N Channel', '', d)
+            d = re.sub('N-Channel', '', d)
+            d = re.sub('P-Channel', '', d)
+            
+            d_min, d_max = d.split(', ')
+            d_min_float = float(Quantity(d_min))
+            d_max_float = float(Quantity(d_max))
+            return (d_min_float, d_max_float)
+        
         if ', ' not in d:
             if '~' in d:
                 t_min, t_max = d.split('~')
@@ -979,6 +993,8 @@ def split_at(d):
 
         d = re.sub('µ', 'u', d)
         d = re.sub(',.*', '', d)
+        d = re.sub(' \(Min\)', '', d)
+        d = re.sub(' \(Typ\)', '', d)
         if ('@' in d):
             n1, n2 = d.split('@')
             n1 = re.sub('Parallel ', '', n1)
@@ -1757,7 +1773,7 @@ def split_three(d):
                     d1_1, d1_2 = d1.split('@')
                     d1_1_float = float(Quantity(d1_1))
                     
-                    if 'A' in d1_2:
+                    if ('A' in d1_2) or ('a' in d1_2):
                         d1_2_float = float(Quantity(d1_2))
                         d2_float = float(Quantity(d2))
                     elif 'V' in d1_2:
