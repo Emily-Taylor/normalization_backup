@@ -689,6 +689,7 @@ class TestNorm(unittest.TestCase):
         result12 = normalization.split_three('1 @ 2V, 3MA')
         result13 = normalization.split_three('8 @ 8MA, 8MA')
         result14 = normalization.split_three('8V @ 8V, 8A (Typ')
+        result15 = normalization.split_three('1 @ 2ma, 3V')
         
         output1 = (8.0, 0.008, 8.0)
         output2 = (0.001, 0.002, 3.0)
@@ -704,6 +705,7 @@ class TestNorm(unittest.TestCase):
         output12 = (1.0, 0.003, 2.0)
         output13 = (8.0, 0.008, 0.008)
         output14 = (8.0, 8.0, 8.0)
+        output15 = (1.0, 0.002, 3.0)
         
         self.assertEqual(result1, output1)
         self.assertEqual(result2, output2)
@@ -719,6 +721,7 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result12, output12)
         self.assertEqual(result13, output13)
         self.assertEqual(result14, output14)
+        self.assertEqual(result15, output15)
         
     def test_parse_dimension(self):
         result1 = normalization.parse_dimension('1 1/2')
