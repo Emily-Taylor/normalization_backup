@@ -27,15 +27,12 @@ with open(os.path.join(CURRENT_DIR, 'pkg_mapping.json'), 'r') as f:
 # load termination_mapping file
 with open(os.path.join(CURRENT_DIR, 'termination_mapping.json'), 'r') as f:
     TERMINATION_MAPPING = json.load(f)
-  
-# create function to map mpn
+
+# load lifecycle_mapping file
+with open(os.path.join(CURRENT_DIR, 'lifecycle_mapping.json'), 'r') as f:
+    LIFECYCLE_MAPPING = json.load(f)
     
-# def set_mpn(MPN_MAPPING: dict, m: str):
-    # for key, value in MPN_MAPPING.items():
-        # if m in value:
-            # return key
-        # else:
-            # return m
+# create function to map mpn
 
 def set_mpn(MPN_MAPPING: dict, m: str):
     
@@ -88,6 +85,22 @@ def set_termination(TERMINATION_MAPPING: dict, m: str):
     if 1 in sim_vec:
         m_index = sim_vec.index(1)
         return list(TERMINATION_MAPPING.keys())[m_index]
+    else:
+        return m
+
+def set_life(LIFECYCLE_MAPPING: dict, m: str):
+    
+    sim_vec = []
+    
+    for i in range(len(list(LIFECYCLE_MAPPING.values()))):
+        if m in list(LIFECYCLE_MAPPING.values())[i]:
+            sim_vec.append(1)
+        else:
+            sim_vec.append(0)
+        
+    if 1 in sim_vec:
+        m_index = sim_vec.index(1)
+        return list(LIFECYCLE_MAPPING.keys())[m_index]
     else:
         return m
     
@@ -210,8 +223,9 @@ def adjust_structure(part: dict, source: str, ts: int):
     # fix lifecycle/life
     if 'lifecycle' in part:
         new_life = part.pop('lifecycle')
-        part['lifecycle'] = {}
-        part['lifecycle'][source] = new_life
+        part['lifecycle_raw'] = {}
+        part['lifecycle_raw'][source] = new_life
+        part['lifecycle'] = set_life(LIFECYCLE_MAPPING, new_life)
     # fix SKU
     if 'sku' in part:
         new_sku = part.pop('sku')
@@ -264,6 +278,7 @@ def adjust_structure(part: dict, source: str, ts: int):
         'mpn',
         'packaging_raw',
         'termination_style_raw',
+        'lifecycle_raw',
         'categories',
         'categories_raw',
         'sku',
