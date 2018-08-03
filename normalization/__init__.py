@@ -995,6 +995,7 @@ def split_at(d):
         d = re.sub(',.*', '', d)
         d = re.sub(' \(Min\)', '', d)
         d = re.sub(' \(Typ\)', '', d)
+        d = re.sub(' \(VGS\)', '', d)
         if ('@' in d):
             n1, n2 = d.split('@')
             n1 = re.sub('Parallel ', '', n1)
