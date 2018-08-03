@@ -407,6 +407,8 @@ class TestNorm(unittest.TestCase):
         output4 = (1.0)
         output5 = (1.4)
         output7 = (1.1)
+        output8 = 'n/a'
+        output9 = (8.0)
 
         d1 = '530nH'
         d2 = '530nW'
@@ -420,6 +422,11 @@ class TestNorm(unittest.TestCase):
         d10 = '1/2A'
         d11 = '1.4 Ohms/350 mOhms'
         d12 = '1.1 Ohms and 1.7 Ohms'
+        d13 = '1dB @ 2GHz'
+        d14 = '1dB @ 2MHz'
+        d15 = 'Clamped'
+        d16 = '1 dB at 2 GHz'
+        d17 = '-/+ 8 V'
 
         result1 = normalization.extract_num(d1)
         result2 = normalization.extract_num(d2)
@@ -433,6 +440,11 @@ class TestNorm(unittest.TestCase):
         result10 = normalization.extract_num(d10)
         result11 = normalization.extract_num(d11)
         result12 = normalization.extract_num(d12)
+        result13 = normalization.extract_num(d13)
+        result14 = normalization.extract_num(d14)
+        result15 = normalization.extract_num(d15)
+        result16 = normalization.extract_num(d16)
+        result17 = normalization.extract_num(d17)
 
         self.assertTrue(isinstance(result1, numbers.Real))
         self.assertTrue(isinstance(result2, numbers.Real))
@@ -456,6 +468,11 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result10, output4)
         self.assertEqual(result11, output5)
         self.assertEqual(result12, output7)
+        self.assertEqual(result13, output4)
+        self.assertEqual(result14, output4)
+        self.assertEqual(result15, output8)
+        self.assertEqual(result16, output4)
+        self.assertEqual(result17, output9)
 
     def test_capacitance(self):
         output = (5.3e-07)
