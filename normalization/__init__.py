@@ -660,6 +660,18 @@ def split_temp(d):
         if '±' in d:
             d = re.sub('±', '', d)
         
+        if (' NPN' in d) or (' PNP' in d):
+            d = re.sub(' NPN', '', d)
+            d = re.sub(' PNP', '', d)
+            d = re.sub('N Channel', '', d)
+            d = re.sub('N-Channel', '', d)
+            d = re.sub('P-Channel', '', d)
+            
+            d_min, d_max = d.split(', ')
+            d_min_float = float(Quantity(d_min))
+            d_max_float = float(Quantity(d_max))
+            return (d_min_float, d_max_float)
+        
         if ', ' not in d:
             if '~' in d:
                 t_min, t_max = d.split('~')
