@@ -1757,7 +1757,7 @@ def split_three(d):
                     d1_1, d1_2 = d1.split('@')
                     d1_1_float = float(Quantity(d1_1))
                     
-                    if 'A' in d1_2:
+                    if ('A' in d1_2) or ('a' in d1_2):
                         d1_2_float = float(Quantity(d1_2))
                         d2_float = float(Quantity(d2))
                     elif 'V' in d1_2:
