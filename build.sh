@@ -35,6 +35,13 @@ else
     exit $?
 fi
 
+if cp termination_mapping.json ../termination_mapping.json
+  then 
+    echo copy successful
+else
+    exit $?
+fi
+
 if cp categories.yml ../normalization/categories.yml
   then 
     echo copy successful
