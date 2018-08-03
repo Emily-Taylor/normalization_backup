@@ -991,6 +991,8 @@ def split_at(d):
 
         d = re.sub('µ', 'u', d)
         d = re.sub(',.*', '', d)
+        d = re.sub(' \(Min\)', '', d)
+        d = re.sub(' \(Typ\)', '', d)
         if ('@' in d):
             n1, n2 = d.split('@')
             n1 = re.sub('Parallel ', '', n1)
