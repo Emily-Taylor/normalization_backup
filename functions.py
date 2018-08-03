@@ -23,7 +23,11 @@ with open(os.path.join(CURRENT_DIR, 'mpn_mapping.json'), 'r') as f:
 # load pkg_mapping file
 with open(os.path.join(CURRENT_DIR, 'pkg_mapping.json'), 'r') as f:
     PKG_MAPPING = json.load(f)
-    
+
+# load termination_mapping file
+with open(os.path.join(CURRENT_DIR, 'termination_mapping.json'), 'r') as f:
+    TERMINATION_MAPPING = json.load(f)
+  
 # create function to map mpn
     
 # def set_mpn(MPN_MAPPING: dict, m: str):
@@ -70,6 +74,22 @@ def set_pkg(PKG_MAPPING: dict, p: list):
             return p
     else:
         return p
+    
+def set_termination(TERMINATION_MAPPING: dict, m: str):
+    
+    sim_vec = []
+    
+    for i in range(len(list(TERMINATION_MAPPING.values()))):
+        if m in list(TERMINATION_MAPPING.values())[i]:
+            sim_vec.append(1)
+        else:
+            sim_vec.append(0)
+        
+    if 1 in sim_vec:
+        m_index = sim_vec.index(1)
+        return list(TERMINATION_MAPPING.keys())[m_index]
+    else:
+        return m
     
 def mpn_norm(m: str):
     
@@ -181,6 +201,12 @@ def adjust_structure(part: dict, source: str, ts: int):
             # we are going to continue in order to prevent writing json that's
             # not fully mapped
             continue
+    # fix termination_style
+    if 'termination_style' in part:
+        new_term = part.pop('termination_style')
+        part['termination_style_raw'] = {}
+        part['termination_style_raw'][source] = new_term
+        part['termination_style'] = set_termination(TERMINATION_MAPPING, new_term)
     # fix lifecycle/life
     if 'lifecycle' in part:
         new_life = part.pop('lifecycle')
@@ -237,6 +263,7 @@ def adjust_structure(part: dict, source: str, ts: int):
 		'mfr_raw',
         'mpn',
         'packaging_raw',
+        'termination_style_raw',
         'categories',
         'categories_raw',
         'sku',
