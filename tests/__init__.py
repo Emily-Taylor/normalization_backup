@@ -116,24 +116,49 @@ class TestNorm(unittest.TestCase):
         d3 = "1.843/1.96GHz"
         d4 = "763/793MHz"
         d5 = "769/860.5MHz"
+        d6 = "1V NPN, 2V N Channel"
+        d7 = "1V NPN, 2V N-Channel"
+        d8 = "1V PNP, 2V N Channel"
+        d9 = "1V PNP, 2V N-Channel"
+        d10 = "1V PNP, 2V P-Channel"
+        d11 = "1V PNP, 2 N-Channel"
+        d12 = "1V NPN, 2V P-Channel"
+        d13 = "1V NPN, 2V NPN"
         
         output1 = (50.0, 60.0)
         output2 = (881500000.0, 1960000000.0)
         output3 = (1843000000.0, 1960000000.0)
         output4 = (763000000.0, 793000000.0)
         output5 = (769000000.0, 860500000.0)
+        output6 = (1.0, 2.0)
         
         result1 = normalization.split_temp(d1)
         result2 = normalization.split_temp(d2)
         result3 = normalization.split_temp(d3)
         result4 = normalization.split_temp(d4)
         result5 = normalization.split_temp(d5)
+        result6 = normalization.split_temp(d6)
+        result7 = normalization.split_temp(d7)
+        result8 = normalization.split_temp(d8)
+        result9 = normalization.split_temp(d9)
+        result10 = normalization.split_temp(d10)
+        result11 = normalization.split_temp(d11)
+        result12 = normalization.split_temp(d12)
+        result13 = normalization.split_temp(d13)
         
         self.assertEqual(result1, output1)
         self.assertEqual(result2, output2)
         self.assertEqual(result3, output3)
         self.assertEqual(result4, output4)
         self.assertEqual(result5, output5)
+        self.assertEqual(result6, output6)
+        self.assertEqual(result7, output6)
+        self.assertEqual(result8, output6)
+        self.assertEqual(result9, output6)
+        self.assertEqual(result10, output6)
+        self.assertEqual(result11, output6)
+        self.assertEqual(result12, output6)
+        self.assertEqual(result13, output6)
 
     def test_split_to(self):
         d = '1000 F to 330000 F'
