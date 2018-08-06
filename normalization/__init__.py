@@ -1190,7 +1190,16 @@ def split_to(d):
             d = re.sub(' in lb', '', d)
             d_float = float(d) * 4.44
             return (d_float, CONST_NA)
-            
+        elif (' V' in d):
+            d = re.sub(' ', '', d)
+            if (',' in d):
+                a, b = d.split(',')
+                n1_float = float(Quantity(a, ''))
+                n2_float = float(Quantity(b, ''))
+                return (n1_float, n2_float)
+            else:
+                n1_float = float(Quantity(d, ''))
+                return (n1_float, CONST_NA)
         
         d = re.sub('µ', 'u', d)
         d = re.sub('Â', '', d)
