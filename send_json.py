@@ -59,10 +59,10 @@ def send_file_sqs(filename):
     with jsonlines.Reader(gzip.open(os.path.join(here, filename))) as reader:
         tqdm.monitor_interval = 0
         for obj in tqdm(reader):
-            output = {'parts': []}
+            output = []
             for part in obj['parts']:
                 part_normed = adjust_structure(part, obj['source'], obj['ts'])
-                output['parts'].append(part_normed)
+                output.append(part_normed)
             res = publish_sqs_single(output)
             if res['ResponseMetadata']['HTTPStatusCode'] != 200:
                 print(res)
