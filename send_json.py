@@ -43,10 +43,11 @@ def publish_sqs_single(output):
     """
     try:
         response = queue.send_message(MessageBody=json.dumps(output))
+        return response
     except ClientError as err:
         print(err)
         return err
-    return response
+    
 
 def send_file_sqs(filename):
     """
