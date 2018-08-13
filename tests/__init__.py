@@ -859,6 +859,9 @@ class TestNorm(unittest.TestCase):
         result43 = normalization.split_percent_value('8 V')
         result44 = normalization.split_percent_value('- 8 mV / k')
         result45 = normalization.split_percent_value('8/C')
+        result46 = normalization.split_percent_value(14.4)
+        result47 = normalization.split_percent_value('30 mv/C')
+        result48 = normalization.split_percent_value('24.4 mv/C')
         
         self.assertEqual(result1, ('n/a', 0.008))
         self.assertEqual(result2, (8.0, 'n/a'))
@@ -905,6 +908,9 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result43, ('n/a', 'n/a'))
         self.assertEqual(result44, ('n/a', 0.008))
         self.assertEqual(result45, (8.0, 'n/a'))
+        self.assertEqual(result46, (14.4, 14.4))
+        self.assertEqual(result47, ('n/a', 0.03))
+        self.assertEqual(result48, ('n/a', 0.024399999999999998))
         
     def test_parse_dimension(self):
         result1 = normalization.parse_dimension('1 1/2')
