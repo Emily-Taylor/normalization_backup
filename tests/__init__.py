@@ -780,6 +780,7 @@ class TestNorm(unittest.TestCase):
         result13 = normalization.split_three('8 @ 8MA, 8MA')
         result14 = normalization.split_three('8V @ 8V, 8A (Typ')
         result15 = normalization.split_three('1 @ 2ma, 3V')
+        result16 = normalization.split_three('0.3pF @ 150mV, -')
         
         output1 = (8.0, 0.008, 8.0)
         output2 = (0.001, 0.002, 3.0)
@@ -796,6 +797,7 @@ class TestNorm(unittest.TestCase):
         output13 = (8.0, 0.008, 0.008)
         output14 = (8.0, 8.0, 8.0)
         output15 = (1.0, 0.002, 3.0)
+        output16 = (3e-13, 0.15, 'n/a')
         
         self.assertEqual(result1, output1)
         self.assertEqual(result2, output2)
@@ -812,6 +814,7 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result13, output13)
         self.assertEqual(result14, output14)
         self.assertEqual(result15, output15)
+        self.assertEqual(result16, output16)
     
     def test_split_percent_value(self):
         result1 = normalization.split_percent_value('8 mV/C')
