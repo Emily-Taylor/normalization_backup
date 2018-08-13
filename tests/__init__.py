@@ -425,6 +425,8 @@ class TestNorm(unittest.TestCase):
         output7 = (1.1)
         output8 = 'n/a'
         output9 = (8.0)
+        output10 = (0.0)
+        output11 = (5.3)
 
         d1 = '530nH'
         d2 = '530nW'
@@ -443,6 +445,8 @@ class TestNorm(unittest.TestCase):
         d15 = 'Clamped'
         d16 = '1 dB at 2 GHz'
         d17 = '-/+ 8 V'
+        d18 = 'DC'
+        d19 = '+ / - 5.3 V'
 
         result1 = normalization.extract_num(d1)
         result2 = normalization.extract_num(d2)
@@ -461,6 +465,8 @@ class TestNorm(unittest.TestCase):
         result15 = normalization.extract_num(d15)
         result16 = normalization.extract_num(d16)
         result17 = normalization.extract_num(d17)
+        result18 = normalization.extract_num(d18)
+        result19 = normalization.extract_num(d19)
 
         self.assertTrue(isinstance(result1, numbers.Real))
         self.assertTrue(isinstance(result2, numbers.Real))
@@ -489,6 +495,8 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result15, output8)
         self.assertEqual(result16, output4)
         self.assertEqual(result17, output9)
+        self.assertEqual(result18, output10)
+        self.assertEqual(result19, output11)
 
     def test_capacitance(self):
         output = (5.3e-07)
@@ -772,6 +780,7 @@ class TestNorm(unittest.TestCase):
         result13 = normalization.split_three('8 @ 8MA, 8MA')
         result14 = normalization.split_three('8V @ 8V, 8A (Typ')
         result15 = normalization.split_three('1 @ 2ma, 3V')
+        result16 = normalization.split_three('0.3pF @ 150mV, -')
         
         output1 = (8.0, 0.008, 8.0)
         output2 = (0.001, 0.002, 3.0)
@@ -788,6 +797,7 @@ class TestNorm(unittest.TestCase):
         output13 = (8.0, 0.008, 0.008)
         output14 = (8.0, 8.0, 8.0)
         output15 = (1.0, 0.002, 3.0)
+        output16 = (3e-13, 0.15, 'n/a')
         
         self.assertEqual(result1, output1)
         self.assertEqual(result2, output2)
@@ -804,6 +814,7 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result13, output13)
         self.assertEqual(result14, output14)
         self.assertEqual(result15, output15)
+        self.assertEqual(result16, output16)
     
     def test_split_percent_value(self):
         result1 = normalization.split_percent_value('8 mV/C')
@@ -851,6 +862,9 @@ class TestNorm(unittest.TestCase):
         result43 = normalization.split_percent_value('8 V')
         result44 = normalization.split_percent_value('- 8 mV / k')
         result45 = normalization.split_percent_value('8/C')
+        result46 = normalization.split_percent_value(14.4)
+        result47 = normalization.split_percent_value('30 mv/C')
+        result48 = normalization.split_percent_value('24.4 mv/C')
         
         self.assertEqual(result1, ('n/a', 0.008))
         self.assertEqual(result2, (8.0, 'n/a'))
@@ -897,6 +911,9 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result43, ('n/a', 'n/a'))
         self.assertEqual(result44, ('n/a', 0.008))
         self.assertEqual(result45, (8.0, 'n/a'))
+        self.assertEqual(result46, (14.4, 14.4))
+        self.assertEqual(result47, ('n/a', 0.03))
+        self.assertEqual(result48, ('n/a', 0.024399999999999998))
         
     def test_parse_dimension(self):
         result1 = normalization.parse_dimension('1 1/2')

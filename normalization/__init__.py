@@ -130,7 +130,7 @@ def tempcoeff(d: str) -> float:
 def extract_num(d):
     """turns strings with ANY unit into numbers"""
     adict = {'µ': 'u', ' %': '', ' ': '', 'Max': '',
-             '±': '', 'ppm/°C': '', ' (Cutoff)': '', 'ppm': '', ' (Typ)': '', 'AC/DC': '', '<': '', '+/- ': '', '-/+ ': ''}
+             '±': '', 'ppm/°C': '', ' (Cutoff)': '', 'ppm': '', ' (Typ)': '', 'AC/DC': '', '<': '', '+/- ': '', '-/+ ': '', '+ / - ': ''}
 
     if isinstance(d, str):
 
@@ -175,7 +175,7 @@ def extract_num(d):
                 elif d == 'Continuous':
                     d_float = 360.0
                     return d_float
-                elif d in ['Adjustable', 'Programmable', 'Jumper', 'Ohms', 'Multiturn', 'Series', 'GMV', 'Varies']:
+                elif d in ['Adjustable', 'Programmable', 'Jumper', 'Ohms', 'Multiturn', 'Series', 'GMV', 'Varies', 'DC']:
                     return 0.0
             #elif '/' in d:
                 # d = re.sub('/.*', '', d)
@@ -1791,6 +1791,9 @@ def split_three(d):
                     if ('A' in d1_2) or ('a' in d1_2):
                         d1_2_float = float(Quantity(d1_2))
                         d2_float = float(Quantity(d2))
+                    elif 'V' in d1_2 and '-' in d2:
+                        d1_2_float = float(Quantity(d1_2))
+                        d2_float = CONST_NA
                     elif 'V' in d1_2:
                         d2_float = float(Quantity(d1_2))
                         d1_2_float = float(Quantity(d2))
@@ -1860,56 +1863,62 @@ def split_voltage(d: str):
         return (0.0, 0.0, 0.0, 0.0)
 
 def split_percent_value(d):
-    d = re.sub(' ', '', d)
+    
+    if isinstance(d, str):
+        
+        d = re.sub(' ', '', d)
 
-    if 'mV/C' in d or 'mV/K' in d or 'mV/degC' in d or 'mV/k' in d:
-        d = re.sub('mV\/degC', '', d)
-        d = re.sub('mV\/K', '', d)
-        d = re.sub('mV\/k', '', d)
-        d = re.sub('mV\/C', '', d)
-        d = re.sub('-', '', d)
-        d = re.sub('\+', '', d)
-        if 'to' in d:
-            a,b = d.split('to')
-            n1_float = float(a) * 0.001
-            return(CONST_NA, n1_float)
-        else:
-            n1_float = float(d) * 0.001
+        if 'mV/C' in d or 'mv/C' in d or 'mV/K' in d or 'mV/degC' in d or 'mV/k' in d:
+            d = re.sub('mV\/degC', '', d)
+            d = re.sub('mV\/K', '', d)
+            d = re.sub('mV\/k', '', d)
+            d = re.sub('mV\/C', '', d)
+            d = re.sub('mv\/C', '', d)
+            d = re.sub('-', '', d)
+            d = re.sub('\+', '', d)
+            if 'to' in d:
+                a,b = d.split('to')
+                n1_float = float(a) * 0.001
+                return(CONST_NA, n1_float)
+            else:
+                n1_float = float(d) * 0.001
+                return (CONST_NA, n1_float)
+
+        if '%/C' in d or '%/degC' in d or '%/K' in d:
+            d = re.sub('%\/K', '', d)
+            d = re.sub('%\/C', '', d)
+            d = re.sub('%\/degC', '', d)
+            d = re.sub('-', '', d)
+            d = re.sub('/+', '', d)
+            d = re.sub('\+\/-', '', d)
+            if ',' in d:
+                a,b = d.split(',')
+                n1_float = float(a)
+                return(n1_float, CONST_NA)
+            if 'to' in d:
+                a,b = d.split('to')
+                n1_float = float(a)
+                return(n1_float, CONST_NA)
+            else:
+                n1_float = float(d)
+                return (n1_float, CONST_NA)
+
+        if 'uV/C' in d or 'uV/K' in d:
+            d = re.sub('uV\/K', '', d)
+            d = re.sub('uV\/C', '', d)
+            d = re.sub('-', '', d)
+            d = re.sub('\+', '', d)
+            n1_float = float(d) * 0.000001
             return (CONST_NA, n1_float)
 
-    if '%/C' in d or '%/degC' in d or '%/K' in d:
-        d = re.sub('%\/K', '', d)
-        d = re.sub('%\/C', '', d)
-        d = re.sub('%\/degC', '', d)
-        d = re.sub('-', '', d)
-        d = re.sub('/+', '', d)
-        d = re.sub('\+\/-', '', d)
-        if ',' in d:
-            a,b = d.split(',')
-            n1_float = float(a)
-            return(n1_float, CONST_NA)
-        if 'to' in d:
-            a,b = d.split('to')
-            n1_float = float(a)
-            return(n1_float, CONST_NA)
-        else:
+        if '/C' in d:
+            d = re.sub('\/C', '', d)
+            d = re.sub('-', '', d)
+            d = re.sub('/+', '', d)
             n1_float = float(d)
             return (n1_float, CONST_NA)
 
-    if 'uV/C' in d or 'uV/K' in d:
-        d = re.sub('uV\/K', '', d)
-        d = re.sub('uV\/C', '', d)
-        d = re.sub('-', '', d)
-        d = re.sub('\+', '', d)
-        n1_float = float(d) * 0.000001
-        return (CONST_NA, n1_float)
-
-    if '/C' in d:
-        d = re.sub('\/C', '', d)
-        d = re.sub('-', '', d)
-        d = re.sub('/+', '', d)
-        n1_float = float(d)
-        return (n1_float, CONST_NA)
-
-    if d == "#NAME?" or 'mW/K' in d or d.isdigit() or 'C' in d or 'V' in d:
-        return (CONST_NA, CONST_NA)
+        if d == "#NAME?" or 'mW/K' in d or d.isdigit() or 'C' in d or 'V' in d:
+            return (CONST_NA, CONST_NA)
+    else:
+        return (d, d)
