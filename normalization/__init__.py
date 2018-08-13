@@ -1791,6 +1791,9 @@ def split_three(d):
                     if ('A' in d1_2) or ('a' in d1_2):
                         d1_2_float = float(Quantity(d1_2))
                         d2_float = float(Quantity(d2))
+                    elif 'V' in d1_2 and '-' in d2:
+                        d1_2_float = float(Quantity(d1_2))
+                        d2_float = CONST_NA
                     elif 'V' in d1_2:
                         d2_float = float(Quantity(d1_2))
                         d1_2_float = float(Quantity(d2))
