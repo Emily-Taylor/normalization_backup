@@ -31,11 +31,11 @@ logger.setLevel(logging.WARNING)
 # set SQS parameters
 
 REGION_NAME = os.getenv('REGION_NAME','eu-central-1')
-test_queue_name = os.getenv('test_queue_name','testQ')
+norm_queue_dev = os.getenv('norm_queue_dev','parts-norm-dev')
 sqs = boto3.resource('sqs', region_name=REGION_NAME)
 
 # Get the queue
-queue = sqs.get_queue_by_name(QueueName=test_queue_name)
+queue = sqs.get_queue_by_name(QueueName=norm_queue_dev)
 
 def publish_sqs_single(output):
     """
