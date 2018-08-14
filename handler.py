@@ -30,15 +30,15 @@ def ping(event, context):
     }
 
 
-def parse_record(rec):
-    if 'kinesis' in rec:
-        if 'data' in rec['kinesis']:
-            try:
-                val = json.loads(base64.b64decode(rec['kinesis']['data']))
-            except BaseException:
-                logging.error(
-                    "couldn't parse base64 or json from records arriving from kinesis")
-    return val
+#def parse_record(rec):
+#    if 'kinesis' in rec:
+#        if 'data' in rec['kinesis']:
+#            try:
+#                val = json.loads(base64.b64decode(rec['kinesis']['data']))
+#            except BaseException:
+#                logging.error(
+#                    "couldn't parse base64 or json from records arriving from #kinesis")
+#    return val
 
 
 #def norm_handler_kinesis(event: dict, *args):
