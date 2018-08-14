@@ -83,14 +83,6 @@ functions:
             headers:
               Content-Type: "'application/json'"
             template: $input.path('$')
-  norm_kinesis:
-    handler: handler.norm_handler_kinesis
-    events:
-      - stream:
-          type: kinesis
-          arn: { Fn::GetAtt: [ KinesisStream, Arn ] }
-          batchSize: 1
-          startingPosition: TRIM_HORIZON
 
 plugins:
 
