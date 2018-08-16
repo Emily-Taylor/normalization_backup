@@ -58,14 +58,9 @@ def mpn_norm(m: str):
     
     m_final = m.upper()
     if m_final.startswith('USF340') or m_final.startswith('USF340'):
-        m_final = re.sub('[ /_,-]', '-', m_final)
+        m_final = re.sub('[ /_,-]', '', m_final)
     else:
-        m_final = re.sub('[ /_,-.]', '-', m_final)
-        
-    m_final = re.sub('--', '-', m_final)
-    
-    if m_final[0] == '-':
-        m_final = re.sub('-', '', m_final, count=1)
+        m_final = re.sub('[ /_,-.]', '', m_final)
 
     return m_final
       
