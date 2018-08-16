@@ -49,7 +49,26 @@ def set_mpn(MPN_MAPPING: dict, m: str):
         return list(MPN_MAPPING.keys())[m_index]
     else:
         return m
+    
+def mpn_norm(m: str):
+    
+    """
+    normalizes mpn
+    """
+    
+    m_final = m.upper()
+    if m_final.startswith('USF340') or m_final.startswith('USF340'):
+        m_final = re.sub('[ /_,-]', '-', m_final)
+    else:
+        m_final = re.sub('[ /_,-.]', '-', m_final)
         
+    m_final = re.sub('--', '-', m_final)
+    
+    if m_final[0] == '-':
+        m_final = re.sub('-', '', m_final, count=1)
+
+    return m_final
+      
 # create function to map pkg
             
 def set_pkg(PKG_MAPPING: dict, p: list):
@@ -104,20 +123,6 @@ def set_life(LIFECYCLE_MAPPING: dict, m: str):
     else:
         return m
     
-def mpn_norm(m: str):
-    
-    """
-    normalizes mpn
-    """
-    
-    m_final = re.sub('[# /.,=_%]', '-', m.upper())
-    m_final = re.sub('--', '-', m_final)
-    
-    if m_final[0] == '-':
-        m_final = re.sub('-', '', m_final, count=1)
-                       
-    return m_final
-    
 def deep_set(part, value, keys):
     data = part
     for key in keys[:-1]:
@@ -148,10 +153,11 @@ def adjust_structure(part: dict, source: str, ts: int):
         part['categories_raw'][source] = raw_categories
         # save raw mpn before normalizing
     if 'mpn' in part:
-        part['mpn'] = set_mpn(MPN_MAPPING, part['mpn'])
         raw_mpn = deepcopy(part['mpn'])
+        part['mpn'] = set_mpn(MPN_MAPPING, part['mpn'])
         part['mpn_raw'] = {}
         part['mpn_raw'][source] = raw_mpn
+        part['mpn'] = mpn_norm(part['mpn'])
     if 'packaging' in part:
         raw_pack = deepcopy(part['packaging'])
         part['packaging_raw'] = {}
@@ -243,14 +249,14 @@ def adjust_structure(part: dict, source: str, ts: int):
 
     # generate IDs
     if 'mpn' in part and 'mfr' in part:
-        part['mpn'] = mpn_norm(part['mpn'])
+        
         id = (part['mpn'] + part['mfr']).lower().replace(" ", "")
         hash_object = sha1(id.encode('utf-8'))
         hex_dig = hash_object.hexdigest()
         part['id'] = hex_dig
     # print(part['id'])
     elif 'mpn' in part:
-        part['mpn'] = mpn_norm(part['mpn'])
+        
         id = part['mpn'].lower().replace(" ", "")
         hash_object = sha1(id.encode('utf-8'))
         hex_dig = hash_object.hexdigest()
