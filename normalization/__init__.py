@@ -1203,6 +1203,11 @@ def split_to(d):
                 n1_float = float('-' + str(float(Quantity(d, ''))))
                 n2_float = float(Quantity(d, ''))
                 return (n1_float, n2_float)
+            elif ('to' in d):
+                a, b = d.split('to')
+                n1_float = float(Quantity(a, ''))
+                n2_float = float(Quantity(b, ''))
+                return (n1_float, n2_float)
             else:
                 n1_float = float(Quantity(d, ''))
                 return (n1_float, CONST_NA)
