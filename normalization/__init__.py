@@ -23,6 +23,7 @@ import os
 import typing
 from fractions import Fraction
 from hashlib import sha1
+from copy import deepcopy
 
 # define function to get constant
 
@@ -1395,6 +1396,24 @@ def category_normalize_digikey(d: dict):
 
     return d
 
+def cat_normalize_mouser(d: dict):
+    """
+    To change names of mouser categories
+    """
+    if len(d) > 1:
+        d_new = deepcopy(d)
+        for i in range(len(d_new) - 1):
+            
+            d_new[i + 1] = re.sub(',', '', d_new[i + 1])
+            d_new[i + 1] = re.sub('/', '', d_new[i + 1])
+            d_new[i + 1] = re.sub('&', '', d_new[i + 1])
+            d_new[i + 1] = re.sub('-', '', d_new[i + 1])
+            d_new[i + 1] = re.sub('  ', ' ', d_new[i + 1])
+            
+        return d_new
+    else:
+        return d
+    
 
 def cat_normalize_digikey(d: list):
     d_str = str(d)
