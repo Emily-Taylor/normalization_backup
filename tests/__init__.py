@@ -205,6 +205,7 @@ class TestNorm(unittest.TestCase):
         d7 = '- 8 V'
         d8 = '- 1 V, 2 V'
         d9 = '+/- 8 V'
+        d10 = '1.8 VDC to 3.3 VDC'
         
         output1 = (2400000000.0, 2483000000.0)
         output2 = (2400000000.0, 2483000000.0)
@@ -215,6 +216,7 @@ class TestNorm(unittest.TestCase):
         output7 = (-8.0, 'n/a')
         output8 = (-1.0, 2.0)
         output9 = (-8.0, 8.0)
+        output10 = (1.8, 3.3)
         
         result1 = normalization.split_to(d1)
         result2 = normalization.split_to(d2)
@@ -225,6 +227,7 @@ class TestNorm(unittest.TestCase):
         result7 = normalization.split_to(d7)
         result8 = normalization.split_to(d8)
         result9 = normalization.split_to(d9)
+        result10 = normalization.split_to(d10)
         
         self.assertEqual(result1, output1)
         self.assertEqual(result2, output2)
@@ -235,6 +238,7 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result7, output7)
         self.assertEqual(result8, output8)
         self.assertEqual(result9, output9)
+        self.assertEqual(result10, output10)
 
     def test_split_Q(self):
         output = (72.0, 100000000.0)
