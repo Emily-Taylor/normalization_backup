@@ -57,6 +57,13 @@ def mpn_norm(m: str):
     """
     
     m_final = m.upper()
+    
+    if m_final.endswith('BULK'):
+        m_final = re.sub('BULK', '', m_final)
+    
+    if m_final.endswith('REEL'):
+        m_final = re.sub('REEL', '', m_final)
+    
     if m_final.startswith('USF340') or m_final.startswith('USF340'):
         m_final = re.sub('[ /_,-]', '', m_final)
     else:
