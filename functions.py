@@ -170,12 +170,44 @@ def adjust_structure(part: dict, source: str, ts: int):
     part.pop('pricing', None)
     part.pop('packagecase', None)
     part.pop('minimum_quantity', None)
+    
+    # Initiate properties_raw
+    
+    part['properties_raw'] = {}
+    original_keys = ['mfr',
+                     'mfr_raw',
+                     'mpn',
+                     'packaging',
+                     'links',
+                     'packaging_raw',
+                     'termination_style_raw',
+                     'lifecycle_raw',
+                     'categories',
+                     'categories_raw',
+                     'sku',
+                     'description',
+                     'description_raw',
+                     'lifecycle',
+                     'id',
+                     'ts',
+                     'ts_norm',
+                     'ts_crawler',
+                     'mpn_raw',
+                     'series',
+                     'properties_raw']
+    
+    for k in list(part):
+        if k not in original_keys:
+            # print("{0} not in main_keys".format(k))
+            part['properties_raw'][k] = deepcopy(part[k])
+    
     for key in list(part):
         # apply norm
         if key in MAPPING[source]:
             try:
-                # attempt to apply functions
+                
                 if 'actions' in MAPPING[source][key]:
+                    
                     functions = MAPPING[source][key]['actions']
                     for func in functions:
                         # print(f,key)
@@ -282,7 +314,7 @@ def adjust_structure(part: dict, source: str, ts: int):
     # description, lifecycle] as nested properties.
     main_keys = [
         'mfr',
-		'mfr_raw',
+    		'mfr_raw',
         'mpn',
         'packaging_raw',
         'termination_style_raw',
@@ -299,7 +331,8 @@ def adjust_structure(part: dict, source: str, ts: int):
         'ts_norm',
         'ts_crawler',
         'mpn_raw',
-	'series']
+        'series',
+        'properties_raw']
     part['properties'] = {}
     for k in list(part):
         if k not in main_keys:
