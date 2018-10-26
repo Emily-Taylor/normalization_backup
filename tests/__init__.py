@@ -206,6 +206,13 @@ class TestNorm(unittest.TestCase):
         d8 = '- 1 V, 2 V'
         d9 = '+/- 8 V'
         d10 = '1.8 VDC to 3.3 VDC'
+        d11 = '2.5 V, 3.3 V, 5 V'
+        d12 = '+/- 2.5 V, +/- 3.3 V, +/- 5 V'
+        d13 = '+/- 2.5 V, +/- 2.75 V'
+        d14 = '5 V, 9 V, 12 V, 15 V'
+        d15 = '200 VAC, VDC 200'
+        d16 = '120/240 VAC/VDC'
+        d17 = '900 mVDCo 1.4 VDC'
         
         output1 = (2400000000.0, 2483000000.0)
         output2 = (2400000000.0, 2483000000.0)
@@ -217,6 +224,13 @@ class TestNorm(unittest.TestCase):
         output8 = (-1.0, 2.0)
         output9 = (-8.0, 8.0)
         output10 = (1.8, 3.3)
+        output11 = (2.5, 5.0)
+        output12 = (2.5, 5.0)
+        output13 = (2.5, 2.75)
+        output14 = (5.0, 15.0)
+        output15 = (200.0, 200.0)
+        output16 = (120.0, 240.0)
+        output17 = (0.9, 1.4)
         
         result1 = normalization.split_to(d1)
         result2 = normalization.split_to(d2)
@@ -228,6 +242,13 @@ class TestNorm(unittest.TestCase):
         result8 = normalization.split_to(d8)
         result9 = normalization.split_to(d9)
         result10 = normalization.split_to(d10)
+        result11 = normalization.split_to(d11)
+        result12 = normalization.split_to(d12)
+        result13 = normalization.split_to(d13)
+        result14 = normalization.split_to(d14)
+        result15 = normalization.split_to(d15)
+        result16 = normalization.split_to(d16)
+        result17 = normalization.split_to(d17)
         
         self.assertEqual(result1, output1)
         self.assertEqual(result2, output2)
@@ -239,6 +260,13 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result8, output8)
         self.assertEqual(result9, output9)
         self.assertEqual(result10, output10)
+        self.assertEqual(result11, output11)
+        self.assertEqual(result12, output12)
+        self.assertEqual(result13, output13)
+        self.assertEqual(result14, output14)
+        self.assertEqual(result15, output15)
+        self.assertEqual(result16, output16)
+        self.assertEqual(result17, output17)
 
     def test_split_Q(self):
         output = (72.0, 100000000.0)
