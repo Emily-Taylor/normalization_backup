@@ -1236,6 +1236,10 @@ def split_to(d):
                 n1_float = float(Quantity(a, ''))
                 n2_float = float(Quantity(b, ''))
                 return (n1_float, n2_float)
+            elif 'V/' in d:
+                n1_float = min(parse_any_number(d))
+                n2_float = max(parse_any_number(d))
+                return (n1_float, n2_float)
             else:
                 n1_float = float(Quantity(d, ''))
                 return (n1_float, CONST_NA)
