@@ -147,6 +147,7 @@ def extract_num(d):
             d = d.split(',', 1)[0]
             d = d.split('~', 1)[0]
             d = re.sub('Wire Wound Inductors', '0', d)
+            
             d = re.sub(' @.*', '', d)
             d = re.sub(' at.*', '', d)
             
@@ -164,6 +165,7 @@ def extract_num(d):
                return d_float
             elif 'Parallel @ ' in d:
                d = re.sub('Parallel @ ', '', d)
+               # d = re.sub(',.*', '', d)
                d_float = float(Quantity(d))
                return d_float
             else:
@@ -461,11 +463,19 @@ def current(d: str):
 
         # unit to consider: A
         d = d.replace('µ', 'u')
-        d_float = float(Quantity(d, 'A'))
-        return d_float
+        
+        if " to " in d:
+            d1, d2 = d.split(" to ")
+            d1_float = float(Quantity(d1))
+            d2_float = float(Quantity(d2))
+            return (d1_float, d2_float)
+        
+        else:
+            d_float = float(Quantity(d, 'A'))
+            return d_float
     else:
         print("during current type conversion got a non-string")
-        return d
+        return (d, 0)
 
 
 def resistance(d: str):
@@ -1192,12 +1202,30 @@ def split_to(d):
             d_float = float(d) * 4.44
             return (d_float, CONST_NA)
         elif (' V' in d):
-            d = re.sub(' ', '', d)
-            if (',' in d):
-                a, b = d.split(',')
-                n1_float = float(Quantity(a, ''))
-                n2_float = float(Quantity(b, ''))
+            if ('VAC, VDC' in d) or ('VAC/VDC' in d):
+                n1_float = min(parse_any_number(d))
+                n2_float = max(parse_any_number(d))
                 return (n1_float, n2_float)
+            elif 'mVDCo ' in d:
+                n1, n2 = d.split('DCo ')
+                n1_float = float(Quantity(n1))
+                n2_float = float(Quantity(n2))
+                return (n1_float, n2_float)
+                
+            else:    
+                d = re.sub(' ', '', d)
+                
+            if (',' in d):
+                d = re.sub('\+/\-', '', d)
+                if (len(parse_any_number(d)) >= 3):
+                    n1_float = min(parse_any_number(d))
+                    n2_float = max(parse_any_number(d))
+                    return (n1_float, n2_float)
+                else:
+                    a, b = d.split(',')
+                    n1_float = float(Quantity(a, ''))
+                    n2_float = float(Quantity(b, ''))
+                    return (n1_float, n2_float)
             elif ('+/-' in d):
                 d = re.sub('\+/\-', '', d)
                 n1_float = float('-' + str(float(Quantity(d, ''))))
