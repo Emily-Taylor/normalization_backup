@@ -147,9 +147,14 @@ def extract_num(d):
             d = d.split(',', 1)[0]
             d = d.split('~', 1)[0]
             d = re.sub('Wire Wound Inductors', '0', d)
-            
-            d = re.sub(' @.*', '', d)
-            d = re.sub(' at.*', '', d)
+            if 'Parallel @' in d:
+                d = re.sub('Parallel @ ', '', d)
+                # d = re.sub(',.*', '', d)
+                d_float = float(Quantity(d))
+                return d_float
+            else:
+                d = re.sub(' @.*', '', d)
+                d = re.sub(' at.*', '', d)
             
             
             if 'dBi @' in d:
