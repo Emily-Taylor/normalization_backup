@@ -136,70 +136,74 @@ def adjust_structure(part: dict, source: str, ts: int):
 
     part = defaultdict(dict, part)
     # fix mfr before everything
+    
+    part['is_properties_norm'] = 'true'
     if 'mfr' in part:
         # mfr = c.get_alias(part['mfr'])
         mfr_raw = deepcopy(part['mfr'])
-        part['mfr_raw'] = {}
-        part['mfr_raw'][source] = mfr_raw
+        #part['mfr_raw'] = {}
+        #part['mfr_raw'][source] = mfr_raw
+        part['mfr_raw'] = [mfr_raw] # new 19.11.2018
         mfr = c.get_mfr_mapping(part['mfr'])
         part['mfr'] = mfr
     # keep desciprtion
-    if 'description' in part:
-        raw_desc = deepcopy(part['description'])
-        part['description_raw'] = {}
-        part['description_raw'][source] = raw_desc
+    #if 'description' in part:
+        #raw_desc = deepcopy(part['description'])
+        #part['description_raw'] = {}
+        #part['description_raw'][source] = raw_desc
         # fix category before normalization
-    if 'categories' in part:
-        raw_categories = deepcopy(part['categories'])
-        part['categories_raw'] = {}
-        part['categories_raw'][source] = raw_categories
+    #if 'categories' in part:
+        #raw_categories = deepcopy(part['categories'])
+        #part['categories_raw'] = {}
+        #part['categories_raw'][source] = raw_categories
         # save raw mpn before normalizing
     if 'mpn' in part:
         raw_mpn = deepcopy(part['mpn'])
         part['mpn'] = set_mpn(MPN_MAPPING, part['mpn'])
-        part['mpn_raw'] = {}
-        part['mpn_raw'][source] = raw_mpn
+        #part['mpn_raw'] = {}
+        #part['mpn_raw'][source] = raw_mpn
+        part['mpn_raw'] = [raw_mpn]
         part['mpn'] = mpn_norm(part['mpn'])
     if 'packaging' in part:
-        raw_pack = deepcopy(part['packaging'])
-        part['packaging_raw'] = {}
-        part['packaging_raw'][source] = raw_pack
+        #raw_pack = deepcopy(part['packaging'])
+        #part['packaging_raw'] = {}
+        #part['packaging_raw'][source] = raw_pack
         part['packaging'] = set_pkg(PKG_MAPPING, part['packaging'])
     # remove availablity and pricing, minimum_quantity and packagecase
-    part.pop('availability', None)
-    part.pop('pricing', None)
+    #part.pop('availability', None)
+    #part.pop('pricing', None)
     part.pop('packagecase', None)
-    part.pop('minimum_quantity', None)
+    #part.pop('minimum_quantity', None)
     
     # Initiate properties_raw
     
-    part['properties_raw'] = {}
-    original_keys = ['mfr',
-                     'mfr_raw',
-                     'mpn',
-                     'packaging',
-                     'links',
-                     'packaging_raw',
-                     'termination_style_raw',
-                     'lifecycle_raw',
-                     'categories',
-                     'categories_raw',
-                     'sku',
-                     'description',
-                     'description_raw',
-                     'lifecycle',
-                     'id',
-                     'ts',
-                     'ts_norm',
-                     'ts_crawler',
-                     'mpn_raw',
-                     'series',
-                     'properties_raw']
+    #part['properties_raw'] = {}
+    #original_keys = ['mfr',
+                     #'mfr_raw',
+                     #'mpn',
+                     #'packaging',
+                     #'links',
+                     #'packaging_raw',
+                     #'termination_style_raw',
+                     #'lifecycle_raw',
+                     #'categories',
+                     #'categories_raw',
+                     #'sku',
+                     #'description',
+                     #'description_raw',
+                     #'lifecycle',
+                     #'id',
+                     #'ts',
+                     #'ts_norm',
+                     #'ts_crawler',
+                     #'mpn_raw',
+                     #'series',
+                     #'properties_raw']
     
-    for k in list(part):
-        if k not in original_keys:
+    #for k in list(part):
+        #if k not in original_keys:
             # print("{0} not in main_keys".format(k))
-            part['properties_raw'][k] = deepcopy(part[k])
+            #part['properties_raw'][k] = deepcopy(part[k])
     
     for key in list(part):
         # apply norm
@@ -257,87 +261,85 @@ def adjust_structure(part: dict, source: str, ts: int):
     # fix termination_style
     if 'termination_style' in part:
         new_term = part.pop('termination_style')
-        part['termination_style_raw'] = {}
-        part['termination_style_raw'][source] = new_term
+        #part['termination_style_raw'] = {}
+        #part['termination_style_raw'][source] = new_term
         part['termination_style'] = set_termination(TERMINATION_MAPPING, new_term)
     # fix lifecycle/life
     if 'lifecycle' in part:
         new_life = part.pop('lifecycle')
-        part['lifecycle_raw'] = {}
-        part['lifecycle_raw'][source] = new_life
+        #part['lifecycle_raw'] = {}
+        #part['lifecycle_raw'][source] = new_life
         part['lifecycle'] = set_life(LIFECYCLE_MAPPING, new_life)
     # fix SKU
-    if 'sku' in part:
-        new_sku = part.pop('sku')
+    #if 'sku' in part:
+        #new_sku = part.pop('sku')
         # part['sku'] = {}
         # part['sku'][source] = new_sku
     # fix links
-    if 'links' in part:
-        new_links = part.pop('links')
-        part['sku'] = {}
-        part['sku'][source] = {}
-        part['sku'][source][new_sku[0]] = {}
-        part['sku'][source][new_sku[0]]['links'] = new_links
-        part['sku'][source][new_sku[0]]['packaging'] = part.pop(
-            'packaging', None)
+    #if 'links' in part:
+        #new_links = part.pop('links')
+        #part['sku'] = {}
+        #part['sku'][source] = {}
+        #part['sku'][source][new_sku[0]] = {}
+        #part['sku'][source][new_sku[0]]['links'] = new_links
+        #part['sku'][source][new_sku[0]]['packaging'] = part.pop(
+            #'packaging', None)
 
     # generate IDs
-    if 'mpn' in part and 'mfr' in part:
-        
-        id = (part['mpn'] + part['mfr']).lower().replace(" ", "")
-        hash_object = sha1(id.encode('utf-8'))
-        hex_dig = hash_object.hexdigest()
-        part['id'] = hex_dig
+    #if 'mpn' in part and 'mfr' in part:    
+        #id = (part['mpn'] + part['mfr']).lower().replace(" ", "")
+        #hash_object = sha1(id.encode('utf-8'))
+        #hex_dig = hash_object.hexdigest()
+        #part['id'] = hex_dig
     # print(part['id'])
-    elif 'mpn' in part:
-        
-        id = part['mpn'].lower().replace(" ", "")
-        hash_object = sha1(id.encode('utf-8'))
-        hex_dig = hash_object.hexdigest()
-        part['id'] = hex_dig
+    #elif 'mpn' in part:    
+        #id = part['mpn'].lower().replace(" ", "")
+        #hash_object = sha1(id.encode('utf-8'))
+        #hex_dig = hash_object.hexdigest()
+        #part['id'] = hex_dig
     # print(part['id'])
-    else:
-        logging.debug("can't find MPN on part!")
-        print("can't find MPN on part!")
-        return False
+    #else:
+        #logging.debug("can't find MPN on part!")
+        #print("can't find MPN on part!")
+        #return False
 
     # trim category to maxmium 2 levels:
     if part['categories']:
         if len(part['categories']) >2:
             part['categories'] = part['categories'][0:2]
     # adding timestamp ts of the normalization
-    part['ts_norm'] = c.now()
+    #part['ts_norm'] = c.now()
     # adding timestamp ts of the crawler-
-    part['ts_crawler'] = ts
+    #part['ts_crawler'] = ts
     # last big modification of the structure of the json
     # we want to stuff everything but [mfr, mpn, category, sku, links,
     # description, lifecycle] as nested properties.
-    main_keys = [
-        'mfr',
-    		'mfr_raw',
-        'mpn',
-        'packaging_raw',
-        'termination_style_raw',
-        'lifecycle_raw',
-        'categories',
-        'categories_raw',
-        'sku',
-        'description',
-        'description_raw',
-        'lifecycle',
-        'properties',
-        'id',
-        'ts',
-        'ts_norm',
-        'ts_crawler',
-        'mpn_raw',
-        'series',
-        'properties_raw']
-    part['properties'] = {}
-    for k in list(part):
-        if k not in main_keys:
+    #main_keys = [
+        #'mfr',
+    		#'mfr_raw',
+        #'mpn',
+        #'packaging_raw',
+        #'termination_style_raw',
+        #'lifecycle_raw',
+        #'categories',
+        #'categories_raw',
+        #'sku',
+        #'description',
+        #'description_raw',
+        #'lifecycle',
+        #'properties',
+        #'id',
+        #'ts',
+        #'ts_norm',
+        #'ts_crawler',
+        #'mpn_raw',
+        #'series',
+        #'properties_raw']
+    #part['properties'] = {}
+    #for k in list(part):
+        #if k not in main_keys:
             # print("{0} not in main_keys".format(k))
-            part['properties'][k] = part.pop(k, None)
+            #part['properties'][k] = part.pop(k, None)
     return part
 
 
