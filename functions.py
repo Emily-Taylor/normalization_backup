@@ -25,12 +25,16 @@ with open(os.path.join(CURRENT_DIR, 'pkg_mapping.json'), 'r') as f:
     PKG_MAPPING = json.load(f)
 
 # load termination_mapping file
-with open(os.path.join(CURRENT_DIR, 'termination_mapping.json'), 'r') as f:
+with open(os.path.join(CURRENT_DIR, 'termination_mapping_capacitors.json'), 'r') as f:
     TERMINATION_MAPPING = json.load(f)
 
 # load lifecycle_mapping file
 with open(os.path.join(CURRENT_DIR, 'lifecycle_mapping.json'), 'r') as f:
     LIFECYCLE_MAPPING = json.load(f)
+
+# load dielectric_mapping file
+with open(os.path.join(CURRENT_DIR, 'dielectric_mapping.json'), 'r') as f:
+    DIELECTRIC_MAPPING = json.load(f)
     
 # create function to map mpn
 
@@ -106,6 +110,22 @@ def set_termination(TERMINATION_MAPPING: dict, m: str):
     if 1 in sim_vec:
         m_index = sim_vec.index(1)
         return list(TERMINATION_MAPPING.keys())[m_index]
+    else:
+        return m
+
+def set_dielectric(DIELECTRIC_MAPPING: dict, m: str):
+    
+    sim_vec = []
+    
+    for i in range(len(list(DIELECTRIC_MAPPING.values()))):
+        if m in list(DIELECTRIC_MAPPING.values())[i]:
+            sim_vec.append(1)
+        else:
+            sim_vec.append(0)
+        
+    if 1 in sim_vec:
+        m_index = sim_vec.index(1)
+        return list(DIELECTRIC_MAPPING.keys())[m_index]
     else:
         return m
 
@@ -207,6 +227,7 @@ def adjust_structure(part: dict, source: str, ts: int):
     
     for key in list(part):
         # apply norm
+        #if key in MAPPING[source] and key=='categories':
         if key in MAPPING[source]:
             try:
                 
@@ -264,6 +285,10 @@ def adjust_structure(part: dict, source: str, ts: int):
         #part['termination_style_raw'] = {}
         #part['termination_style_raw'][source] = new_term
         part['termination_style'] = set_termination(TERMINATION_MAPPING, new_term)
+    # fix dielectric
+    if 'dielectric' in part:
+        new_di = part.pop('dielectric')
+        part['dielectric'] = set_dielectric(DIELECTRIC_MAPPING, new_di)
     # fix lifecycle/life
     if 'lifecycle' in part:
         new_life = part.pop('lifecycle')
@@ -303,10 +328,11 @@ def adjust_structure(part: dict, source: str, ts: int):
         #print("can't find MPN on part!")
         #return False
 
-    # trim category to maxmium 2 levels:
+    # trim category to maxmium 3 levels:
     if part['categories']:
-        if len(part['categories']) >2:
-            part['categories'] = part['categories'][0:2]
+        if len(part['categories']) >=3:
+            part['cat_l3'] = part['categories'][2]
+            part['categories'] = part['categories'][0:3]
     # adding timestamp ts of the normalization
     #part['ts_norm'] = c.now()
     # adding timestamp ts of the crawler-
