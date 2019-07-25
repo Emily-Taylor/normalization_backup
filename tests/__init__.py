@@ -463,6 +463,7 @@ class TestNorm(unittest.TestCase):
         output9 = (8.0)
         output10 = (0.0)
         output11 = (5.3)
+        output12 = (5.0)
 
         d1 = '530nH'
         d2 = '530nW'
@@ -483,6 +484,7 @@ class TestNorm(unittest.TestCase):
         d17 = '-/+ 8 V'
         d18 = 'DC'
         d19 = '+ / - 5.3 V'
+        d20 = '0.197" (5.00mm) ~ 0.200" (5.08mm)'
 
         result1 = normalization.extract_num(d1)
         result2 = normalization.extract_num(d2)
@@ -503,6 +505,7 @@ class TestNorm(unittest.TestCase):
         result17 = normalization.extract_num(d17)
         result18 = normalization.extract_num(d18)
         result19 = normalization.extract_num(d19)
+        result20 = normalization.extract_num(d20)
 
         self.assertTrue(isinstance(result1, numbers.Real))
         self.assertTrue(isinstance(result2, numbers.Real))
@@ -533,6 +536,7 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result17, output9)
         self.assertEqual(result18, output10)
         self.assertEqual(result19, output11)
+        self.assertEqual(result20, output12)
 
     def test_capacitance(self):
         output = (5.3e-07)
