@@ -140,6 +140,7 @@ def extract_num(d):
                 d = d.split('(')[1]
                 d = re.sub(', Full', '', d)
                 d = re.sub(', Half', '', d)
+                d = re.sub('mm\\).*', '', d)
                 d_float = float(re.sub('mm\)', '', d))
                 return d_float
             
@@ -288,8 +289,7 @@ def split_spread(d):
    else:
        print('during type conversion got a non-string.')
        return (0.0, 0.0, 0.0, 0.0)
-
-
+    
 def parse_any_number(d: str):
     """
     parse out any number from string
@@ -312,6 +312,16 @@ def parse_any_number(d: str):
         return d
     return d
 
+def parse_any_number_single(d: str):
+    """
+    parse out singlular entries from parsed list
+    """
+    if isinstance(d, str):
+        d_list = parse_any_number(d)
+        return d_list[0]
+    else:
+        print('during type conversion got a non-string.')
+        return d
 
 def parse_dimension3d(d: str):
     """
@@ -1444,15 +1454,23 @@ def cat_normalize_mouser(d: dict):
     """
     if len(d) > 1:
         d_new = deepcopy(d)
-        for i in range(len(d_new) - 1):
-            
+        
+        for i in range(len(d_new) - 1):    
             d_new[i + 1] = re.sub(',', '', d_new[i + 1])
             d_new[i + 1] = re.sub('/', '', d_new[i + 1])
             d_new[i + 1] = re.sub('&', '', d_new[i + 1])
             d_new[i + 1] = re.sub('-', '', d_new[i + 1])
             d_new[i + 1] = re.sub('  ', ' ', d_new[i + 1])
-            
-        return d_new
+        
+        d_str = str(d_new)
+        d_str = re.sub('\', \'', '\',\'', d_str)
+        
+        if d_str in categories['mouser']:
+            result_str = categories['mouser'][d_str]
+            result = eval(result_str)
+            return result
+        else:
+            return d_new
     else:
         return d
     
