@@ -55,7 +55,31 @@ def process_file(input_filename,output_filename):
         #with open(output_filename, 'w') as f:
         #    json.dump(results, f)
         with gzip.GzipFile(output_filename, 'w') as f:
-            f.write(json.dumps(results).encode('utf-8'))  
+            f.write(json.dumps(results).encode('utf-8'))
+
+
+def process_file_new(input_filename,output_filename):
+    #pool = mp.Pool(processes=8)
+    if 'digikey' in input_filename:
+        src = 'digikey'
+    elif 'mouser' in input_filename:
+        src = 'mouser'
+    
+    contents = open(input_filename, "r", encoding='utf-8').read()
+    obj = {'parts': []}
+    for item in tqdm(contents.strip().split('\n')):
+        s = json.loads(str(item))
+        obj['parts'].append(s)
+    
+    results = handler.norm_handler_new(obj, src)
+        
+    if output_filename:
+        # Writing JSON data
+        #with open(output_filename, 'w') as f:
+        #    json.dump(results, f)
+        with gzip.GzipFile(output_filename, 'w') as f:
+            f.write(json.dumps(results).encode('utf-8'))
+
 if __name__ == '__main__':
     fire.Fire()
 
