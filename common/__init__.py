@@ -12,7 +12,7 @@ here = os.path.dirname(os.path.realpath(__file__))
 
 # this is deprecated
 with open(os.path.join(here,'config.yml'), 'r') as f:
-  config = yaml.load(f)
+  config = yaml.load(f, Loader=yaml.FullLoader)
 
 stage =os.environ.get('stage', "dev")
 REGION_NAME = os.getenv('REGION_NAME','eu-central-1')
@@ -135,23 +135,23 @@ def get_full(mfr):
     logger.error('alias is not a string')
     return False
 
-with open(os.path.join(here,'../normalization/mfr/mfr-mapping.json'), 'r') as f:
-    mapping = json.load(f)
-mapping_dict = {}
-for i in mapping:
-    if len(i) == 1:
-        mapping_dict[i[0].lower()] = i[0].lower()
-    if len(i) >1:
-        for name in i:
-            mapping_dict[name.lower()] = i[0].lower()
-# this is the static file version of mfr mapping
-def get_mfr_mapping(mfr):
-    mfr = mfr.lower()
-    if mfr in mapping_dict:
-        return mapping_dict[mfr]
-    else:
-        print('error - missing mfr mapping for: "{}"'.format(mfr))
-        return mfr 
+#with open(os.path.join(here,'../normalization/mfr/mfr-mapping.json'), 'r') as f:
+#    mapping = json.load(f)
+#mapping_dict = {}
+#for i in mapping:
+#    if len(i) == 1:
+#        mapping_dict[i[0].lower()] = i[0].lower()
+#    if len(i) >1:
+#        for name in i:
+#            mapping_dict[name.lower()] = i[0].lower()
+## this is the static file version of mfr mapping
+#def get_mfr_mapping(mfr):
+#    mfr = mfr.lower()
+#    if mfr in mapping_dict:
+#        return mapping_dict[mfr]
+#    else:
+#        print('error - missing mfr mapping for: "{}"'.format(mfr))
+#        return mfr 
 class MissingMappingResults:
   """
   Description : Aggregator for items
@@ -190,4 +190,5 @@ def init():
 def now():
   d = datetime.now()
   #return d.isoformat()
-  return int(d.strftime("%s%f")[:-3])
+#  return int(d.strftime("%s%f")[:-3])
+  return int(d.strftime("%S%f")[:-3])

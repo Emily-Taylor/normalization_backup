@@ -1,0 +1,66 @@
+{
+	"NP0": [
+		"C0G (NP0)",
+		"C0G",
+		"C0G, NP0 (1B)",
+		"C0G, NP0",
+		"CG",
+		"NP0"
+	],
+	"X7R": [
+		"VHT/X7R",
+		"X7R (X7S)",
+		"X7R (2R1)",
+		"X7R (VHT)",
+		"VHT",
+		"X7R"
+	],
+	"Y5V": [
+		"Y5V (F)",
+		"F",
+		"Y5V"
+	],
+	"Y5U": [
+		"E",
+		"Y5U (E)",
+		"Y5U"
+	],
+	"Y5P": [
+		"B",
+		"Y5P (B)",
+		"Y5P"
+	],
+	"N750": [
+		"U2J"
+	],
+	"Polyester, Polyethylene Terephthalate (PET), Metallized": [
+		"Polyester, Polyethylene Terephthalate (PET), Metallized - Stacked"
+	],
+	"Polyester, Polyethylene Naphthalate (PEN), Metallized": [
+		"Polyester, Polyethylene Naphthalate (PEN), Metallized - Stacked"
+	],
+	"Polyester, Metallized": [
+		"Polyester, Metallized - Stacked"
+	],
+	"Polypropylene (PP), Metallized": [
+		"Polypropylene (PP), Metallized - Stacked"
+	],
+	"Polyester, Polyethylene Terephthalate (PET)": [
+		"Polyester, Polyethylene Terephthalate (PET) - Stacked"
+	],
+	"Acrylic, Metallized": [
+		"Acrylic, Metallized - Stacked"
+	],
+	"N1500": [
+		"P3K"
+	],
+	"SL": [
+		"SL/GP"
+	],
+	"Polyphenylene Sulfide (PPS), Metallized": [
+		"Polyphenylene Sulfide (PPS), Metallized - Stacked"
+	],
+	"Polyphenylene Sulphide (PPS)": [
+		"Polyphenylene Sulfide (PPS)"
+	]
+}

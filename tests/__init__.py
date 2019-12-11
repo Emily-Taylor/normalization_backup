@@ -271,11 +271,53 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result16, output16)
         self.assertEqual(result17, output17)
         self.assertEqual(result18, output18)
-
+    
+    def test_split_orientation(self):
+        output = [90.0, ' Right Angle']
+        d = "90\u00b0, Right Angle"
+        result = normalization.split_orientation(d)
+        self.assertTrue(isinstance(result, numbers.Real))
+        self.assertEqual(result, output)
+        
+        output1 = ('Vertical')
+        d1 = "Vertical"
+        result1 = normalization.split_orientation(d1)
+        self.assertTrue(isinstance(result1, numbers.Real))
+        self.assertEqual(result1, output1)
+        
+        output2 = ('Vertical')
+        d2 = "Vertical"
+        result2 = normalization.split_orientation(d2)
+        self.assertTrue(isinstance(result2, numbers.Real))
+        self.assertEqual(result2, output2)
+        
+     def test_split_guage(self):
+        output = (12.0, 26.0)
+        d = "12-26 AWG"
+        result = normalization.split_guage(d)
+        self.assertTrue(isinstance(result[0], numbers.Real))
+        self.assertTrue(isinstance(result[1], numbers.Real))
+        self.assertEqual(result, output)
+        
+        output1 = (0.2, 2.5)
+        d1 = "0.2-2.5mm\u00b2"
+        result1 = normalization.split_guage(d1)
+        self.assertTrue(isinstance(result1[0], numbers.Real))
+        self.assertTrue(isinstance(result1[1], numbers.Real))
+        self.assertEqual(result1, output1)
+    
     def test_split_Q(self):
         output = (72.0, 100000000.0)
         d = "72 @ 100MHz"
         result = normalization.split_q(d)
+        self.assertTrue(isinstance(result[0], numbers.Real))
+        self.assertTrue(isinstance(result[1], numbers.Real))
+        self.assertEqual(result, output)
+    
+    def test_split_tilde(self):
+        output = (0.38, 0.64)
+        d = "0.015\" ~ 0.025\" (0.38mm ~ 0.64mm)"
+        result = normalization.split_tilde(d)
         self.assertTrue(isinstance(result[0], numbers.Real))
         self.assertTrue(isinstance(result[1], numbers.Real))
         self.assertEqual(result, output)
@@ -485,6 +527,7 @@ class TestNorm(unittest.TestCase):
         d18 = 'DC'
         d19 = '+ / - 5.3 V'
         d20 = '0.197" (5.00mm) ~ 0.200" (5.08mm)'
+        d21 = 'Varies by Wire Gauge'
 
         result1 = normalization.extract_num(d1)
         result2 = normalization.extract_num(d2)
@@ -506,6 +549,7 @@ class TestNorm(unittest.TestCase):
         result18 = normalization.extract_num(d18)
         result19 = normalization.extract_num(d19)
         result20 = normalization.extract_num(d20)
+        result21 = normalization.extract_num(d21)
 
         self.assertTrue(isinstance(result1, numbers.Real))
         self.assertTrue(isinstance(result2, numbers.Real))
@@ -537,6 +581,7 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result18, output10)
         self.assertEqual(result19, output11)
         self.assertEqual(result20, output12)
+        self.assertEqual(result21, output8)
 
     def test_capacitance(self):
         output = (5.3e-07)
@@ -976,6 +1021,8 @@ class TestNorm(unittest.TestCase):
         result18 = normalization.parse_dimension('1 M')
         result19 = normalization.parse_dimension('100 um')
         result20 = normalization.parse_dimension('CG')
+        result21 = normalization.parse_dimension('3.50mm (0.141", 1/8", Mini Plug) - Headphone')       
+        result22 = normalization.parse_dimension('126µm')
         
         output1 = 38.1
         output2 = 34.925
@@ -997,6 +1044,8 @@ class TestNorm(unittest.TestCase):
         output18 = 1000.0
         output19 = 0.1
         output20 = 'n/a'
+        output21 = 3.50
+        output22 = 0.126
         
         self.assertEqual(result1, output1)
         self.assertEqual(result2, output2)
@@ -1018,6 +1067,8 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result18, output18)
         self.assertEqual(result19, output19)
         self.assertEqual(result20, output20)
+        self.assertEqual(result21, output21)
+        self.assertEqual(result22, output22)
 
 
 if __name__ == '__main__':

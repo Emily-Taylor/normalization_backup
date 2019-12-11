@@ -41,7 +41,7 @@ __location__ = os.path.realpath(
     os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
 with open(os.path.join(__location__, 'categories.yml'), 'r') as f:
-    categories = yaml.load(f)
+    categories = yaml.load(f, Loader=yaml.FullLoader)
 
 def attenuation(d: str) -> typing.Tuple[float, float, float]:
    """splits attenuation header into 3 keys"""
@@ -141,13 +141,15 @@ def extract_num(d):
                 d = re.sub(', Full', '', d)
                 d = re.sub(', Half', '', d)
                 d = re.sub('mm\\).*', '', d)
-                d_float = float(re.sub('mm\)', '', d))
+                d_float = float(re.sub('mm\)', 'N/A', d))
                 return d_float
             
             d = re.sub(r'\(.*\)', '', d)
             d = d.split(',', 1)[0]
             d = d.split('~', 1)[0]
             d = re.sub('Wire Wound Inductors', '0', d)
+            d = re.sub('Varies by Wire Gauge', 'N/A', d)
+            
             if 'Parallel @' in d:
                 d = re.sub('Parallel @ ', '', d)
                 # d = re.sub(',.*', '', d)
@@ -220,7 +222,7 @@ def extract_num(d):
             print("during conversion got an empty string")
             return 0.0
     else:
-        print("during type conversion got a non-string")
+        print("during type conversion got a non-string, returned the value as is")
         return d
 
 
@@ -562,7 +564,7 @@ def frequency(d: str):
 
 
 def parse_dimensions(d):
-    """splits Lenght and Width from strings
+    """splits Length and Width from strings
     example: '0.276" L x 0.217" W (7.00mm x 5.50mm)'
     ignoring inches, focusing on millimeters
     """
@@ -838,6 +840,8 @@ def parse_dimension(d):
         25 ft
         15' (4.6m) 5 yds
         50 cm
+        3.50mm (0.141", 1/8", Mini Plug) - Headphone
+        126\u00b5m
     """
     #print("going to parse dimensions for input: {0}".format(d))
     
@@ -896,9 +900,12 @@ def parse_dimension(d):
         return d_float
     elif '-' in d:
         a = d.split('-')[0]
-        a = a.strip(' ')
-        a = re.sub('in', '', a)
-        d_float = convert_to_float(a) * 25.4
+        if 'mm (' in d:
+            d_float = parse_any_number(d)[0]
+        else:
+            a = a.strip(' ')
+            a = re.sub('in', '', a)
+            d_float = convert_to_float(a) * 25.4
         return d_float
     elif len(re.findall('T\d+', d)) == 1:
         d_float = float(re.sub('T', '', d))
@@ -940,6 +947,9 @@ def parse_dimension(d):
         d = re.findall('\d+ um', d)[0]
         d_float = parse_any_number(d)[0]
         d_float = d_float * 0.001
+        return d_float
+    elif 'µm' in d:
+        d_float = float(Quantity(d, scale = 'mm'))
         return d_float
     elif ' ft' in d:
         d_float = parse_any_number(re.findall('\d+ ft', d)[0])[0]
@@ -1412,6 +1422,57 @@ def split_esr(d: str) -> typing.Tuple[float, float]:
     freq_float = float(Quantity(freq))
     return(r_float, freq_float)
 
+def split_guage(d: str) -> typing.Tuple[float, float]:
+    """split wire guage range string into wire_guage_min and wire_guage_max
+    input looks like: '12-26 AWG'
+    output should look like
+    wire_guage_min = 12
+    wire_guage_max = 26
+    """
+    wire_guage_min, wire_guage_max = d.split('-')
+    wire_guage_min = wire_guage_min.strip(" ")
+    wire_guage_max = wire_guage_max.strip(" ")
+    if (wire_guage_min.endswith('') and ('mm' in d)):
+        wire_guage_min = wire_guage_min + 'mm'
+    
+    wire_guage_min = float(parse_any_number(wire_guage_min)[0])
+    wire_guage_max = float(parse_any_number(wire_guage_max)[0])
+    return(wire_guage_min, wire_guage_max)
+
+def split_tilde(d: str) -> typing.Tuple[float, float]:
+    """split range of lengths separated by tilde '~'
+    input looks like: "0.015\" ~ 0.025\" (0.38mm ~ 0.64mm)"
+    output should look like
+    pin_diameter_min = 0.38
+    pin_diameter_max = 0.64
+    """
+    
+    length_min, length_max = d.rsplit('~', maxsplit = 1)
+    length_min = length_min.strip(" ")
+    length_min = length_min.split('(')[1]
+    length_max = length_max.strip(" ")
+    length_min = float(parse_any_number(length_min)[0])
+    length_max = float(parse_any_number(length_max)[0])
+    return(length_min, length_max)
+
+def split_orientation(d: str) -> typing.Tuple[float, str]:
+    """split header_orientation into an angle (float) and a string
+    input looks like: "90\u00b0, Right Angle" or 'Vertical'
+    output should look like
+    (90.0, 'Right Angle') or ('Vertical')
+    """
+    if (', ' in d):
+            a, o = d.split(',')
+            a = a.strip(" ")
+            o = o.strip(" ")
+            if any(char.isdigit() for char in a):
+                float_a = parse_any_number(a)[0]
+                header_orientation = [float_a, o]
+                return(header_orientation)
+    elif any(char.isdigit() for char in d):
+        float_d = parse_any_number(d)[0]
+        return(float_d)
+    return(d)
 
 def split_lifetime(d):
     """split esr string into r and freq

@@ -14,18 +14,42 @@ CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 
 # load key-mapping file
 with open(os.path.join(CURRENT_DIR, 'key-mapping.yml'), 'r') as f:
+#    MAPPING = yaml.load(f, Loader=yaml.FullLoader)
     MAPPING = yaml.load(f)
-
 # load mpn_mapping file
 with open(os.path.join(CURRENT_DIR, 'mpn_mapping.json'), 'r') as f:
     MPN_MAPPING = json.load(f)
-    
+
+# load mfr_mapping file
+with open(os.path.join(CURRENT_DIR, 'mfr-mapping.json'), 'r', encoding='utf-8') as f:
+    MFR_MAPPING = json.load(f)
+
+mfr_mapping_dict = {}
+for i in MFR_MAPPING:
+    if len(i) == 1:
+        mfr_mapping_dict[i[0].lower()] = i[0].lower()
+    if len(i) >1:
+        for name in i:
+            mfr_mapping_dict[name.lower()] = i[0].lower()
+
+def get_mfr_mapping(mfr):
+    mfr = mfr.lower()
+    if mfr in mfr_mapping_dict:
+        return mfr_mapping_dict[mfr]
+    else:
+        print('error - missing mfr mapping for: "{}"'.format(mfr))
+        return mfr
+
+## load CAT_L3_mapping file
+#with open(os.path.join(CURRENT_DIR, 'XXX.json'), 'r') as f:
+#    XXX_MAPPING = json.load(f)
+
 # load pkg_mapping file
 with open(os.path.join(CURRENT_DIR, 'pkg_mapping.json'), 'r') as f:
     PKG_MAPPING = json.load(f)
 
 # load termination_mapping file
-with open(os.path.join(CURRENT_DIR, 'termination_mapping_capacitors.json'), 'r') as f:
+with open(os.path.join(CURRENT_DIR, 'termination_mapping.json'), 'r') as f:
     TERMINATION_MAPPING = json.load(f)
 
 # load lifecycle_mapping file
@@ -75,8 +99,25 @@ def mpn_norm(m: str):
 
     return m_final
       
-# create function to map pkg
-            
+
+##CREATE CAT_l3 FUNCTION TO MAP CATS
+#def set_catl3(XXX_MAPPING: dict, m: str):
+#
+#    sim_vec = []
+#    
+#    for i in range(len(list(XXX_MAPPING.values()))):
+#        if m in list(XXX_MAPPING.values())[i]:
+#            sim_vec.append(1)
+#        else:
+#            sim_vec.append(0)
+#        
+#    if 1 in sim_vec:
+#        m_index = sim_vec.index(1)
+#        return list(XXX_MAPPING.keys())[m_index]
+#    else:
+#        return m
+    
+# create function to map pkg       
 def set_pkg(PKG_MAPPING: dict, p: list):
     
     if len(p) != 0:
@@ -144,7 +185,7 @@ def set_life(LIFECYCLE_MAPPING: dict, m: str):
         return list(LIFECYCLE_MAPPING.keys())[m_index]
     else:
         return m
-    
+   
 def deep_set(part, value, keys):
     data = part
     for key in keys[:-1]:
@@ -164,7 +205,7 @@ def adjust_structure(part: dict, source: str, ts: int):
         #part['mfr_raw'] = {}
         #part['mfr_raw'][source] = mfr_raw
         part['mfr_raw'] = [mfr_raw] # new 19.11.2018
-        mfr = c.get_mfr_mapping(part['mfr'])
+        mfr = get_mfr_mapping(part['mfr'])
         part['mfr'] = mfr
     # keep desciprtion
     #if 'description' in part:
@@ -172,10 +213,10 @@ def adjust_structure(part: dict, source: str, ts: int):
         #part['description_raw'] = {}
         #part['description_raw'][source] = raw_desc
         # fix category before normalization
-    #if 'categories' in part:
-        #raw_categories = deepcopy(part['categories'])
-        #part['categories_raw'] = {}
-        #part['categories_raw'][source] = raw_categories
+    if 'categories' in part:
+        raw_categories = deepcopy(part['categories'])
+        part['categories_raw'] = {}
+        part['categories_raw'][source] = raw_categories
         # save raw mpn before normalizing
     if 'mpn' in part:
         raw_mpn = deepcopy(part['mpn'])
@@ -190,10 +231,10 @@ def adjust_structure(part: dict, source: str, ts: int):
         #part['packaging_raw'][source] = raw_pack
         part['packaging'] = set_pkg(PKG_MAPPING, part['packaging'])
     # remove availablity and pricing, minimum_quantity and packagecase
-    #part.pop('availability', None)
-    #part.pop('pricing', None)
+    part.pop('availability', None)
+    part.pop('pricing', None)
     part.pop('packagecase', None)
-    #part.pop('minimum_quantity', None)
+    part.pop('minimum_quantity', None)
     
     # Initiate properties_raw
     
@@ -227,10 +268,10 @@ def adjust_structure(part: dict, source: str, ts: int):
     
     for key in list(part):
         # apply norm
-        #if key in MAPPING[source] and key=='categories':
         if key in MAPPING[source]:
+        #if key in MAPPING[source]:
+            #part.pop(key, None)
             try:
-                
                 if 'actions' in MAPPING[source][key]:
                     
                     functions = MAPPING[source][key]['actions']
@@ -271,6 +312,7 @@ def adjust_structure(part: dict, source: str, ts: int):
                     str(key), str(part[key]), str(new_keys)))
 
         else:
+            #part.pop(key, None)
             # call missing-mapping queue with the source, categories and
             # missing mapping key.
             # print("missing mapping")
@@ -279,6 +321,10 @@ def adjust_structure(part: dict, source: str, ts: int):
             # we are going to continue in order to prevent writing json that's
             # not fully mapped
             continue
+    
+    # !!!Maybe add in the cat_l3 mapping here
+    
+    
     # fix termination_style
     if 'termination_style' in part:
         new_term = part.pop('termination_style')
@@ -331,7 +377,7 @@ def adjust_structure(part: dict, source: str, ts: int):
     # trim category to maxmium 3 levels:
     if part['categories']:
         if len(part['categories']) >=3:
-            part['cat_l3'] = part['categories'][2]
+            #part['cat_l3'] = part['categories'][2]
             part['categories'] = part['categories'][0:3]
     # adding timestamp ts of the normalization
     #part['ts_norm'] = c.now()

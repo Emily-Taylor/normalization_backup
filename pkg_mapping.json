@@ -1,0 +1,60 @@
+{
+	"Cut Tape": [
+		"cut tape",
+		"cut strips",
+		"cut strip",
+		"cut tape (ct)",
+		"ammo",
+		"ammo pack"
+	],
+	"Reel": [
+		"reel"
+	],
+	"Tape & Reel": [
+		"tape & reel",
+		"tape & reel (tr)",
+		"tape and reel",
+		"tape and reel (tr)",
+		"blister tape and reel"
+	],
+	"Tape & Box": [
+		"tape & box",
+		"tape & box (tb)"
+	],
+	"Custom Reel": [
+		"custom reel",
+		"mousereel",
+		"digi-reel®",
+		"arrowreel"
+	],
+	"Bulk": [
+		"bulk"
+	],
+	"Box": [
+		"box",
+		"cardboard box"
+	],
+	"Tube": [
+		"tube",
+		"rail/tube"
+	],
+	"Tray": [
+		"tray"
+	],
+	"Bag": [
+		"bag"
+	],
+	"Kit": [
+		"kit",
+		"*"
+	],
+	"Spool": [
+		"spool"
+	],
+	"Cardboard Strip": [
+		"cardboard strip"
+	],
+	"Strip": [
+		"strip"
+	]
+}

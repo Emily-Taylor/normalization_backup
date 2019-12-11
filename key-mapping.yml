@@ -1,0 +1,3942 @@
+mouser:
+  description_raw:
+    output_key: description_raw
+  terminal_seal:
+    output_key: terminal_seal
+  contact_plating:
+    output_key: contact_plating
+  mounting_direction:
+    output_key: mounting_direction
+  key_type:
+    output_key: key_type
+  output_code:
+    output_key: output_code
+  operation_direction:
+    output_key: operation_direction
+  illumination_colour:
+    output_key: illumination_colour
+  magnet_type:
+    output_key: magnet_type
+  tool_is_for_evaluation_of:
+    output_key: tool_is_for_evaluation_of
+  contact_style:
+    output_key: contact_style
+  return_angle:
+    output_key: return_angle
+    actions:
+      - extract_num
+  index_angle:
+    output_key: index_angle
+    actions:
+      - extract_num
+  indexing:
+    output_key: index_angle
+    actions:
+      - extract_num
+  number_of_sections:
+    output_key: number_of_sections
+    actions:
+      - extract_num
+  on_travel:
+    output_key: on_travel
+    actions:
+      - parse_dimension
+  stem_height:
+    output_key: stem_height
+    actions:
+      - parse_dimension
+  terminal_pitch:
+    output_key: terminal_pitch
+    actions:
+      - parse_dimension
+  number_of_decks:
+    output_key: number_of_decks
+    actions:
+      - extract_num
+  number_of_poles_per_deck:
+    output_key: number_of_poles_per_deck
+    actions:
+      - extract_num
+  operate_range:
+    output_key:
+      - operate_range_min
+      - operate_range_max
+    actions:
+      - split_to
+  operating_angle:
+    output_key: operating_angle
+    actions:
+      - extract_num
+  bushing_size:
+    output_key: bushing_size
+    actions:
+      - parse_dimension
+  categories_raw:
+    output_key: categories_raw
+  categories:
+    output_key: categories
+    actions:
+      - cat_normalize_mouser
+  description:
+    output_key: description
+    actions:
+      - lower
+  b_parameter:
+    output_key: b_parameter
+  number_of_pots:
+    output_key: number_of_pots
+    actions:
+      - lower
+  number_of_outputs:
+    output_key: number_of_outputs
+    actions:
+      - extract_num
+  cable_length:
+    output_key: cable_length
+    actions:
+      - parse_dimension
+  primary_impedance:
+    output_key: primary_impedance
+    actions:
+      - extract_num
+  isolation_voltage:
+    output_key: isolation_voltage
+    actions:
+      - extract_num
+  application:
+    output_key: technology
+  shielding:
+    output_key: shielding
+  self_resonant_frequency:
+    output_key:
+      - self_resonant_frequency_min
+      - self_resonant_frequency_max
+    actions:
+      - split_to
+  number_of_coils:
+    output_key: number_of_coils
+    actions:
+      - extract_num
+  taps_per_pot:
+    output_key: taps_per_pot
+  digital_interface:
+    output_key: digital_interface
+  linearity:
+    output_key: linearity
+    actions:
+      - extract_num
+  function:
+    output_key: function
+    actions:
+      - lower
+  wiper_memory:
+    output_key: wiper_memory
+  adjustment:
+    output_key: shaft_type
+  operating_force:
+    output_key:
+      - operating_force_min
+      - operating_force_max
+    actions:
+      - split_to
+  coil_current:
+    output_key: coil_current
+    actions:
+      - extract_num
+  coil_resistance:
+    output_key: coil_resistance
+    actions:
+      - extract_num
+  resistance_range:
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
+    actions:
+      - split_to
+  coil_voltage:
+    output_key:
+      - coil_voltage_min
+      - coil_voltage_max
+    actions:
+      - split_to
+  output_current:
+    output_key: output_current
+    actions:
+      - extract_num
+  contact_material:
+    output_key: contact_material
+  primary_winding:
+    output_key: primary_winding
+    actions:
+      - lower
+  q_minimum:
+    output_key: q_minimum
+  secondary_winding:
+    output_key: secondary_winding
+    actions:
+      - lower
+  sensing_distance:
+    output_key: sensing_distance
+    actions:
+      - parse_dimension
+  minimum_holding_torque:
+    output_key: holding_torque_minimum
+    actions:
+      - extract_torque
+  operating_supply_current:
+    output_key: operating_supply_current
+    actions:
+      - extract_num
+  mounting_type:
+    output_key: termination_style
+  switch_function:
+    output_key: switch_function
+  illuminated:
+    output_key: illuminated
+    actions:
+      - lower
+  step_angle:
+    output_key: step_angle
+    actions:
+      - parse_any_number
+  illumination:
+    output_key: illumination
+  motor_drive_type:
+    output_key: motor_drive_type
+  size:
+    output_key:
+      - width
+      - height
+      - depth
+    actions:
+        - parse_dimension3d
+  sensing_method:
+    output_key: sensing_method
+  range:
+    output_key:
+      - range_min
+      - range_max
+    actions:
+      - split_to
+  rotor_inertia:
+    output_key: rotor_inertia
+    actions:
+      - parse_any_number
+  rated_speed:
+    output_key: rated_speed
+    actions:
+      - parse_any_number
+  output_power:
+    output_key: output_power
+    actions:
+      - extract_num
+  material:
+    output_key: material
+  number_of_channels:
+    output_key: number_of_channels
+  number_of_positions:
+    output_key: number_of_positions
+    actions:
+      - extract_num
+  output_configuration:
+    output_key: output_configuration
+  output_currentchannel_1:
+    output_key: output_currentchannel_1
+    actions:
+      - extract_num
+  output_currentchannel_2:
+    output_key: output_currentchannel_2
+    actions:
+      - extract_num
+  output_currentchannel_3:
+    output_key: output_currentchannel_3
+    actions:
+      - extract_num
+  output_voltagechannel_1:
+    output_key: output_voltagechannel_1
+    actions:
+      - extract_num
+  output_voltagechannel_2:
+    output_key: output_voltagechannel_2
+    actions:
+      - extract_num
+  output_voltagechannel_3:
+    output_key: output_voltagechannel_3
+    actions:
+      - extract_num
+  screw_head:
+    output_key: screw_head
+  plating:
+    output_key: plating
+    actions:
+      - lower
+  dimensions:
+    output_key: dimensions
+  led_size:
+    output_key: led_size
+    actions:
+      - parse_dimension
+  mounting_hole_size:
+    output_key: mounting_hole_size
+    actions:
+      - parse_dimension
+  indicator_style:
+    output_key: indicator_style
+    actions:
+      - lower
+  fuse_size_group:
+    output_key: fuse_size_group
+  actuator_type:
+    output_key: shaft_type
+  design:
+    output_key: design
+    actions:
+      - lower
+  core_size:
+    output_key:
+      - core_size_width
+      - core_size_height
+      - core_size_length
+    actions:
+      - parse_dimensions
+  number_of_poles:
+    output_key: number_of_poles
+    actions:
+      - extract_num
+  series:
+    output_key: series
+  mfr:
+    output_key: mfr
+  pricing:
+    output_key: pricing
+  clamping_voltage:
+    output_key: clamping_voltage
+    actions:
+      - extract_num
+  capacitance:
+    output_key: capacitance
+    actions:
+      - extract_num
+  voltage_rating_ac:
+    output_key: voltage_rating_ac
+    actions:
+      - extract_num
+  features:
+    output_key: features
+  inductance:
+    output_key:
+      - inductance_range_min
+      - inductance_range_max
+    actions:
+      - split_to
+  flammability_rating:
+    output_key: flammability_rating
+  gain:
+    output_key: gain
+    actions:
+      - extract_num
+  bandwidth:
+    output_key: bandwidth
+    actions:
+      - extract_num
+  vswr:
+    output_key: vswr
+  accessory_type:
+    output_key: accessory_type
+  associated_relay_series:
+    output_key: associated_relay_series
+  maximum_dc_current:
+    output_key: rated_current
+    actions:
+      - extract_num
+  mpn:
+    output_key: mpn
+  actuator:
+    output_key: actuator
+    actions:
+      - lower
+  impedance:
+    output_key: impedance
+    actions:
+      - extract_num
+  control_type:
+    output_key: control_type
+    actions:
+      - lower
+  contact_rating:
+    output_key:
+      - contact_rating_min
+      - contact_rating_max
+      - contact_rating_at_V
+    actions:
+      - split_contact
+  contact_form:
+    output_key: contact_form
+  cutoff_frequency:
+    output_key: cutoff_frequency
+    actions:
+      - extract_num
+  mounting_style:
+    output_key: termination_style
+  circuit_type:
+    output_key: circuit_type
+  packagecase:
+    output_key: packaging
+  package_type:
+    output_key: packaging
+  links:
+    output_key: links
+  sku:
+    output_key: sku
+  leakage_current:
+    output_key: leakage_current
+    actions:
+      - extract_num
+  output_format:
+    output_key: output_format
+  operating_supply_voltage:
+    output_key:
+      - operating_supply_voltage_min
+      - operating_supply_voltage_max
+    actions:
+      - split_to
+  output_type:
+    output_key: output_type
+  ripple_current:
+    output_key: ripple_current
+    actions:
+      - extract_num
+  output_voltage:
+    output_key:
+      - output_voltage_min
+      - output_voltage_max
+    actions:
+      - split_to
+  type:
+    output_key: type
+  dielectric:
+    output_key: dielectric
+  lead_spacing:
+    output_key: lead_spacing
+    actions:
+      - parse_dimension
+  packaging:
+    output_key: packaging
+  maximum_dc_resistance:
+    output_key: dc_resistance
+    actions:
+      - extract_num
+  mfr_case_code:
+    output_key: mfr_case_code
+  capacitance_range:
+    output_key:
+      - capacitance_range_min
+      - capacitance_range_max
+    actions:
+      - split_to
+  input_current:
+    output_key:
+      - input_current_min
+      - input_current_max
+    actions:
+      - split_to
+  input_voltage:
+    output_key:
+      - input_voltage_min
+      - input_voltage_max
+    actions:
+      - split_to
+  load_current_rating:
+    output_key: load_current_rating
+    actions:
+      - extract_num
+  load_voltage_rating:
+    output_key:
+      - load_voltage_rating_min
+      - load_voltage_rating_max
+    actions:
+      - split_to
+  with_switch:
+    output_key: with_switch
+    actions:
+      - lower
+  control_voltage_range:
+    output_key:
+      - control_voltage_range_min
+      - control_voltage_range_max
+    actions:
+      - split_to
+  inductance_parallel:
+    output_key: inductance_parallel
+    actions:
+      - extract_num
+  inductance_series:
+    output_key: inductance_series
+    actions:
+      - extract_num
+  termination_style:
+    output_key: termination_style
+  voltage_range:
+    output_key:
+      - voltage_range_min
+      - voltage_range_max
+    actions:
+      - split_to
+  case_style:
+    output_key: case_style
+  secondary_impedance:
+    output_key: secondary_impedance
+    actions:
+      - extract_num
+  test_frequency:
+    output_key: test_frequency
+    actions:
+      - extract_num
+  tolerance_range:
+    output_key:
+      - tolerance_range_min
+      - tolerance_range_max
+    actions:
+      - split_to
+  capacity:
+    output_key: capacity
+    actions:
+      - extract_num
+  inductance_range:
+    output_key:
+      - inductance_range_min
+      - inductance_range_max
+    actions:
+      - split_to
+  minimum_operating_temperature:
+    output_key: operating_temperature_minimum
+    actions:
+      - extract_num
+  maximum_operating_temperature:
+    output_key: operating_temperature_maximum
+    actions:
+      - extract_num
+  operating_temperature_range:
+    output_key:
+      - operating_temperature_minimum
+      - operating_temperature_maximum
+    actions:
+      - split_temp
+  operating_temperature_junction:
+    output_key:
+      - operating_temperature_junction_minimum
+      - operating_temperature_junction_maximum
+    actions:
+      - split_temp
+  product:
+    output_key: technology
+  qualification:
+    output_key: qualification
+  for_use_with:
+    output_key: for_use_with
+  resolution:
+    output_key: resolution
+    actions:
+      - parse_resolution
+  element_type:
+    output_key: resistive_material
+  core:
+    output_key: core
+  drive_level:
+    output_key: drive_level
+    actions:
+      - extract_num
+  connection_method:
+    output_key: connection_method
+  color:
+    output_key: color
+    actions:
+      - lower
+  core_material:
+    output_key: core_material
+  case:
+    output_key: case
+  case_color:
+    output_key: case_color
+    actions:
+      - lower
+  termination:
+    output_key: termination_style
+  ground_terminal:
+    output_key: ground_terminal
+    actions:
+        - extract_num
+  load_capacitance:
+    output_key: capacitance
+    actions:
+      - extract_num
+  frequency_stability:
+    output_key: frequency_stability
+    actions:
+      - extract_num
+  sound_pressure_level:
+    output_key: sound_pressure_level
+    actions:
+      - extract_num
+  body_length:
+    output_key: body_length
+    actions:
+      - parse_dimension
+  lead_style:
+    output_key: termination_style
+  lifecycle:
+    output_key: lifecycle
+  open_frameenclosed:
+    output_key: open_frameenclosed
+  number_of_detents:
+    output_key: number_of_detents
+  number_of_digits:
+    output_key: number_of_digits
+  number_of_drivers:
+    output_key: number_of_drivers
+  number_of_electrodes:
+    output_key: number_of_electrodes
+  number_of_elements:
+    output_key: number_of_elements
+  number_of_gates:
+    output_key: number_of_gates
+  number_of_inputs_monitored:
+    output_key: number_of_inputs_monitored
+  number_of_internal_timers:
+    output_key: number_of_internal_timers
+  number_of_io:
+    output_key: number_of_io
+  number_of_ios:
+    output_key: number_of_ios
+  number_of_keys:
+    output_key: number_of_keys
+  number_of_lanes:
+    output_key: number_of_lanes
+  number_of_leds:
+    output_key: number_of_leds
+  number_of_levels:
+    output_key: number_of_levels
+  number_of_lines:
+    output_key: number_of_lines
+  number_of_logic_array_blocks_labs:
+    output_key: number_of_logic_array_blocks_labs
+  number_of_logic_elements:
+    output_key: number_of_logic_elements
+  number_of_logic_elements_blocks:
+    output_key: number_of_logic_elements_blocks
+  number_of_logic_elements_cells:
+    output_key: number_of_logic_elements_cells
+  number_of_macro_cells:
+    output_key: number_of_macro_cells
+  ip_rating:
+    output_key: ip_rating
+  number_of_gangs:
+    output_key: number_of_gangs
+    actions:
+      - extract_num
+  switch_type:
+    output_key: with_switch
+  shaft_type:
+    output_key: shaft_type
+  taper:
+    output_key: taper
+  number_of_pins:
+    output_key: number_of_terminations
+    actions:
+      - extract_num
+  number_of_resistors:
+    output_key: number_of_resistors
+  number_of_turns:
+    output_key: number_of_turns
+    actions:
+      - extract_num
+  resistance:
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
+    actions:
+      - split_to
+  resistor_values:
+    output_key: resistance_range_min
+    actions:
+      - extract_num
+  shaft_diameter:
+    output_key: shaft_length
+    actions:
+      - parse_dimension
+  shaft_length:
+    output_key: shaft_length
+    actions:
+      - parse_dimension
+  inside_diameter:
+    output_key: inside_diameter
+    actions:
+      - parse_dimension
+  outside_diameter:
+    output_key: outside_diameter
+    actions:
+      - parse_dimension
+  inside_height:
+    output_key: inside_height
+    actions:
+      - parse_dimension
+  outside_height:
+    output_key: outside_height
+    actions:
+      - parse_dimension
+  varistor_voltage:
+    output_key: varistor_voltage
+    actions:
+      - extract_num
+  inside_length:
+    output_key: inside_length
+    actions:
+      - parse_dimension
+  outside_length:
+    output_key: outside_length
+    actions:
+      - parse_dimension
+  inside_width:
+    output_key: inside_width
+    actions:
+      - parse_dimension
+  product_type:
+    output_key: product_type
+  outside_width:
+    output_key: outside_width
+    actions:
+      - parse_dimension
+  diameter:
+    output_key: diameter
+    actions:
+      - parse_dimension
+  mounting:
+    output_key: termination_style
+  magnet_material:
+    output_key: magnet_material
+  light_source:
+    output_key: light_source
+  length:
+    output_key: length
+    actions:
+      - parse_dimension
+  power_consumption:
+    output_key: power_consumption
+    actions:
+      - extract_num
+  maximum_switched_current:
+    output_key: switched_current_maximum
+    actions:
+      - extract_num
+  maximum_switched_power:
+    output_key: switched_power_maximum
+    actions:
+      - extract_num
+  coil_suppression_diode:
+    output_key: coil_suppression_diode
+    actions:
+      - lower
+  industry:
+    output_key: industry
+    actions:
+      - lower
+  input_type:
+    output_key: input_type
+  life:
+    output_key: lifecycle
+    actions:
+      - extract_num
+  housing_material:
+    output_key: housing_material
+  height:
+    output_key: height
+    actions:
+      - parse_dimension
+  component_type:
+    output_key: component_type
+  temperature_coefficient_code:
+    output_key: temperature_coefficient_code
+  width:
+    output_key: width
+    actions:
+      - parse_dimension
+  power_rated:
+    output_key: power_rating
+    actions:
+      - extract_num
+  programming_voltage:
+    output_key: programming_voltage
+    actions:
+      - extract_num
+  program_memory_size:
+    output_key: program_memory_size
+    actions:
+      - extract_num
+  power_rating:
+    output_key: power_rating
+    actions:
+      - extract_num
+  esr:
+    output_key:
+      - esr_resistance
+      - esr_frequency
+    actions:
+      - split_at
+  case_code_mm:
+    output_key: case_code_mm
+  case_code_in:
+    output_key: case_code_in
+  sensitivity:
+    output_key: sensitivity
+    actions:
+      - extract_num
+  tone:
+    output_key: tone
+    actions:
+      - lower
+  peak_surge_current:
+    output_key: peak_surge_current
+    actions:
+      - extract_num
+  surge_energy_rating:
+    output_key: surge_energy_rating
+    actions:
+      - extract_num
+  temperature_coefficient:
+    output_key: dielectric
+  availability:
+    output_key: availability
+  timing_range:
+    output_key:
+      - timing_range_min
+      - timing_range_max
+    actions:
+      - split_timing
+  coil_termination:
+    output_key: coil_termination
+  contact_termination:
+    output_key: contact_termination
+  switching_voltage:
+    output_key:
+      - switching_voltage_min
+      - switching_voltage_max
+    actions:
+      - split_to
+  lead_diameter:
+    output_key: diameter
+    actions:
+      - parse_dimension
+  coil_type:
+    output_key: coil_type
+  contact_current_rating:
+    output_key: contact_current_rating
+    actions:
+      - extract_num
+  relay_contact_form:
+    output_key: relay_contact_form
+  pitch:
+    output_key: pitch
+    actions:
+      - extract_num
+  pin_or_wire_count:
+    output_key: pin_or_wire_count
+  connection:
+    output_key: connection
+  travel:
+    output_key: travel
+    actions:
+      - extract_num
+  frame_size_nema:
+    output_key: frame_size_nema
+  voltage_rating:
+    output_key:
+      - operating_supply_voltage_min
+      - operating_supply_voltage_max
+    actions:
+      - split_to
+  voltage_rating_dc:
+    output_key: voltage_rating_dc
+    actions:
+      - extract_num
+  tolerance:
+    output_key:
+      - tolerance_percent
+      - tolerance_value
+    actions:
+      - split_tolerance
+  thread_size:
+    output_key: thread_size
+  cone_material:
+    output_key: cone_material
+  depth:
+    output_key: depth
+    actions:
+      - extract_num
+  shape:
+    output_key: shape
+    actions:
+      - lower
+  technology:
+    output_key: technology
+  thickness:
+    output_key: thickness
+    actions:
+      - parse_dimension
+  rohs:
+    output_key: rohs
+  frequency:
+    output_key:
+      - frequency_range_min
+      - frequency_range_max
+    actions:
+      - split_to
+  minimum_frequency:
+    output_key: frequency_range_min
+    actions:
+      - extract_num
+  maximum_frequency:
+    output_key: frequency_range_max
+    actions:
+      - extract_num
+  frequency_range:
+    output_key:
+      - frequency_range_min
+      - frequency_range_max
+    actions:
+      - split_to
+  nema_rating:
+    output_key: nema_rating
+  illumination_color:
+    output_key: illumination_color
+    actions:
+      - lower
+  insertion_loss:
+    output_key: insertion_loss
+    actions:
+      - parse_any_number
+  supply_voltage_max:
+    output_key: operating_supply_voltage_max
+    actions:
+      - extract_num
+  supply_voltage_min:
+    output_key: operating_supply_voltage_min
+    actions:
+      - extract_num
+  maximum_switching_current:
+    output_key: switching_current_maximum
+    actions:
+      - extract_num
+  isolation:
+    output_key: isolation
+    actions:
+      - parse_any_number
+  designed_for:
+    output_key: designed_for
+  directional_properties:
+    output_key: directional_properties
+    actions:
+      - lower
+  amplifier_type:
+    output_key: amplifier_type
+  analog_digital:
+    output_key: analog_digital
+    actions:
+      - lower
+  display_type:
+    output_key: display_type
+  current_rating:
+    output_key: rated_current
+    actions:
+      - extract_num
+  configuration:
+    output_key: configuration
+  qg_gate_charge:
+    output_key: qg_gate_charge
+    actions:
+      - extract_num
+  vds_drain_source_breakdown_voltage:
+    output_key: vds_drain_source_breakdown_voltage
+    actions:
+      - extract_num
+  pd_power_dissipation:
+    output_key: power_rating
+    actions:
+      - extract_num
+  vgs_th_gate_source_threshold_voltage:
+    output_key: vgs_th_gate_source_threshold_voltage
+    actions:
+      - extract_num
+  rds_on_drain_source_resistance:
+    output_key: rds_on_drain_source_resistance
+    actions:
+      - extract_num
+  channel_mode:
+    output_key: channel_mode
+  vgs_gate_source_voltage:
+    output_key: vgs_gate_source_voltage
+    actions:
+      - extract_num
+  id_continuous_drain_current:
+    output_key: voltage_cutoff_(vgs_off)_@_id_Id
+    actions:
+      - extract_num
+  transistor_polarity:
+    output_key: transistor_polarity
+  collector_base_voltage_vcbo:
+    output_key: collector_base_voltage_vcbo
+    actions:
+      - extract_num
+  emitter_base_voltage_vebo:
+    output_key: emitter_base_voltage_vebo
+    actions:
+      - extract_num
+  collectoremitter_saturation_voltage:
+    output_key: vce_saturation_(max)_@_ib,_ic_Vce
+    actions:
+      - extract_num
+  maximum_dc_collector_current:
+    output_key: maximum_dc_collector_current
+    actions:
+      - extract_num
+  collector_emitter_voltage_vceo_max:
+    output_key: collector_emitter_voltage_vceo_max
+    actions:
+      - extract_num
+  gain_bandwidth_product_ft:
+    output_key: maximum_operating_frequency
+    actions:
+      - extract_num
+  tradename:
+    output_key: tradename
+  continuous_collector_current_at_25_c:
+    output_key: continuous_collector_current
+    actions:
+      - extract_num
+  maximum_gate_emitter_voltage:
+    output_key: maximum_gate_emitter_voltage
+    actions:
+      - extract_num
+  gateemitter_leakage_current:
+    output_key: gateemitter_leakage_current
+    actions:
+      - extract_num
+  typical_resistor_ratio:
+    output_key: typical_resistor_ratio
+  continuous_collector_current:
+    output_key: continuous_collector_current
+    actions:
+      - extract_num
+  peak_dc_collector_current:
+    output_key: maximum_dc_collector_current
+    actions:
+      - extract_num
+  typical_input_resistor:
+    output_key: typical_input_resistor
+    actions:
+      - extract_num
+  dc_collectorbase_gain_hfe_min:
+    output_key: dc_current_gain_(hfe)_(min)_@_ic,_vce_Gain
+  maximum_collector_cutoff_current:
+    output_key: maximum_collector_cutoff_current
+    actions:
+      - extract_num
+  maximum_operating_frequency:
+    output_key: maximum_operating_frequency
+    actions:
+      - extract_num
+  vgs_gate_source_breakdown_voltage:
+    output_key: vgs_gate_source_breakdown_voltage
+    actions:
+      - extract_num
+  drainsource_current_at_vgs=0:
+    output_key: current_drain_(idss)_@_vds_(vgs=0)_Current
+    actions:
+      - extract_num
+  transistor_type:
+    output_key: transistor_type
+  maximum_drain_gate_voltage:
+    output_key: maximum_drain_gate_voltage
+    actions:
+      - extract_num
+  holding_current_ih_max:
+    output_key: holding_current_ih_max
+    actions:
+      - extract_num
+  gate_trigger_current_igt:
+    output_key: gate_trigger_current_igt
+    actions:
+      - extract_num
+  offstate_leakage_current_@_vdrm_idrm:
+    output_key: offstate_leakage_current_@_vdrm_idrm
+    actions:
+      - extract_num
+  gate_trigger_voltage_vgt:
+    output_key: gate_trigger_voltage_vgt
+    actions:
+      - extract_num
+  non_repetitive_onstate_current:
+    output_key: non_repetitive_onstate_current_min
+    actions:
+      - extract_num
+  rated_repetitive_offstate_voltage_vdrm:
+    output_key: rated_repetitive_offstate_voltage_vdrm
+    actions:
+      - extract_num
+  onstate_rms_current_it_rms:
+    output_key: onstate_rms_current_it_rms
+    actions:
+      - extract_num
+  onstate_voltage:
+    output_key: onstate_voltage
+    actions:
+      - extract_num
+  breakover_current_ibo_max:
+    output_key: breakover_current_ibo_max
+    actions:
+      - extract_num
+  breakover_voltage_vbo:
+    output_key:
+      - breakover_voltage_vbo_min
+      - breakover_voltage_vbo_max
+    actions:
+      - split_to
+  offstate_capacitance_co:
+    output_key:
+      - offstate_capacitance_co_min
+      - offstate_capacitance_co_max
+    actions:
+      - split_to
+  vf_forward_voltage:
+    output_key: onstate_voltage
+    actions:
+      - extract_num
+  maximum_gate_peak_inverse_voltage:
+    output_key: maximum_gate_peak_inverse_voltage
+    actions:
+      - extract_num
+  ipp_peak_pulse_current:
+    output_key: ipp_peak_pulse_current
+    actions:
+      - extract_num
+  working_voltage:
+    output_key: working_voltage
+    actions:
+      - extract_num
+  breakdown_voltage:
+    output_key: breakdown_voltage
+    actions:
+      - extract_num
+  polarity:
+    output_key: polarity
+  ir_reverse_current:
+    output_key: ir_reverse_current
+    actions:
+      - extract_num
+  if_forward_current:
+    output_key: if_forward_current
+    actions:
+      - extract_num
+  vrrm_repetitive_reverse_voltage:
+    output_key: vrrm_repetitive_reverse_voltage
+    actions:
+      - extract_num
+  ifsm_forward_surge_current:
+    output_key: ifsm_forward_surge_current
+    actions:
+      - extract_num
+  max_surge_current:
+    output_key: max_surge_current
+    actions:
+      - extract_num
+  recovery_time:
+    output_key: recovery_time
+    actions:
+      - extract_num
+  vr_reverse_voltage:
+    output_key: vr_reverse_voltage
+    actions:
+      - extract_num
+  zz_zener_impedance:
+    output_key: zz_zener_impedance
+    actions:
+      - extract_num
+  vz_zener_voltage:
+    output_key: vz_zener_voltage
+    actions:
+      - extract_num
+  test_current:
+    output_key: test_current
+    actions:
+      - extract_num
+  voltage_temperature_coefficient:
+    output_key:
+      - voltage_temperature_coefficient_percentage
+      - voltage_temperature_coefficient_value
+    actions:
+      - split_percent_value
+  zener_current:
+    output_key: zener_current
+    actions:
+      - extract_num
+  voltage_tolerance:
+    output_key: voltage_tolerance
+    actions:
+      - extract_num
+  peak_reverse_voltage:
+    output_key: peak_reverse_voltage
+    actions:
+      - extract_num
+  vesd_voltage_esd_air_gap:
+    output_key: vesd_voltage_esd_air_gap
+    actions:
+      - extract_num
+  vesd_voltage_esd_contact:
+    output_key: vesd_voltage_esd_contact
+    actions:
+      - extract_num
+  cd_diode_capacitance:
+    output_key: cd_diode_capacitance
+    actions:
+      - extract_num
+  maximum_diode_capacitance:
+    output_key: maximum_diode_capacitance
+    actions:
+      - extract_num
+  minimum_operating_frequency:
+    output_key: minimum_operating_frequency
+    actions:
+      - extract_num
+  maximum_series_resistance_@_maximum_if:
+    output_key: maximum_series_resistance_@_maximum_if
+    actions:
+      - extract_num
+  maximum_peak_operating_voltage:
+    output_key: maximum_peak_operating_voltage
+    actions:
+      - extract_num
+  maximum_regulator_current:
+    output_key: maximum_regulator_current
+    actions:
+      - extract_num
+  qty.:
+    output_key: quantity
+  maximum_limiting_voltage:
+    output_key: maximum_limiting_voltage
+    actions:
+      - extract_num
+        - parse_dimension
+  mil_type:
+    output_key: mil_type
+  shell_size:
+    output_key: shell_size
+    actions:
+      - extract_num
+  contact_gender:
+    output_key: contact_gender
+  insert_arrangement:
+    output_key: insert_arrangement
+  shell_style:
+    output_key: shell_style
+  None: None
+digikey:
+  voltage_rating:
+   output_key: voltage_rating
+   actions:
+      - extract_num
+  current_switching:
+   output_key: current_switching
+  thread_size:
+   output_key: thread_size
+  release_range:
+   output_key: release_range
+  pretravel:
+   output_key: pretravel
+   actions:
+      - parse_dimension
+  display_characters_height:
+   output_key: display_characters_height
+   actions:
+      - parse_dimension
+  voltage:
+   output_key: voltage
+   actions:
+      - extract_num
+  differential_travel:
+   output_key: differential_travel
+   actions:
+      - parse_dimension
+  release_force:
+   output_key: release_force
+   actions:
+      - extract_num
+  actuator_height_off_pcb,_vertical:
+    output_key: actuator_height_off_pcb_vertical
+    actions:
+      - parse_dimension
+  actuator_length,_right_angle:
+    output_key: actuator_length_right_angle
+    actions:
+      - parse_dimension
+  voltage_switching_ac: 
+   output_key: voltage_switching_ac
+   actions:
+      - extract_num
+  (select_first,_then_apply_filters)_compatible_series:
+    output_key: compatible_series
+  functions,_extra:
+    output_key: functions_extra
+  read_out:
+   output_key: read_out
+  overtravel:
+   output_key: overtravel
+   actions:
+      - parse_dimension
+  supply_voltage:
+   output_key:
+      - supply_voltage_max
+      - supply_voltage_min
+   actions:
+      - split_temp
+  voltage_switching_dc:
+   output_key: voltage_switching_dc
+  height_above_board:
+   output_key: height_above_board
+   actions:
+      - parse_dimension
+  length_above_board:
+    output_key: height_above_board
+    actions:
+      - parse_dimension
+  viewing_area:
+   output_key:
+      - viewing_area_length
+      - viewing_area_width
+      - viewing_area_height
+   actions:
+      - parse_dimensions
+  supply_current:
+   output_key: supply_current
+  length_overall:
+   output_key: length
+   actions:
+      - parse_dimension
+  size:
+   output_key:
+      - length
+      - width
+      - height
+   actions:
+      - parse_dimensions
+  face_size:
+   output_key:
+      - face_size_length
+      - face_size_width
+      - face_size_depth
+   actions:
+      - parse_dimensions
+  section_width:
+   output_key: section_width
+   actions:
+      - parse_dimension
+  matrix_(columns_x_rows):
+   output_key: matrix_columns_x_rows
+  voltage_output_(max):
+   output_key: output_voltage_max
+   actions:
+      - extract_num
+  size_body:
+   output_key:
+      - body_length
+      - body_width
+      - body_height
+   actions:
+      - parse_dimensions
+  legend_color:
+   output_key: legend_color
+  key_color:
+   output_key: key_color
+  legend:
+   output_key: legend
+  key_type:
+   output_key: key_type
+  washable:
+   output_key: washable
+  actuator_color:
+   output_key: actuator_color
+  legend_type:
+   output_key: legend_type
+  end_caps:
+   output_key: end_caps
+  led_color:
+   output_key: led_color
+  contact_finish:
+   output_key: contact_finish
+  contact_material:
+   output_key: contact_material
+  key_removable_positions:
+   output_key: key_removable_positions
+  actuator_orientation:
+   output_key: actuator_orientation
+  illumination_type,_color:
+    output_key: illumination_type_color
+  circuit_per_deck:
+   output_key: circuit_per_deck
+  actuator_marking:
+   output_key: actuator_marking
+  actuator_level:
+   output_key: actuator_level
+  display_mode:
+   output_key: display_mode
+  color_actuatorcap:
+   output_key: color_actuatorcap
+  color:
+   output_key: color
+  output_code:
+   output_key: output_code
+  requires:
+   output_key: requires
+  switch_type:
+   output_key: switch_type
+  contact_timing:
+   output_key: contact_timing
+  index_stops:
+   output_key: index_stops
+  switch_function:
+   output_key: switch_function
+   actions:
+      - lower
+  voltage_input_(max):
+    output_key: input_voltage_max
+    actions:
+      - extract_num
+  sn_ratio:
+    output_key: sn_ratio
+    actions:
+      - extract_num
+  efficiency_dba:
+    output_key: efficiency_dba
+  duration:
+    output_key: duration
+  efficiency_testing:
+    output_key: efficiency_testing
+  driver_circuitry:
+    output_key: driver_circuitry
+  port_location:
+    output_key: port_location
+  material_magnet:
+    output_key: material_magnet
+  efficiency_type:
+    output_key: efficiency_type
+  illumination:
+    output_key: illumination
+  material_cone:
+    output_key: material_cone
+  direction:
+    output_key: direction
+  input_type:
+    output_key: input_type
+  illumination_voltage_(nominal):
+    output_key: illumination_voltage_nominal
+    actions:
+      - extract_num
+  depth_behind_panel:
+    output_key: depth_behind_panel
+    actions:
+      - parse_dimension
+  breaker_type:
+    output_key: breaker_type
+  diameter:
+    output_key: diameter
+    actions:
+      - parse_dimension
+  output_type:
+    output_key: output_type
+  circuit:
+    output_key: contact_termination
+  contact_rating_(current):
+    output_key: contact_current_rating
+    actions:
+      - extract_num
+  frequency_center:
+    output_key:
+      - frequency_range_min
+      - frequency_range_max
+    actions:
+      - split_temp
+  length_lead_wire:
+    output_key: length_lead_wire
+    actions:
+      - parse_dimension
+  b2575:
+    output_key: b2575
+  b050:
+    output_key: b050
+  absolute_pull_range_(apr):
+    output_key: absolute_pull_range_(apr)
+    actions:
+      - extract_num
+  switching_voltage:
+    output_key:
+      - switching_voltage_vac_max
+      - switching_voltage_vdc_max
+      - switching_voltage_vac_nom
+      - switching_voltage_vdc_nom
+    actions:
+      - split_voltage
+  shaft_size:
+    output_key: shaft_length
+    actions:
+      - parse_dimension
+  turn_on_voltage_(max):
+    output_key: turn_on_voltage_max
+    actions:
+      - extract_num
+  load_current:
+    output_key: load_current_rating
+    actions:
+      - extract_num
+  turn_off_voltage_(min):
+    output_key: turn_off_voltage_min
+    actions:
+      - extract_num
+  port_style:
+    output_key: port_style
+    actions:
+      - lower
+  inductance_@_frequency:
+    output_key:
+      - inductance_@_frequency_inductance
+      - inductance_@_frequency_frequency
+    actions:
+      - split_at
+  "turns_ratio_primary:secondary":
+    output_key: "turns_ratio_primary:secondary"
+  frequency_stability:
+    output_key: frequency_stability
+    actions:
+      - extract_num
+  frequency_stability_(total):
+    output_key: frequency_stability
+    actions:
+      - extract_num
+  frequency_tolerance:
+    output_key: tolerance
+    actions:
+      - extract_num
+  diameter_shaft:
+    output_key: shaft_diameter
+    actions:
+      - parse_dimension
+  stroke_length:
+    output_key: stroke_length
+    actions:
+      - parse_dimension
+  signal_conditioning:
+    output_key: signal_conditioning
+    actions:
+      - lower
+  control_drive_type:
+    output_key: motor_drive_type
+  mounting_hole_spacing:
+    output_key: mounting_hole_spacing
+    actions:
+      - parse_dimension
+  length_shaft_and_bearing:
+    output_key: length_shaft_and_bearing
+    actions:
+      - parse_dimension
+  pressure_type:
+    output_key: pressure_type
+    actions:
+      - lower
+  load_capacitance:
+    output_key: capacitance
+    actions:
+      - extract_num
+  attachment_method:
+    output_key: attachment_method
+  shape:
+    output_key: shape
+  sensor_type:
+    output_key: sensor_type
+    actions:
+      - lower
+  response_time:
+    output_key: response_time
+    actions:
+      - extract_num
+  access_time:
+    output_key: access_time
+    actions:
+      - extract_num
+  insertion_loss:
+    output_key: insertion_loss
+    actions:
+      - parse_any_number
+  sensitivity:
+    output_key:
+        - sensitivity_typical
+        - sensitivity_typical_tolerance
+        - sensitivity_conditions
+    actions:
+      - split_sensitivity
+  output:
+    output_key: output
+  voltage_rating_dc:
+    output_key: voltage_rating_dc
+    actions:
+        - extract_num
+  linearity:
+    output_key: linearity
+    actions:
+      - extract_num
+  maximum_pressure:
+    output_key: maximum_pressure
+    actions:
+      - extract_num
+  for_measuring:
+    output_key: for_measuring
+  input:
+    output_key: input
+  vswr:
+    output_key: vswr
+  accuracy:
+    output_key: accuracy
+  data_rate_(max):
+    output_key: data_rate_(max)
+    actions:
+      - extract_num
+  frequency:
+    output_key:
+      - frequency_range_min
+      - frequency_range_max
+    actions:
+      - split_temp
+  pulses_per_revolution:
+    output_key: resolution
+    actions:
+      - parse_resolution
+  capacitance_@_frequency:
+    output_key:
+      - capacitance_@_frequency_capacitance
+      - capacitance_@_frequency_frequency
+    actions:
+      - split_at
+  ingress_protection:
+    output_key: ingress_protection
+  width:
+    output_key: width
+    actions:
+      - parse_dimension
+  thickness:
+    output_key: thickness
+    actions:
+      - parse_dimension
+  antenna_type:
+    output_key: type
+  height_(max):
+    output_key: height
+    actions:
+      - parse_dimension
+  technology:
+    output_key: circuit_type
+  varistor_voltage_(max):
+    output_key: varistor_voltage_(max)
+    actions:
+      - extract_num
+  operating_temperature_junction:
+    output_key:
+      - operating_temperature_junction_minimum
+      - operating_temperature_junction_maximum
+    actions:
+      - split_temp
+  2nd_harmonic,_typ_(dbc):
+    output_key: 2nd_harmonic,_typ_(dbc)
+  contents:
+    output_key: contents
+    actions:
+      - lower
+  resistance_wiper_(ohms)_(typ):
+    output_key: resistance_wiper_(ohms)_(typ)
+  number_of_bands:
+    output_key: number_of_bands
+  frequency_group:
+    output_key: frequency_group
+  thickness_(max):
+    output_key: thickness_(max)
+    actions:
+      - parse_dimension
+  icc_max:
+    output_key: current_supply_max
+    actions:
+      - extract_num
+  phase_noise_typ_(dbchz):
+    output_key: phase_noise_typ_(dbchz)
+  operational_gauss:
+    output_key: operational_gauss
+    actions:
+      - extract_num
+  tuning_voltage_(vdc):
+    output_key:
+      - tuning_voltage_(vdc)_min
+      - tuning_voltage_(vdc)_max
+    actions:
+      - split_temp
+  spread_spectrum_bandwidth:
+    output_key:
+      - spread_spectrum_bandwidth_center_spread_min
+      - spread_spectrum_bandwidth_center_spread_max
+      - spread_spectrum_bandwidth_down_spread_min
+      - spread_spectrum_bandwidth_down_spread_max
+    actions:
+      - split_spread
+  1st_connector:
+    output_key: 1st_connector
+  2nd_connector:
+    output_key: 2nd_connector
+  pushing_(mhzv):
+    output_key: pushing_(mhzv)
+  power_(dbm):
+    output_key: power_(dbm)
+  return_loss:
+    output_key: return_loss
+    actions:
+      - parse_any_number
+  outer_dimension:
+    output_key:
+      - outer_dimension_width
+      - outer_dimension_height
+      - outer_dimension_length
+    actions:
+      - parse_dimensions
+  output_power:
+    output_key: output_power
+    actions:
+      - extract_num
+  output_voltage:
+    output_key: output_voltage
+    actions:
+      - extract_num
+  outside_contact_diameter:
+    output_key: outside_contact_diameter
+    actions:
+      - parse_dimension
+  pair_number:
+    output_key: pair_number
+  panel_cutout_dimensions:
+    output_key: panel_cutout_dimensions
+  panel_hole_size:
+    output_key: panel_hole_size
+    actions:
+      - extract_num
+  panel_thickness:
+    output_key: panel_thickness
+    actions:
+      - parse_dimension
+  pin_diameter:
+    output_key: pin_diameter
+    actions:
+      - parse_dimension
+  pitch:
+    output_key: pitch
+    actions:
+      - extract_num
+  pitch_cable:
+    output_key: pitch_cable
+    actions:
+      - extract_num
+  pitch_connector:
+    output_key: pitch_connector
+    actions:
+      - extract_num
+  pitch_post:
+    output_key: pitch_post
+    actions:
+      - extract_num
+  pixel_format:
+    output_key: pixel_format
+    actions:
+      - extract_num
+  pitch_mating:
+    output_key: pitch_mating
+    actions:
+      - extract_num
+  panel_units:
+    output_key: panel_units
+    actions:
+      - extract_num
+  positions_poles:
+    output_key: positions_poles
+    actions:
+      - extract_num
+  power_consumption:
+    output_key: power_consumption
+    actions:
+      - extract_num
+  power_cooling:
+    output_key: power_cooling
+    actions:
+      - extract_num
+  power_input:
+    output_key: power_input
+    actions:
+      - extract_num
+  power_output:
+    output_key: power_output
+    actions:
+      - extract_num
+  power_output_continuous:
+    output_key: power_output_continuous
+    actions:
+      - extract_num
+  power_output_surge:
+    output_key: power_output_surge
+    actions:
+      - extract_num
+  power_peak_pulse:
+    output_key: power_peak_pulse
+    actions:
+      - extract_num
+  power_max:
+    output_key: power_rating
+    actions:
+      - extract_num
+  voltage_auxillary:
+    output_key:
+      - voltage_auxillary_voltage
+      - voltage_auxillary_current
+    actions:
+      - split_at
+  voltage_primary:
+    output_key:
+      - voltage_primary_min
+      - voltage_primary_max
+    actions:
+      - split_temp
+  voltage_secondary:
+    output_key: voltage_secondary
+    actions:
+      - extract_num
+  voltage_secondary_(full_load):
+    output_key:
+      - voltage_secondary_(full_load)_parallel
+      - voltage_secondary_(full_load)_series
+    actions:
+      - split_current
+  frequency_response:
+    output_key: frequency_response
+    actions:
+      - parse_any_number
+  e.t.:
+    output_key: e.t.
+    actions:
+      - extract_num
+  footprint:
+    output_key:
+      - footprint_length
+      - footprint_width
+      - footprint_height
+    actions:
+      - parse_dimensions
+  approvals:
+    output_key: approvals
+  r_@_25°c:
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
+    actions:
+      - split_temp
+  resistance_@_25°c:
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
+    actions:
+      - split_temp
+  resistance_in_ohms_@_25°c:
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
+    actions:
+      - split_temp
+  output_voltage_range:
+    output_key: output_voltage_range
+    actions:
+      - extract_num
+  outline:
+    outer_dimension: outline
+  output_current:
+    outer_dimension: output_current
+    actions:
+      - extract_num
+  output_phases:
+    output_key: output_phases
+    actions:
+      - extract_num
+  organisation:
+    output_key: organisation
+  travel_range:
+    output_key: travel
+    actions:
+      - extract_num
+  lifetime_@_temp.:
+    output_key:
+      - lifetime_@_temp_lifetime
+      - lifetime_@_temp_temp
+    actions:
+      - split_at    
+  esr_(equivalent_series_resistance):
+    output_key:
+      - esr_resistance
+      - esr_frequency
+    actions:
+      - split_at
+  esl_(equivalent_series_inductance):
+    output_key: esl_(equivalent_series_inductance)
+    actions:
+      - extract_num
+  fader_type:
+    output_key: fader_type
+  dissipation_factor:
+    output_key: dissipation_factor
+    actions:
+      - extract_num
+  rohs:
+    output_key: rohs
+  temperature_coefficient:
+    output_key: dielectric
+  temperature_coefficient_(typ):
+    output_key: dielectric
+  composition:
+    output_key: technology
+  number_of_resistors:
+    output_key: number_of_resistors
+  number_of_terminations:
+    output_key: number_of_terminations
+  number_of_pins:
+    output_key: number_of_terminations
+  lead_style:
+    output_key: termination_style
+  circuit_type:
+    output_key: circuit_type
+  mounting_feature:
+    output_key: termination_style
+  power_(watts):
+    output_key: power_rating
+    actions:
+      - extract_num
+  adjustment_type:
+    output_key: shaft_type
+  termination:
+    output_key: termination_style
+  termination_style:
+    output_key: termination_style
+  lead_spacing:
+    output_key: lead_spacing
+    actions:
+      - parse_dimension
+  dielectric_material:
+    output_key: dielectric
+  material:
+    output_key: material
+  packages_included:
+    output_key: packages_included
+  capacitance:
+    output_key: capacitance
+    actions:
+      - extract_num
+  capacitance_range:
+    output_key:
+      - capacitance_range_min
+      - capacitance_range_max
+    actions:
+      - split_to
+  capacity:
+    output_key: capacity
+    actions:
+      - extract_num
+  channels_per_circuit:
+    output_key: channels_per_circuit
+  clamping_voltage:
+    output_key: clamping_voltage
+    actions:
+      - extract_num
+  closing_temp:
+    output_key: closing_temp
+    actions:
+      - extract_num
+  coil_current:
+    output_key: coil_current
+    actions:
+      - extract_num
+  contact_finish_thickness_mating:
+    output_key: contact_finish_thickness_mating
+    actions:
+      - parse_dimension
+  contact_finish_thickness_post:
+    output_key: contact_finish_thickness_post
+    actions:
+      - parse_dimension
+  contact_finish_thickness_post_(mating):
+    output_key: contact_finish_thickness_post
+    actions:
+      - parse_dimension
+  contact_size:
+    output_key: contact_size
+    actions:
+      - extract_num
+  conversion_rate:
+    output_key: conversion_rate
+    actions:
+      - extract_num
+  copper_ports:
+    output_key: copper_ports
+    actions:
+      - extract_num
+  connector_spacing:
+    output_key: connector_spacing
+    actions:
+      - extract_num
+  current_carry:
+    output_key: current_carry
+    actions:
+      - extract_num
+  current_output_highlow:
+    output_key: current_output_highlow
+  coverage:
+    output_key: coverage
+    actions:
+      - extract_num
+  clock_rate:
+    output_key: clock_rate
+    actions:
+      - extract_num
+  coil_diameter:
+    output_key: coil_diameter
+    actions:
+      - parse_dimension
+  coil_voltage:
+    output_key: coil_voltage
+    actions:
+      - extract_num
+  conductor_diameter:
+    output_key: conductor_diameter
+    actions:
+      - parse_dimension
+  contact_finish_thickness:
+    output_key: contact_finish_thickness
+    actions:
+      - parse_dimension
+  contact_mating_length:
+    output_key: contact_mating_length
+    actions:
+      - parse_dimension
+  contact_rating_current:
+    output_key: contact_rating_current
+    actions:
+      - extract_num
+  current:
+    output_key: rated_current
+    actions:
+      - extract_num
+  current_cathode:
+    output_key: current_cathode
+    actions:
+      - extract_num
+  current_input:
+    output_key: current_input
+    actions:
+      - extract_num
+  current_input_bias:
+    output_key: current_input_bias
+    actions:
+      - extract_num
+  current_max:
+    output_key: current_max
+    actions:
+      - extract_num
+  current_modulation:
+    output_key: current_modulation
+    actions:
+      - extract_num
+  current_peak:
+    output_key: current_peak
+    actions:
+      - extract_num
+  voltage_ul:
+    output_key: voltage_ul
+    actions:
+      - extract_num 
+  current_ul:
+    output_key: current_ul
+    actions:
+      - extract_num
+  current_iec:
+    output_key: current_iec
+    actions:
+      - extract_num 
+  voltage_iec:
+    output_key: voltage_iec
+    actions:
+      - extract_num  
+  accuracy_highest_lowest:
+    output_key: accuracy_highest_lowest
+  ac_outlets:
+    output_key: ac_outlets
+  acquisition_time:
+    output_key: acquisition_time
+    actions:
+      - extract_num
+  active_area:
+    output_key: active_area
+  active_mode_current:
+    output_key: active_mode_current
+    actions:
+      - extract_num
+  analog_input_output:
+    output_key: analog_input_output
+  analogue_supply_voltage:
+    output_key: analogue_supply_voltage
+    actions:
+      - extract_num
+  angle_of_throw:
+    output_key: angle_of_throw
+    actions:
+      - extract_num
+  aperture_width:
+    output_key: aperture_width
+    actions:
+      - parse_dimension
+  attenuation_value:
+    output_key:
+      - attenuation
+      - attenuation_range_min
+      - attenuation_range_max
+    actions:
+      - attenuation
+  attenuator_step_size:
+    output_key: attenuator_step_size
+    actions:
+      - extract_num
+  audio_load_impedance:
+    output_key: audio_load_impedance
+    actions:
+      - extract_num
+  current_peak_output:
+    output_key: current_peak_output
+    actions:
+      - extract_num
+  current_output_channel:
+    output_key: current_output_channel
+    actions:
+      - extract_num
+  esd_protection:
+    output_key: esd_protection
+    actions:
+      - lower
+  plating:
+    output_key: plating
+  plating_thickness:
+    output_key: plating_thickness
+    actions:
+      - parse_dimension
+  quantity:
+    output_key: quantity
+  number_of_channels:
+    output_key: number_of_channels
+  resistance_channel_(ohms):
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
+    actions:
+      - split_temp
+  filter_order:
+    output_key: filter_order
+  current_output:
+    output_key: rated_current
+    actions:
+      - extract_num
+  thickness_overall:
+    output_key: thickness_overall
+    actions:
+      - parse_dimension
+  current_limit:
+    output_key: current_limit
+    actions:
+      - extract_num
+  current_bias:
+    output_key: current_bias
+    actions:
+      - extract_num
+  current_breakover:
+    output_key: current_breakover
+    actions:
+      - extract_num
+  cord_length:
+    output_key: cord_length
+    actions:
+      - parse_dimension
+  core_diameter:
+    output_key: core_diameter
+    actions:
+      - parse_dimension
+  count:
+    output_key: count
+  count_rate:
+    output_key: count_rate
+    actions:
+      - extract_num
+  coupling_factor:
+    output_key: coupling_factor
+    actions:
+      - extract_num
+  nema_frame_size:
+    output_key: nema_frame_size
+  voltage_rated:
+    output_key:
+      - operating_supply_voltage_min
+      - operating_supply_voltage_max
+    actions:
+      - split_temp
+  wattage_load:
+    output_key: power_rating
+    actions:
+      - extract_num
+  voltage_rating_ac:
+    output_key: voltage_rating_ac
+    actions:
+      - extract_num
+  impedance_primary_(ohms):
+    output_key: primary_impedance
+  impedance_secondary_(ohms):
+    output_key: secondary_impedance
+  frequency_range:
+    output_key:
+      - frequency_range_min
+      - frequency_range_max
+    actions:
+      - split_to
+  frequency_test:
+    output_key: test_frequency
+    actions:
+      - frequency
+  available_frequency_range:
+    output_key:
+      - frequency_range_min
+      - frequency_range_max
+    actions:
+      - split_to
+  barrel_depth:
+    output_key: barrel_depth
+    actions:
+      - extract_num
+  beam_angle:
+    output_key: beam_angle
+    actions:
+      - extract_num
+  between_board_height:
+    output_key: between_board_height
+    actions:
+      - parse_dimension
+  board_size:
+    output_key: board_size
+  break_strength:
+    output_key: break_strength
+  bundle_diameter:
+    output_key: bundle_diameter
+    actions:
+      - parse_dimension
+  power_level:
+    output_key: power_level
+  cable_diameter:
+    output_key: cable_diameter
+    actions:
+      - parse_dimension
+  cable_exit:
+    output_key: cable_exit
+    actions:
+      - extract_num
+  cable_length_unexposed:
+    output_key: cable_length_unexposed
+    actions:
+      - parse_dimension
+  cable_opening:
+    output_key:
+      - cable_opening_width
+      - cable_opening_height
+      - cable_opening_length
+    actions:
+      - parse_dimensions
+  capacitance_vrf:
+    output_key: capacitance_vrf
+    actions:
+      - extract_num
+  card_size_range:
+    output_key:
+      - card_size_range_width
+      - card_size_range_height
+      - card_size_range_length
+    actions:
+      - parse_dimensions
+  card_speed:
+    output_key:
+      - card_speed_min
+      - card_speed_max
+    actions:
+      - split_temp
+  card_thickness:
+    output_key: card_thickness
+    actions:
+      - parse_dimension
+  center_conductor_diameter:
+    output_key: center_conductor_diameter
+    actions:
+      - parse_dimension
+  center_cutoff_frequency:
+    output_key: cutoff_frequency
+    actions:
+      - extract_num
+  character_size:
+    output_key:
+      - character_size_width
+      - character_size_height
+      - character_size_length
+    actions:
+      - parse_dimensions
+  charge_current_max:
+    output_key: charge_current_max
+    actions:
+      - extract_num
+  current_steady_state_max:
+    output_key: current_steady_state_max
+    actions:
+      - extract_num
+  charge_injection:
+    output_key: charge_injection
+    actions:
+      - extract_num
+  current_trip_(it):
+    output_key: current_trip_(it)
+    actions:
+      - extract_num
+  r_@_current:
+    output_key: r_@_current
+    actions:
+      - extract_num
+  resistance_tolerance:
+    output_key: tolerance
+    actions:
+      - extract_num
+  charge_time:
+    output_key:
+      - charge_time_min
+      - charge_time_max
+    actions:
+      - split_temp
+  voltage_max:
+    output_key: voltage_max
+    actions:
+      - extract_num
+  cladding_diameter:
+    output_key: cladding_diameter
+    actions:
+      - parse_dimension
+  cable_pitch:
+    output_key: cable_pitch
+    actions:
+      - extract_num
+  capacitance_frequency:
+    output_key: capacitance_frequency
+    actions:
+      - extract_num
+  capacitance_ratio:
+    output_key: capacitance_ratio
+    actions:
+      - extract_num
+  cache_memory:
+    output_key: cache_memory
+    actions:
+      - extract_num
+  current_saturation:
+    output_key: saturation_current
+    actions:
+      - extract_num
+  current_leakage:
+    output_key: current_leakage
+    actions:
+      - extract_num
+  current_rating:
+    output_key: rated_current
+    actions:
+      - extract_num
+  current_rating_max:
+    output_key: current_rating_max
+    actions:
+      - extract_num
+  current_ratio:
+    output_key: current_ratio
+  mounting_type:
+    output_key: termination_style
+  accessory_type:
+    output_key: accessory_type
+  type:
+    output_key: type
+  port_size:
+    output_key: port_size
+    actions:
+      - parse_dimension
+  voltage_clamping:
+    output_key: clamping_voltage
+    actions:
+      - extract_num
+  material_core:
+    output_key: core_material
+  intended_chipset:
+    output_key: intended_chipset
+  chipset_manufacturer:
+    output_key: chipset_manufacturer
+  primary_winding(s):
+    output_key: primary_winding
+    actions:
+      - lower
+  secondary_winding(s):
+    output_key: secondary_winding
+    actions:
+      - lower
+  shaft_detail:
+    output_key: shaft_detail
+    actions:
+      - lower
+  steps_per_revolution:
+    output_key: steps_per_revolution
+  motor_type:
+    output_key: motor_type
+    actions:
+      - lower
+  rpm:
+    output_key: rpm
+    actions:
+      - parse_any_number
+  number_of_motors:
+    output_key: number_of_motors
+  gear_reduction_ratio:
+    output_key: gear_reduction_ratio
+  ratings:
+    output_key: qualification
+  for_use_withrelated_products:
+    output_key: for_use_with
+  specifications:
+    output_key: specifications
+  device_size:
+    output_key: device_size
+  availability:
+    output_key: availability
+  axis:
+    output_key: axis
+  available_total_delays:
+    output_key:
+      - available_total_delays_min
+      - available_total_delays_max
+    actions:
+      - split_temp
+  cable_height:
+    output_key: cable_height
+    actions:
+      - parse_dimension
+  cable_length:
+    output_key: cable_length
+    actions:
+      - parse_dimension
+  cable_width:
+    output_key: cable_width
+    actions:
+      - parse_dimension
+  capacitance_input:
+    output_key: capacitance
+    actions:
+      - extract_num
+  operating_mode:
+    output_key: operating_mode
+    actions:
+      - lower
+  transformer_type:
+    output_key: transformer_type
+    actions:
+      - lower
+  weight:
+    output_key: weight
+    actions:
+      - parse_any_number
+  resistance_initial_(ri)_(min):
+    output_key: resistance_initial_(ri)_(min)
+    actions:
+      - extract_num
+  resistance_post_trip_(r1)_(max):
+    output_key: resistance_post_trip_(r1)_(max)
+    actions:
+      - extract_num
+  resistance_25°c_(typ):
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
+    actions:
+      - split_temp
+  breakdown_voltage:
+    output_key: breakdown_voltage
+    actions:
+      - extract_num
+  function:
+    output_key: function
+    actions:
+      - lower
+  board_thickness:
+    output_key: board_thickness
+    actions:
+      - parse_dimension
+  bidirectional_channels:
+    output_key: bidirectional_channels
+  battery_pack_voltage:
+    output_key: battery_pack_voltage
+    actions:
+      - extract_num
+  bandwidth:
+    output_key: bandwidth
+    actions:
+      - extract_num
+  case:
+    output_key: case
+  categories:
+    output_key: categories
+    actions:
+      - cat_normalize_digikey
+  categories_digikey:
+    output_key: categories_digikey
+  current_rating_parallel:
+    output_key: rated_current
+    actions:
+      - extract_num
+  current_rating_series:
+    output_key: current_rating_series
+    actions:
+      - extract_num
+  current_saturation_parallel:
+    output_key: current_saturation_parallel
+    actions:
+      - extract_num
+  current_saturation_series:
+    output_key: current_saturation_series
+    actions:
+      - extract_num
+  current_receiving:
+    output_key: current_receiving
+    actions:
+      - extract_num
+  current_rating_per_contact:
+    output_key: current_rating_per_contact
+    actions:
+      - extract_num
+  current_startup:
+    output_key: current_startup
+    actions:
+      - extract_num
+  current_sensing:
+    output_key: current_sensing
+    actions:
+      - extract_num
+  dc_resistance_(dcr)_parallel:
+    output_key: dc_resistance
+    actions:
+      - extract_num
+  dc_resistance_(dcr)_series:
+    output_key: dc_resistance
+    actions:
+      - extract_num
+  height_number_of_racks:
+    output_key: height_number_of_racks
+    actions:
+      - parse_dimension
+  height_overall:
+    output_key: height_overall
+    actions:
+      - parse_dimension
+  height_off_base_height_off_in:
+    output_key: height_off_base_height_off_in
+    actions:
+      - inchtomm
+  head_diameter:
+    output_key: head_diameter
+    actions:
+      - parse_dimension
+  height_max:
+    output_key: height_max
+    actions:
+      - parse_dimension
+  head_height:
+    output_key: head_height
+    actions:
+      - extract_num
+  gain:
+    output_key: gain
+    actions:
+      - extract_num
+  current_test:
+    output_key: current_test
+    actions:
+      - extract_num
+  current_surge:
+    output_key: peak_surge_current
+    actions:
+      - extract_num
+  current_supply_max:
+    output_key: current_supply_max
+    actions:
+      - extract_num
+  current_supply_(max):
+    output_key: current_supply_max
+    actions:
+      - extract_num
+  frequency_output_1:
+    output_key: frequency_output_1_MHz
+    actions:
+      - parse_any_number
+  frequency_output_2:
+    output_key: frequency_output_2_MHz
+    actions:
+      - parse_any_number
+  frequency_output_3:
+    output_key: frequency_output_3_MHz
+    actions:
+      - parse_any_number
+  programmable_type:
+    output_key: memory_type
+  frequency_output_4:
+    output_key: frequency_output_4_MHz
+    actions:
+      - parse_any_number
+  energy:
+    output_key: surge_energy_rating
+    actions:
+      - extract_num
+  current_supply:
+    output_key:
+      - current_supply_min
+      - current_supply_max
+    actions:
+      - split_temp
+  current_output_(max):
+    output_key:
+      - current_output_max_parallel
+      - current_output_max_series
+    actions:
+      - split_current
+  resistance:
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
+    actions:
+      - split_temp
+  description:
+    output_key: description
+    actions:
+      - lower
+  maximum_ac_volts:
+    output_key: voltage_rating_ac
+    actions:
+      - extract_num
+  maximum_dc_volts:
+    output_key: voltage_rating_dc
+    actions:
+      - extract_num
+  varistor_voltage_(min):
+    output_key: varistor_voltage
+    actions:
+      - extract_num
+  varistor_voltage_(typ):
+    output_key: varistor_voltage
+    actions:
+      - extract_num
+  height:
+    output_key: height
+    actions:
+      - parse_dimension
+  height_seated_(max):
+    output_key: height
+    actions:
+      - parse_dimension
+  inductance_connected_in_parallel:
+    output_key: inductance_parallel
+    actions:
+      - extract_num
+  inductance_connected_in_series:
+    output_key: inductance_series
+    actions:
+      - extract_num
+  inductance_range:
+    output_key:
+      - inductance_range_min
+      - inductance_range_max
+    actions:
+      - split_temp
+  inductance:
+    output_key:
+      - inductance_range_min
+      - inductance_range_max
+    actions:
+      - split_temp
+  voltage_isolation:
+    output_key:
+        - voltage_isolation
+        - voltage_isolation_time
+    actions:
+      - split_at
+  resistance_(ohms):
+    output_key:
+      - resistance_range_min
+      - resistance_range_max
+    actions:
+      - split_temp
+  q_@_freq:
+    output_key: 
+      - q_minimum
+      - q_minimum_at_frequency
+    actions:
+      - split_at
+  ripple_current_@_low_frequency:
+    output_key:
+      - ripple_current_@_low_frequency_current
+      - ripple_current_@_low_frequency_frequency
+    actions:
+      - split_at
+  ripple_current_@_high_frequency:
+    output_key:
+      - ripple_current_@_high_frequency_current
+      - ripple_current_@_high_frequency_frequency
+    actions:
+      - split_at
+  ripple_current:
+    output_key: ripple_current
+    actions:
+      - extract_num
+  bushing_thread:
+    output_key: bushing_thread
+  configuration:
+    output_key: configuration
+  lifecycle:
+    output_key: lifecycle
+  links:
+    output_key: links
+  mfr:
+    output_key: mfr
+  minimum_quantity:
+    output_key: minimum_quantity
+  manufacturer_size_code:
+    output_key: manufacturer_size_code
+  mpn:
+    output_key: mpn
+  number_of_coils:
+    output_key: number_of_coils
+  number_of_columns:
+    output_key: number_of_columns
+  number_of_conductors:
+    output_key: number_of_conductors
+  number_of_contacts:
+    output_key: number_of_contacts
+  number_of_converters:
+    output_key: number_of_converters
+  number_of_cores:
+    output_key: number_of_cores
+  number_of_cores_per_jack:
+    output_key: number_of_cores_per_jack
+  number_of_da_converters:
+    output_key: number_of_da_converters
+  number_of_da_c_outputs:
+    output_key: number_of_da_c_outputs
+  number_of_decks:
+    output_key: number_of_decks
+  minimum_operating_temperature:
+    output_key: operating_temperature_minimum
+    actions:
+      - extract_num
+  maximum_operating_temperature:
+    output_key: operating_temperature_maximum
+    actions:
+      - extract_num
+  operating_temperature:
+    output_key:
+      - operating_temperature_minimum
+      - operating_temperature_maximum
+    actions:
+      - split_temp
+  frequency_bands_(low_high):
+    output_key:
+      - frequency_low_band_min
+      - frequency_low_band_max
+      - frequency_high_band_min
+      - frequency_high_band_max
+    actions:
+      - split_double
+  voltage_supply:
+    output_key:
+      - operating_supply_voltage_min
+      - operating_supply_voltage_max
+    actions:
+      - split_temp
+  high_band_attenuation_(min_max_db):
+    output_key:
+      - high_band_attenuation-low_band-min_attenuation
+      - high_band_attenuation-high_band-max_attenuation
+      - high_band_attenuation-low_band-typical_attenuation
+    actions:
+      - split_band
+  low_band_attenuation_(min_max_db):
+    output_key:
+      - low_band_attenuation-high_band-min_attenuation
+      - low_land_attenuation-low_band-max_attenuation
+      - low_band_attenuation-high_band-typical_attenuation
+    actions:
+      - split_band
+  voltage_supply,_analog:
+    output_key:
+      - voltage_supply_analog_minimum
+      - voltage_supply_analog_maximum
+    actions:
+      - split_temp
+  return_loss_(low_band_high_band):
+    output_key:
+      - return_loss-low_band
+      - return_loss-high_band
+      - return_loss-typical
+    actions:
+      - split_band
+  voltage_supply,_digital:
+    output_key:
+      - voltage_supply_digital_minimum
+      - voltage_supply_digital_maximum
+    actions:
+      - split_temp
+  number_of_capacitors:
+    output_key: number_of_capacitors
+  packaging:
+    output_key: packaging
+  pricing:
+    output_key: pricing
+  dc_resistance_(dcr):
+    output_key: dc_resistance
+    actions:
+      - extract_num
+  dc_resistance_(dcr)_primary:
+    output_key: dc_resistance_primary
+    actions:
+      - extract_num
+  dc_resistance_(dcr)_secondary:
+    output_key: dc_resistance_secondary
+    actions:
+      - extract_num
+  detent:
+    output_key: detent
+  series:
+    output_key: series
+  orientation:
+    output_key: orientation
+    actions:
+      - lower
+  rotational_life_(cycles_min):
+    output_key: rotational_life_(cycles_min)
+    actions:
+      - extract_num
+  shielding:
+    output_key: shielding
+  surface_mount_land_size:
+    output_key:
+      - surface_mount_land_size_length
+      - surface_mount_land_size_width
+      - surface_mount_land_size_height
+    actions:
+      - parse_dimensions
+  values:
+    output_key: values
+  center_tap:
+    output_key: center_tap
+  kit_type:
+    output_key: kit_type
+  size_dimension:
+    output_key: 
+      - length
+      - width
+      - height
+    actions:
+      - parse_dimensions
+  adhesive:
+    output_key: adhesive
+  power_per_element:
+    output_key: power_rating
+    actions:
+      - extract_num  
+  coating,_housing_type:
+    output_key: coating_housing_type
+    actions:
+      - lower
+  failure_rate:
+    output_key: failure_rate
+  applications:
+    output_key: technology
+  resistor_matching_ratio:
+    output_key: resistor_matching_ratio
+    actions:
+      - extract_num
+  resistor_ratio_drift:
+    output_key: resistor_ratio_drift
+    actions:
+      - tempcoeff
+  time_to_trip:
+    output_key: time_to_trip
+    actions:
+      - extract_num
+  b25100:
+    output_key: b25100_K
+    actions:
+      - parse_any_number
+  b2550:
+    output_key: b2550_K
+    actions:
+      - parse_any_number
+  b2585:
+    output_key: b2585_K
+    actions:
+      - parse_any_number
+  current_hold_(ih)_(max):
+    output_key: current_hold_(ih)_(max)
+    actions:
+      - extract_num
+  number_of_circuits:
+    output_key: number_of_circuits
+  sku:
+    output_key: sku
+  frequency_(centerband):
+    output_key: frequency_centerband
+    actions:
+      - extract_num
+  b_value_tolerance:
+    output_key: b_value_tolerance
+    actions:
+      - extract_num
+  tolerance:
+    output_key:
+      - tolerance_percent
+      - tolerance_value
+    actions:
+      - split_tolerance
+  frequency_self_resonant:
+    output_key:
+      - self_resonant_frequency_min
+      - self_resonant_frequency_max
+    actions:
+      - split_to
+  supplier_device_package:
+    output_key: supplier_device_package
+  delay_time:
+    output_key:
+      - timing_range_min
+      - timing_range_max
+    actions:
+      - split_timing
+  r25c:
+    output_key: r25c
+    actions:
+      - extract_num
+  ram_size:
+    output_key: ram_size
+    actions:
+      - extract_num
+  propagation_delay_time:
+    output_key: propagation_delay_time
+    actions:
+      - extract_num
+  propagation_delay:
+    output_key: propagation_delay
+    actions:
+      - extract_num
+  rotation:
+    output_key: rotation_angle
+    actions:
+      - extract_num
+  rotation_angle:
+    output_key: rotation_angle
+    actions:
+      - extract_num
+  number_of_characters:
+    output_key: number_of_gangs
+  number_of_turns:
+    output_key: number_of_turns
+    actions:
+      - extract_num
+  actuator_type:
+    output_key: shaft_type
+  resistive_material:
+    output_key: resistive_material
+  built_in_switch:
+    output_key: with_switch
+  taper:
+    output_key: taper
+  style:
+    output_key: style
+  interface:
+    output_key: digital_interface
+  encoder_type:
+    output_key: technology
+  number_of_taps:
+    output_key: taps_per_pot
+  memory_type:
+    output_key: memory_type
+  actuator_length:
+    output_key: shaft_length
+    actions:
+      - parse_dimension
+  actuator_diameter:
+    output_key: diameter
+    actions:
+      - parse_dimension
+  number_of_gangs:
+    output_key: number_of_gangs
+    actions:
+      - extract_num
+  coil_resistance:
+    output_key: coil_resistance
+    actions:
+      - extract_num
+  voltage_breakdown:
+    output_key: voltage_breakdown
+    actions:
+      - extract_num
+  contact_form:
+    output_key: contact_form
+  impedance:
+    output_key: impedance
+    actions:
+      - extract_num
+  polarization:
+    output_key: polarization
+  features:
+    output_key: features
+  number_of_detents:
+    output_key: number_of_detents
+  number_of_digits:
+    output_key: number_of_digits
+  number_of_drivers:
+    output_key: number_of_drivers
+  number_of_electrodes:
+    output_key: number_of_electrodes
+  number_of_elements:
+    output_key: number_of_elements
+  number_of_gates:
+    output_key: number_of_gates
+  number_of_inputs_monitored:
+    output_key: number_of_inputs_monitored
+  number_of_internal_timers:
+    output_key: number_of_internal_timers
+  number_of_io:
+    output_key: number_of_io
+  number_of_ios:
+    output_key: number_of_ios
+  number_of_keys:
+    output_key: number_of_keys
+  number_of_lanes:
+    output_key: number_of_lanes
+  number_of_leds:
+    output_key: number_of_leds
+  number_of_levels:
+    output_key: number_of_levels
+  number_of_lines:
+    output_key: number_of_lines
+  number_of_logic_array_blocks_labs:
+    output_key: number_of_logic_array_blocks_labs
+  number_of_logic_elements:
+    output_key: number_of_logic_elements
+  number_of_logic_elements_blocks:
+    output_key: number_of_logic_elements_blocks
+  number_of_logic_elements_cells:
+    output_key: number_of_logic_elements_cells
+  number_of_modules:
+    output_key: number_of_modules
+  number_of_poles:
+    output_key: number_of_poles
+  number_of_outputs:
+    output_key: number_of_outputs
+  number_of_output_lines:
+    output_key: number_of_output_lines
+  number_of_poles_per_deck:
+    output_key: number_of_poles_per_deck
+  number_of_ports:
+    output_key: number_of_ports
+  number_of_outlets:
+    output_key: number_of_outlets
+  number_of_positions:
+    output_key: number_of_positions
+  number_of_positions_contacts:
+    output_key: number_of_positions_contacts
+  number_of_positionscontacts:
+    output_key: number_of_positions_contacts
+  number_of_regulators:
+    output_key: number_of_regulators
+  number_of_rows:
+    output_key: number_of_rows
+  number_of_rows_per_port:
+    output_key: number_of_rows_per_port
+  number_of_receivers:
+    output_key: number_of_receivers
+  number_of_segments:
+    output_key: number_of_segments
+  number_of_switches:
+    output_key: number_of_switches
+  number_of_taps_steps:
+    output_key: number_of_taps_steps
+  number_of_sections:
+    output_key: number_of_sections
+  number_of_transceivers:
+    output_key: number_of_transceivers
+  number_of_mixers:
+    output_key: number_of_mixers
+  length:
+    output_key: length
+    actions:
+      - parse_dimension
+  power_rated:
+    output_key: power_rating
+    actions:
+      - extract_num
+  voltage_input:
+    output_key:
+      - control_voltage_range_min
+      - control_voltage_range_max
+    actions:
+      - split_temp
+  torque_max_momentary_(oz_in_mnm):
+    output_key: momentary_torque_max
+    actions:
+      - extract_torque
+  torque_holding_(oz_in_mnm):
+    output_key: holding_torque_minimum
+    actions:
+      - extract_torque
+  torque_rated_(oz_in_mnm):
+    output_key: holding_torque_minimum
+    actions:
+      - extract_torque
+  voltage_load:
+    output_key:
+      - load_voltage_rating_min
+      - load_voltage_rating_max
+    actions:
+      - split_temp
+  sound_pressure_level_(spl):
+    output_key:
+      - sound_pressure_level_volume
+      - sound_pressure_level_rated_voltage
+      - sound_pressure_level_distance
+    actions:
+      - split_spl
+  contact_rating_@_voltage:
+    output_key:
+      - contact_rating
+      - contact_rating_at_V
+    actions:
+      - split_at
+  step_angle:
+    output_key: step_angle
+    actions:
+      - parse_any_number
+  opening_size:
+    output_key:
+      - opening_size_width
+      - opening_size_height
+      - opening_size_length
+    actions:
+      - parse_dimensions
+  opening_temp:
+    output_key: opening_temp
+    actions:
+      - extract_num
+  operate_range:
+    output_key: operate_range
+  operate_time:
+    output_key: operate_time
+    actions:
+      - extract_num
+  release_time:
+    output_key: release_time
+    actions:
+      - extract_num
+  relay_type:
+    output_key: relay_type
+    actions:
+      - lower
+  operating_angle:
+    output_key: operating_angle
+    actions:
+      - extract_num
+  operating_force:
+    output_key: operating_force
+    actions:
+      - extract_num
+  timing_adjustment_method:
+    output_key: timing_adjustment_method
+    actions:
+      - lower
+  timing_initiate_method:
+    output_key: timing_initiate_method
+    actions:
+      - lower
+  on_state_resistance_(max):
+    output_key: on_state_resistance_max
+    actions:
+      - extract_num
+  operating_frequency:
+    output_key: operating_frequency
+    actions:
+      - extract_num
+  operating_point_min_max:
+    output_key: operating_point_min_max
+    actions:
+      - extract_num
+  coil_type:
+    output_key: coil_type
+  operating_pressure:
+    output_key: operating_pressure
+    actions:
+      - extract_num
+  operating_supply_current:
+    output_key: operating_supply_current
+    actions:
+      - extract_num
+  operating_supply_voltage:
+    output_key:
+      - operating_supply_voltage_min
+      - operating_supply_voltage_max
+    actions:
+      - split_temp
+  voltage_range:
+    output_key:
+      - voltage_range_min
+      - voltage_range_max
+    actions:
+      - split_temp
+  number_of_macro_cells:
+    output_key: number_of_macro_cells
+  description_raw:
+    output_key: description_raw
+  categories_raw:
+    output_key: categories_raw
+  vgs(th)_(max)_@_id:
+    output_key:
+      - vgs(th)_(max)_@_id_Vgs
+      - vgs(th)_(max)_@_id_Id
+    actions:
+      - split_at
+  current_continuous_drain_(id)_@_25°c:
+    output_key: current_continuous_drain_(id)_@_25°c
+    actions:
+      - extract_num
+  vgs_(max):
+    output_key: vgs_(max)
+    actions:
+      - extract_num
+  fet_type:
+    output_key: fet_type
+  drain_to_source_voltage_(vdss):
+    output_key: drain_to_source_voltage_(vdss)
+    actions:
+      - extract_num
+  drive_voltage_(max_rds_on,_min_rds_on):
+    output_key:
+      - drive_voltage_rds_on_min
+      - drive_voltage_rds_on_max
+    actions:
+      - split_comma
+  rds_on_(max)_@_id,_vgs:
+    output_key:
+      - rds_on_(max)_@_id,_vgs_Rds
+      - rds_on_(max)_@_id,_vgs_Id
+      - rds_on_(max)_@_id,_vgs_Vgs
+    actions:
+      - split_three
+  power_dissipation_(max):
+    output_key: power_dissipation_(max)
+    actions:
+      - extract_num
+  gate_charge_(qg)_(max)_@_vgs:
+    output_key:
+      - gate_charge_(qg)_(max)_@_vgs_Charge
+      - gate_charge_(qg)_(max)_@_vgs_Vgs
+    actions:
+      - split_at
+  input_capacitance_(ciss)_(max)_@_vds:
+    output_key:
+      - input_capacitance_(ciss)_(max)_@_vds_Capacitance
+      - input_capacitance_(ciss)_(max)_@_vds_Vds
+    actions:
+      - split_at
+  frequency_transition:
+    output_key: maximum_operating_frequency
+    actions:
+      - extract_num
+  voltage_collector_emitter_breakdown_(max):
+    output_key: collector_emitter_voltage_vceo_max
+    actions:
+      - extract_num
+  vce_saturation_(max)_@_ib,_ic:
+    output_key:
+      - vce_saturation_(max)_@_ib,_ic_Vce
+      - vce_saturation_(max)_@_ib,_ic_Ib
+      - vce_saturation_(max)_@_ib,_ic_Ic
+    actions:
+      - split_three
+  current_collector_(ic)_(max):
+    output_key: continuous_collector_current
+    actions:
+      - extract_num
+  current_collector_cutoff_(max):
+    output_key: maximum_collector_cutoff_current
+    actions:
+      - extract_num
+  dc_current_gain_(hfe)_(min)_@_ic,_vce:
+    output_key:
+      - dc_current_gain_(hfe)_(min)_@_ic,_vce_Gain
+      - dc_current_gain_(hfe)_(min)_@_ic,_vce_Ic
+      - dc_current_gain_(hfe)_(min)_@_ic,_vce_Vce
+    actions:
+      - split_three
+  transistor_type:
+    output_key: transistor_polarity
+  resistor_base_(r1):
+    output_key: typical_input_resistor
+    actions:
+      - extract_num
+  resistor_emitter_base_(r2):
+    output_key: resistor_emitter_base_(r2)
+    actions:
+      - extract_num
+  fet_feature:
+    output_key: fet_feature
+  voltage_test:
+    output_key: voltage_test
+    actions:
+      - extract_num
+  noise_figure_(db_typ_@_f):
+    output_key: noise_figure_(db_typ_@_f)
+  input_capacitance_(cies)_@_vce:
+    output_key:
+      - input_capacitance_(cies)_@_vce_Capacitance
+      - input_capacitance_(cies)_@_vce_Vce
+    actions:
+      - split_at
+  vce(on)_(max)_@_vge,_ic:
+    output_key:
+      - vce(on)_(max)_@_vge,_ic_Vce
+      - vce(on)_(max)_@_vge,_ic_Vge
+      - vce(on)_(max)_@_vge,_ic_Ic
+    actions:
+      - split_three
+  igbt_type:
+    output_key: igbt_type
+  ntc_thermistor:
+    output_key: ntc_thermistor
+  gate_charge:
+    output_key: gate_charge
+    actions:
+      - extract_num
+  current_collector_pulsed_(icm):
+    output_key: current_collector_pulsed_(icm)
+    actions:
+      - extract_num
+  td_(onoff)_@_25°c:
+    output_key:
+      - td_@_25°c_on
+      - td_@_25°c_off
+    actions:
+      - split_slash
+  reverse_recovery_time_(trr):
+    output_key: reverse_recovery_time_(trr)
+    actions:
+      - extract_num
+  switching_energy:
+    output_key: switching_energy
+  test_condition:
+    output_key: test_condition
+  noise_figure:
+    output_key: noise_figure
+    actions:
+      - extract_num
+  voltage_breakdown_(v(br)gss):
+    output_key: voltage_breakdown_(v(br)gss)
+    actions:
+      - extract_num
+  resistance_rds(on):
+    output_key: resistance_rds(on)
+    actions:
+      - extract_num
+  current_drain_(idss)_@_vds_(vgs=0):
+    output_key:
+      - current_drain_(idss)_@_vds_(vgs=0)_Current
+      - current_drain_(idss)_@_vds_(vgs=0)_Vds
+    actions:
+      - split_at
+  voltage_cutoff_(vgs_off)_@_id:
+    output_key:
+      - voltage_cutoff_(vgs_off)_@_id_Vgs
+      - voltage_cutoff_(vgs_off)_@_id_Id
+    actions:
+      - split_at
+  current_drain_(id)_max:
+    output_key: current_drain_(id)_max
+    actions:
+      - extract_num
+  voltage_output:
+    output_key: voltage_output
+    actions:
+      - extract_num
+  voltage_offset_(vt):
+    output_key: voltage_offset_(vt)
+    actions:
+      - extract_num
+  current_valley_(iv):
+    output_key: current_valley_(iv)
+    actions:
+      - extract_num
+  current_gate_to_anode_leakage_(igao):
+    output_key: current_gate_to_anode_leakage_(igao)
+    actions:
+      - extract_num
+  current_non_rep._surge_50,_60hz_(itsm):
+    output_key:
+      - non_repetitive_onstate_current_min
+      - non_repetitive_onstate_current_max
+    actions:
+      - split_at
+  current_on_state_(it_(rms))_(max):
+    output_key: onstate_rms_current_it_rms
+    actions:
+      - extract_num
+  triac_type:
+    output_key: triac_type
+  voltage_gate_trigger_(vgt)_(max):
+    output_key: gate_trigger_voltage_vgt
+    actions:
+      - extract_num
+  current_gate_trigger_(igt)_(max):
+    output_key: gate_trigger_current_igt
+    actions:
+      - extract_num
+  voltage_off_state:
+    output_key: rated_repetitive_offstate_voltage_vdrm
+    actions:
+      - extract_num
+  current_on_state_(it_(av))_(max):
+    output_key: onstate_rms_current_it_rms
+    actions:
+      - extract_num
+  voltage_on_state_(vtm)_(max):
+    output_key: onstate_voltage
+    actions:
+      - extract_num
+  scr_type:
+    output_key: scr_type
+  current_off_state_(max):
+    output_key: offstate_leakage_current_@_vdrm_idrm
+    actions:
+      - extract_num
+  number_of_scrs,_diodes:
+    output_key: number_of_scrs,_diodes
+  structure:
+    output_key: structure
+  voltage_breakover:
+    output_key:
+      - breakover_voltage_vbo_min
+      - breakover_voltage_vbo_max
+    actions:
+      - split_temp
+  voltage_forward_(vf)_(max)_@_if:
+    output_key:
+      - onstate_voltage
+      - onstate_voltage_If
+    actions:
+      - split_at
+  current_reverse_leakage_@_vr:
+    output_key:
+      - ir_reverse_current
+      - peak_reverse_voltage
+    actions:
+      - split_at
+  impedance_(max)_(zzt):
+    output_key: impedance_(max)_(zzt)
+    actions:
+      - extract_num
+  voltage_zener_(nom)_(vz):
+    output_key: voltage_zener_(nom)_(vz)
+    actions:
+      - extract_num
+  diode_type:
+    output_key: type
+  current_average_rectified_(io)_(per_diode):
+    output_key: if_forward_current
+    actions:
+      - extract_num
+  current_average_rectified_(io):
+    output_key: if_forward_current
+    actions:
+      - extract_num
+  voltage_dc_reverse_(vr)_(max):
+    output_key: peak_reverse_voltage
+    actions:
+      - extract_num
+  speed:
+    output_key: speed
+  capacitance_@_vr,_f:
+    output_key:
+      - maximum_diode_capacitance
+      - maximum_diode_capacitance_Vr
+      - maximum_diode_capacitance_F
+    actions:
+      - split_three
+  diode_configuration:
+    output_key: configuration
+  voltage_peak_reverse_(max):
+    output_key: peak_reverse_voltage
+    actions:
+      - extract_num
+  resistance_@_if,_f:
+    output_key:
+      - maximum_series_resistance_@_maximum_if
+      - maximum_series_resistance_@_maximum_if_If
+      - maximum_series_resistance_@_maximum_if_F
+    actions:
+      - split_three
+  capacitance_ratio_condition:
+    output_key: capacitance_ratio_condition
+  clock_frequency:
+    output_key: maximum_clock_frequency
+    actions:
+      - extract_num
+  memory_interface:
+    output_key: interface_type
+  controller_type:
+    output_key: memory_type
+  memory_format:
+    output_key: memory_format
+  memory_size:
+    output_key: memory_size
+    actions:
+      - extract_num
+  write_cycle_time_word,_page:
+    output_key: write_cycle_time
+    actions:
+      - extract_num
+  battery_chemistry:
+    output_key: battery_chemistry
+  connector_type:
+    output_key: connector_type
+  fastening_type:
+    output_key: fastening_type
+  shell_size_insert:
+    output_key: shell_size_insert
+  shell_size_insert_(convert_to):
+    output_key: shell_size_insert_convert_to
+  shell_size_insert_(convert_from):
+    output_key: shell_size_insert_convert_from 
+  shell_material,_finish:
+    output_key: shell_material_finish
+  shell_finish:
+    output_key: shell_finish
+  shell_material:
+    output_key: shell_material
+  shell_size,_connector_layout:
+    output_key: shell_size_connector_layout
+  connector_style:
+    output_key: connector_style
+  number_of_positions_loaded:
+    output_key: number_of_positions_loaded
+  number_of_positions_(convert_to):
+    output_key: number_of_positions_convert_to
+    actions:
+      - extract_num
+  number_of_positions_(convert_from):
+    output_key: number_of_positions_convert_from
+    actions:
+      - extract_num
+  contact_layout,_typical:
+    output_key: contact_layout_typical
+  connector_usage:
+    output_key: connector_usage
+  pin_or_socket:
+    output_key: pin_or_socket
+  contact_termination:
+    output_key: contact_termination
+  wire_gauge:
+    output_key: wire_gauge
+  level,_class:
+    output_key: level_class
+  class:
+    output_key: class
+  class_code:
+    output_key: class_code
+  shell_size:
+    output_key: shell_size
+  cavity_a:
+    output_key: cavity_a
+  cavity_b:
+    output_key: cavity_b
+  cavity_c:
+    output_key: cavity_c
+  cavity_d:
+    output_key: cavity_d
+  cavity_e:
+    output_key: cavity_e
+  cavity_f:
+    output_key: cavity_f
+  sealed:
+    output_key: sealed
+  shell_plating:
+    output_key: shell_plating
+  shell_size,_mil:
+    output_key: shell_size_mil
+  card_type:
+    output_key: card_type
+  gender:
+    output_key: gender
+  center_gender:
+    output_key: gender
+  number_of_positionsbay/row:
+    output_key: number_of_positionsbay_row
+  contact_type:
+    output_key: contact_type
+  flange_feature:
+    output_key: flange_feature
+  flange_diameter:
+    output_key: flange_diameter
+    actions:
+      - parse_dimension
+  contact_shape:
+    output_key: contact_shape
+  housing_material:
+    output_key: housing_material
+  housing_finish:
+    output_key: housing_finish
+  material_insulation:
+    output_key: insulation_material
+  note:
+    output_key: note
+  insulation_color:
+    output_key: insulation_color
+  insulation_height:
+    output_key: insulation_height
+    actions:
+      - parse_dimension
+  insulation:
+    output_key: insulation
+  contact_length_post:
+    output_key: contact_length_post
+    actions:
+      - parse_dimension
+  contact_length_mating:
+    output_key: contact_length_mating
+    actions:
+      - parse_dimension
+  overall_contact_length:
+    output_key: overall_contact_length
+    actions:
+      - parse_dimension
+  row_spacing_mating:
+    output_key: row_spacing_mating
+    actions:
+      - parse_dimension
+  current_rating_(amps):
+    output_key: rated_current
+    actions:
+      - extract_num
+  contact_finish_mating:
+    output_key: contact_mating_finish
+  center_contact_plating:
+    output_key: contact_pl
+  material_flammability_rating:
+    output_key: material_flammability_rating
+  insulation_material:
+    output_key: insulation_material
+  contact_finish_post:
+    output_key: contact_finish_post
+  shrouding:
+    output_key: shrouding
+  adapter_type:
+    output_key: adapter_type
+  adapter_series:
+    output_key: adapter_series
+  conversion_type:
+    output_key: conversion_type
+  row_spacing:
+    output_key: row_spacing
+    actions:
+      - parse_dimension
+  contact_finish_post_(mating):
+    output_key: contact_finish_post 
+  length_post_(mating):
+    output_key: length_post_mating
+    actions:
+      - parse_dimension
+  mated_stacking_heights:
+    output_key: mated_stacking_heights
+    actions:
+      - parse_any_number
+  height_stacking_(mating):
+    output_key: mated_stacking_heights
+    actions:
+      - parse_dimension
+  length_stack_height:
+    output_key: length_stack_height
+    actions:
+      - parse_dimension
+  length_overall_pin:
+    output_key: length_overall_pin
+    actions:
+      - parse_dimension
+  length_tail:
+    output_key: tail_length
+    actions:
+      - parse_dimension
+  tail_diameter:
+    output_key: tail_diameter
+    actions:
+      - parse_dimension
+  tail_type:
+    output_key: tail_type
+  convert_to_(adapter_end):
+    output_key: convert_to_adapter_end
+  convert_from_(adapter_end):  
+    output_key: convert_from_adapter_end
+  cat_l3:
+    output_key: cat_l3
+  wire_type:
+    output_key: wire_type
+  board_side_pitch:
+    output_key: board_side_pitch
+    actions:
+      - extract_num
+  housing_color:
+    output_key: housing_color
+  base_resonator:
+    output_key: base_resonator
+  cable_termination:
+    output_key: cable_termination
+  plug_wire_entry:
+    output_key: plug_wire_entry
+    actions:
+      - extract_num
+  positions_per_level:
+    output_key: positions_per_level
+    actions:
+      - extract_num
+  contact_mating_finish:
+    output_key: contact_mating_finish  
+  wire_gauge_or_range_awg:
+    output_key: 
+      - wire_gauge_or_range_awg_min
+      - wire_gauge_or_range_awg_max
+    actions:
+      - split_guage
+  wire_gauge_or_range_mm\u00b2:
+    output_key: 
+      - wire_gauge_or_range_mm_min
+      - wire_gauge_or_range_mm_max
+    actions:
+      - split_guage
+  header_orientation:
+    output_key: header_orientation
+    actions:
+      - split_orientation
+  barrier_type:
+    output_key: barrier_type
+  top_termination:
+    output_key: top_termination
+  bottom_termination:
+    output_key: bottom_termination
+  terminal_block_type:
+    output_key: terminal_block_type
+  number_of_wire_entries:
+    output_key: number_of_wire_entries
+    actions:
+      - extract_num
+  cable_group:
+    output_key: cable_group
+  terminal_type:
+    output_key: type
+  terminal_style:
+    output_key: terminal_style
+  terminal_width:
+    output_key: terminal_width
+    actions: 
+      - parse_dimension
+  foil_crimp_area:
+    output_key:
+      - foil_crimp_area_length
+      - foil_crimp_area_width
+      - foil_crimp_area_height
+    actions:
+      - parse_dimensions
+  depth_overall:
+    output_key: depth
+    actions:
+      - parse_dimension
+  width_overall:
+    output_key: width
+    actions: 
+      - parse_dimension
+  hole_diameter:
+    output_key: hole_diameter
+    actions:
+      - parse_dimension
+  pin_hole_diameter:
+    output_key: pin_hole_diameter
+    actions:
+      - parse_dimension
+  mounting_hole_diameter:
+    output_key: mounting_hole_diameter
+    actions:
+      - parse_dimension
+  accepts_pin_diameter:
+    output_key:
+      - pin_diameter_min
+      - pin_diameter_max
+    actions:
+      - split_tilde
+  accepts_square_pin_size:
+    output_key: accepts_square_pin_size
+      - parse_dimension
+  pin_size_above_flange:
+    output_key: pin_size_above_flange
+    actions:
+      - parse_dimension
+  pin_size_below_flange:
+    output_key: pin_size_below_flange
+    actions:
+      - parse_dimension
+  length_above_flange:
+    output_key: length_above_flange
+    actions:
+      - parse_dimension
+  length_below_flange:
+    output_key: length_below_flange
+    actions:
+      - parse_dimension
+  studtab_size:
+    output_key: studtab_size
+    actions:
+      - extract_num
+  wire_termination:
+    output_key: wire_termination
+  cable_end_type:
+    output_key: wire_termination
+  mating_orientation:
+    output_key: mating_orientation
+  flat_flex_type:
+    output_key: flat_flex_type
+  locking_feature:
+    output_key: locking_feature
+  actuator_material:
+    output_key: actuator_material
+  ffc,_fcb_thickness:
+    output_key: thickness
+    actions:
+      - parse_dimension
+  connectorcontact_type:
+    output_key: contact_type
+  number_of_positions_or_pins_(grid):
+    output_key: number_of_positions_or_pins_grid
+  cable_group:
+    output_key: cable_group
+  cable_type:
+    output_key: cable_type
+  frequency_max:
+    output_key: frequency_max
+    actions:
+      - extract_num
+  shield_termination:
+    output_key: shield_termination
+  contact_material_post:
+    output_key: contact_material_post
+  contact_material_mating:
+    output_key: contact_material_mating
+  filter_type:
+    output_key: filter_type
+  accomodates_a_fuse:
+    output_key: accomodates_a_fuse
+  fuse_holder,_drawer:
+    output_key: fuse_holder_drawer
+  switch_features:
+    output_key: switch_type
+  internal_switch(s):
+    output_key: with_switch
+  tab_direction:
+    output_key: tab_direction
+  lock_location:
+    output_key: lock_location
+  width_outer_edges:
+    output_key: width
+    actions:
+      - parse_dimension
+  diameter_outside:
+    output_key: diameter
+    actions:
+      - parse_dimension
+  tab_width:
+    output_key: tab_width
+    actions:
+      - parse_dimension
+  tab_thickness:
+    output_key: tab_thickness
+    actions:
+      - parse_dimension
+  tab_length:
+    output_key: tab_length
+    actions:
+      - parse_dimension
+  socket_depth:
+    output_key: socket_depth
+    actions:
+      - parse_dimension
+  signal_lines:
+    output_key: signal_lines
+  actual_diameter:
+    output_key: diameter
+    actions:
+      - parse_dimension
+  industry_recognized_mating_diameter:
+    output_key: mating_diameter
+    actions:
+     - parse_dimension
+  insertion,_removal_method:
+    output_key: insertion_removal_method
+  ejector_side:
+    output_key: ejector_side
+  hardware:
+    output_key: hardware
+  mating_cycles:
+    output_key: mating_cycles
+    actions: 
+      - extract_num
+  number_of_turrets:
+    output_key: number_of_turrets
+  diameter_turret_head:
+    output_key: diameter_turret_head
+    actions:
+      - parse_dimensions
+  staking_side_id:
+    output_key: staking_side_id
+    actions:
+      - parse_dimension
+  staking_side_od:
+    output_key: staking_side_od
+    actions:
+      - parse_dimension
+  q_@_vr,_f:
+    output_key:
+      - q_@_vr,_f_Q
+      - q_@_vr,_f_Vr
+      - q_@_vr,_f_F
+    actions:
+      - split_three

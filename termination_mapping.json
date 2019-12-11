@@ -1,0 +1,191 @@
+{
+	"Screw Mount": [
+		"Chassis Mount, Motors",
+		"Screw Mount",
+		"Connector",
+		"Screw Terminals",
+		"Screw",
+		"Terminals, Screw",
+		"Bolt Mount",
+		"Base Mount",
+		"Terminal Screw Type",
+		"PCB Screw",
+		"Base Screw",
+		"2 Terminal",
+		"3 Terminal",
+		"4 Terminal",
+		"Capacitor, 22mm Pitch",
+		"Capacitor, 28.6mm Pitch",
+		"Capacitor, 31.8mm Pitch",
+		"Capacitor, 32mm Pitch",
+		"Shunt Fixture, 60mm Pitch"
+	],
+	"Panel Mount": [
+		"Panel, PCB Through Hole",
+		"Panel Mount",
+		"Panel",
+		"Channel Mount or Panel Mount"
+	],
+	"Through Hole": [
+		"Through Hole",
+		"Terminal Pins",
+		"Pin Strip",
+		"Through Hole",
+		"Axial",
+		"Pin",
+		"PC Pin",
+		"Radial",
+		"Radial Stand-Off",
+		"PCB, Through Hole",
+		"Solder Lug",
+		"Solder Tab",
+		"Solder Terminal",
+		"Solder Pads",
+		"Solder Pad",
+		"Solder",
+		"Lug",
+		"SIP",
+		"DIP",
+		"Quick Connect",
+		"Crimp",
+		"Pins",
+		"Angled Pin",
+		"Pin, Adhesive"
+	],
+	"Cable": [
+		"Cable with Connector",
+		"Cable",
+		"Cable Leads",
+		"Ribbon Cable",
+		"Wire Lead",
+		"Wire",
+		"Wire Leaded",
+		"Wire Leads",
+		"Lead Wire"
+	],
+	"SMD/SMT": [
+		"SMD/SMT",
+		"SMD (SMT) Tab",
+		"SMD",
+		"Surface Mount (SMD,SMT)",
+		"Surface Mount",
+		"Surface Mount, MLCC",
+		"Surface Mount, SLCC",
+		"Surface Mount, MLCV",
+		"PCB Mount",
+		"PCB Mount Chip",
+		"PCB",
+		"Chassis Mount",
+		"Chassis",
+		"Chassis, Panel Mount",
+		"PCB, Surface Mount",
+		"Servo",
+		"Servo Mount",
+		"Standard",
+		"Gullwing",
+		"J Hook"
+	],
+	"DIN Rail": [
+		"DIN Rail",
+		"Pluggable into DIN Rail Base",
+		"Rail, Channel",
+		"DIN"
+	],
+	"Flange": [
+		"Flange",
+		"Flanges",
+		"Flange Mount"
+	],
+	"Threaded": [
+		"Threaded",
+		"Threaded Insert",
+		"M4 Threaded",
+		"M5 Threaded",
+		"#10-32 Threaded"
+	],
+	"Clamp On":[
+		"Clamp",
+		"Clamp On"
+	],
+	"Snap In":[
+		"Snap In",
+		"Through Hole, Snap In",
+		"Snap-In"
+	],
+	"Free Hanging":[
+		"Free Hanging (In-Line)",
+		"Free Hanging"
+	],
+	"Slot Mount":[
+		"Slot Mount",
+		"Slot Mount Variable"
+	],
+	"Adhesive":[
+		"Acrylic Adhesive",
+		"Acrylic Adhesive Conductive",
+		"Acrylic Adhesive PSA",
+		"Acrylic Adhesive PSA Conductive",
+		"Acrylic Adhesive PSA Conductive Both Sides",
+		"Acrylic Adhesive PSA Nonconductive",
+		"Adhesive",
+		"Adhesive Bottom",
+		"Adhesive Conductive",
+		"Adhesive Double Sided",
+		"Adhesive Nonconductive",
+		"Adhesive PSA",
+		"Adhesive PSA Conductive",
+		"Adhesive Top",
+		"Hot Melt",
+		"Adhesive Mount",
+		"Adhesive Tape"	
+	],
+	"SMA":[
+		"SMA Connector",
+		"SMA Plug"
+	],
+	"SMA-RP":[
+		"SMA-RP",
+		"RP-SMA"
+	],
+	"Wall Mount":[
+		"Wall Mount",
+		"Wall",
+		"Wall or Pole",
+		"Wall/Pole Mount"
+	],
+	"Connector Mount": [
+		"Connector Mount",
+		"Connector, MMCX Male",
+		"Connector, N Female"
+	],
+	"Magnetic":[
+		"Magnetic Base",
+		"Magnetic Mount",
+		"Magnetic, Adhesive",
+		"Magnetic, Chassis Mount",
+		"Magnetic, Trunk"
+	],
+	"U.FL":[
+		"U.FL",
+		"I-Pex (u.FL)"
+	],
+	"Direct Mount":[
+		"Direct",
+		"Direct Mount"
+	],
+	"N Style":[
+		"N Style",
+		"N-Style",
+		"N-Type"
+	],
+	"NMO":[
+		"NMO",
+		"NMO Mount"
+	],
+	"Bracket Mount":[
+		"Bracket, Connector Mount",
+		"Bracket",
+		"Bracket Mount"
+	]
+
+}

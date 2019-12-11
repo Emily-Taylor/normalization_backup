@@ -1,0 +1,28 @@
+{
+	"Active": [
+		"Active",
+		"New Product",
+		"New at Mouser"
+	],
+	"Inactive": [
+		"Inactive",
+		"Preliminary"
+	],
+	"EOL": [
+		"EOL",
+		"Obselete",
+		"Obsolete",
+		"End of Life"
+	],
+	"Near EOL": [
+		"Near EOL",
+		"Last Time Buy",
+		"Near EOF",
+		"Not For New Designs",
+		"Not Recommended for New Designs"
+	],
+	"Discontinued": [
+		"Discontinued",
+		"Discontinued at Digi-Key"
+	]
+}
