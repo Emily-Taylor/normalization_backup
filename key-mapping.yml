@@ -1224,7 +1224,6 @@ mouser:
     output_key: maximum_limiting_voltage
     actions:
       - extract_num
-        - parse_dimension
   mil_type:
     output_key: mil_type
   shell_size:
@@ -1240,34 +1239,34 @@ mouser:
   None: None
 digikey:
   voltage_rating:
-   output_key: voltage_rating
-   actions:
+    output_key: voltage_rating
+    actions:
       - extract_num
   current_switching:
-   output_key: current_switching
+    output_key: current_switching
   thread_size:
-   output_key: thread_size
+    output_key: thread_size
   release_range:
-   output_key: release_range
+    output_key: release_range
   pretravel:
-   output_key: pretravel
-   actions:
+    output_key: pretravel
+    actions:
       - parse_dimension
   display_characters_height:
-   output_key: display_characters_height
-   actions:
+    output_key: display_characters_height
+    actions:
       - parse_dimension
   voltage:
-   output_key: voltage
-   actions:
+    output_key: voltage
+    actions:
       - extract_num
   differential_travel:
-   output_key: differential_travel
-   actions:
+    output_key: differential_travel
+    actions:
       - parse_dimension
   release_force:
-   output_key: release_force
-   actions:
+    output_key: release_force
+    actions:
       - extract_num
   actuator_height_off_pcb,_vertical:
     output_key: actuator_height_off_pcb_vertical
@@ -1278,132 +1277,140 @@ digikey:
     actions:
       - parse_dimension
   voltage_switching_ac: 
-   output_key: voltage_switching_ac
-   actions:
+    output_key: voltage_switching_ac
+    actions:
       - extract_num
   (select_first,_then_apply_filters)_compatible_series:
     output_key: compatible_series
   functions,_extra:
     output_key: functions_extra
   read_out:
-   output_key: read_out
+    output_key: read_out
   overtravel:
-   output_key: overtravel
-   actions:
+    output_key: overtravel
+    actions:
       - parse_dimension
   supply_voltage:
-   output_key:
+    output_key:
       - supply_voltage_max
       - supply_voltage_min
-   actions:
+    actions:
       - split_temp
   voltage_switching_dc:
-   output_key: voltage_switching_dc
+    output_key: voltage_switching_dc
   height_above_board:
-   output_key: height_above_board
-   actions:
+    output_key: height_above_board
+    actions:
       - parse_dimension
   length_above_board:
     output_key: height_above_board
     actions:
       - parse_dimension
   viewing_area:
-   output_key:
+    output_key:
       - viewing_area_length
       - viewing_area_width
       - viewing_area_height
-   actions:
+    actions:
       - parse_dimensions
   supply_current:
-   output_key: supply_current
+    output_key: supply_current
   length_overall:
-   output_key: length
-   actions:
+    output_key: length
+    actions:
       - parse_dimension
   size:
-   output_key:
+    output_key:
       - length
       - width
       - height
-   actions:
+    actions:
       - parse_dimensions
   face_size:
-   output_key:
+    output_key:
       - face_size_length
       - face_size_width
       - face_size_depth
-   actions:
+    actions:
       - parse_dimensions
   section_width:
-   output_key: section_width
-   actions:
+    output_key: section_width
+    actions:
       - parse_dimension
   matrix_(columns_x_rows):
-   output_key: matrix_columns_x_rows
+    output_key: matrix_columns_x_rows
   voltage_output_(max):
-   output_key: output_voltage_max
-   actions:
+    output_key: output_voltage_max
+    actions:
       - extract_num
   size_body:
-   output_key:
+    output_key:
       - body_length
       - body_width
       - body_height
-   actions:
+    actions:
       - parse_dimensions
   legend_color:
-   output_key: legend_color
+    output_key: legend_color
   key_color:
-   output_key: key_color
+    output_key: key_color
   legend:
-   output_key: legend
+    output_key: legend
   key_type:
-   output_key: key_type
+    output_key: key_type
   washable:
-   output_key: washable
+    output_key: washable
   actuator_color:
-   output_key: actuator_color
+    output_key: actuator_color
   legend_type:
-   output_key: legend_type
+    output_key: legend_type
   end_caps:
-   output_key: end_caps
+    output_key: end_caps
   led_color:
-   output_key: led_color
+    output_key: led_color
   contact_finish:
-   output_key: contact_finish
+    output_key: contact_finish
   contact_material:
-   output_key: contact_material
+    output_key: contact_material
+  exterior_contact_material:
+    output_key: contact_material_exterior
+  interior_contact_material:
+    output_key: contact_material_interior 
+  exterior_contact_finish:
+    output_key: exterior_contact_finish
+  interior_contact_finish:
+    output_key: interior_contact_finish
   key_removable_positions:
-   output_key: key_removable_positions
+    output_key: key_removable_positions
   actuator_orientation:
-   output_key: actuator_orientation
+    output_key: actuator_orientation
   illumination_type,_color:
     output_key: illumination_type_color
   circuit_per_deck:
-   output_key: circuit_per_deck
+    output_key: circuit_per_deck
   actuator_marking:
-   output_key: actuator_marking
+    output_key: actuator_marking
   actuator_level:
-   output_key: actuator_level
+    output_key: actuator_level
   display_mode:
-   output_key: display_mode
+    output_key: display_mode
   color_actuatorcap:
-   output_key: color_actuatorcap
+    output_key: color_actuatorcap
   color:
-   output_key: color
+    output_key: color
   output_code:
-   output_key: output_code
+    output_key: output_code
   requires:
-   output_key: requires
+    output_key: requires
   switch_type:
-   output_key: switch_type
+    output_key: switch_type
   contact_timing:
-   output_key: contact_timing
+    output_key: contact_timing
   index_stops:
-   output_key: index_stops
+    output_key: index_stops
   switch_function:
-   output_key: switch_function
-   actions:
+    output_key: switch_function
+    actions:
       - lower
   voltage_input_(max):
     output_key: input_voltage_max
@@ -1423,6 +1430,8 @@ digikey:
     output_key: driver_circuitry
   port_location:
     output_key: port_location
+  port_direction:
+    output_key: port_direction
   material_magnet:
     output_key: material_magnet
   efficiency_type:
@@ -1733,10 +1742,14 @@ digikey:
     output_key: panel_thickness
     actions:
       - parse_dimension
+  panel_mount_type:
+    output_key: panel_mount_type
+  rear_panel_wire_connection:
+    output_key: rear_panel_wire_connection
+  front_panel_wire_connection:
+    output_key: front_panel_wire_connection
   pin_diameter:
     output_key: pin_diameter
-    actions:
-      - parse_dimension
   pitch:
     output_key: pitch
     actions:
@@ -1760,7 +1773,7 @@ digikey:
   pitch_mating:
     output_key: pitch_mating
     actions:
-      - extract_num
+      - parse_dimension
   panel_units:
     output_key: panel_units
     actions:
@@ -2027,13 +2040,17 @@ digikey:
     actions:
       - parse_dimension
   contact_mating_length:
-    output_key: contact_mating_length
+    output_key: mating_length
     actions:
       - parse_dimension
   contact_rating_current:
     output_key: contact_rating_current
     actions:
       - extract_num
+  mating_lengthdepth:
+    output_key: mating_length
+    actions:
+      - parse_dimension
   current:
     output_key: rated_current
     actions:
@@ -2139,6 +2156,14 @@ digikey:
     output_key: plating_thickness
     actions:
       - parse_dimension
+  plating_body:
+    output_key: body_plating
+  material_body:
+    output_key: body_material
+  body_material:
+    output_key: body_material
+  body_finish:
+    output_key: body_finish
   quantity:
     output_key: quantity
   number_of_channels:
@@ -2229,6 +2254,14 @@ digikey:
     output_key: barrel_depth
     actions:
       - extract_num
+  length_barrel:
+    output_key: barrel_length
+    actions:
+      - parse_dimension
+  diameter_barrel:
+    output_key: barrel_diameter
+    actions:
+      - parse_dimension
   beam_angle:
     output_key: beam_angle
     actions:
@@ -2239,6 +2272,10 @@ digikey:
       - parse_dimension
   board_size:
     output_key: board_size
+  board_material:
+    output_key: board_material
+  material_board:
+    output_key: board_material
   break_strength:
     output_key: break_strength
   bundle_diameter:
@@ -2531,7 +2568,7 @@ digikey:
     actions:
       - extract_num
   current_rating_per_contact:
-    output_key: current_rating_per_contact
+    output_key: contact_current_rating
     actions:
       - extract_num
   current_startup:
@@ -2570,10 +2607,24 @@ digikey:
     output_key: height_max
     actions:
       - parse_dimension
+  maximum_working_height:
+    output_key: height_max
+    actions:
+      - parse_dimension
+  minimum_working_height:
+    output_key: height_min
+    actions:
+      - parse_dimension
+  recommended_working_height:
+    output_key: recommended_working_height
+    actions:
+      - parse_dimension
   head_height:
     output_key: head_height
     actions:
       - extract_num
+  head_style:
+    output_key: head_style
   gain:
     output_key: gain
     actions:
@@ -3177,6 +3228,14 @@ digikey:
     output_key: operating_force
     actions:
       - extract_num
+  operating_force_initial:
+    output_key: operating_force_initial
+    actions:
+      - extract_num
+  operating_force_mid_compression:
+    output_key: operating_force_mid_compression
+    actions:
+      - extract_num
   timing_adjustment_method:
     output_key: timing_adjustment_method
     actions:
@@ -3545,10 +3604,16 @@ digikey:
     output_key: shell_material_finish
   shell_finish:
     output_key: shell_finish
+  shell_finish_thickness:
+    output_key: shell_finish_thickness
+    actions:
+      - parse_dimension
   shell_material:
     output_key: shell_material
   shell_size,_connector_layout:
     output_key: shell_size_connector_layout
+  shell_style:
+    output_key: shell_style
   connector_style:
     output_key: connector_style
   number_of_positions_loaded:
@@ -3617,6 +3682,10 @@ digikey:
     output_key: contact_shape
   housing_material:
     output_key: housing_material
+  exterior_housing_material:
+    output_key: exterior_housing_material
+  interior_housing_material:
+    output_key: interior_housing_material
   housing_finish:
     output_key: housing_finish
   material_insulation:
@@ -3631,6 +3700,12 @@ digikey:
       - parse_dimension
   insulation:
     output_key: insulation
+  insulation_diameter:
+    output_key: 
+      - insulation_diameter_min
+      - insulation_diameter_max
+    actions:
+      - split_tilde
   contact_length_post:
     output_key: contact_length_post
     actions:
@@ -3687,13 +3762,23 @@ digikey:
     output_key: mated_stacking_heights
     actions:
       - parse_dimension
+  stacking_direction:
+    output_key: stacking_direction  
   length_stack_height:
     output_key: length_stack_height
     actions:
       - parse_dimension
   length_overall_pin:
-    output_key: length_overall_pin
+    output_key: pin_length
     actions:
+      - parse_dimension
+  pin_length:
+    output_key: pin_length
+    actions:
+      - parse_dimension
+  length_pin:
+    output_key: pin_length
+    actions: 
       - parse_dimension
   length_tail:
     output_key: tail_length
@@ -3709,6 +3794,10 @@ digikey:
     output_key: convert_to_adapter_end
   convert_from_(adapter_end):  
     output_key: convert_from_adapter_end
+  exterior_type_(adapter_end):
+    output_key: exterior_type_adapter_end
+  interior_type_(adapter_end):
+    output_key: interior_type_adapter_end
   cat_l3:
     output_key: cat_l3
   wire_type:
@@ -3719,6 +3808,10 @@ digikey:
       - extract_num
   housing_color:
     output_key: housing_color
+  exterior_housing_color:
+    output_key: exterior_housing_color
+  interior_housing_color:
+    output_key: interior_housing_color
   base_resonator:
     output_key: base_resonator
   cable_termination:
@@ -3727,12 +3820,14 @@ digikey:
     output_key: plug_wire_entry
     actions:
       - extract_num
+  plugmating_plug_diameter:
+    output_key: plugmating_plug_diameter
   positions_per_level:
     output_key: positions_per_level
     actions:
       - extract_num
   contact_mating_finish:
-    output_key: contact_mating_finish  
+    output_key: contact_mating_finish
   wire_gauge_or_range_awg:
     output_key: 
       - wire_gauge_or_range_awg_min
@@ -3771,6 +3866,10 @@ digikey:
     output_key: terminal_width
     actions: 
       - parse_dimension
+  terminal_size:
+    output_key: terminal_size
+    actions:
+      - parse_dimension
   foil_crimp_area:
     output_key:
       - foil_crimp_area_length
@@ -3779,6 +3878,10 @@ digikey:
     actions:
       - parse_dimensions
   depth_overall:
+    output_key: depth
+    actions:
+      - parse_dimension
+  depth:
     output_key: depth
     actions:
       - parse_dimension
@@ -3823,10 +3926,16 @@ digikey:
     output_key: length_below_flange
     actions:
       - parse_dimension
+  length_below_head:
+    output_key: length_below_head
+    actions:
+      - parse_dimension
+  length_threaded_portion_below_head:
+    output_key: length_threaded_portion_below_head
+    actions: 
+      - parse_dimension
   studtab_size:
     output_key: studtab_size
-    actions:
-      - extract_num
   wire_termination:
     output_key: wire_termination
   cable_end_type:
@@ -3907,8 +4016,6 @@ digikey:
       - parse_dimension
   industry_recognized_mating_diameter:
     output_key: mating_diameter
-    actions:
-     - parse_dimension
   insertion,_removal_method:
     output_key: insertion_removal_method
   ejector_side:
@@ -3933,6 +4040,76 @@ digikey:
     output_key: staking_side_od
     actions:
       - parse_dimension
+  control_side_connection:
+    output_key: control_side_connection
+  process_side_connection:
+    output_key: process_side_connection
+  control_side_cable_retainer:
+    output_key: control_side_cable_retainer
+  current_rating_(per_contact):
+    output_key: contact_current_rating
+    actions:
+      - extract_num
+  mode:
+    output_key: mode
+  boot_color:
+    output_key: boot_color
+  simplexduplex:
+    output_key: simplex_or_duplex
+  fiber_cladding_diameter:
+    output_key: fiber_cladding_diameter
+    actions:
+      - parse_dimension
+  fiber_core_diameter:
+    output_key: fiber_core_diameter
+    actions:
+      - parse_dimension
+  termination_finish:
+    output_key: termination_finish
+  termination_finish_thickness:
+    output_key: termination_finish_thickness
+    actions:
+      - parse_dimension
+  coded,_keyed:
+    output_key: coded_keyed
+  termination_thread:
+    output_key: termination_thread
+  standards:
+    output_key: standards
+  clip_style:
+    output_key: clip_style
+  clip_type:
+    output_key: clip_type
+  clip_length:
+    output_key: clip_length
+    actions:
+      - parse_dimension
+  frame_width:
+    output_key: frame_width
+    actions:
+      - parse_dimension
+  frame_thickness:
+    output_key: frame_thickness
+    actions:
+      - parse_dimension
+  frame_type:
+    output_key: frame_type
+  plunger_size:
+    output_key:
+      - plunger_size_min
+      - plunger_size_max
+    actions:
+      - split_tilde
+  pad_layout_dimension:
+    output_key:
+      - pad_layout_shape
+      - pad_layout_length_or_diameter
+      - pad_layout_width
+      - pad_layout_height
+    actions:
+      - parse_dimensions_shape
+  ferrule_material:
+    output_key: ferrule_material
   q_@_vr,_f:
     output_key:
       - q_@_vr,_f_Q
@@ -3940,3 +4117,25 @@ digikey:
       - q_@_vr,_f_F
     actions:
       - split_three
+  includes:
+    output_key: includes
+  region_utilized:
+    output_key: region_utilized
+  line_side_wirestud_size:
+    output_key: line_side_wirestud_size
+  load_side_wirestud_size:
+    output_key: load_side_wirestud_size
+  line_side_connection_type:
+    output_key: line_side_connection_type
+  load_side_connection_type:
+    output_key: load_side_connection_type
+  line_side_connections_per_pole:
+    output_key: line_side_connections_per_pole
+  load_side_connections_per_pole:
+    output_key: load_side_connections_per_pole
+  module_capacity:
+    output_key: module_capacity
+    actions:
+      - extract_num
+  screw_size:
+    output_key: screw_size

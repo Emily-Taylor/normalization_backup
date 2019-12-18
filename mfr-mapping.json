@@ -1592,7 +1592,8 @@
 	],
 	[
 		"bel",
-		"bel group"
+		"bel group",
+		"bel inc."
 	],
 	[
 		"bel",
@@ -1846,7 +1847,8 @@
 		"W.H. Brady"
 	],
 	[
-		"brainboxes"
+		"brainboxes",
+		"brainboxes llc"
 	],
 	[
 		"brand rex"
@@ -2683,7 +2685,8 @@
 	],
 	[
 		"conta clip",
-		"conta-clip verbindungstechnik gmbh"
+		"conta-clip verbindungstechnik gmbh",
+		"conta-clip, inc."
 	],
 	[
 		"contact electronics",
@@ -3800,7 +3803,8 @@
 		"energydivision",
 		"te connectivity / energydivision",
 		"energydivision - te connectivity",
-		"ENERGYDIVISION - TE CONNECTIVITY"
+		"ENERGYDIVISION - TE CONNECTIVITY",
+		"te energy & utilities"
 	],
 	[
 		"silicon labs",
@@ -3848,7 +3852,8 @@
 	[
 		"te connectivity",
 		"entrelec uk",
-		"ENTRELEC - TE CONNECTIVITY"
+		"ENTRELEC - TE CONNECTIVITY",
+		"te connectivity entrelec"
 	],
 	[
 		"entropic communications"
@@ -6306,7 +6311,8 @@
 	],
 	[
 		"lantronix",
-		"lantronix inc"
+		"lantronix inc",
+		"lantronix, inc."
 	],
 	[
 		"lanzar"
@@ -6650,7 +6656,8 @@
 		"logi"
 	],
 	[
-		"logical systems"
+		"logical systems",
+		"logical systems inc."
 	],
 	[
 		"Logic",
@@ -9106,7 +9113,8 @@
 		"radal"
 	],
 	[
-		"radiall"
+		"radiall",
+		"radiall usa, inc."
 	],
 	[
 		"radial magnet",
@@ -9194,7 +9202,8 @@
 		"raychem cp / littelfuse",
 		"raychem cable protection / te connectivity",
 		"te connectivity raychem cable protection",
-		"te connectivity raychem circuit protection / littelfuse"
+		"te connectivity raychem circuit protection / littelfuse",
+		"te application tooling"
 	],
 	[
 		"rayovac"
@@ -11326,7 +11335,8 @@
 		"trenton systems, inc"
 	],
 	[
-		"trenz electronic"
+		"trenz electronic",
+		"trenz electronic gmbh"
 	],
 	[
 		"treston"
@@ -12890,6 +12900,7 @@
 		"HDP Power"
 	],
 	[
+		"hms networks",
 		"HMS Industrial Networks"
 	],
 	[
@@ -13316,5 +13327,9 @@
 ["topdiode"],
 ["tecate"],
 ["aero m"],
-["chogori technologies inc."]
+["chogori technologies inc."],
+["tempo communications"],
+["gradconn"],
+["quest technology international inc."],
+["murrplastik systems, inc."]
 ]

@@ -152,6 +152,10 @@ class TestNorm(unittest.TestCase):
         d11 = "1V PNP, 2 N-Channel"
         d12 = "1V NPN, 2V P-Channel"
         d13 = "1V NPN, 2V NPN"
+        d14 = "24-120V"
+        d15 = "150VAC/200VDC"
+        d16 = "-40C-85C"
+        d17 = "-55°C"
         
         output1 = (50.0, 60.0)
         output2 = (881500000.0, 1960000000.0)
@@ -159,6 +163,9 @@ class TestNorm(unittest.TestCase):
         output4 = (763000000.0, 793000000.0)
         output5 = (769000000.0, 860500000.0)
         output6 = (1.0, 2.0)
+        output7 = (24.0, 120)
+        output8 = (150.0, 'n/a')
+        output9 = (-55.0, 'n/a')
         
         result1 = normalization.split_temp(d1)
         result2 = normalization.split_temp(d2)
@@ -173,6 +180,10 @@ class TestNorm(unittest.TestCase):
         result11 = normalization.split_temp(d11)
         result12 = normalization.split_temp(d12)
         result13 = normalization.split_temp(d13)
+        result14 = normalization.split_temp(d14)
+        result15 = normalization.split_temp(d15)
+        result16 = normalization.split_temp(d16)
+        result17 = normalization.split_temp(d17)
         
         self.assertEqual(result1, output1)
         self.assertEqual(result2, output2)
@@ -187,6 +198,11 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result11, output6)
         self.assertEqual(result12, output6)
         self.assertEqual(result13, output6)
+        self.assertEqual(result14, output7)
+        self.assertEqual(result15, output8)
+        self.assertEqual(result16, output)
+        self.assertEqual(result17, output9)
+        
 
     def test_split_to(self):
         d = '1000 F to 330000 F'
@@ -273,25 +289,22 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result18, output18)
     
     def test_split_orientation(self):
-        output = [90.0, ' Right Angle']
+        output = [90.0, 'Right Angle']
         d = "90\u00b0, Right Angle"
         result = normalization.split_orientation(d)
-        self.assertTrue(isinstance(result, numbers.Real))
         self.assertEqual(result, output)
         
         output1 = ('Vertical')
         d1 = "Vertical"
         result1 = normalization.split_orientation(d1)
-        self.assertTrue(isinstance(result1, numbers.Real))
         self.assertEqual(result1, output1)
         
-        output2 = ('Vertical')
-        d2 = "Vertical"
+        output2 = [90.0, 'Right Angle', 'Under Board']
+        d2 = "90°, Right Angle, Under Board"
         result2 = normalization.split_orientation(d2)
-        self.assertTrue(isinstance(result2, numbers.Real))
         self.assertEqual(result2, output2)
         
-     def test_split_guage(self):
+    def test_split_guage(self):
         output = (12.0, 26.0)
         d = "12-26 AWG"
         result = normalization.split_guage(d)
@@ -315,13 +328,19 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result, output)
     
     def test_split_tilde(self):
-        output = (0.38, 0.64)
-        d = "0.015\" ~ 0.025\" (0.38mm ~ 0.64mm)"
-        result = normalization.split_tilde(d)
-        self.assertTrue(isinstance(result[0], numbers.Real))
-        self.assertTrue(isinstance(result[1], numbers.Real))
-        self.assertEqual(result, output)
+        output1 = (0.38, 0.64)
+        d1 = "0.015\" ~ 0.025\" (0.38mm ~ 0.64mm)"
+        result1 = normalization.split_tilde(d1)
+        self.assertTrue(isinstance(result1[0], numbers.Real))
+        self.assertTrue(isinstance(result1[1], numbers.Real))
+        self.assertEqual(result1, output1)
 
+        output2 = (1.07, 'n/a')
+        d2 = "0.042\" (1.07mm) Dia"
+        result2 = normalization.split_tilde(d2)
+        self.assertEqual(result2, output2)
+
+        
     def test_inchtomm(self):
         output = (25.4)
         d = 1
@@ -389,6 +408,13 @@ class TestNorm(unittest.TestCase):
         result25 = normalization.parse_dimensions("EFD 10")
         result26 = normalization.parse_dimensions("EF 16")
         result27 = normalization.parse_dimensions("ETD 59 (EER 60)")
+        result28 = normalization.parse_dimensions("H24B")
+        result29 = normalization.parse_dimensions("A3/4")
+        result30 = normalization.parse_dimensions("D50")
+        result31 = normalization.parse_dimensions("HV10/16")
+        result32 = normalization.parse_dimensions("8XXL")
+        result33 = normalization.parse_dimensions("22-24 AWG")
+       
         
         output1 = (39.0, 20.0, 13.0)
         output2 = (32.0, 30.0, 'n/a')
@@ -417,6 +443,12 @@ class TestNorm(unittest.TestCase):
         output25 = (10.0, 'n/a', 'n/a')
         output26 = (16.0, 'n/a', 'n/a')
         output27 = (59.0, 'n/a', 'n/a')
+        output28 = ('H24B', 'n/a', 'n/a')
+        output29 = ('A3/4', 'n/a', 'n/a')
+        output30 = ('D50', 'n/a', 'n/a')
+        output31 = ('HV10/16', 'n/a', 'n/a')
+        output32 = ('8XXL', 'n/a', 'n/a')
+        output33 = (0.33, 0.2, 'n/a')
         
         self.assertEqual(result1, output1)
         self.assertEqual(result2, output2)
@@ -445,7 +477,27 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result25, output25)
         self.assertEqual(result26, output26)
         self.assertEqual(result27, output27)
+        self.assertEqual(result27, output27)
+        self.assertEqual(result28, output28)
+        self.assertEqual(result29, output29)
+        self.assertEqual(result30, output30)
+        self.assertEqual(result31, output31)
+        self.assertEqual(result32, output32)
+        self.assertEqual(result33, output33)
+    
+    def test_parse_dimensions_shape(self):
+        result1 = normalization.parse_dimensions_shape("Oval - 0.079\" L x 0.039\" W x 0.008\" H (2.00mm x 1.00mm x 0.20mm)")
+        result2 = normalization.parse_dimensions_shape('Rectangular - 0.150\" L x 0.118\" W x 0.020\" H (3.80mm x 3.00mm x 0.50mm)')
+        result3 = normalization.parse_dimensions_shape("Circular - 0.111\" (2.82mm)")
         
+        output1 = ('Oval', 2.0, 1.0, 0.2)
+        output2 = ('Rectangular', 3.8, 3.0, 0.5)
+        output3 = ('Circular', 2.82, 'n/a', 'n/a')
+        
+        self.assertEqual(result1, output1)
+        self.assertEqual(result2, output2)
+        self.assertEqual(result3, output3)        
+    
     def test_split_current(self):
         result1 = normalization.split_current('600V, 6.3V, 5V')
         result2 = normalization.split_current('5V, ±12V')
@@ -528,7 +580,8 @@ class TestNorm(unittest.TestCase):
         d19 = '+ / - 5.3 V'
         d20 = '0.197" (5.00mm) ~ 0.200" (5.08mm)'
         d21 = 'Varies by Wire Gauge'
-
+        d22 = 'Non-Constant'
+        
         result1 = normalization.extract_num(d1)
         result2 = normalization.extract_num(d2)
         result3 = normalization.extract_num(d3)
@@ -550,6 +603,7 @@ class TestNorm(unittest.TestCase):
         result19 = normalization.extract_num(d19)
         result20 = normalization.extract_num(d20)
         result21 = normalization.extract_num(d21)
+        result22 = normalization.extract_num(d22)
 
         self.assertTrue(isinstance(result1, numbers.Real))
         self.assertTrue(isinstance(result2, numbers.Real))
@@ -582,6 +636,8 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result19, output11)
         self.assertEqual(result20, output12)
         self.assertEqual(result21, output8)
+        self.assertEqual(result22, output8)
+        
 
     def test_capacitance(self):
         output = (5.3e-07)

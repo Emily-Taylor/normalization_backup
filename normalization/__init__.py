@@ -17,6 +17,7 @@ sys.path.insert(0, parentdir)
 import common as c
 import json
 from quantiphy import Quantity
+import math
 import re
 import yaml
 import os
@@ -130,11 +131,11 @@ def tempcoeff(d: str) -> float:
 
 def extract_num(d):
     """turns strings with ANY unit into numbers"""
+    """ if no number exists in the string it will return 'n/a'"""
     adict = {'µ': 'u', ' %': '', ' ': '', 'Max': '',
              '±': '', 'ppm/°C': '', ' (Cutoff)': '', 'ppm': '', ' (Typ)': '', 'AC/DC': '', '<': '', '+/- ': '', '-/+ ': '', '+ / - ': ''}
-
     if isinstance(d, str):
-
+    
         if (len(d) > 0):
             if 'mm)' in d:
                 d = d.split('(')[1]
@@ -149,6 +150,10 @@ def extract_num(d):
             d = d.split('~', 1)[0]
             d = re.sub('Wire Wound Inductors', '0', d)
             d = re.sub('Varies by Wire Gauge', 'N/A', d)
+            d = re.sub('Varies by Wire Size', 'N/A', d)
+            d = re.sub('Non-Constant', 'N/A', d)
+            d = re.sub('Multiple', 'N/A', d)
+            d = re.sub('Non-Matched', 'N/A', d)
             
             if 'Parallel @' in d:
                 d = re.sub('Parallel @ ', '', d)
@@ -224,8 +229,7 @@ def extract_num(d):
     else:
         print("during type conversion got a non-string, returned the value as is")
         return d
-
-
+    
 def extract_torque(d):
     """
     Extracts torque in Nm (SI unit)
@@ -567,6 +571,9 @@ def parse_dimensions(d):
     """splits Length and Width from strings
     example: '0.276" L x 0.217" W (7.00mm x 5.50mm)'
     ignoring inches, focusing on millimeters
+    
+    Also converts AWG to mm_squared e.g. 22-24 AWG
+    
     """
     if isinstance(d, str):
         if 'PM ' in d:
@@ -605,6 +612,8 @@ def parse_dimensions(d):
             d = re.sub('ETD ', '', d)
         if 'EFD ' in d:
             d = re.sub('EFD ', '', d)
+        if 'XXL' in d:
+            return (d, CONST_NA, CONST_NA) 
         if 'X' in d:
             d = re.sub('X', 'x', d)
         if (d.endswith(' x') == True):
@@ -614,6 +623,33 @@ def parse_dimensions(d):
             d = re.sub('-1', '', d)
         
         if 'mm' not in d:
+            if '-' and 'AWG' in d:
+               d_list = d.split('-') 
+               d_list = [w.replace(' ', '') for w in d_list]
+               d_list = [w.replace('AWG', '') for w in d_list]
+               #convert AWG to mm_squared cross-sectional diameter
+               if len(d_list) == 2:
+                   d_list_new = []
+                   for i in d_list:
+                       awg_pow = (36-int(i))/19.5
+                       #/19.5
+                       f = math.pow(92, awg_pow)
+                       i = 0.012668 * f
+                       d_list_new.append(round(i,2))
+                   d_list = d_list_new
+                   return (float(d_list[0]),float(d_list[1]), CONST_NA)
+               
+            if 'H' in d:
+                return (d, CONST_NA, CONST_NA)
+            if 'A' in d:
+                return (d, CONST_NA, CONST_NA)
+            if 'B' in d:
+                return (d, CONST_NA, CONST_NA)
+            if 'Q' in d:
+                return (d, CONST_NA, CONST_NA)
+            if 'D' in d:
+                return (d, CONST_NA, CONST_NA) 
+
             if 'x' in d:
                 d_list = d.split('x')
                 d_list = [w.replace(' ', '') for w in d_list]
@@ -623,6 +659,8 @@ def parse_dimensions(d):
                     return (float(d_list[0]),float(d_list[1]),float(d_list[2]))
             elif 'x' not in d:
                 return (float(d), CONST_NA, CONST_NA)
+            
+
         else:
             regexp = re.compile(r'([\d\.*]+[\ ]?mm)')
             res = regexp.findall(d)
@@ -642,6 +680,38 @@ def parse_dimensions(d):
                 return (dim, CONST_NA, CONST_NA)
     else:
         return (d, CONST_NA, CONST_NA)
+
+def parse_dimensions_shape(d):
+        """
+        Parses dimensions and retains the shape e.g.
+        "Oval - 0.079\" L x 0.039\" W x 0.008\" H (2.00mm x 1.00mm x 0.20mm)"
+        "Rectangular - 0.150\" L x 0.118\" W x 0.020\" H (3.80mm x 3.00mm x 0.50mm)"
+        "Circular - 0.111\" (2.82mm)"
+        """
+        if 'Rectangular' in d:
+            shape = "Rectangular"
+        elif 'Oval' in d:
+            shape = 'Oval'
+        elif 'Circular' in d:
+            shape = 'Circular'
+        else:
+            shape = 'n/a'
+        regexp = re.compile(r'([\d\.*]+[\ ]?mm)')
+        res = regexp.findall(d)
+        if len(res) == 2:
+            l, w = res[0], res[1]
+            l = float(Quantity(l, scale='mm'))
+            w = float(Quantity(w, scale='mm'))
+            return (shape, round(l,3), round(w,3), CONST_NA)
+        elif len(res) == 3:
+            l, w, h = res[0], res[1], res[2]
+            l = float(Quantity(l, scale='mm'))
+            w = float(Quantity(w, scale='mm'))
+            h = float(Quantity(h, scale='mm'))
+            return (shape, round(l,3),round(w,3), round(h,3))
+        elif len(res) == 1:
+            dim = float(Quantity(res[0], scale='mm'))
+            return (shape, round(dim,3), CONST_NA, CONST_NA)
 
 
 def split_band(d: str):
@@ -726,9 +796,36 @@ def split_temp(d):
                 else:
                     parsed_t_min = parse_any_number(t_min)[0]
                     parsed_t_max = parse_any_number(t_max)[0]
-                    t_min_float2 = float(Quantity(t_min))
-                    t_max_float2 = float(Quantity(t_max))
+                    t_min_float2 = float(Quantity(parsed_t_min))
+                    t_max_float2 = float(Quantity(parsed_t_max))
                     return (t_min_float2, t_max_float2)
+            elif '-' in d:
+                t = d.split('-')
+                if (len(t)==3) and (len(t[0])<=0) :
+                    t_min = '-' + t[1]
+                    t_max = t[2]
+                elif (len(t)==2) and (len(t[0])<=0) :
+                    t_min = '-' + t[1]
+                    parsed_t_min = parse_any_number(t_min)[0]
+                    t_min_float = float(Quantity(parsed_t_min))
+                    t_max = CONST_NA
+                    return(t_min_float, t_max)
+                elif (len(t)==2) and (len(t[0])>0):       
+                    t_min = t[0]
+                    t_max = t[1]
+                t_min = re.sub(' ', '', t_min)
+                t_max = re.sub(' ', '', t_max)
+
+                if (t_min.endswith('V')):
+                    t_min = re.sub('V', '', t_min)
+                elif (t_max.endswith('V')):
+                    t_max = re.sub('V', '', t_max)
+                parsed_t_min = parse_any_number(t_min)[0]
+                parsed_t_max = parse_any_number(t_max)[0]
+                t_min_float2 = float(Quantity(t_min))
+                t_max_float2 = float(Quantity(t_max))
+                return (t_min_float2, t_max_float2)
+            
             elif len(parse_any_number(d)) == 1:
                 parsed_temp = float(Quantity(d))
                 # changed here: 4yy9p
@@ -764,12 +861,26 @@ def split_temp(d):
                 h_max_float = extract_num(h_max)
                 return (h_min_float, h_max_float)
             
-            elif '/' in d and 'VAC' in d:
-                d = re.sub('VAC', '', d)
-                a,b = d.split('/')
-                d_float1 = float(a)
-                d_float2 = float(b)
-                return (d_float1, d_float2)
+            elif '/' in d and ('VAC' in d or 'VDC' in d):
+                if 'VDC' not in d: 
+                    d = re.sub('VAC', '', d)
+                    a,b = d.split('/')
+                    d_float1 = float(a)
+                    d_float2 = float(b)
+                    return (d_float1, d_float2)
+                elif 'VAC' not in d:
+                    d = re.sub('VDC', '', d)
+                    a,b = d.split('/')
+                    d_float1 = float(a)
+                    d_float2 = float(b)
+                    return (d_float1, d_float2)   
+                else:
+                    d = re.sub('VAC', '', d)
+                    d = re.sub('VDC', '', d)
+                    a,b = d.split('/')
+                    d_float1 = float(a)
+                    d_float2 = CONST_NA
+                    return (d_float1, d_float2)   
                 
             else:
                 # changed here: 4yy9p
@@ -932,6 +1043,9 @@ def parse_dimension(d):
        return d_float
     elif (len(re.findall('(\d+)m\)', d)) != 0):
        d_float = float(re.findall('(\d+)m\)', d)[0]) * 1000
+       return d_float
+    elif (len(re.findall('/(\d+.\d+\\u00b5m)', d)) != 0):
+       d_float = parse_any_number(d)[0]
        return d_float
     elif 'cm)' in d:
         d = re.findall('\d+.\d+cm', d)[0]
@@ -1429,46 +1543,86 @@ def split_guage(d: str) -> typing.Tuple[float, float]:
     wire_guage_min = 12
     wire_guage_max = 26
     """
-    wire_guage_min, wire_guage_max = d.split('-')
-    wire_guage_min = wire_guage_min.strip(" ")
-    wire_guage_max = wire_guage_max.strip(" ")
-    if (wire_guage_min.endswith('') and ('mm' in d)):
-        wire_guage_min = wire_guage_min + 'mm'
-    
-    wire_guage_min = float(parse_any_number(wire_guage_min)[0])
-    wire_guage_max = float(parse_any_number(wire_guage_max)[0])
-    return(wire_guage_min, wire_guage_max)
-
+    if '-' in d:
+        wire_guage_min, wire_guage_max = d.split('-')
+        wire_guage_min = wire_guage_min.strip(" ")
+        wire_guage_max = wire_guage_max.strip(" ")
+        if (wire_guage_min.endswith('') and ('mm' in d)):
+            wire_guage_min = wire_guage_min + 'mm'
+        
+        wire_guage_min = float(parse_any_number(wire_guage_min)[0])
+        wire_guage_max = float(parse_any_number(wire_guage_max)[0])
+        return(wire_guage_min, wire_guage_max)
+    else:
+        wire_guage_min = float(parse_any_number(d)[0])
+        wire_guage_max = CONST_NA
+        return(wire_guage_min, wire_guage_max)
+        
 def split_tilde(d: str) -> typing.Tuple[float, float]:
-    """split range of lengths separated by tilde '~'
+    """split range of lengths separated by tilde '~' 
+    captures the mm values and drops anything else
     input looks like: "0.015\" ~ 0.025\" (0.38mm ~ 0.64mm)"
     output should look like
     pin_diameter_min = 0.38
     pin_diameter_max = 0.64
-    """
     
-    length_min, length_max = d.rsplit('~', maxsplit = 1)
-    length_min = length_min.strip(" ")
-    length_min = length_min.split('(')[1]
-    length_max = length_max.strip(" ")
-    length_min = float(parse_any_number(length_min)[0])
-    length_max = float(parse_any_number(length_max)[0])
-    return(length_min, length_max)
+    occationally only a single value is given as input: "0.042" (1.07mm) Dia"
+    output will then look like
+    length_min = 1.07
+    length_max = 'n/a'
+    """
+    if isinstance(d, str):
+    
+        if ('mm' in d):
+            regexp = re.compile(r'([\d\.*]+[\ ]?mm)')
+            res = regexp.findall(d)
+            if len(res) == 2:
+                length_min, length_max  = res[0], res[1]
+                length_min = float(Quantity(length_min, scale='mm'))
+                length_max = float(Quantity(length_max, scale='mm'))
+                return (round(length_min,3), round(length_max,3))
+            elif len(res) == 1:
+                length_min = res[0]
+                length_min = float(Quantity(length_min, scale='mm'))
+                length_max = 'n/a'
+                return (round(length_min,3), length_max)
+        
+        else:
+                func_name = inspect.stack()[0][3]
+                print('function "{0}" could not find any of the patters it knows under "mm". found type{1} containing: {2}.'.format(
+                    func_name, type(d), repr(d)))
+                return (d, 'n/a')
+    else:
+        print("during type conversion got a non-string")
+        return(d, d)
 
 def split_orientation(d: str) -> typing.Tuple[float, str]:
     """split header_orientation into an angle (float) and a string
     input looks like: "90\u00b0, Right Angle" or 'Vertical'
+    or 90°, Right Angle, Under Board'
     output should look like
-    (90.0, 'Right Angle') or ('Vertical')
+    (90.0, 'Right Angle') 
+    ('Vertical')
+    ([90.0, 'Right Angle', 'Under Board'])
     """
     if (', ' in d):
-            a, o = d.split(',')
-            a = a.strip(" ")
-            o = o.strip(" ")
-            if any(char.isdigit() for char in a):
-                float_a = parse_any_number(a)[0]
-                header_orientation = [float_a, o]
-                return(header_orientation)
+            d_list = d.split(',')
+            if (len(d_list)==2):
+                d1 = d_list[0].strip(" ")
+                d2 = d_list[1].strip(" ")
+                if any(char.isdigit() for char in d1):
+                    d1 = parse_any_number(d1)[0]
+                    header_orientation = [d1, d2]
+                    return(header_orientation)
+            elif (len(d_list)==3):
+                d1 = d_list[0].strip(" ")
+                d2 = d_list[1].strip(" ")
+                d3 = d_list[2].strip(" ")
+                if any(char.isdigit() for char in d1):
+                    d1 = parse_any_number(d1)[0]
+                    header_orientation = [d1, d2, d3]
+                    return(header_orientation)
+                
     elif any(char.isdigit() for char in d):
         float_d = parse_any_number(d)[0]
         return(float_d)
