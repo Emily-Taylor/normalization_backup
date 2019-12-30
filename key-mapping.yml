@@ -7,6 +7,8 @@ mouser:
     output_key: contact_plating
   mounting_direction:
     output_key: mounting_direction
+  mounting_angle:
+    output_key: mounting_direction
   key_type:
     output_key: key_type
   output_code:
@@ -35,6 +37,10 @@ mouser:
       - extract_num
   number_of_sections:
     output_key: number_of_sections
+    actions:
+      - extract_num
+  number_of_rows:
+    output_key: number_of_rows
     actions:
       - extract_num
   on_travel:
@@ -189,6 +195,8 @@ mouser:
       - extract_num
   mounting_type:
     output_key: termination_style
+  mounting_method:
+    output_key: termination_style
   switch_function:
     output_key: switch_function
   illuminated:
@@ -236,8 +244,6 @@ mouser:
     output_key: number_of_channels
   number_of_positions:
     output_key: number_of_positions
-    actions:
-      - extract_num
   output_configuration:
     output_key: output_configuration
   output_currentchannel_1:
@@ -257,7 +263,7 @@ mouser:
     actions:
       - extract_num
   output_voltagechannel_2:
-    output_key: output_voltagechannel_2
+    output_key: output_voltagechannel_2I t
     actions:
       - extract_num
   output_voltagechannel_3:
@@ -460,6 +466,8 @@ mouser:
     output_key: with_switch
     actions:
       - lower
+  switch_configuration:
+    output_key: switch_configuration
   control_voltage_range:
     output_key:
       - control_voltage_range_min
@@ -1228,14 +1236,202 @@ mouser:
     output_key: mil_type
   shell_size:
     output_key: shell_size
-    actions:
-      - extract_num
   contact_gender:
     output_key: contact_gender
+  insert_contact_gender:
+    output_key: insert_contact_gender
+  insertcontact_gender:
+    output_key: insert_contact_gender
   insert_arrangement:
     output_key: insert_arrangement
   shell_style:
     output_key: shell_style
+  gender:
+    output_key: gender
+  shell_plating:
+    output_key: shell_plating
+  shell_material:
+    output_key: shell_material
+  wire_gauge:
+    output_key: wire_gauge
+  wire_gauge_awg:
+    output_key: wire_gauge_or_range_awg_min
+    actions:
+      - extract_num
+  wire_gauge_range:
+    output_key: 
+      - wire_gauge_or_range_awg_min
+      - wire_gauge_or_range_awg_max
+    actions:
+      - split_guage
+  wire_gauge_max:
+    output_key: wire_gauge_or_range_awg_max
+    actions:
+      - extract_num
+  wire_gauge_min:
+    output_key: wire_gauge_or_range_awg_min
+    actions:
+      - extract_num
+  stud_tab_size:
+    output_key: stud_tab_size
+  studtab_size:
+    output_key: studtab_size
+  insulation:
+    output_key: insulation
+  rf_series:
+    output_key: rf_series
+  cable_type:
+    output_key: cable_type
+  orientation:
+    output_key: orientation
+  cable_entry_angle:
+    output_key: cable_entry_angle
+  number_of_cable_entries:
+    output_key: number_of_cable_entries
+  housing_hood_size:
+    output_key: housing_hood_size
+  housinghood_size:
+    output_key: housing_hood_size
+  usoc_codes:
+    output_key: usoc_codes 
+  number_of_ports:
+    output_key: number_of_ports
+  connector_type:
+    output_key: connector_type
+  number_of_contacts:
+    output_key: number_of_contacts
+  connector_a_gender:
+    output_key: connector_a_gender
+  connector_a_series:
+    output_key: connector_a_series
+  connector_b_gender:
+    output_key: connector_b_gender
+  connector_b_series:
+    output_key: connector_b_series
+  connector_a_body_style:
+    output_key: connector_a_body_style
+  connector_b_body_style:
+    output_key: connector_b_body_style
+  connector_end_a:
+    output_key: connector_end_a
+  connector_end_b:
+    output_key: connector_end_b
+  connector_end_a_pin_count:
+    output_key: connector_end_a_pin_count
+  connector_end_b_pin_count:
+    output_key: connector_end_b_pin_count
+  boardlocks:
+    output_key: boardlocks
+  mating_style:
+    output_key: mating_style
+  board_thickness:
+    output_key: board_thickness
+    actions: 
+      - parse_dimension
+  contact_location:
+    output_key: contact_location
+  number_of_conductors:
+    output_key: number_of_conductors  
+  fused:
+    output_key: fused
+  filtered:
+    output_key: filtered
+  filter_type:
+    output_key: filter_type
+  performance_category:
+    output_key: performance_category
+  coding:
+    output_key: coding
+  contact_arrangement:
+    output_key: contact_arrangement
+  standard:
+    output_key: standard
+  maximum_attenuation:
+    output_key: maximum_attenuation_dB
+    actions:
+      - extract_num
+  family:
+    output_key: family
+  adapter_style:
+    output_key: adapter_style
+  body_material:
+    output_key: body_material
+  body_finish:
+    output_key: body_finish
+  side_1_gender:
+    output_key: side_1_gender
+  side_2_gender:
+    output_key: side_2_gender
+  side_3_gender:
+    output_key: side_3_gender
+  side_1_polarity:
+    output_key: side_1_polarity
+  side_2_polarity:
+    output_key: side_2_polarity
+  side_3_polarity:
+    output_key: side_3_polarity
+  side_1_rf_series:
+    output_key: side_1_rf_series
+  side_2_rf_series:
+    output_key: side_2_rf_series
+  side_3_rf_series:
+    output_key: side_3_rf_series
+  side_1_body_style:
+    output_key: side_1_body_style
+  side_2_body_style:
+    output_key: side_2_body_style
+  mode:
+    output_key: mode
+  convert_to:
+    output_key: convert_to
+  convert_from:
+    output_key: convert_from
+  port_type:
+    output_key: port_type
+  fiber_diameter:
+    output_key: fiber_diameter
+  fibre_diameter:
+    output_key: fiber_diameter
+  row_spacing:
+    output_key: row_spacing
+    actions: 
+      - parse_dimension    
+  inside_contact_diameter:
+    output_key: inside_contact_diameter
+    actions: 
+      - parse_dimension   
+  outside_contact_diameter:
+    output_key: outside_contact_diameter 
+    actions: 
+      - parse_dimension       
+  contact_size:
+    output_key: contact_size
+  contact_type:
+    output_key:  contact_type
+  number_of_rows_per_port:
+    output_key: number_of_rows_per_port
+  number_of_positions_contacts_per_port:
+    output_key: number_of_positions_contacts_per_port
+  number_of_positionscontacts_per_port:
+    output_key: number_of_positions_contacts_per_port
+  card_type:
+    output_key: card_type
+  normalling:
+    output_key: normalling
+  height_number_of_racks:
+    output_key: height_number_of_racks
+  heightnumber_of_racks:
+    output_key: height_number_of_racks
+  coupling_bus: 
+    output_key: coupling_bus
+  coupling_stub:
+    output_key: coupling_stub
+  lead_length:
+    output_key: lead_length_mm
+    actions:
+      - parse_dimension
+  body_style:
+    output_key: body_style
   None: None
 digikey:
   voltage_rating:
@@ -2164,6 +2360,8 @@ digikey:
     output_key: body_material
   body_finish:
     output_key: body_finish
+  body_style:
+    output_key: body_style  
   quantity:
     output_key: quantity
   number_of_channels:
@@ -4055,7 +4253,7 @@ digikey:
   boot_color:
     output_key: boot_color
   simplexduplex:
-    output_key: simplex_or_duplex
+    output_key: port_type
   fiber_cladding_diameter:
     output_key: fiber_cladding_diameter
     actions:

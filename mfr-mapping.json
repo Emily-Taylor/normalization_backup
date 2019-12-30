@@ -883,7 +883,8 @@
 		"intercon systems / amphenol",
 		"amphenol sine systems corp",
 		"amphenol backplane systems",
-		"Amphenol / Matrix"
+		"Amphenol / Matrix",
+		"amphenol casco"
 	],
 	[
 		"COPPERFIELD"
@@ -2356,7 +2357,9 @@
 		"Cinch Connectivity Solutions Midwest Microwave",
 		"Cinch Connectivity Solutions Semflex",
 		"Cinch Connectivity Solutions Trompeter",
-		"Cinch Connectivity Solutions Vitelec"
+		"Cinch Connectivity Solutions Vitelec",
+		"dura-con / cinch connectivity solutions",
+		"cin::apse / cinch connectivity solutions"
 	],
 	[
 		"cincon",
@@ -3853,7 +3856,8 @@
 		"te connectivity",
 		"entrelec uk",
 		"ENTRELEC - TE CONNECTIVITY",
-		"te connectivity entrelec"
+		"te connectivity entrelec",
+		"te connectivity / entrelec"
 	],
 	[
 		"entropic communications"
@@ -5119,7 +5123,8 @@
 		"sensym",
 		"honeywell / sensym",
 		"sensym / honeywell",
-		"Honeywell Sensing and Productivity Solutions T&M"
+		"Honeywell Sensing and Productivity Solutions T&M",
+		"honeywell test & measurement"
 	],
 	[
 		"hong kong xtals"
@@ -5295,6 +5300,10 @@
 		"te connectivity / identification",
 		"te connectivity - identification",
 		"identification - te connectivity"
+	],
+	[
+	    "te connectivity",
+		"te connectivity / intercontec"
 	],
 	[
 		"identiv",
@@ -5904,7 +5913,8 @@
 		"j.s.t. mfg",
 		"jst corporation",
 		"jst sales america inc.",
-		"JST Sales America"
+		"JST Sales America",
+		"jst automotive"
 	],
 	[
 		"jubilee"
@@ -13331,5 +13341,7 @@
 ["tempo communications"],
 ["gradconn"],
 ["quest technology international inc."],
-["murrplastik systems, inc."]
+["murrplastik systems, inc."],
+["emo systems"],
+["terabee"]
 ]

@@ -230,6 +230,7 @@ class TestNorm(unittest.TestCase):
         d16 = '120/240 VAC/VDC'
         d17 = '900 mVDCo 1.4 VDC'
         d18 = '1.8 V/2.5 V/3.3 V'
+        d19 = '2.5 kV Power, 1 kV Signal'
         
         output1 = (2400000000.0, 2483000000.0)
         output2 = (2400000000.0, 2483000000.0)
@@ -249,6 +250,7 @@ class TestNorm(unittest.TestCase):
         output16 = (120.0, 240.0)
         output17 = (0.9, 1.4)
         output18 = (1.8, 3.3)
+        output19 = (2500.0, 1000.0)
         
         result1 = normalization.split_to(d1)
         result2 = normalization.split_to(d2)
@@ -268,6 +270,7 @@ class TestNorm(unittest.TestCase):
         result16 = normalization.split_to(d16)
         result17 = normalization.split_to(d17)
         result18 = normalization.split_to(d18)
+        result19 = normalization.split_to(d19)
         
         self.assertEqual(result1, output1)
         self.assertEqual(result2, output2)
@@ -287,6 +290,7 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result16, output16)
         self.assertEqual(result17, output17)
         self.assertEqual(result18, output18)
+        self.assertEqual(result19, output19)
     
     def test_split_orientation(self):
         output = [90.0, 'Right Angle']
@@ -315,9 +319,24 @@ class TestNorm(unittest.TestCase):
         output1 = (0.2, 2.5)
         d1 = "0.2-2.5mm\u00b2"
         result1 = normalization.split_guage(d1)
+        
+        output2 = (26.0, 12.0)
+        d2 = "26 AWG to 12 AWG"
+        result2 = normalization.split_guage(d2)
+        
+        d3 =  '26 AWG to 12 AWG, 24 AWG to 8 AWG'
+        result3 = normalization.split_guage(d3)
+        
+        self.assertTrue(isinstance(result[0], numbers.Real))
+        self.assertTrue(isinstance(result[1], numbers.Real))
+        self.assertEqual(result, output)       
         self.assertTrue(isinstance(result1[0], numbers.Real))
         self.assertTrue(isinstance(result1[1], numbers.Real))
         self.assertEqual(result1, output1)
+        self.assertTrue(isinstance(result2[0], numbers.Real))
+        self.assertTrue(isinstance(result2[1], numbers.Real))
+        self.assertEqual(result2, output2)
+        self.assertEqual(result3, output2)
     
     def test_split_Q(self):
         output = (72.0, 100000000.0)
@@ -683,6 +702,7 @@ class TestNorm(unittest.TestCase):
         output13 = ('n/a', 3e-05)
         output14 = ('n/a', 'n/a')
         output15 = ('n/a', 3e-10)
+        output16 = ('n/a', 0.9)
         
         d1 = '±20%'
         d2 = "±5%"
@@ -699,6 +719,7 @@ class TestNorm(unittest.TestCase):
         d13 = "30 uH"
         d14 = "±0.28nS"
         d15 = "±0.3nH"
+        d16 = "0.4 dB to 0.9 dB"
         
         result1 = normalization.split_tolerance(d1)
         result2 = normalization.split_tolerance(d2)
@@ -715,6 +736,7 @@ class TestNorm(unittest.TestCase):
         result13 = normalization.split_tolerance(d13)
         result14 = normalization.split_tolerance(d14)
         result15 = normalization.split_tolerance(d15)
+        result16 = normalization.split_tolerance(d16)
         
         self.assertEqual(result1, output1)
         self.assertEqual(result2, output2)
@@ -731,7 +753,8 @@ class TestNorm(unittest.TestCase):
         self.assertEqual(result13, output13)
         self.assertEqual(result14, output14)
         self.assertEqual(result15, output15)
-
+        self.assertEqual(result16, output16)
+        
     def test_voltage(self):
         output = (5.3e-07)
         d = '530nV'

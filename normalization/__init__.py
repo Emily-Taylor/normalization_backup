@@ -145,7 +145,11 @@ def extract_num(d):
                 d_float = float(re.sub('mm\)', 'N/A', d))
                 return d_float
             
-            d = re.sub(r'\(.*\)', '', d)
+            d = re.sub(r'\(\D*\)', '', d)    
+            if (len(d) == 0):
+                d = CONST_NA
+                print("during type conversion got a non-numeric value, returned the value as n/a")
+                return d
             d = d.split(',', 1)[0]
             d = d.split('~', 1)[0]
             d = re.sub('Wire Wound Inductors', '0', d)
@@ -154,6 +158,10 @@ def extract_num(d):
             d = re.sub('Non-Constant', 'N/A', d)
             d = re.sub('Multiple', 'N/A', d)
             d = re.sub('Non-Matched', 'N/A', d)
+            d = re.sub('Invalid', 'N/A', d)
+            d = re.sub(r'[?]', '', d)
+            d = re.sub('Non Constant', 'N/A', d)
+            d = re.sub('Twinax/Triax', 'N/A', d)
             
             if 'Parallel @' in d:
                 d = re.sub('Parallel @ ', '', d)
@@ -169,7 +177,7 @@ def extract_num(d):
                 d = d.split('dBi', 1)[0]
                 d_float = float(Quantity(d))
                 return d_float
-            elif 'N/A' in d or d == 'CMOS' or d == 'HCMOS' or d == 'HCMOS, TTL' or d == 'Variable' or d == 'No' or d == 'Yes' or d == 'Clamped':
+            elif 'N/A' in d or '(N/A)' in d or d == 'CMOS' or d == 'HCMOS' or d == 'HCMOS, TTL' or d == 'Variable' or d == 'No' or d == 'Yes' or d == 'Clamped':
                d_float = CONST_NA
                return d_float
             elif ' and ' in d:
@@ -334,11 +342,16 @@ def parse_dimension3d(d: str):
     extracts w, h, d from 3d entries
     """
     if isinstance(d, str):
-        d_float = parse_any_number(d)
-        w = d_float[0]
-        h = d_float[1]
-        d = d_float[2]
-        return(w, h, d)
+        res = parse_any_number(d)
+        if len(res) == 2:
+            w, h = res[0], res[1]
+            return (w, h, CONST_NA)
+        elif len(res) == 3:
+            w, h, d = res[0], res[1], res[2]
+            return (w, h, d)
+        elif len(res) == 1:
+            dim = res[0]
+            return (dim, CONST_NA, CONST_NA)
     else:
         print('during type conversion got a non-string.')
         return (0.0, 0.0, 0.0)
@@ -393,6 +406,26 @@ def split_tolerance(d):
                 return (d_float1, d_float2)
             else:
                 d = d.replace('Ohm', '')
+                d_float = float(d)
+                return (CONST_NA, d_float)
+        elif 'dB' in d:
+            d = d.replace('%', '')
+            d = d.replace('±', '')
+            d = d.replace('dB', '')
+            if (',') in d:
+                a,b = d.split(',')
+                d_float1 = float(Quantity(b))
+                d_float2 = float(Quantity(a))
+                return (d_float1, d_float2)
+            elif ('to') in d:
+                a,b = d.split('to')
+                if float(Quantity(a)) > float(Quantity(b)):
+                    d_float = float(Quantity(a))
+                else:
+                    d_float = float(Quantity(b))
+                return (CONST_NA, d_float)
+            else:
+                d = d.replace('dB', '')
                 d_float = float(d)
                 return (CONST_NA, d_float)
         elif ',' in d:
@@ -953,6 +986,7 @@ def parse_dimension(d):
         50 cm
         3.50mm (0.141", 1/8", Mini Plug) - Headphone
         126\u00b5m
+        'Stub 5.9 in, Bus 3.25 in'
     """
     #print("going to parse dimensions for input: {0}".format(d))
     
@@ -1009,6 +1043,9 @@ def parse_dimension(d):
         d = re.sub(' mm D-Shaft', '', d)
         d_float = convert_to_float(d)
         return d_float
+    elif '+/-' in d:
+        d = re.sub(r'[+/-]', '', d)
+        
     elif '-' in d:
         a = d.split('-')[0]
         if 'mm (' in d:
@@ -1023,6 +1060,8 @@ def parse_dimension(d):
         return d_float
     elif (len(re.findall(' in$', d)) != 0):
         d = re.sub(' in', '', d)
+        d = re.sub('Stub', '', d)
+        d = re.sub('Bus', '', d)
         if ', ' in d:
             a,b = d.split(', ')
             if convert_to_float(Quantity(a)) < convert_to_float(Quantity(b)):
@@ -1209,9 +1248,15 @@ def split_at(d):
 def split_to(d):
     """split headers with extension 'to'
     in the format: 1000 pF to 330000 pF
+     
+    elininates the value''UL 94 V-0' which is a Standard for Safety of Flammability of Plastic Materials'
     """
     if isinstance(d, str):
         
+        if 'UL 94 V-0' in d:
+            d = CONST_NA
+            print('a non standard value was given, returning n/a')
+            return d
         if ('N' in d):
             if ('N cm' in d):
                 d = re.sub('N ', '', d)
@@ -1340,6 +1385,11 @@ def split_to(d):
             d = re.sub(' in lb', '', d)
             d_float = float(d) * 4.44
             return (d_float, CONST_NA)
+        elif('kV' in d):
+            power_kV, signal_kV = d.split(',')
+            n1_float = parse_any_number(power_kV)[0] *1000
+            n2_float = parse_any_number(signal_kV)[0] *1000
+            return (n1_float, n2_float)
         elif (' V' in d):
             if ('VAC, VDC' in d) or ('VAC/VDC' in d):
                 n1_float = min(parse_any_number(d))
@@ -1349,8 +1399,7 @@ def split_to(d):
                 n1, n2 = d.split('DCo ')
                 n1_float = float(Quantity(n1))
                 n2_float = float(Quantity(n2))
-                return (n1_float, n2_float)
-                
+                return (n1_float, n2_float)        
             else:    
                 d = re.sub(' ', '', d)
                 
@@ -1539,9 +1588,16 @@ def split_esr(d: str) -> typing.Tuple[float, float]:
 def split_guage(d: str) -> typing.Tuple[float, float]:
     """split wire guage range string into wire_guage_min and wire_guage_max
     input looks like: '12-26 AWG'
+    or "26 AWG to 12 AWG"
     output should look like
     wire_guage_min = 12
     wire_guage_max = 26
+    
+    if two ranges are given it will only process and store the first range:
+        26 AWG to 14 AWG, 24 AWG to 8 AWG
+    output looks like
+    wire_guage_min = 26
+    wire_guage_max = 14
     """
     if '-' in d:
         wire_guage_min, wire_guage_max = d.split('-')
@@ -1553,6 +1609,18 @@ def split_guage(d: str) -> typing.Tuple[float, float]:
         wire_guage_min = float(parse_any_number(wire_guage_min)[0])
         wire_guage_max = float(parse_any_number(wire_guage_max)[0])
         return(wire_guage_min, wire_guage_max)
+    elif 'to' in d:
+        d_list = d.split('to')
+        wire_guage_min = d_list[0]
+        wire_guage_max = d_list[1]
+        wire_guage_min = wire_guage_min.strip(" ")
+        wire_guage_max = wire_guage_max.strip(" ")
+        if (wire_guage_min.endswith('') and ('mm' in d)):
+            wire_guage_min = wire_guage_min + 'mm'
+        
+        wire_guage_min = float(parse_any_number(wire_guage_min)[0])
+        wire_guage_max = float(parse_any_number(wire_guage_max)[0])
+        return(wire_guage_min, wire_guage_max)            
     else:
         wire_guage_min = float(parse_any_number(d)[0])
         wire_guage_max = CONST_NA
