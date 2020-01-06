@@ -1358,6 +1358,8 @@ mouser:
     output_key: body_material
   body_finish:
     output_key: body_finish
+  body_style:
+    output_key: body_style
   side_1_gender:
     output_key: side_1_gender
   side_2_gender:
@@ -1429,10 +1431,9 @@ mouser:
   lead_length:
     output_key: lead_length_mm
     actions:
-      - parse_dimension
-  body_style:
-    output_key: body_style
-  None: None
+      - parse_dimension  None: None
+  cat_l3:
+    output_key: cat_l3
 digikey:
   voltage_rating:
     output_key: voltage_rating
@@ -2191,8 +2192,6 @@ digikey:
       - parse_dimension
   contact_size:
     output_key: contact_size
-    actions:
-      - extract_num
   conversion_rate:
     output_key: conversion_rate
     actions:
@@ -3818,12 +3817,8 @@ digikey:
     output_key: number_of_positions_loaded
   number_of_positions_(convert_to):
     output_key: number_of_positions_convert_to
-    actions:
-      - extract_num
   number_of_positions_(convert_from):
     output_key: number_of_positions_convert_from
-    actions:
-      - extract_num
   contact_layout,_typical:
     output_key: contact_layout_typical
   connector_usage:
@@ -4022,8 +4017,6 @@ digikey:
     output_key: plugmating_plug_diameter
   positions_per_level:
     output_key: positions_per_level
-    actions:
-      - extract_num
   contact_mating_finish:
     output_key: contact_mating_finish
   wire_gauge_or_range_awg:
@@ -4032,12 +4025,14 @@ digikey:
       - wire_gauge_or_range_awg_max
     actions:
       - split_guage
-  wire_gauge_or_range_mm\u00b2:
+  wire_gauge_or_range_mm_sq:
     output_key: 
       - wire_gauge_or_range_mm_min
       - wire_gauge_or_range_mm_max
     actions:
       - split_guage
+  wire_gauge_or_range_coaxial:
+    output_key: wire_gauge_or_range_coaxial  
   header_orientation:
     output_key: header_orientation
     actions:
@@ -4337,3 +4332,7 @@ digikey:
       - extract_num
   screw_size:
     output_key: screw_size
+  disconnect_type:
+    output_key: disconnect_type
+  fuse_type:
+    output_key: fuse_type

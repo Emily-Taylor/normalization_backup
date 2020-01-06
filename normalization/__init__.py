@@ -1594,18 +1594,19 @@ def split_guage(d: str) -> typing.Tuple[float, float]:
     wire_guage_max = 26
     
     if two ranges are given it will only process and store the first range:
-        26 AWG to 14 AWG, 24 AWG to 8 AWG
+        26 AWG to 14 AWG, 24 AWG to 8 AWG 
     output looks like
     wire_guage_min = 26
     wire_guage_max = 14
     """
     if '-' in d:
-        wire_guage_min, wire_guage_max = d.split('-')
+        d_list = d.split('-')
+        wire_guage_min = d_list[0]
+        wire_guage_max = d_list[1]
         wire_guage_min = wire_guage_min.strip(" ")
         wire_guage_max = wire_guage_max.strip(" ")
         if (wire_guage_min.endswith('') and ('mm' in d)):
-            wire_guage_min = wire_guage_min + 'mm'
-        
+            wire_guage_min = wire_guage_min + 'mm' 
         wire_guage_min = float(parse_any_number(wire_guage_min)[0])
         wire_guage_max = float(parse_any_number(wire_guage_max)[0])
         return(wire_guage_min, wire_guage_max)

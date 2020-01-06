@@ -7,6 +7,7 @@ parentdir = os.path.dirname(currentdir)
 sys.path.insert(0,parentdir) 
 
 import jsonlines
+import ndjson
 import lambda_decorators
 import handler
 from functions import adjust_structure
@@ -72,13 +73,24 @@ def process_file_new(input_filename,output_filename):
         obj['parts'].append(s)
     
     results = handler.norm_handler_new(obj, src)
+
+    norm_parts  = [json.dumps(record) for record in results['parts']]
         
     if output_filename:
         # Writing JSON data
         #with open(output_filename, 'w') as f:
         #    json.dump(results, f)
-        with gzip.GzipFile(output_filename, 'w') as f:
-            f.write(json.dumps(results).encode('utf-8'))
+        #Write compressed json file
+#        with gzip.GzipFile(output_filename, 'w') as f:
+#            f.write(json.dumps(results).encode('utf-8'))
+#          
+
+#    Writing ndjson 
+        with open(output_filename, 'w') as f:
+            for i in norm_parts:
+                results_ndjson = f.write(i+'\n')
+#            ndjson.dump(results_ndjson, f)       
+        
 
 if __name__ == '__main__':
     fire.Fire()
